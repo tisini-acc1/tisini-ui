@@ -1,5 +1,14 @@
+/**
+ * @author Felix Orinda
+ * @email forinda82@gmail.com
+ * @create date 2023-07-06 23:45:56
+ * @modify date 2023-07-06 23:45:56
+ * @desc [Base layout for the app]
+ */
+import MainHeader from '@/components/MainHeader'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import MainFooter from '@/components/MainFooter'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,7 +24,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <MainHeader />
+        {children}
+        <MainFooter />
+        </body>
     </html>
   )
 }
