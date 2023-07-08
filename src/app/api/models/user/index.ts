@@ -39,14 +39,12 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
       trim: true,
       lowercase: true,
     },
-    is_author: {
-      type: Boolean,
-      default: false,
-    },
-    is_quiz_admin: {
-      type: Boolean,
-      default: false,
-    },
+    roles: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "UserRole",
+      },
+    ],
   },
   {
     timestamps: true,

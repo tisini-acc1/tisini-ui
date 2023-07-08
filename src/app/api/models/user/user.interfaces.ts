@@ -6,8 +6,7 @@ export interface IUser {
   last_name: string | null; // Optional last name with a max length of 255
   password: string; // Password with a max length of 68 and min length of 6
   phone_number: string | null; // Optional phone number with a max length of 15
-  is_quiz_admin?: boolean; // Is quiz admin flag
-  is_author?: boolean; // Is author flag
+  roles:any[]; 
 }
 
 export interface IUserDocument extends IUser, mongoose.Document {
