@@ -8,41 +8,126 @@
 
 "use client";
 
+import Link from "next/link";
+
 function MainFooter() {
   return (
     <div className="bg-primary-darker min-h-[20rem] p-4 py-8">
-      <footer className="flex flex-col justify-center items-center text-center text-white max-w-7xl mx-auto">
-        <div>
-          <h1 className="text-2xl font-bold">Felix Orinda</h1>
-        </div>
-        <div className="flex flex-row justify-center items-center space-x-4">
-          {/* Copyright */}
-
-          <div className="flex flex-row justify-center items-center space-x-4">
-            <a
-              href="
-              https://www.linkedin.com/in/felix-orinda-5a1b3b1b7/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-gray-400"
+      <footer className="text-white max-w-7xl mx-auto w-full">
+        <div className="flex items-center justify-around gap-4 border-b-[1px] border-light-darker py-4 mt-5">
+          {/* Logo */}
+          <h1 className="text-3xl font-bold text-white uppercase">
+            Tisini Org
+          </h1>
+          {/* Newsletter */}
+          <h2 className="text-lg font-semibold text-white">
+            Subscribe to our newsletter
+          </h2>
+          {/* Form */}
+          <form className="flex justify-center items-center bg-white px-2 py-1 rounded-lg">
+            <input
+              type="email"
+              className="w-full max-w-md px-4 py-2 text-black placeholder-black bg-white rounded-md focus:outline-none focus:ring-0 border-none focus:ring-primary-darker"
+              placeholder="Enter your email address"
+            />
+            <button
+              type="submit"
+              className="px-4 py-2 bg-primary-lighter text-light rounded-md hover:bg-primary-darker hover:text-white transition duration-300 ease-in-out"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 hover:text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <title>LinkedIn</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M14.828 14.828a4.5 4.5 0 01-6.364 0M16 10a6 6 0 10-12 0v6h6m-2 0h2m-2 0a4 4 0 118-4v4"
-                />
-              </svg>
-            </a>
+              Subscribe
+            </button>
+          </form>
+        </div>
+        {/* Links */}
+        <div className="py-2">
+          <div className="md:flex-row gap-4 mt-5 grid grid-cols-1 lg:grid-cols-4">
+            {/* Quick links */}
+            <div className="flex gap-4 flex-col">
+              <h1>Quick Links</h1>
+              <ul className="flex flex-col text-left">
+                <li>
+                  <Link
+                    href="/"
+                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                  >
+                    Livescore
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                  >
+                    Matches
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                  >
+                    Quiz
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            {/* Quick links */}
+            <div className="flex gap-4 flex-col ">
+              <h1>Quick Links</h1>
+              <ul>
+                <li>
+                  <Link
+                    href="/"
+                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                  >
+                    Home
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            {/* Quick links */}
+            <div className="flex gap-4 flex-col ">
+              <h1>Quick Links</h1>
+              <ul>
+                <li>
+                  <Link
+                    href="/"
+                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                  >
+                    Home
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            {/* Quick links */}
+            <div className="flex gap-4 flex-col ">
+              <h1>Quick Links</h1>
+              <ul>
+                <li>
+                  <Link
+                    href="/"
+                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                  >
+                    Home
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
+        </div>
+        {/* Copyright */}
+        <div className="flex justify-center items-center gap-4 mt-5">
+          <p className="text-white">
+            &copy; {new Date().getFullYear()} Tisini Org. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
