@@ -16,4 +16,5 @@ export interface UserRoleModelInterface
   extends mongoose.Model<UserRoleDocument> {
   build(attr: UserRoleInterface): UserRoleDocument;
   InitBaseRoles(): Promise<void>;
+  findDefaultRole(): Promise<UserRoleDocument>;
 }

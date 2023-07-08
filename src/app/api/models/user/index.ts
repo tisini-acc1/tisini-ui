@@ -1,25 +1,29 @@
-import { IUserDocument, IUserModel, IUser } from "./user.interfaces";
-import mongoose from "@/app/api/mongodb";
+import { Model } from "mongoose";
+import { UserDocumentInterface, UserDocumentModelInterface, UserInterface } from "./user.interfaces";
+import mongoose from"@/app/api/mongodb";
 
-const UserSchema = new mongoose.Schema<IUserDocument>(
+const UserSchema = new mongoose.Schema<UserDocumentInterface>(
   {
     email: {
       type: String,
       required: true,
       trim: true,
       lowercase: true,
+      unique: true,
     },
     password: {
       type: String,
       required: true,
       trim: true,
       lowercase: true,
+      select: false,
     },
     phone_number: {
       type: String,
       required: true,
       trim: true,
       lowercase: true,
+      unique: true,
     },
     nickname: {
       type: String,
@@ -51,12 +55,12 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
   }
 );
 
-UserSchema.statics.build = (attr: IUser) => {
+UserSchema.statics.build = (attr: UserInterface) => {
   return new UserModel(attr);
 };
 
-const UserModel =
+const UserModel :Model<UserDocumentInterface> =
   mongoose.models.User ||
-  mongoose.model<IUserDocument, IUserModel>("User", UserSchema);
+  mongoose.model<UserDocumentInterface, UserDocumentModelInterface>("User", UserSchema);
 
 export default UserModel;

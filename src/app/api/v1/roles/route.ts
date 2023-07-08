@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import UserRoleModel from "@/app/api/models/roles";
+import {UserRoleModel} from "@/app/api/models/roles";
 import { apiPaginator } from "@/app/api/utils/paginator";
 export async function GET(req: NextRequest, res: Response) {
   try {

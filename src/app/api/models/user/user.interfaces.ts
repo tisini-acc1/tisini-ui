@@ -1,5 +1,5 @@
 import mongoose from "@/app/api/mongodb";
-export interface IUser {
+export interface UserInterface {
   nickname: string; // Nickname with a max length of 255 and min length of 1
   email: string; // Email with a max length of 255 and min length of 1
   first_name: string | null; // Optional first name with a max length of 255
@@ -9,11 +9,11 @@ export interface IUser {
   roles:any[]; 
 }
 
-export interface IUserDocument extends IUser, mongoose.Document {
+export interface UserDocumentInterface extends UserInterface, mongoose.Document {
   _id: any;
-  _doc: IUser;
+  _doc: UserInterface;
 }
 
-export interface IUserModel extends mongoose.Model<IUserDocument> {
-  build(attr: IUser): IUserDocument;
+export interface UserDocumentModelInterface extends mongoose.Model<UserDocumentInterface> {
+  build(attr: UserInterface): UserDocumentInterface;
 }

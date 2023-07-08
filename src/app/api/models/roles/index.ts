@@ -26,9 +26,9 @@ const userRoleSchema = new mongoose.Schema<UserRoleDocument>(
       trim: true,
     },
     isDefault: {
-        type: Boolean,
-        default: false,
-    }
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
@@ -77,11 +77,20 @@ userRoleSchema.statics.InitBaseRoles = async function () {
   }
 };
 
-const UserRoleModel =
-  mongoose.models.UserRole ||
+userRoleSchema.statics.findDefaultRole = async function () {
+  const defaultRole = await UserRoleModel.findOne({ isDefault: true });
+  if (!defaultRole) {
+    await UserRoleModel.InitBaseRoles();
+    return await UserRoleModel.findOne({ isDefault: true });
+  }
+  return defaultRole;
+};
+
+const UserRoleModel :mongoose.Model<UserRoleModelInterface> =
+    mongoose.models.UserRole ||
   mongoose.model<UserRoleDocument, UserRoleModelInterface>(
     "UserRole",
     userRoleSchema
   );
 
-export default UserRoleModel;
+export { UserRoleModel}
