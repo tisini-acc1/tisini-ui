@@ -101,7 +101,7 @@ export default function MainHeader() {
             </div>
             <div className="px-2 flex gap-2 items-center">
               <Link
-                href="/"
+                href="/login"
                 className="text-white hover:text-gray-400 font-bold"
               >
                 Login
@@ -118,14 +118,8 @@ export default function MainHeader() {
           {/* Layer 2 */}
           <div className="flex gap-2">
             {headerBottomList.map((item) => (
-              <div className="flex gap-2">
-                <Image
-                  src={item.img}
-                  key={item.title}
-                  alt="logo"
-                  width={20}
-                  height={20}
-                />
+              <div className="flex gap-2" key={item.title}>
+                <Image src={item.img} alt="logo" width={20} height={20} />
                 <span className="text-neutral-200 text-sm">{item.title}</span>
               </div>
             ))}
