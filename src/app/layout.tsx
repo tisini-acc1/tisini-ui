@@ -1,3 +1,8 @@
+import "./globals.css";
+
+import { Frank_Ruhl_Libre, Oswald, PT_Sans, Poppins, Raleway } from "next/font/google";
+
+import MainFooter from "@/components/MainFooter";
 /**
  * @author Felix Orinda
  * @email forinda82@gmail.com
@@ -6,12 +11,13 @@
  * @desc [Base layout for the app]
  */
 import MainHeader from "@/components/MainHeader";
-import "./globals.css";
-import { Roboto } from "next/font/google";
-import MainFooter from "@/components/MainFooter";
 
 // Variable for the font
-const normalRobo = Roboto({ weight: "400", subsets: ["latin"] });
+const pnormal = PT_Sans({ weight: "400", subsets: ["latin"] });
+const pPoppins = Poppins({ weight: "400", subsets: ["latin"] });
+const pRaleway = Raleway({ weight: "400", subsets: ["latin"] });
+const pOswald = Oswald({ weight: "400", subsets: ["latin"] });
+const pFrank_Ruhl_Libre = Frank_Ruhl_Libre({ weight: "400", subsets: ["latin"] });
 /**
  * Meta data for the app
  */
@@ -27,7 +33,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={normalRobo.className}>
+      <body className={pFrank_Ruhl_Libre.className}>
         <MainHeader />
         {children}
         <MainFooter />
