@@ -22,13 +22,13 @@ const schema = yup
     is_author: yup.bool().default(false).optional(),
     phone_number: yup
       .string()
-      .required()
+      .required("Phone number is required")
+      .min(10, "Phone number must be at least 10 characters")
+      .max(10, "Phone number must be at most 10 characters")
       .matches(TisiniValidator.phoneRegex, {
         message: "Phone number  format is invalid (0(7|1)xxxxxxxx)",
         excludeEmptyString: true,
-      })
-      .min(10, "Phone number must be at least 10 characters")
-      .max(10, "Phone number must be at most 10 characters"),
+      }),
   })
   .required();
 export default function Register() {
