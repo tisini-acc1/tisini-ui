@@ -1,4 +1,19 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  experimental: {
+    esmExternals: "loose", // <-- add this
+    serverComponentsExternalPackages: ["mongoose"], // <-- and this,
+    logging: true,
+  },
 
-module.exports = nextConfig
+  // and the following to enable top-level await support for Webpack
+  webpack: (config) => {
+    config.experiments = {
+      topLevelAwait: true,
+      layers: true,
+    };
+    return config;
+  },
+};
+
+module.exports = nextConfig;
