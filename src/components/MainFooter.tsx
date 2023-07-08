@@ -14,7 +14,7 @@ function MainFooter() {
   return (
     <div className="bg-primary-darker min-h-[20rem] p-4 py-8">
       <footer className="text-white max-w-7xl mx-auto w-full">
-        <div className="flex items-center justify-around gap-4 border-b-[1px] border-light-darker py-4 mt-5">
+        <div className="flex items-center flex-col md:flex-row justify-around gap-4 border-b-[1px] border-light-darker py-4 mt-5">
           {/* Logo */}
           <h1 className="text-3xl font-bold text-white uppercase">
             Tisini Org

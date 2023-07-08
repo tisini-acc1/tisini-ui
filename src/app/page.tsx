@@ -98,7 +98,7 @@ const Homepage = () => {
           <div className="py-4 text-left">
             <h1 className="text-lg font-bold text-primary">Spotlight</h1>
           </div>
-          <div className="grid  p-2 grid-cols-2">
+          <div className="grid  p-2 md:grid-cols-2">
             {/* Col 1 */}
             <div>
               <div className="h-1/2">
@@ -171,7 +171,7 @@ const Homepage = () => {
           <div className="py-4 text-left">
             <h1 className="text-lg font-bold text-primary">Club deals</h1>
           </div>
-          <div className="grid  p-2 grid-cols-2">
+          <div className="grid  p-2 md:grid-cols-2">
             {/* Col 1 */}
             <div>
               <div className="h-1/2">

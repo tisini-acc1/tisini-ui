@@ -1,6 +1,6 @@
 import "./globals.css";
 
-import { Frank_Ruhl_Libre, Oswald, PT_Sans, Poppins, Raleway } from "next/font/google";
+import { Cormorant, Frank_Ruhl_Libre, Oswald, PT_Sans, Poppins, Raleway, Unna } from "next/font/google";
 
 import MainFooter from "@/components/MainFooter";
 /**
@@ -18,6 +18,8 @@ const pPoppins = Poppins({ weight: "400", subsets: ["latin"] });
 const pRaleway = Raleway({ weight: "400", subsets: ["latin"] });
 const pOswald = Oswald({ weight: "400", subsets: ["latin"] });
 const pFrank_Ruhl_Libre = Frank_Ruhl_Libre({ weight: "400", subsets: ["latin"] });
+const pCormorant = Cormorant({ weight: "400", subsets: ["latin"] });
+const pUnna = Unna({ weight: "400", subsets: ["latin"] });
 /**
  * Meta data for the app
  */
@@ -33,7 +35,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={pFrank_Ruhl_Libre.className}>
+      <body className={pUnna.className}>
         <MainHeader />
         {children}
         <MainFooter />
