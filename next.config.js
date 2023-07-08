@@ -3,7 +3,7 @@ const nextConfig = {
   experimental: {
     esmExternals: "loose", // <-- add this
     serverComponentsExternalPackages: ["mongoose"], // <-- and this,
-    logging: true,
+    logging: 'verbose',
   },
 
   // and the following to enable top-level await support for Webpack
