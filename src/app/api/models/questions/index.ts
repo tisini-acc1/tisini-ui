@@ -21,14 +21,12 @@ const QuestionSchema = new mongoose.Schema<QuestionDocumentInterface>(
       type: String,
       required: false,
       trim: true,
-      ,
       default: null,
     },
     question_video: {
       type: String,
       required: false,
       trim: true,
-      ,
       default: null,
     },
     answers: {

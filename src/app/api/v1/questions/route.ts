@@ -28,6 +28,7 @@ export async function GET(req: NextRequest, res: Response) {
       : NextResponse.json(
           {
             message: "No questions found",
+            data: [],
           },
           { status: 404 }
         );
