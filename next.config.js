@@ -14,6 +14,9 @@ const nextConfig = {
     };
     return config;
   },
+  images: {
+    domains: ["res.cloudinary.com",'picsum.photos'],
+  },
 };
 
 module.exports = nextConfig;

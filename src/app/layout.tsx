@@ -1,7 +1,7 @@
-import { Unna } from "next/font/google";
+import { Raleway } from "next/font/google";
 import './globals.css';
 // Variable for the font
-const pUnna = Unna({ weight: "400", subsets: ["latin"] });
+const pUnna = Raleway({ weight: "400", subsets: ["latin"] });
 /**
  * Meta data for the app
  */

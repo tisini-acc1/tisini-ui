@@ -12,9 +12,9 @@ import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
-import { PT_Sans } from "next/font/google";
+import {  Raleway } from "next/font/google";
 
-const sans = PT_Sans({ weight: "400", subsets: ["latin"] });
+const sans = Raleway({ weight: "400", subsets: ["latin"] });
 
 const headerBottomList = [
   {
@@ -81,7 +81,7 @@ export default function MainHeader() {
                     </li>
                     <li>
                       <Link
-                        href="/"
+                        href="/organizations"
                         className="text-white hover:text-gray-400 font-bold"
                       >
                         Quiz

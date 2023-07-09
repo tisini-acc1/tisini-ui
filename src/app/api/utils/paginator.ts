@@ -6,7 +6,7 @@ type Payloader<T> = {
   msg?: string;
 };
 
-type Result<T> = {
+export type ApiResult<T> = {
   data: T[];
   message?: string;
   pagination: {
@@ -23,8 +23,8 @@ type Result<T> = {
 
 export type ApiPaginatorInterface<D extends {}> = (
   payload: Payloader<D>
-) => Result<D>;
-export function apiPaginator<T extends any>(payload: Payloader<T>): Result<T> {
+) => ApiResult<D>;
+export function apiPaginator<T extends any>(payload: Payloader<T>): ApiResult<T> {
   // Extract properties from payload
   const { data, page, limit, totalDocs, msg } = payload;
 

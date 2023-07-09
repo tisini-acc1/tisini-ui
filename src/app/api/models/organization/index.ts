@@ -18,6 +18,12 @@ const OrganizationSchema =
         trim: true,
         default: null,
       },
+      description: {
+        type: String,
+        required: false,
+        default: "",
+        trim: true,
+      },
     },
     {
       timestamps: true,
