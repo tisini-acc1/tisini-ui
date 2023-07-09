@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import {UserRoleModel} from "@/app/api/models/roles";
+import  RoleModel  from "@/app/api/models/roles";
 import { apiPaginator } from "@/app/api/utils/paginator";
 export async function GET(req: NextRequest, res: Response) {
   try {
@@ -8,23 +8,28 @@ export async function GET(req: NextRequest, res: Response) {
       page: string;
       limit: string;
     };
-    const pageInt = parseInt(page) ?? 1;
-    const limitInt = parseInt(limit) ?? 20;
-    const roles = await UserRoleModel.find({})
+    const pageInt = page ? parseInt(page) : 1;
+    const limitInt = limit ? parseInt(limit) : 20;
+    const roles = await RoleModel.find({})
       .skip((pageInt - 1) * limitInt)
       .limit(limitInt);
     const totalDocs =
-      (await UserRoleModel.countDocuments()) as unknown as number;
+      (await RoleModel.countDocuments()) as unknown as number;
 
     return roles.length > 0
-      ? NextResponse.json(roles)
-      : NextResponse.json(
+      ? NextResponse.json(
           apiPaginator({
             data: roles,
             page: pageInt,
             limit: limitInt,
             totalDocs,
-          }),
+          })
+        )
+      : NextResponse.json(
+          {
+            message: "No roles found",
+          },
+
           { status: 404 }
         );
   } catch (error: any) {

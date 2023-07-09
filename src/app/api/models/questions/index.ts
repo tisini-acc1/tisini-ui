@@ -1,4 +1,4 @@
-import mongoose from "@/app/api/mongodb";
+import mongoose from "mongoose";
 import {
   QuestionInterface,
   QuestionDocumentInterface,
@@ -21,14 +21,14 @@ const QuestionSchema = new mongoose.Schema<QuestionDocumentInterface>(
       type: String,
       required: false,
       trim: true,
-      lowercase: true,
+      ,
       default: null,
     },
     question_video: {
       type: String,
       required: false,
       trim: true,
-      lowercase: true,
+      ,
       default: null,
     },
     answers: {

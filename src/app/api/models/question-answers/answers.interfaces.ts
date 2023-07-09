@@ -1,4 +1,4 @@
-import mongoose from "@/app/api/mongodb";
+import mongoose from "mongoose";
 export interface QuestionAnswerInterface {
   question: any;
   answer: any;

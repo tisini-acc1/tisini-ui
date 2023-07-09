@@ -1,4 +1,4 @@
-import mongoose from "@/app/api/mongodb";
+import mongoose from "mongoose";
 import {
   TisiniOrganizationDocumentInterface,
   TisiniOrganizationModelInterface,
@@ -11,13 +11,11 @@ const OrganizationSchema =
         type: String,
         required: [true, "Please provide an organization name"],
         trim: true,
-        lowercase: true,
       },
       org_logo: {
         type: String,
         required: false,
         trim: true,
-        lowercase: true,
         default: null,
       },
     },

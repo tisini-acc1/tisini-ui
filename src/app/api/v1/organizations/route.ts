@@ -9,9 +9,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
       page: string;
       limit: string;
     };
-    const pageInt = parseInt(page);
-    const limitInt = parseInt(limit);
-    const organizations = await OrganizationModel.find({});
+    const pageInt = page ? parseInt(page) : 1;
+    const limitInt = limit ? parseInt(limit) : 20;
+    const organizations = await OrganizationModel.find({})
+      .skip((pageInt - 1) * limitInt)
+      .limit(limitInt);
     const totalDocs =
       (await OrganizationModel.countDocuments()) as unknown as number;
     const response = apiPaginator({
@@ -22,6 +24,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
     });
     return organizations.length > 0
       ? NextResponse.json(response)
-      : NextResponse.json(response, { status: 404 });
+      : NextResponse.json(
+          {
+            message: "No organizations found",
+            data: [],
+          },
+          { status: 404 }
+        );
   } catch (error) {}
 }

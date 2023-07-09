@@ -15,14 +15,18 @@ export async function GET(req: NextRequest, res: Response) {
       (await QuestionSetModel.countDocuments()) as unknown as number;
 
     return questionSets.length > 0
-      ? NextResponse.json(questionSets)
-      : NextResponse.json(
+      ? NextResponse.json(
           apiPaginator({
             data: questionSets,
             page: pageInt,
             limit: limitInt,
             totalDocs,
-          }),
+          })
+        )
+      : NextResponse.json(
+          {
+            message: "No question sets found",
+          },
           { status: 404 }
         );
   } catch (error: any) {

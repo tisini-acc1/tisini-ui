@@ -1,4 +1,4 @@
-import mongoose from "@/app/api/mongodb";
+import mongoose from "mongoose";
 
 export interface QuestionSetInterface {
   category_name: string; // Category name with a max length of 300 and min length of 1

@@ -1,4 +1,4 @@
-import mongoose from "@/app/api/mongodb";
+import mongoose from "mongoose";
 
 export interface TisiniOrganizationInterface {
   organization_name: string; // Organization name with a max length of 300 and min length of 1

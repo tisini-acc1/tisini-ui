@@ -1,29 +1,45 @@
 import { NextResponse } from "next/server";
 import { UserLoginDto } from "../../dtos/create-user.dto";
 import UserModel from "@/app/api/models/user";
-import PasswordHandler from "@/app/api/utils/password-hash";
+import dbConnect from "@/app/api/mongodb";
+import PasswordHandler from "@/app/api/utils/Password.service";
+import bcrypt from "bcryptjs";
+import { JWTService } from "@/app/api/utils/JWT.service";
+
 export async function POST(req: Request, res: Response) {
   try {
-    const payload = await req.json();
-    const newUserPayload = UserLoginDto.validateLogin(payload);
+    await dbConnect();
+    const payload = UserLoginDto.validateLogin(await req.json());
+    const existingUser = await UserModel.findOne({
+      phone_number: payload.phone_number,
+    });
+    if (!existingUser) throw new Error("User account does not exist");
     const user = await UserModel.findOne({
-      phone_number: newUserPayload.phone_number,
-    }).select("+password").populate("roles");
-    console.log(user);
-    
-    if (!user) throw new Error("User account does not exist");
-    const passwordMatch = PasswordHandler.comparePassword(
-      newUserPayload.password,
-      user.password
-    );
-    console.log({passwordMatch});
-    
-    if (!passwordMatch) throw new Error("Invalid login credentials");
+      phone_number: payload.phone_number,
+    })
+      .select("+password")
+      .populate("roles", "name roleName");
+
+    if (
+      !(await PasswordHandler.comparePassword(payload.password, user.password))
+    )
+      throw new Error("Invalid login credentials");
+
+    const accessToken = JWTService.generateAccessToken({
+      email: user.email,
+      id: user._id,
+    });
+    const refreshToken = JWTService.generateRefreshToken({
+      email: user.email,
+      id: user._id,
+    });
+    const { password: _, ...rest } = user._doc;
 
     return NextResponse.json(
       {
         message: "Login successful",
-        user: user,
+        profile: rest,
+        tokens: { accessToken, refreshToken },
       },
       { status: 200, statusText: "Success" }
     );

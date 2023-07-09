@@ -1,4 +1,4 @@
-import mongoose from "@/app/api/mongodb";
+import mongoose from "mongoose";
 
 import {
   QuestionAnswerDocumentInterface,

@@ -57,8 +57,8 @@ class UserSignUpDto {
     if (TisiniValidator.validPhone(data.phone_number) === false) {
       throw new Error("Phone number is invalid");
     }
-
     return new UserSignUpDto(data).user;
+   
   }
 }
 

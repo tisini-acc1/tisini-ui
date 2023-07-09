@@ -1,20 +1,17 @@
-import mongoose from "@/app/api/mongodb";
+import mongoose from "mongoose";
 
-export interface UserRoleInterface {
+export interface RoleInterface {
   name: string;
   roleName: string;
   description: string;
   isDefault?: boolean;
 }
 
-export interface UserRoleDocument extends UserRoleInterface, mongoose.Document {
-  _id: any;
-  _doc: UserRoleInterface;
+export interface RoleDocument extends RoleInterface, mongoose.Document {
+  _doc: RoleInterface;
 }
 
-export interface UserRoleModelInterface
-  extends mongoose.Model<UserRoleDocument> {
-  build(attr: UserRoleInterface): UserRoleDocument;
-  InitBaseRoles(): Promise<void>;
-  findDefaultRole(): Promise<UserRoleDocument>;
+export interface RoleModelInterface
+  extends mongoose.Model<RoleDocument> {
+  build(attr: RoleInterface): RoleDocument;
 }

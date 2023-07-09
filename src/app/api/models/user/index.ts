@@ -1,6 +1,10 @@
-import { Model } from "mongoose";
-import { UserDocumentInterface, UserDocumentModelInterface, UserInterface } from "./user.interfaces";
-import mongoose from"@/app/api/mongodb";
+import {
+  UserDocumentInterface,
+  UserDocumentModelInterface,
+  UserInterface,
+} from "./user.interfaces";
+import mongoose from "mongoose";
+import PasswordHandler from "@/app/api/utils/Password.service";
 
 const UserSchema = new mongoose.Schema<UserDocumentInterface>(
   {
@@ -8,59 +12,55 @@ const UserSchema = new mongoose.Schema<UserDocumentInterface>(
       type: String,
       required: true,
       trim: true,
-      lowercase: true,
+      
       unique: true,
     },
     password: {
       type: String,
       required: true,
-      trim: true,
-      lowercase: true,
       select: false,
     },
     phone_number: {
       type: String,
       required: true,
       trim: true,
-      lowercase: true,
+      
       unique: true,
     },
     nickname: {
       type: String,
       required: [true, "Please provide a nickname"],
       trim: true,
-      lowercase: true,
+      
     },
     first_name: {
       type: String,
       required: true,
       trim: true,
-      lowercase: true,
+      
     },
     last_name: {
       type: String,
       required: [true, "Please provide a last name"],
       trim: true,
-      lowercase: true,
+      
     },
-    roles: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "UserRole",
-      },
-    ],
+    roles: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Role",
+    },
+    avatar: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,
   }
 );
 
-UserSchema.statics.build = (attr: UserInterface) => {
-  return new UserModel(attr);
-};
-
-const UserModel :Model<UserDocumentInterface> =
-  mongoose.models.User ||
-  mongoose.model<UserDocumentInterface, UserDocumentModelInterface>("User", UserSchema);
-
-export default UserModel;
+export default mongoose.models.User ||
+  mongoose.model<UserDocumentInterface, UserDocumentModelInterface>(
+    "User",
+    UserSchema
+  );
