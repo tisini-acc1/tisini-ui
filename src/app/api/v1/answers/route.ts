@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import AnswerModel from "@/app/api/models/question-answers";
 import { apiPaginator } from "@/app/api/utils/paginator";
+import { TisiniServerException } from "../../utils/TisiniServerException";
+import { HttpStatus } from "../../utils/http-status.types";
 export async function GET(req: NextRequest, res: Response) {
   try {
     const { searchParams } = new URL(req.url);
@@ -8,23 +10,32 @@ export async function GET(req: NextRequest, res: Response) {
       page: string;
       limit: string;
     };
-    const pageInt = parseInt(page);
-    const limitInt = parseInt(limit);
-    const answers = await AnswerModel.find({});
+    const pageInt = page ? parseInt(page) : 1;
+    const limitInt = limit ? parseInt(limit) : 10;
+    const answers = await AnswerModel.find({})
+      .skip((pageInt - 1) * limitInt)
+      .limit(limitInt);
     const totalDocs = (await AnswerModel.countDocuments()) as unknown as number;
-
+    const response = apiPaginator({
+      data: answers,
+      page: pageInt,
+      limit: limitInt,
+      totalDocs,
+    });
     return answers.length > 0
-      ? NextResponse.json(answers)
+      ? NextResponse.json(response, { status: HttpStatus.OK })
       : NextResponse.json(
-          apiPaginator({
-            data: answers,
-            page: pageInt,
-            limit: limitInt,
-            totalDocs,
-          }),
-          { status: 404 }
+          {
+            message: "No answers found",
+            data: [],
+          },
+          { status: HttpStatus.NOT_FOUND }
         );
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    if (error instanceof TisiniServerException) {
+      return NextResponse.json(error, { status: error.statusCode ?? 500 });
+    }
+    const err = TisiniServerException.fromError(error);
+    return NextResponse.json(err, { status: err.statusCode ?? 500 });
   }
 }

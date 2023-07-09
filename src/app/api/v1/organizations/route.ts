@@ -1,6 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
 import OrganizationModel from "@/app/api/models/organization";
 import { apiPaginator } from "@/app/api/utils/paginator";
+import { HttpStatus } from "../../utils/http-status.types";
+import { TisiniServerException } from "../../utils/TisiniServerException";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
@@ -29,7 +31,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
             message: "No organizations found",
             data: [],
           },
-          { status: 404 }
+          { status: HttpStatus.NOT_FOUND }
         );
-  } catch (error) {}
+  } catch (error: any) {
+    if (error instanceof TisiniServerException) {
+      return NextResponse.json(error, { status: error.statusCode ?? 500 });
+    }
+    const err = TisiniServerException.fromError(error);
+    return NextResponse.json(err, { status: err.statusCode ?? 500 });
+  }
 }

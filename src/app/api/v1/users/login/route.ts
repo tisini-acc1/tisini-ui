@@ -5,6 +5,8 @@ import dbConnect from "@/app/api/mongodb";
 import PasswordHandler from "@/app/api/utils/Password.service";
 import bcrypt from "bcryptjs";
 import { JWTService } from "@/app/api/utils/JWT.service";
+import { TisiniServerException } from "@/app/api/utils/TisiniServerException";
+import { HttpStatus } from "@/app/api/utils/http-status.types";
 
 export async function POST(req: Request, res: Response) {
   try {
@@ -23,7 +25,12 @@ export async function POST(req: Request, res: Response) {
     if (
       !(await PasswordHandler.comparePassword(payload.password, user.password))
     )
-      throw new Error("Invalid login credentials");
+      throw new TisiniServerException(
+        HttpStatus.BAD_REQUEST,
+        ["Invalid login credentials"],
+        {},
+        "Invalid login credentials"
+      );
 
     const accessToken = JWTService.generateAccessToken({
       email: user.email,
@@ -44,6 +51,14 @@ export async function POST(req: Request, res: Response) {
       { status: 200, statusText: "Success" }
     );
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    if (error instanceof TisiniServerException) {
+      return NextResponse.json(error, {
+        status: error.statusCode ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      });
+    }
+    const err = TisiniServerException.fromError(error);
+    return NextResponse.json(err, {
+      status: err.statusCode ?? HttpStatus.INTERNAL_SERVER_ERROR,
+    });
   }
 }

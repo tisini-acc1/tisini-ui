@@ -1,6 +1,8 @@
 import { JWTService } from "@/app/api/utils/JWT.service";
 import { NextRequest, NextResponse } from "next/server";
 import UserModel from "@/app/api/models/user";
+import { TisiniServerException } from "@/app/api/utils/TisiniServerException";
+import { HttpStatus } from "@/app/api/utils/http-status.types";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   //   const refreshToken = async (refreshToken: string) => {
@@ -30,14 +32,24 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const body = await req.json();
     if (!Object.keys(body).includes("refreshToken")) {
-      throw new Error("Refresh token not provided");
+      throw new TisiniServerException(
+        HttpStatus.BAD_REQUEST,
+        ["Refresh token not provided"],
+        {},
+        "Refresh token not provided"
+      );
     }
     const { refreshToken: rfToken } = body;
     const decoded = JWTService.verifyRefreshToken(rfToken);
 
     const existingUser = await UserModel.findById(decoded.id);
     if (!existingUser) {
-      throw new Error("User not found");
+      throw new TisiniServerException(
+        HttpStatus.NOT_FOUND,
+        ["User not found"],
+        {},
+        "User not found"
+      );
     }
     const tokens = {
       accessToken: JWTService.generateAccessToken({
@@ -58,6 +70,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
       { status: 200, statusText: "Success" }
     );
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    if (error instanceof TisiniServerException) {
+      return NextResponse.json(error, {
+        status: error.statusCode ?? HttpStatus.BAD_REQUEST,
+      });
+    }
+    const err = TisiniServerException.fromError(error);
+    return NextResponse.json(err, {
+      status: err.statusCode ?? HttpStatus.INTERNAL_SERVER_ERROR,
+    });
   }
 }
