@@ -5,7 +5,9 @@ import Link from "next/link";
 import React from "react";
 
 type OrganizationCardProps = {
-  organization: TisiniOrganizationInterface;
+  organization: TisiniOrganizationInterface&{
+    _id:string
+  }
 };
 
 export default function OrganizationCard({
@@ -16,7 +18,7 @@ export default function OrganizationCard({
       <div>
         <Image
           src={organization.org_logo!}
-          alt={organization.organization_name}
+          alt={organization._id}
           width={500}
           height={500}
           className="object-cover h-44 w-full"

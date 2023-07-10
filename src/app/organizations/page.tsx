@@ -10,21 +10,24 @@ type GetOrgProps = {
   limit: number;
 };
 
+type OrgType = {
+    _id:string
+}&TisiniOrganizationInterface
 export default async function OrganizationsPage() {
   //   const searchParams = useSearchParams().getAll('name')
 
   const getOrganizations = async ({
     limit = 20,
     page = 1,
-  }: GetOrgProps): Promise<ApiResult<TisiniOrganizationInterface>> => {
+  }: GetOrgProps): Promise<ApiResult<OrgType>> => {
     const response = await fetch(
       `${BASE_URL}/organizations?limit=${limit}&page=${page}`,{
     next:{
-        revalidate:5
+       revalidate: 1,
     }
       }
     );
-    const data = await response.json();
+    const data = await response.json() as ApiResult<OrgType>;
     return data;
   };
   const organizations = await getOrganizations({ limit: 20, page: 1 });
@@ -35,7 +38,7 @@ export default async function OrganizationsPage() {
         {organizations.data.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {organizations.data.map(
-              (organization: TisiniOrganizationInterface) => (
+              (organization) => (
                 <OrganizationCard
                   key={organization.organization_name}
                   organization={organization}
