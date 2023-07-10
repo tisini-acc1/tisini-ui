@@ -8,6 +8,7 @@ import dbConnect from "../../mongodb";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
+    await dbConnect();
     const { searchParams } = new URL(req.url);
     const { page, limit } = Object.fromEntries(searchParams.entries()) as {
       page: string;
