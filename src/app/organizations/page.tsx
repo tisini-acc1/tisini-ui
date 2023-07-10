@@ -1,28 +1,33 @@
 // "use client";
 import { TisiniOrganizationInterface } from "../api/models/organization/organization.interface";
 import OrganizationCard from "@/components/OrganizationCard";
-import { useSearchParams } from "next/navigation";
 import { ApiResult } from "../api/utils/paginator";
 import { BASE_URL } from "@/utils/api-service";
+import React from "react";
 
 type GetOrgProps = {
   page: number;
   limit: number;
 };
-const getOrganizations = async ({
-  limit = 20,
-  page = 1,
-}: GetOrgProps): Promise<ApiResult<TisiniOrganizationInterface>> => {
-  const response = await fetch(
-    `${BASE_URL}/organizations?limit=${limit}&page=${page}`
-  );
-  const data = await response.json();
-  return data;
-};
 
 export default async function OrganizationsPage() {
-  const organizations = await getOrganizations({ limit: 20, page: 1 });
   //   const searchParams = useSearchParams().getAll('name')
+
+  const getOrganizations = async ({
+    limit = 20,
+    page = 1,
+  }: GetOrgProps): Promise<ApiResult<TisiniOrganizationInterface>> => {
+    const response = await fetch(
+      `${BASE_URL}/organizations?limit=${limit}&page=${page}`,{
+    next:{
+        revalidate:5
+    }
+      }
+    );
+    const data = await response.json();
+    return data;
+  };
+  const organizations = await getOrganizations({ limit: 20, page: 1 });
 
   return (
     <main className="min-h-[50vh]">

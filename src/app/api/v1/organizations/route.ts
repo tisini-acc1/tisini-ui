@@ -3,6 +3,8 @@ import OrganizationModel from "@/app/api/models/organization";
 import { apiPaginator } from "@/app/api/utils/paginator";
 import { HttpStatus } from "../../utils/http-status.types";
 import { TisiniServerException } from "../../utils/TisiniServerException";
+import { CreateOrganizationDto } from "../dtos/create-org.dto";
+import dbConnect from "../../mongodb";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
@@ -33,6 +35,25 @@ export async function GET(req: NextRequest, res: NextResponse) {
           },
           { status: HttpStatus.NOT_FOUND }
         );
+  } catch (error: any) {
+    if (error instanceof TisiniServerException) {
+      return NextResponse.json(error, { status: error.statusCode ?? 500 });
+    }
+    const err = TisiniServerException.fromError(error);
+    return NextResponse.json(err, { status: err.statusCode ?? 500 });
+  }
+}
+
+// Create a new organization
+export async function POST(req: NextRequest, res: NextResponse) {
+  try {
+    await dbConnect();
+    const body = await req.json();
+    const payload =await CreateOrganizationDto.fromJson(body);
+    const organization = await OrganizationModel.create(
+      payload
+    );
+    return NextResponse.json(organization, { status: HttpStatus.CREATED });
   } catch (error: any) {
     if (error instanceof TisiniServerException) {
       return NextResponse.json(error, { status: error.statusCode ?? 500 });

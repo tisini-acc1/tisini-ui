@@ -11,6 +11,7 @@ const OrganizationSchema =
         type: String,
         required: [true, "Please provide an organization name"],
         trim: true,
+        unique: true,
       },
       org_logo: {
         type: String,
