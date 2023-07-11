@@ -1,6 +1,4 @@
-import {
-  Roboto,
-} from "next/font/google";
+import { Roboto } from "next/font/google";
 
 /**
  * @author Felix Orinda

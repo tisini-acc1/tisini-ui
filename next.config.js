@@ -15,7 +15,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["res.cloudinary.com",'picsum.photos','th.bing.com'],
+    domains: ["res.cloudinary.com",'picsum.photos','th.bing.com','127.0.0.1:8000','localhost'],
   },
 };
 

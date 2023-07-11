@@ -1,12 +1,11 @@
 "use client";
-import { TisiniOrganizationInterface } from "@/app/api/models/organization/organization.interface";
+import { OrganizationInterface } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 type OrganizationCardProps = {
-  organization: TisiniOrganizationInterface&{
-    _id:string
+  organization: OrganizationInterface&{
   }
 };
 
@@ -18,7 +17,7 @@ export default function OrganizationCard({
       <div>
         <Image
           src={organization.org_logo!}
-          alt={organization._id}
+          alt={organization.uid}
           width={500}
           height={500}
           className="object-cover h-44 w-full"
@@ -29,7 +28,7 @@ export default function OrganizationCard({
         <p>Organization description</p>
         <div className="flex w-full flex-col">
           <Link
-            href={`/organizations/${organization.organization_name}`}
+            href={`/organizations/${organization.uid}`}
             className="bg-primary text-white p-2 rounded-md px-4 text-center"
           >
             View Questionsets
