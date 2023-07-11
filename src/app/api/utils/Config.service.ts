@@ -6,6 +6,9 @@ interface ConfigKeysInterface {
   JWT_ACCESS_TOKEN_SECRET: string;
   JWT_ACCESS_TOKEN_EXPIRES_IN: string;
   JWT_RESET_PASSWORD_TOKEN_SECRET: string;
+  NEXTAUTH_URL: string;
+  NEXTAUTH_SECRET: string;
+  NEXTAUTH_URL_INTERNAL: string;
 }
 
 type ConfigKeys = keyof ConfigKeysInterface; // | keyof NodeJS.ProcessEnv
