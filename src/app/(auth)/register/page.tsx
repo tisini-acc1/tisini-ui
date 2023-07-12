@@ -1,12 +1,17 @@
 "use client";
+
+import "./register.css";
+
+import * as yup from "yup";
+
+import { BASE_URL } from "@/utils/api-service";
+import Link from "next/link";
 import React from "react";
 import { SignupUserInterface } from "@/types/types";
-import "./register.css";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import TisiniValidator from "@/utils/tisini-validator";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const schema = yup
   .object({
@@ -43,12 +48,28 @@ export default function Register() {
   // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   setFormData({ ...formData, [event.target.name]: event.target.value });
   // };
+  const router = useRouter();
+  const onSubmit = async (data: SignupUserInterface) => {
+    try {
+      const response = await fetch(`${BASE_URL}/auth/register/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      result && router.push("/login");
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
   return (
     <main className="">
       <div className="flex flex-col items-center justify-center space-y-4 p-4 md:p-8 max-w-7xl min-h-screen mx-auto">
         <form
           className="flex flex-col justify-center items-center space-y-4 md:max-w-[30rem] border py-4 rounded px-4 md:px-8"
-          onSubmit={handleSubmit((data) => console.log(data))}
+          onSubmit={handleSubmit((data) => onSubmit(data))}
         >
           <h1 className="text-2xl font-bold text-center ">Register</h1>
           {/* First and last name row */}

@@ -1,11 +1,14 @@
 "use client";
 
+import * as yup from "yup";
+
+import { signIn, useSession } from "next-auth/react";
+
 import Link from "next/link";
+import { SignInUserInterface } from "@/types/types";
+import TisiniValidator from "@/utils/tisini-validator";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import TisiniValidator from "@/utils/tisini-validator";
-import { SignInUserInterface } from "@/types/types";
 
 const schema = yup
   .object({
@@ -34,13 +37,23 @@ export default function Login() {
   } = useForm<SignInUserInterface>({
     resolver: yupResolver(schema),
   });
+  const session = useSession();
   return (
     <div className="w-full">
+      {
+        JSON.stringify(session)
+      }
       <div className="flex p-4 md:p-8 flex-col items-center justify-center max-w-7xl min-h-screen mx-auto">
         <form
           action=""
           className="flex flex-col gap-4 p-4 border border-gray-300 rounded-md shadow-md w-full md:max-w-[40rem]  "
-          onSubmit={handleSubmit((data) => console.log(data))}
+          onSubmit={
+            handleSubmit((data) => {
+            signIn("credentials",{
+              phone_number: data.phone_number,
+              password: data.password,
+            });
+          })}
         >
           <div className="flex items-center justify-center">
             {/* Image placeholder */}

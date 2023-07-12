@@ -1,6 +1,9 @@
-import { Raleway } from "next/font/google";
 import "./globals.css";
+
+import AuthProvider from "./storage/providers/AuthProvider";
 import BaseProvider from "./storage/providers/baseProvider";
+import { Raleway } from "next/font/google";
+
 // Variable for the font
 const pUnna = Raleway({ weight: "400", subsets: ["latin"] });
 /**
@@ -19,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={pUnna.className}>
-        <BaseProvider>{children}</BaseProvider>
+        <AuthProvider>
+          <BaseProvider>{children}</BaseProvider>
+        </AuthProvider>
       </body>
     </html>
   );

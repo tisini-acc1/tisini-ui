@@ -1,10 +1,14 @@
 // "use client";
-import OrganizationCard from "@/components/OrganizationCard";
+
 import { ApiResult } from "../api/utils/paginator";
 import { BASE_URL } from "@/utils/api-service";
-import React from "react";
-import organizations from "../data/organizations.data";
+import OrganizationCard from "@/components/OrganizationCard";
 import { OrganizationInterface } from "@/types/types";
+import React from "react";
+import authOptions from "../api/auth/[...nextauth]/authOptions";
+import { getServerSession } from "next-auth";
+import organizations from "../data/organizations.data";
+import { useRouter } from "next/router";
 
 type GetOrgProps = {
   page: number;
@@ -15,6 +19,7 @@ type OrgType = {
   _id: string;
 } & OrganizationInterface;
 export default async function OrganizationsPage() {
+
   //   const searchParams = useSearchParams().getAll('name')
 
   // const getOrganizations = async ({
