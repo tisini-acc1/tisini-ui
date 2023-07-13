@@ -1,14 +1,14 @@
 import axios from "axios";
-import configService from "./config";
 
-const BASE_URL =
-  configService.getKey("NODE_ENV") === "development"
-    ? configService.getKey("API_DEV_BACKEND_URL")
-    : configService.getKey("API_PROD_BACKEND_URL");
+const BASE_URL = process.env.NODE_ENV === "development"?
+'http://tisini.co.ke:3000/api/v1':process.env.API_PROD_BACKEND_URL;
+  // configService.getKey("NODE_ENV") === "development"
+  //   ? configService.getKey("API_DEV_BACKEND_URL")
+  //   : configService.getKey("API_PROD_BACKEND_URL");
 
 
 const pubTisiniApi = axios.create({
-  BASE_URL: BASE_URL,
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -22,7 +22,7 @@ const pubTisiniApi = axios.create({
 // console.log('Tokens: ' + authStore.getAccessToken + ' ' + authStore.getRefreshToken);
 
 const privTisiniApi = axios.create({
-  BASE_URL: BASE_URL,
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -103,7 +103,7 @@ function getWebSocketAddress(url: string): string {
   const pattern = /(http|https):\/\/([^\/]+)/gi;
   // const prodRegex = new RegExp(/(http|https):\/\/([^\/]+)/);
   // const pattern = isDev ? devRegex : prodRegex;
-  const match = url.match(pattern);
+  const match = url?.match(pattern);
   // console.log("match", match);
 
   if (match) {
@@ -121,7 +121,7 @@ function getWebSocketAddress(url: string): string {
 export { pubTisiniApi, privTisiniApi };
 //   export default privTisiniApi;
 
-export const wsURL = getWebSocketAddress(BASE_URL);
+export const wsURL = getWebSocketAddress(BASE_URL!);
 
 export const apiService = {};
 

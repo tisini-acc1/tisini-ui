@@ -4,11 +4,11 @@ import "./register.css";
 
 import * as yup from "yup";
 
-import { BASE_URL } from "@/utils/api-service";
+import { BASE_URL } from "@/lib/api-conf";
 import Link from "next/link";
 import React from "react";
 import { SignupUserInterface } from "@/types";
-import TisiniValidator from "@/utils/tisini-validator";
+import TisiniValidator from "@/lib/tisini-validator";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -51,7 +51,7 @@ export default function Register() {
   const router = useRouter();
   const onSubmit = async (data: SignupUserInterface) => {
     try {
-      const response = await fetch(`${BASE_URL}/auth/register/`, {
+      const response = await fetch(`${BASE_URL}/users/register/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,7 +1,7 @@
-import { UserInterface } from "@/app/api/models/user/user.interfaces";
-import TisiniValidator from "@/utils/tisini-validator";
-import { TisiniServerException } from "../../utils/TisiniServerException";
 import { HttpStatus } from "../../utils/http-status.types";
+import { TisiniServerException } from "../../utils/TisiniServerException";
+import TisiniValidator from "@/lib/tisini-validator";
+import { UserInterface } from "@/app/api/models/user/user.interfaces";
 
 class UserLoginDto {
   constructor(

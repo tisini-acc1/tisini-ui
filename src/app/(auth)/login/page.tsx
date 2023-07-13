@@ -7,6 +7,7 @@ import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { SignInUserInterface } from "@/types";
 import TisiniValidator from "@/lib/tisini-validator";
+import { pubTisiniApi } from "@/lib/api-conf";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -38,20 +39,29 @@ export default function Login() {
     resolver: yupResolver(schema),
   });
   const session = useSession();
+  // const signInUser = async () => {
+  //   handleSubmit(async (data) => {
+  //     try {
+  //       const res = await pubTisiniApi.post("/auth/login", data);
+  //       console.log(res);
+  //       signIn("credentials", res.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   });
+  // };
   return (
     <div className="w-full">
-      {
-        JSON.stringify(session)
-      }
+      {JSON.stringify(session)}
       <div className="flex p-4 md:p-8 flex-col items-center justify-center max-w-7xl min-h-screen mx-auto">
         <form
           action=""
           className="flex flex-col gap-4 p-4 border border-gray-300 rounded-md shadow-md w-full md:max-w-[40rem]  "
-          onSubmit={
-            handleSubmit((data) => {
-            signIn("credentials",{
+          onSubmit={handleSubmit((data) => {
+            signIn("credentials", {
               phone_number: data.phone_number,
               password: data.password,
+              redirect: false,
             });
           })}
         >
@@ -74,13 +84,11 @@ export default function Login() {
               "
               {...register("phone_number", { required: true })}
             />
-            {
-              errors.phone_number && (
-                <p className="text-red-500 text-sm">
-                  {errors.phone_number.message}
-                </p>
-              )
-            }
+            {errors.phone_number && (
+              <p className="text-red-500 text-sm">
+                {errors.phone_number.message}
+              </p>
+            )}
           </div>
           <div className="flex flex-col">
             <label htmlFor="">Password</label>
@@ -91,13 +99,9 @@ export default function Login() {
               className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-0 focus:ring-primary"
               {...register("password", { required: true })}
             />
-            {
-              errors.password && (
-                <p className="text-red-500 text-sm">
-                  {errors.password.message}
-                </p>
-              )
-            }
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
+            )}
           </div>
 
           <div className="flex flex-col">

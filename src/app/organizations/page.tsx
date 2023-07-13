@@ -1,5 +1,5 @@
 import { ApiResult } from "../api/utils/paginator";
-import { BASE_URL } from "@/lib/api";
+import { BASE_URL } from "@/lib/api-conf";
 import OrganizationCard from "@/components/OrganizationCard";
 import { OrganizationInterface } from "@/types";
 import React from "react";
