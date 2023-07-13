@@ -5,8 +5,8 @@ import * as yup from "yup";
 import { signIn, useSession } from "next-auth/react";
 
 import Link from "next/link";
-import { SignInUserInterface } from "@/types/types";
-import TisiniValidator from "@/utils/tisini-validator";
+import { SignInUserInterface } from "@/types";
+import TisiniValidator from "@/lib/tisini-validator";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 

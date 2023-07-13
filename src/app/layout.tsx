@@ -23,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={pUnna.className}>
         <AuthProvider>
+          
           <BaseProvider>{children}</BaseProvider>
         </AuthProvider>
       </body>

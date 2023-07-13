@@ -1,7 +1,9 @@
-"use client";
+'use client'
 
 import { SessionProvider, useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+
+import React from "react";
 
 type Props = {
   children: React.ReactNode;
@@ -9,30 +11,26 @@ type Props = {
 
 export default function AuthProvider({ children }: Props) {
   return (
-    <SessionProvider session={null} refetchInterval={0}>
+    <SessionProvider>
       {children}
     </SessionProvider>
   );
 }
 
 type ProtectedProps = {
-  children: React.ReactNode|JSX.Element
-  roles?: string[];
+  children: React.ReactNode;
 };
 
-export function ProtectedRoute({ children, roles }: ProtectedProps) {
+export function ProtectedRoute({ children }: ProtectedProps) {
   const session = useSession();
   const router = useRouter();
   const pathName = usePathname();
-  const currentUrlEncoded = encodeURIComponent(pathName);
-  console.log(session);
-  return session.status === "unauthenticated" ? (
-    router.push(`/login?callbackUrl=${currentUrlEncoded}`)
-  ) : session.status === "loading" ? (
-    <div>Loading</div>
-  ) : session.status === "authenticated" ? (
-    <div>{children}</div>
-  ) : (
-    <div>Unknown</div>
-  );
+  React.useEffect(() => {
+    console.log("ProtectedRoute", session);
+    if (session.status === "unauthenticated") {
+      const currentUrlEncoded = encodeURIComponent(pathName);
+      router.push(`/login?callbackUrl=${currentUrlEncoded}`);
+    }
+  }, [pathName, router, session, session.status]);
+  return <>{children}</>;
 }

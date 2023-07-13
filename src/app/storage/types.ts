@@ -1,4 +1,4 @@
-import { ArticleInterface, OrganizationInterface } from "@/types/types";
+import { ArticleInterface, OrganizationInterface } from "@/types";
 
 export type BlogsSliceStateType = {
   blogs: ArticleInterface[];

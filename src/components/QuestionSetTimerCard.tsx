@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import moment from "moment";
-import { QuestionSetInterface } from "@/types/types";
-import { qSetStatus } from "@/utils/question-set-status";
+import React, { useEffect, useState } from "react";
+
 import Link from "next/link";
+import { QuestionSetInterface } from "@/types";
+import moment from "moment";
+import { qSetStatus } from "@/lib/question-set-status";
 
 type QsetComponentProps = {
   qset: QuestionSetInterface;

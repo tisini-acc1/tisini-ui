@@ -1,10 +1,12 @@
 "use client";
-import { OrganizationInterface } from "@/types/types";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import data from "@/app/data/organizations.data";
+import { OrganizationInterface } from "@/types";
 import OrganizationQuestionSets from "@/components/OrganizationQuestionSets";
+import data from "@/app/data/organizations.data";
 
 type QuestionSetProps = {
   params: {

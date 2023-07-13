@@ -1,33 +1,15 @@
 "use client";
-import { configureStore } from "@reduxjs/toolkit";
+
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+
+import { configureStore } from "@reduxjs/toolkit";
 import organizationSlice from "../slices/organization.slice";
-// import {
-// 	persistStore,
-// 	persistReducer,
-// 	FLUSH,
-// 	REHYDRATE,
-// 	PAUSE,
-// 	PERSIST,
-// 	PURGE,
-// 	REGISTER,
-// } from 'redux-persist';
-// import { combineReducers } from 'redux';
-// import storage from 'redux-persist/lib/storage';
+import questionStoreSlice from "../slices/questionStore.slice";
 
-// const persistConfig = {
-// 	key: 'o-web-connect-state-2',
-// 	version: 1,
-// 	storage,
-// };
-
-// const rootReducer = persistReducer(
-// 	persistConfig,
-// 	combineReducers({ auth: authReducer, user: userReducer }),
-// );
 const organizationStore = configureStore({
   reducer: {
     organizations: organizationSlice,
+    questionstore: questionStoreSlice,
   },
 });
 

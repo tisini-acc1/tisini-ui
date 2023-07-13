@@ -1,7 +1,8 @@
 "use client";
-import { OrganizationInterface } from "@/types/types";
+
 import Image from "next/image";
 import Link from "next/link";
+import { OrganizationInterface } from "@/types";
 import React from "react";
 
 type OrganizationCardProps = {

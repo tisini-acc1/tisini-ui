@@ -1,14 +1,8 @@
-// "use client";
-
 import { ApiResult } from "../api/utils/paginator";
-import { BASE_URL } from "@/utils/api-service";
+import { BASE_URL } from "@/lib/api";
 import OrganizationCard from "@/components/OrganizationCard";
-import { OrganizationInterface } from "@/types/types";
+import { OrganizationInterface } from "@/types";
 import React from "react";
-import authOptions from "../api/auth/[...nextauth]/authOptions";
-import { getServerSession } from "next-auth";
-import organizations from "../data/organizations.data";
-import { useRouter } from "next/router";
 
 type GetOrgProps = {
   page: number;
@@ -19,24 +13,27 @@ type OrgType = {
   _id: string;
 } & OrganizationInterface;
 export default async function OrganizationsPage() {
-
   //   const searchParams = useSearchParams().getAll('name')
 
-  // const getOrganizations = async ({
-  //   limit = 20,
-  //   page = 1,
-  // }: GetOrgProps): Promise<ApiResult<OrgType>> => {
-  //   const response = await fetch(
-  //     `${BASE_URL}/organizations?limit=${limit}&page=${page}`,{
-  //   next:{
-  //      revalidate: 1,
-  //   }
-  //     }
-  //   );
-  //   const data = await response.json() as ApiResult<OrgType>;
-  //   return data;
-  // };
-  // const organizations = await getOrganizations({ limit: 20, page: 1 });
+  const getOrganizations = async ({
+    limit = 20,
+    page = 1,
+  }: GetOrgProps): Promise<ApiResult<OrgType>> => {
+    const response = await fetch(
+      `${BASE_URL}/organizations?limit=${limit}&page=${page}`,
+      {
+        next: {
+          revalidate: 1,
+        },
+      }
+    );
+    const data = (await response.json()) as ApiResult<OrgType>;
+    return data;
+  };
+  const organizations = await (
+    await getOrganizations({ limit: 20, page: 1 })
+  ).data;
+  // const serverSession = await getServerSession(authOptions);
 
   return (
     <main className="min-h-[50vh]">

@@ -1,4 +1,4 @@
-import type { QuestionSetInterface } from "@/types/types";
+import type { QuestionSetInterface } from "@/types";
 import moment from "moment";
 
 type QuizSetStatus = "not-started" | "in-progress" | "closed";

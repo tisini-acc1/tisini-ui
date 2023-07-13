@@ -5,13 +5,17 @@
  * @modify date 2023-07-08 20:29:39
  * @desc [description]
  */
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { faMessage } from "@fortawesome/free-regular-svg-icons";
-import MainHeader from "@/components/MainHeader";
 import MainFooter from "@/components/MainFooter";
+import MainHeader from "@/components/MainHeader";
+import authOptions from "@/lib/auth/authOptions";
+import { faMessage } from "@fortawesome/free-regular-svg-icons";
+import { getServerSession } from "next-auth";
 
-const Homepage = () => {
+const  Homepage = async() => {
+  const serverSession = await getServerSession(authOptions);
   return (
     <main className="">
       <MainHeader />
@@ -19,6 +23,9 @@ const Homepage = () => {
         {/* Hero section */}
         <div className="flex flex-col items-center justify-center w-full h-full py-8"></div>
         {/* Header section */}
+        {
+          JSON.stringify(serverSession)
+        }
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="flex flex-col h-full">
             <div className="h-1/2">

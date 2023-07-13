@@ -203,7 +203,7 @@ export interface QuizSetLeaderBoardSummaryPayload {
   question_players: QsetPlayer[];
 }
 
-interface QsetPlayer {
+export interface QsetPlayer {
   id: number;
   q_player: QPlayer;
   points: number;

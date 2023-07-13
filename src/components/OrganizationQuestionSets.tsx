@@ -1,10 +1,12 @@
 // "use client";
-import organizations from "@/app/data/organizations.data";
-import { OrganizationInterface, QuestionSetInterface } from "@/types/types";
+
+import { OrganizationInterface, QuestionSetInterface } from "@/types";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
+
 import Image from "next/image";
-import { useSearchParams, usePathname, useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
 import QuestionSetTimerCard from "./QuestionSetTimerCard";
+import organizations from "@/app/data/organizations.data";
+import { useRouter } from "next/navigation";
 
 type QuestionSetProps = {
   questionSets: Array<QuestionSetInterface>;

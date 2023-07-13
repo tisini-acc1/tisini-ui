@@ -7,7 +7,7 @@ import * as yup from "yup";
 import { BASE_URL } from "@/utils/api-service";
 import Link from "next/link";
 import React from "react";
-import { SignupUserInterface } from "@/types/types";
+import { SignupUserInterface } from "@/types";
 import TisiniValidator from "@/utils/tisini-validator";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
