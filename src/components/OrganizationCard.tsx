@@ -25,9 +25,9 @@ export default function OrganizationCard({
         <div className="flex w-full flex-col">
           <NavLink
             to={`/organizations/${organization.uid}`}
-            className="bg-primary text-white p-2 rounded-md px-4 text-center"
+            className="bg-primary text-white p-2 rounded-md px-4 text-center capitalize"
           >
-            View Questionsets
+            View active quizes
           </NavLink>
         </div>
       </div>
