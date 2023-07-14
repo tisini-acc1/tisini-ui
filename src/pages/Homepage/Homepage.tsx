@@ -1,260 +1,312 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+
+import { useLoaderData, useLocation, useNavigation } from "react-router-dom";
+
+import { ArticleInterface } from "@/lib/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MainFooter from "@/components/MainFooter";
 import MainHeader from "@/components/MainHeader";
+import React from "react";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
+import { stripHtmlTags } from "@/lib/services/strip-htmltags";
+import useAppState from "@/hooks/useAppState";
 
 export default function Homepage() {
- 
+  const data = useLoaderData() as Array<ArticleInterface>;
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const {
+    dispatch,
+    articles: { articles },
+  } = useAppState();
+  React.useEffect(() => {
+    if (data) {
+      dispatch({ type: "articles/LOAD_SUCCESS", payload: data });
+    }
+  }, []);
+  const location =  useNavigation().state
+  console.log({location});
+  
+  const firstPost = React.useMemo(() => {
+    return articles[0];
+  }, [articles]);
+  // console.log(data);
+  const articlesLength = React.useMemo(() => {
+    return articles.length;
+  }, [articles]);
+
   return (
     <main className="">
-    <MainHeader />
-    <div className="flex flex-col items-center px-4 py-16 mx-auto sm:justify-between sm:py-24 md:px-8 lg:px-16 max-w-7xl">
-      {/* Hero section */}
-      <div className="flex flex-col items-center justify-center w-full h-full py-8"></div>
-      {/* Header section */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="flex flex-col h-full">
-          <div className="h-1/2">
-            <img
-              src="/player.jpg"
-              alt="hero"
-              className=" inset-0 object-cover w-full h-full"
-              width={500}
-              height={500}
-            />
-          </div>
-          <div className="px-4 py-2">
-            <h1 className="text-lg font-bold text-primary">
-              Sergio Rico was trampled by a horse. This is the incredible
-              story of how he cheated death Sergio Rico was trampled by a
-              horse. This is the incredible story of how he cheated death
-            </h1>
-            <p>
-              After winning Ligue 1, Sergio Rico travelled to El Rocio for a
-              religious festival – where a tragic accident left him fighting
-              for his life
-            </p>
-            <div className="flex items-center gap-2 py-2">
-              <div>Brian Omondi</div>
-              <div className="flex items-center relative">
-                <FontAwesomeIcon icon={faMessage} />
-                <span className="text-sm font-bold text-primary absolute top-1 -right-5 border rounded-full w-5 h-5 flex items-center justify-center">
-                  2
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Col 2 */}
-        <div className="flex flex-col gap-2">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div
-              key={i*50}
-              className="border-b grid grid-cols-[2fr_1fr] gap-2 p-2"
-            >
-              <div className="relative ">
-                <h1 className="text-sm font-semibold font-roboto text-primary">
-                  How Guler fits in to Real Madrids team - and their
-                  youth-first transfer policy Guillermo Rai68 How Guler fits
-                  in to Real Madrids team - and their youth-first transfer
-                  policy
-                </h1>
-                <hr />
-                <div className="flex items-center gap-2 text-sm">
-                  <div>Brian Omondi</div>
-                  <div className="flex items-center">
-                    <FontAwesomeIcon icon={faMessage} />
-                    <span>2</span>
-                  </div>
-                </div>
-              </div>
-              <div className="">
+      <MainHeader />
+      {articlesLength > 0 ? (
+        <div className="flex flex-col items-center px-4 py-4 mx-auto sm:justify-between sm:py-6 md:px-8 lg:px-16 max-w-7xl">
+          {/* Hero section */}
+          <div className="flex flex-col items-center justify-center w-full h-full py-8"></div>
+          {/* Header section */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="flex flex-col h-full">
+              <div className="h-1/2">
                 <img
-                  src="/p2.jpg"
+                  src={firstPost?.featured_image!}
                   alt="hero"
-                  className="inset-0 object-cover"
+                  className=" inset-0 object-cover w-full h-full"
                   width={500}
                   height={500}
                 />
               </div>
-            </div>
-          ))}
-        </div>
-        {/* Col 3 */}
-        <div className="p-2 border-l">
-          <div className="flex justify-between">
-            <h1 className="text-lg font-bold text-primary">Headlines</h1>
-            <button className="text-sm font-semibold text-primary">
-              See all
-            </button>
-          </div>
-          <hr />
-          <ul className="flex flex-col gap-4 ml-2 px-2">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <li key={i*10} className="list-disc">
-                PSG give Mbappe deadline for decision on future in three-page
-                letter
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <hr className=" w-full my-4 border-t border-gray-300 sm:block" />
-      {/* Spotlight */}
-      <div className="flex flex-col justify-center w-full h-full">
-        <div className="py-4 text-left">
-          <h1 className="text-lg font-bold text-primary">Spotlight</h1>
-        </div>
-        <div className="grid  p-2 md:grid-cols-2">
-          {/* Col 1 */}
-          <div>
-            <div className="h-1/2">
-              <img
-                src="/player.jpg"
-                alt="hero"
-                className=" inset-0 object-cover w-full h-full"
-                width={500}
-                height={500}
-              />
-            </div>
-            <div className="px-4 py-2">
-              <h1 className="text-lg font-bold text-primary">
-                Sergio Rico was trampled by a horse. This is the incredible
+              <div className="px-4 py-2">
+                <h1 className="text-lg font-bold text-primary">
+                  {/* Sergio Rico was trampled by a horse. This is the incredible
                 story of how he cheated death Sergio Rico was trampled by a
-                horse. This is the incredible story of how he cheated death
-              </h1>
-              <p>
-                After winning Ligue 1, Sergio Rico travelled to El Rocio for a
+                horse. This is the incredible story of how he cheated death */}
+                  {stripHtmlTags(firstPost?.article_title)}
+                </h1>
+                <p>
+                  {/* After winning Ligue 1, Sergio Rico travelled to El Rocio for a
                 religious festival – where a tragic accident left him fighting
-                for his life
-              </p>
-              <div className="flex items-center gap-2 py-2">
-                <div>Brian Omondi</div>
-                <div className="flex items-center">
-                  <FontAwesomeIcon icon={faMessage} />
-                  <span>2</span>
+                for his life */}
+                  {stripHtmlTags(firstPost?.excerpt ? firstPost?.excerpt : "")}
+                </p>
+                <div className="flex items-center gap-2 py-2">
+                  <div>{
+                    
+                    firstPost?.author.first_name +
+                    " " +
+                    firstPost?.author.last_name
+                    }</div>
+                  <div className="flex items-center relative">
+                    <FontAwesomeIcon icon={faMessage} />
+                    <span className="text-sm font-bold text-primary absolute top-1 -right-5 border rounded-full w-5 h-5 flex items-center justify-center">
+                      {/* 2 */}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          {/* Col 2 */}
-          <div>
+            {/* Col 2 */}
             <div className="flex flex-col gap-2">
-              {Array.from({ length: 4 }).map((_, i) => (
+              {articles.map((article) => (
                 <div
-                  key={i*30}
-                  className="border-b grid grid-cols-[1fr_2fr] gap-2 p-2"
+                  key={article.id}
+                  className="border-b grid grid-cols-[2fr_1fr] gap-2 p-2"
                 >
-                  <div className="">
-                    <img
-                      src="/p2.jpg"
-                      alt="hero"
-                      className="inset-0 object-cover"
-                      width={500}
-                      height={500}
-                    />
-                  </div>
                   <div className="relative ">
                     <h1 className="text-sm font-semibold font-roboto text-primary">
-                      How Guler fits in to Real Madrids team - and their
-                      youth-first transfer policy Guillermo Rai68 How Guler
-                      fits in to Real Madrids team - and their youth-first
-                      transfer policy
+                      {/* How Guler fits in to Real Madrids team - and their
+                    youth-first transfer policy Guillermo Rai68 How Guler fits
+                    in to Real Madrids team - and their youth-first transfer
+                    policy */}
+                      {article.article_title}
                     </h1>
                     <hr />
                     <div className="flex items-center gap-2 text-sm">
-                      <div>Brian Omondi</div>
+                      <div>
+                        {article.author.first_name +
+                          " " +
+                          article.author.last_name}
+                      </div>
                       <div className="flex items-center">
                         <FontAwesomeIcon icon={faMessage} />
                         <span>2</span>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr className=" w-full my-4 border-t border-gray-300 sm:block" />
-       {/* Club deals */}
-       <div className="flex flex-col justify-center w-full h-full">
-        <div className="py-4 text-left">
-          <h1 className="text-lg font-bold text-primary">Club deals</h1>
-        </div>
-        <div className="grid  p-2 md:grid-cols-2">
-          {/* Col 1 */}
-          <div>
-            <div className="h-1/2">
-              <img
-                src="/player.jpg"
-                alt="hero"
-                className=" inset-0 object-cover w-full h-full"
-                width={500}
-                height={500}
-              />
-            </div>
-            <div className="px-4 py-2">
-              <h1 className="text-lg font-bold text-primary">
-                Sergio Rico was trampled by a horse. This is the incredible
-                story of how he cheated death Sergio Rico was trampled by a
-                horse. This is the incredible story of how he cheated death
-              </h1>
-              <p>
-                After winning Ligue 1, Sergio Rico travelled to El Rocio for a
-                religious festival – where a tragic accident left him fighting
-                for his life
-              </p>
-              <div className="flex items-center gap-2 py-2">
-                <div>Brian Omondi</div>
-                <div className="flex items-center">
-                  <FontAwesomeIcon icon={faMessage} />
-                  <span>2</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Col 2 */}
-          <div>
-            <div className="flex flex-col gap-2">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div
-                  key={i*40}
-                  className="border-b grid grid-cols-[1fr_2fr] gap-2 p-2"
-                >
                   <div className="">
                     <img
-                      src="/p2.jpg"
+                      src={article.featured_image!}
                       alt="hero"
                       className="inset-0 object-cover"
                       width={500}
                       height={500}
                     />
                   </div>
-                  <div className="relative ">
-                    <h1 className="text-sm font-semibold font-roboto text-primary">
-                      How Guler fits in to Real Madrids team - and their
-                      youth-first transfer policy Guillermo Rai68 How Guler
-                      fits in to Real Madrids team - and their youth-first
-                      transfer policy
-                    </h1>
-                    <hr />
-                    <div className="flex items-center gap-2 text-sm">
-                      <div>Brian Omondi</div>
-                      <div className="flex items-center">
-                        <FontAwesomeIcon icon={faMessage} />
-                        <span>2</span>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               ))}
             </div>
+            {/* Col 3 */}
+            <div className="p-2 border-l">
+              <div className="flex justify-between">
+                <h1 className="text-lg font-bold text-primary">Headlines</h1>
+                <button className="text-sm font-semibold text-primary">
+                  See all
+                </button>
+              </div>
+              <hr />
+              <ul className="flex flex-col gap-4 ml-2 px-2">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <li key={i * 10} className="list-disc">
+                    PSG give Mbappe deadline for decision on future in
+                    three-page letter
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <hr className=" w-full my-4 border-t border-gray-300 sm:block" />
+          {/* Spotlight */}
+          <div className="flex flex-col justify-center w-full h-full">
+            <div className="py-4 text-left">
+              <h1 className="text-lg font-bold text-primary">Spotlight</h1>
+            </div>
+            <div className="grid  p-2 md:grid-cols-2">
+              {/* Col 1 */}
+              <div>
+                <div className="h-1/2">
+                  <img
+                    src="/player.jpg"
+                    alt="hero"
+                    className=" inset-0 object-cover w-full h-full"
+                    width={500}
+                    height={500}
+                  />
+                </div>
+                <div className="px-4 py-2">
+                  <h1 className="text-lg font-bold text-primary">
+                    Sergio Rico was trampled by a horse. This is the incredible
+                    story of how he cheated death Sergio Rico was trampled by a
+                    horse. This is the incredible story of how he cheated death
+                  </h1>
+                  <p>
+                    After winning Ligue 1, Sergio Rico travelled to El Rocio for
+                    a religious festival – where a tragic accident left him
+                    fighting for his life
+                  </p>
+                  <div className="flex items-center gap-2 py-2">
+                    <div>Brian Omondi</div>
+                    <div className="flex items-center">
+                      <FontAwesomeIcon icon={faMessage} />
+                      <span>2</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Col 2 */}
+              <div>
+                <div className="flex flex-col gap-2">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div
+                      key={i * 30}
+                      className="border-b grid grid-cols-[1fr_2fr] gap-2 p-2"
+                    >
+                      <div className="">
+                        <img
+                          src="/p2.jpg"
+                          alt="hero"
+                          className="inset-0 object-cover"
+                          width={500}
+                          height={500}
+                        />
+                      </div>
+                      <div className="relative ">
+                        <h1 className="text-sm font-semibold font-roboto text-primary">
+                          How Guler fits in to Real Madrids team - and their
+                          youth-first transfer policy Guillermo Rai68 How Guler
+                          fits in to Real Madrids team - and their youth-first
+                          transfer policy
+                        </h1>
+                        <hr />
+                        <div className="flex items-center gap-2 text-sm">
+                          <div>Brian Omondi</div>
+                          <div className="flex items-center">
+                            <FontAwesomeIcon icon={faMessage} />
+                            <span>2</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr className=" w-full my-4 border-t border-gray-300 sm:block" />
+          {/* Club deals */}
+          <div className="flex flex-col justify-center w-full h-full">
+            <div className="py-4 text-left">
+              <h1 className="text-lg font-bold text-primary">Club deals</h1>
+            </div>
+            <div className="grid  p-2 md:grid-cols-2">
+              {/* Col 1 */}
+              <div>
+                <div className="h-1/2">
+                  <img
+                    src="/player.jpg"
+                    alt="hero"
+                    className=" inset-0 object-cover w-full h-full"
+                    width={500}
+                    height={500}
+                  />
+                </div>
+                <div className="px-4 py-2">
+                  <h1 className="text-lg font-bold text-primary">
+                    Sergio Rico was trampled by a horse. This is the incredible
+                    story of how he cheated death Sergio Rico was trampled by a
+                    horse. This is the incredible story of how he cheated death
+                  </h1>
+                  <p>
+                    After winning Ligue 1, Sergio Rico travelled to El Rocio for
+                    a religious festival – where a tragic accident left him
+                    fighting for his life
+                  </p>
+                  <div className="flex items-center gap-2 py-2">
+                    <div>Brian Omondi</div>
+                    <div className="flex items-center">
+                      <FontAwesomeIcon icon={faMessage} />
+                      <span>2</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Col 2 */}
+              <div>
+                <div className="flex flex-col gap-2">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div
+                      key={i * 40}
+                      className="border-b grid grid-cols-[1fr_2fr] gap-2 p-2"
+                    >
+                      <div className="">
+                        <img
+                          src="/p2.jpg"
+                          alt="hero"
+                          className="inset-0 object-cover"
+                          width={500}
+                          height={500}
+                        />
+                      </div>
+                      <div className="relative ">
+                        <h1 className="text-sm font-semibold font-roboto text-primary">
+                          How Guler fits in to Real Madrids team - and their
+                          youth-first transfer policy Guillermo Rai68 How Guler
+                          fits in to Real Madrids team - and their youth-first
+                          transfer policy
+                        </h1>
+                        <hr />
+                        <div className="flex items-center gap-2 text-sm">
+                          <div>Brian Omondi</div>
+                          <div className="flex items-center">
+                            <FontAwesomeIcon icon={faMessage} />
+                            <span>2</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <MainFooter />
-  </main>
+      ) : (
+        <div className="flex items-center justify-center h-screen">
+          <div className="flex flex-col items-center justify-center gap-2">
+            <div className="text-4xl font-bold text-primary">404</div>
+            <div className="text-xl font-semibold text-primary">
+              Page not found
+            </div>
+          </div>
+        </div>
+      )}
+      <MainFooter />
+    </main>
   );
 }
