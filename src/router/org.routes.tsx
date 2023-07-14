@@ -1,3 +1,5 @@
+import OrganizationLayout from "@/layouts/OrganizationLayout";
+import ProtectedLayout from "@/layouts/ProtectedLayout";
 import Organizationspage from "@/pages/Organizations/Organizationspage";
 import QuestionSetsPage from "@/pages/QuestionSets/QuestionSetsPage";
 import QuizPrePlayPage from "@/pages/QuizPrePlay/QuizPrePlayPage";
@@ -5,7 +7,13 @@ import { Outlet, type RouteObject } from "react-router-dom";
 
 const organizationRoutes = {
   path: "/organizations",
-  element: <Outlet />,
+  element: (
+    <OrganizationLayout>
+      <ProtectedLayout>
+        <Outlet />
+      </ProtectedLayout>
+    </OrganizationLayout>
+  ),
   children: [
     {
       path: "/organizations",
