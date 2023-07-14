@@ -15,7 +15,7 @@ function MainFooter() {
         <div className="flex items-center flex-col md:flex-row justify-around gap-4 border-b-[1px] border-light-darker py-4 mt-5">
           {/* Logo */}
           <h1 className="text-3xl font-bold text-white uppercase">
-            Tisini Org
+            Tisini
           </h1>
           {/* Newsletter */}
           <h2 className="text-lg font-semibold text-white">
