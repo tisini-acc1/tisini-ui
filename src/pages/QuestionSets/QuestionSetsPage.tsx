@@ -2,7 +2,7 @@
 
 import * as data from "@/lib/data/organizations";
 
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import { OrganizationInterface } from "@/lib/types";
 import OrganizationQuestionSets from "@/components/OrganizationQuestionSets";
@@ -17,8 +17,9 @@ export default function QuestionSetsPage() {
     const org = data.default.find((org) => org.uid === organizationId);
     setOrganization(org || null);
   }, [organizationId]);
-  console.log({ organization , organizationId});
-  
+  // console.log({ organization, organizationId });
+  const navigate = useNavigate();
+
   return (
     <div className="">
       <div className=" max-w-7xl mx-auto">
@@ -26,7 +27,7 @@ export default function QuestionSetsPage() {
         <div className="flex flex-row justify-between items-center h-fit p-2 my-1">
           <div className="flex flex-row gap-4 items-center">
             <button
-              // onClick={() => router.back()}
+              onClick={() => navigate(-1)}
               className="bg-primary text-white rounded-md px-4 text-center"
             >
               Back

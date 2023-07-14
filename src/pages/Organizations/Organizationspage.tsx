@@ -1,15 +1,25 @@
-import * as orgsData from "@/lib/data/organizations";
-
 import OrganizationCard from "@/components/OrganizationCard";
-import { OrganizationInterface } from "@/lib/types";
 import React from "react";
+import  orgsData from "@/lib/data/organizations";
+import useAppState from "@/hooks/useAppState";
 
 export default function Organizationspage() {
-  const [organizations, setOrganizations] = React.useState<
-    OrganizationInterface[]
-  >([]);
+  const {
+    organizations: { organizations, loading, error },
+    dispatch,
+  } = useAppState();
+  const fetchOrganizations = () => {
+    dispatch({ type: "organizations/LOAD_START" });
+    try {
+      dispatch({ type: "organizations/LOAD_SUCCESS", payload: orgsData });
+    } catch (error:any) {
+      console.log(error);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      dispatch({ type: "organizations/LOAD_FAILURE", payload: error.message });
+    }
+  };
   React.useEffect(() => {
-    setOrganizations(orgsData.default);
+    fetchOrganizations();
   }, []);
   return (
     <main className="min-h-[50vh]">
