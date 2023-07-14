@@ -1,13 +1,8 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
-import { OrganizationInterface } from "@/types";
-import React from "react";
+import { NavLink } from "react-router-dom";
+import { OrganizationInterface } from "@/lib/types";
 
 type OrganizationCardProps = {
-  organization: OrganizationInterface&{
-  }
+  organization: OrganizationInterface 
 };
 
 export default function OrganizationCard({
@@ -16,7 +11,7 @@ export default function OrganizationCard({
   return (
     <div className="border">
       <div>
-        <Image
+        <img
           src={organization.org_logo!}
           alt={organization.uid}
           width={500}
@@ -28,12 +23,12 @@ export default function OrganizationCard({
         <h1 className="text-2xl font-bold">{organization.organization_name}</h1>
         <p>Organization description</p>
         <div className="flex w-full flex-col">
-          <Link
-            href={`/organizations/${organization.uid}`}
+          <NavLink
+            to={`/organizations/${organization.uid}`}
             className="bg-primary text-white p-2 rounded-md px-4 text-center"
           >
             View Questionsets
-          </Link>
+          </NavLink>
         </div>
       </div>
     </div>

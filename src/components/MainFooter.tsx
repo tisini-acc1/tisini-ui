@@ -6,9 +6,7 @@
  * @desc [Application footer]
  */
 
-"use client";
-
-import Link from "next/link";
+import { Link } from "react-router-dom";
 
 function MainFooter() {
   return (
@@ -47,7 +45,7 @@ function MainFooter() {
               <ul className="flex flex-col text-left">
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Home
@@ -55,7 +53,7 @@ function MainFooter() {
                 </li>
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Livescore
@@ -63,7 +61,7 @@ function MainFooter() {
                 </li>
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Matches
@@ -71,7 +69,7 @@ function MainFooter() {
                 </li>
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Quiz
@@ -85,7 +83,7 @@ function MainFooter() {
               <ul>
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Home
@@ -99,7 +97,7 @@ function MainFooter() {
               <ul>
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Home
@@ -113,7 +111,7 @@ function MainFooter() {
               <ul>
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Home

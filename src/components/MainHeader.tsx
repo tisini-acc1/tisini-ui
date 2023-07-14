@@ -10,11 +10,7 @@
 import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
-import Link from "next/link";
-import {  Raleway } from "next/font/google";
-
-const sans = Raleway({ weight: "400", subsets: ["latin"] });
+import { Link } from "react-router-dom";
 
 const headerBottomList = [
   {
@@ -41,7 +37,7 @@ export default function MainHeader() {
             <div className="flex  items-center gap-2">
               <FontAwesomeIcon
                 icon={faBars}
-                className={`text-white hover:text-gray-400 font-bold w-6 h-6 ${sans.className}`}
+                className={`text-white hover:text-gray-400 font-bold w-6 h-6`}
               />
               <h1 className="text-white font-bold text-2xl">Tisini</h1>
               <div>
@@ -49,7 +45,7 @@ export default function MainHeader() {
                   <ul className="flex flex-row gap-4 items-center">
                     <li>
                       <Link
-                        href="/"
+                        to="/"
                         className="text-white hover:text-gray-400 font-bold"
                       >
                         Home
@@ -57,7 +53,7 @@ export default function MainHeader() {
                     </li>
                     <li>
                       <Link
-                        href="/"
+                        to="/"
                         className="text-white hover:text-gray-400 font-bold"
                       >
                         Blogs
@@ -65,7 +61,7 @@ export default function MainHeader() {
                     </li>
                     <li>
                       <Link
-                        href="/"
+                        to="/"
                         className="text-white hover:text-gray-400 font-bold"
                       >
                         About
@@ -73,7 +69,7 @@ export default function MainHeader() {
                     </li>
                     <li>
                       <Link
-                        href="/"
+                        to="/"
                         className="text-white hover:text-gray-400 font-bold"
                       >
                         Livescore
@@ -81,7 +77,7 @@ export default function MainHeader() {
                     </li>
                     <li>
                       <Link
-                        href="/organizations"
+                        to="/organizations"
                         className="text-white hover:text-gray-400 font-bold"
                       >
                         Quiz
@@ -89,7 +85,7 @@ export default function MainHeader() {
                     </li>
                     <li>
                       <Link
-                        href="/"
+                        to="/"
                         className="text-white hover:text-gray-400 font-bold"
                       >
                         Contact
@@ -101,7 +97,7 @@ export default function MainHeader() {
             </div>
             <div className="px-2 flex gap-2 items-center">
               <Link
-                href="/login"
+                to="/login"
                 className="text-white hover:text-gray-400 font-bold"
               >
                 Login
@@ -119,7 +115,7 @@ export default function MainHeader() {
           <div className="flex gap-2">
             {headerBottomList.map((item) => (
               <div className="flex gap-2" key={item.title}>
-                <Image src={item.img} alt="logo" width={20} height={20} />
+                <img src={item.img} alt="logo" width={20} height={20} />
                 <span className="text-neutral-200 text-sm">{item.title}</span>
               </div>
             ))}

@@ -1,23 +1,13 @@
-// "use client";
-
-import { OrganizationInterface, QuestionSetInterface } from "@/types";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
-
-import Image from "next/image";
+import { QuestionSetInterface } from "@/lib/types";
 import QuestionSetTimerCard from "./QuestionSetTimerCard";
-import organizations from "@/app/data/organizations.data";
-import { useRouter } from "next/navigation";
 
 type QuestionSetProps = {
   questionSets: Array<QuestionSetInterface>;
 };
-export default function Page({ questionSets }: QuestionSetProps) {
-  const router = useRouter();
-  const params = useParams();
-  const searchParams = useSearchParams();
+export default function OrganizationQuestionSets({ questionSets }: QuestionSetProps) {
   return (
     <div className="py-2">
-      {questionSets.length > 0 ? (
+      {questionSets?.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
           {questionSets.map((questionSet) => (
             <div
@@ -28,7 +18,7 @@ export default function Page({ questionSets }: QuestionSetProps) {
               <h1 className="text-xl font-bold p-2">{questionSet.category_name}</h1>
               {/* image */}
               <div className="h-60 w-full">
-                <Image
+                <img
                   src={questionSet.theme_image}
                   alt={questionSet.category_name}
                   width={500}
@@ -44,7 +34,7 @@ export default function Page({ questionSets }: QuestionSetProps) {
                   {questionSet.questions.length} responses
                 </p>
               </div> */}
-                <QuestionSetTimerCard qset={questionSet} orgId={params.orgId} />
+                <QuestionSetTimerCard orgId="" qset={questionSet}  />
             </div>
           ))}
         </div>

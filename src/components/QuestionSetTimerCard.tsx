@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import Link from "next/link";
-import { QuestionSetInterface } from "@/types";
+import { Link } from "react-router-dom";
+import { QuestionSetInterface } from "@/lib/types";
 import moment from "moment";
-import { qSetStatus } from "@/lib/question-set-status";
+import { qSetStatus } from "@/lib/qset-status";
 
 type QsetComponentProps = {
   qset: QuestionSetInterface;
@@ -26,7 +26,7 @@ export default function QuestionSetTimerCard({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [qset, targetTime]);
+  }, []);
 
   const progressTime = (type: "start" | "end") => {
     const startTime = moment(qSetStatus.getStartDate(qset));
@@ -36,6 +36,7 @@ export default function QuestionSetTimerCard({
     );
 
     const timeLeft = {
+      days: Math.floor(Math.abs(rt.days())).toString().padStart(2, "0"),
       hours: Math.floor(Math.abs(rt.hours())).toString().padStart(2, "0"),
       minutes: Math.abs(rt.minutes()).toString().padStart(2, "0"),
       seconds: Math.abs(rt.seconds()).toString().padStart(2, "0"),
@@ -67,14 +68,17 @@ export default function QuestionSetTimerCard({
 
       {qSetStatus.getStatus(qset) === "not-started" && (
         <div className="flex flex-col gap-1">
-          <p className="text-center">
+          <div className="text-center">
             <span className=""> Will open in</span>
             <h1 className="tracking-wider font-mono font-bold text-lg">
-              {`${progressTime("start").hours}:${
+              {`${
+                Number(progressTime("start").days) > 0 &&
+                progressTime("start").days+" days "
+              }${progressTime("start").hours}:${
                 progressTime("start").minutes
               }:${progressTime("start").seconds}`}
             </h1>
-          </p>
+          </div>
         </div>
       )}
 
@@ -91,7 +95,7 @@ export default function QuestionSetTimerCard({
           <div className="flex">
             <Link
               className="text-white bg-green-800 font-medium uppercase w-full text-center px-2 py-1 rounded border"
-              href={`/quiz-set-to-play/${qset.uid}?queryCategory=${
+              to={`/quiz-set-to-play/${qset.uid}?queryCategory=${
                 qset.category_name
               }&orgId=${orgId}&qStatus=${qSetStatus.getStatus(qset)}`}
             >
@@ -112,7 +116,7 @@ export default function QuestionSetTimerCard({
       <div className="w-full flex">
         <Link
           className="text-white bg-primary font-medium capitalize w-full text-center px-2 py-1 rounded border "
-          href={`/quizset-leaderboard/${qset.uid}`}
+          to={`/quizset-leaderboard/${qset.uid}`}
         >
           leaderboard
         </Link>
