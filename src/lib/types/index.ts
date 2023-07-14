@@ -169,11 +169,12 @@ export interface QuizPlayeInterface {
   organizationUid: string;
 }
 export interface UserInterface {
-  username: string;
+  nickname: string;
   email: string;
-  first_name?: string;
-  last_name?: string;
   is_quiz_admin?: boolean;
+  access_token?: string;
+  refresh_token?: string;
+  phone_number?: string;
 }
 export interface AuthStateInterface {
   loading: boolean;
@@ -218,3 +219,11 @@ interface QPlayer {
   last_name: string;
   profile_pic?: string | null;
 }
+export type ReducerFunction<StateType, ActionsType> = (
+  state: StateType,
+  action: ActionsType
+) => StateType;
+
+export type ActionMapper<T extends { [key in any]: any }> = {
+  [key in keyof T]: T extends { [Key in keyof T]: infer U } ? U : never;
+};
