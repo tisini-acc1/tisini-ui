@@ -1,9 +1,17 @@
 import * as yup from "yup";
 
+import { ToastContainer, toast } from "react-toastify";
+
+import { AxiosError } from "axios";
+import BackHome from "@/components/BackHome";
+import Loader from "@/components/Loader/Loader";
 import { NavLink } from "react-router-dom";
 import React from "react";
 import { SignInUserInterface } from "@/lib/types";
 import TisiniValidator from "@/lib/validators/tisini";
+import { setCookieToken } from "@/lib/services/cookie-service";
+import { tisiniAxios } from "@/lib/api";
+import useAuth from "@/hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -33,16 +41,53 @@ export default function Loginpage() {
   } = useForm<SignInUserInterface>({
     resolver: yupResolver(schema),
   });
-
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const { dispatch, auth } = useAuth();
   return (
     <div className="w-full">
+      {isLoading && <Loader isLoading />}
+      <ToastContainer />
       <div className="flex p-4 md:p-8 flex-col items-center justify-center max-w-7xl min-h-screen mx-auto">
+      <BackHome />
         <form
           action=""
           className="flex flex-col gap-4 p-4 border border-gray-300 rounded-md shadow-md w-full md:max-w-[40rem]  "
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          onSubmit={handleSubmit((data) => {
-            console.log(data);
+          onSubmit={handleSubmit(async (data) => {
+            try {
+              setIsLoading(true);
+              const response = await (
+                await tisiniAxios.post("/auth/login/", data)
+              ).data;
+              const { tokens, ...profile } = response;
+              const { access, refresh } = JSON.parse(tokens as string) as {
+                access: string;
+                refresh: string;
+              };
+              setCookieToken({
+                accessToken: access,
+                refreshToken: refresh,
+              });
+              dispatch({
+                type: "auth/LOGIN-SUCCESS",
+                payload: {
+                  access_token: access,
+                  refresh_token: refresh,
+                  user: profile,
+                  error: "",
+                  isAuthenticated: true,
+                  loading: false,
+                },
+              });
+
+              console.log(response);
+            } catch (error: any) {
+              if (error instanceof AxiosError) {
+                toast.error((error.response?.data).detail);
+              }
+            } finally {
+              setIsLoading(false);
+            }
           })}
         >
           <div className="flex items-center justify-center">
@@ -51,7 +96,7 @@ export default function Loginpage() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-center">
-              Welcome to your account
+              Welcome to your account {isLoading && "Loading..."}
             </h1>
           </div>
           <div className="flex flex-col">
