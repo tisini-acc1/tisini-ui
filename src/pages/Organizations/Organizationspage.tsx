@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { privateAxios, tisiniAxios } from "@/lib/api";
 
 import OrganizationCard from "@/components/OrganizationCard";
 import React from "react";
-import  orgsData from "@/lib/data/organizations";
 import useAppState from "@/hooks/useAppState";
 
 export default function Organizationspage() {
@@ -10,18 +12,23 @@ export default function Organizationspage() {
     organizations: { organizations },
     dispatch,
   } = useAppState();
-  const fetchOrganizations = () => {
+  const fetchOrganizations = async () => {
     dispatch({ type: "organizations/LOAD_START" });
     try {
-      dispatch({ type: "organizations/LOAD_SUCCESS", payload: orgsData });
-    } catch (error:any) {
-      // console.log(error);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const data = (await privateAxios.get("/quiz/organizations/")).data;
+      console.log(data);
+
+      dispatch({ type: "organizations/LOAD_SUCCESS", payload: data });
+    } catch (error: any) {
+      console.log(error);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       dispatch({ type: "organizations/LOAD_FAILURE", payload: error.message });
     }
   };
   React.useEffect(() => {
-    fetchOrganizations();
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    Promise.allSettled([fetchOrganizations()])
   }, []);
   return (
     <main className="min-h-[50vh]">

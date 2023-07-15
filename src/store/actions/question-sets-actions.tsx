@@ -1,14 +1,25 @@
-import { ActionMapper, QuestionSetInterface } from "@/lib/types";
+import {
+  ActionMapper,
+  PaginatedResponse,
+  QuestionSetInterface,
+} from "@/lib/types";
 
 // Questionsets
 export type QuestionsetActionTypes = {
-  ["question-sets/ADD_QUESTION_SET"]: {
-    type: "question-sets/ADD_QUESTION_SET";
-    payload: QuestionSetInterface;
+  ["question-sets/LOAD_START"]: {
+    type: "question-sets/LOAD_START";
   };
-  ["question-sets/REMOVE_QUESTION_SET"]: {
-    type: "question-sets/REMOVE_QUESTION_SET";
-    payload: QuestionSetInterface;
+  ["question-sets/LOAD_SUCCESS"]: {
+    type: "question-sets/LOAD_SUCCESS";
+    payload: PaginatedResponse<QuestionSetInterface>;
+  };
+  ["question-sets/LOAD_FAILURE"]: {
+    type: "question-sets/LOAD_FAILURE";
+    payload: string;
+  };
+
+  ["question-sets/SETTLE"]: {
+    type: "question-sets/SETTLE";
   };
 };
 // Actions

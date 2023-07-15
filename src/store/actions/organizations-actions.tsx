@@ -1,4 +1,4 @@
-import { ActionMapper, OrganizationInterface } from "@/lib/types";
+import { ActionMapper, OrganizationInterface, PaginatedResponse } from "@/lib/types";
 
 // Organizations
 export type OrganizationsActionTypes = {
@@ -7,7 +7,7 @@ export type OrganizationsActionTypes = {
     };
     ["organizations/LOAD_SUCCESS"]: {
       type: "organizations/LOAD_SUCCESS";
-      payload: Array<OrganizationInterface>;
+      payload: PaginatedResponse<OrganizationInterface>;
     };
     ["organizations/LOAD_FAILURE"]: {
       type: "organizations/LOAD_FAILURE";

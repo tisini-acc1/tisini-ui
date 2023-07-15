@@ -6,12 +6,24 @@ const questionSetsReducer = (
   action: QuestionsetActions
 ): QuestionSetState => {
   switch (action.type) {
-    case "question-sets/ADD_QUESTION_SET":
+    case "question-sets/LOAD_START":
       return {
         ...state,
         loading: true,
       };
-    case "question-sets/REMOVE_QUESTION_SET":
+    case "question-sets/LOAD_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        questionsets: action.payload,
+      };
+    case "question-sets/LOAD_FAILURE":
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case "question-sets/SETTLE":
       return {
         ...state,
         loading: false,

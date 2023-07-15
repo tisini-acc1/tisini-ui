@@ -1,19 +1,16 @@
-import { ArticlesState, SponsoredArticlesState } from "@/lib/types/state";
+import { SponsoredArticlesState } from "@/lib/types/state";
 
-import {
-  SponsoredArticlesActions,
-} from "../actions";
+import { SponsoredArticlesActions } from "../actions";
 
 const sponsoredArticlesReducer = (
   state: SponsoredArticlesState,
   action: SponsoredArticlesActions
-): ArticlesState => {
+): SponsoredArticlesState => {
   switch (action.type) {
     case "sponsored-articles/LOAD_START":
       return {
         ...state,
         loading: true,
-        
       };
     case "sponsored-articles/LOAD_SUCCESS":
       return {
