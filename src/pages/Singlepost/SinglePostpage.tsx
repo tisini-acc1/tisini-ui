@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 // const _defaultImage ='https://picsum.photos/500/500'
 export default function SinglePostpage() {
-  const { slug } = useParams<{ slug: string }>();
+  const slug  = useParams<{ slug: string }>().slug as string;
   const [post, setPost] = React.useState<ArticleInterface | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
   const fetchPost = async () => {
@@ -24,6 +24,7 @@ export default function SinglePostpage() {
   };
   React.useEffect(() => {
     Promise.allSettled([fetchPost()]).catch((error) => console.log(error));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
   return (
     <div className="min-h-[50vh]">

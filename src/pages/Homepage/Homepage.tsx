@@ -8,7 +8,6 @@ import { ToastContainer, toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HomePageLoadingComponent from "./HomePageLoadingComponent";
-import Loader from "@/components/Loader/Loader";
 import MainFooter from "@/components/MainFooter";
 import MainHeader from "@/components/MainHeader";
 import React from "react";
@@ -40,11 +39,11 @@ export default function Homepage() {
   };
   const {
     dispatch,
-    articles: { articles, loading, error },
+    articles: { articles, error },
   } = useAppState();
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    Promise.allSettled([fetchArticles()]).catch((err) => {
+    Promise.allSettled([fetchArticles()]).catch(() => {
       // console.log(err);
     });
   }, []);

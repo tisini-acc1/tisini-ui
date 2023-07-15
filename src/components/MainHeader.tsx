@@ -115,9 +115,12 @@ export default function MainHeader() {
                 >
                   Login
                 </Link>
-                <button className="bg-white text-primary rounded-md px-4 py-1">
+                <Link
+                  to="/auth/register"
+                  className="text-primary hover:text-primary-lighter font-bold bg-white px-4 py-1 rounded-md"
+                >
                   Sign Up
-                </button>
+                </Link>
                 <button>
                   <FontAwesomeIcon icon={faSearch} className="text-white" />
                 </button>
