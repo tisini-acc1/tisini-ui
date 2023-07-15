@@ -6,7 +6,7 @@ type QuestionSetProps = {
 };
 export default function OrganizationQuestionSets({ questionSets }: QuestionSetProps) {
   return (
-    <div className="py-2">
+    <div className="py-2 px-4">
       {questionSets?.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
           {questionSets.map((questionSet) => (
