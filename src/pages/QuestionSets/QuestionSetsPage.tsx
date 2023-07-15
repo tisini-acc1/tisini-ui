@@ -22,12 +22,14 @@ export default function QuestionSetsPage() {
           `/quiz/organizations/${organizationId}/questionsets/`
         )
       ).data;
+      // console.log('QuestionSetsPage.tsx: data: ', data);
+      
       dispatch({
         type: "question-sets/LOAD_SUCCESS",
         payload: {
           pagination: { ...defaultPagination },
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          results: data.question_sets,
+          results: data,
         },
       });
     } catch (error) {

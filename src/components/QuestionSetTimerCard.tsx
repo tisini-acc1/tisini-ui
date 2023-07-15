@@ -44,6 +44,8 @@ export default function QuestionSetTimerCard({
 
     return timeLeft;
   };
+  // console.log({orgId, qset: qset.uid});
+  
 
   return (
     <li className="flex flex-col gap-1 p-2">
@@ -95,9 +97,7 @@ export default function QuestionSetTimerCard({
           <div className="flex">
             <Link
               className="text-white bg-green-800 font-medium uppercase w-full text-center px-2 py-1 rounded border"
-              to={`/quiz-set-to-play/${qset.uid}?queryCategory=${
-                qset.category_name
-              }&orgId=${orgId}&qStatus=${qSetStatus.getStatus(qset)}`}
+              to={`/organizations/${orgId}/question-sets/${qset.uid}?`}
             >
               Start Quiz
             </Link>

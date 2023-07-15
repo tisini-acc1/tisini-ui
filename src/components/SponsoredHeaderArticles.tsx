@@ -27,6 +27,6 @@ export default function SponsoredHeaderArticles() {
       ))}
     </div>
   ) : !loading && articles.length === 0 ? (
-    <>Loading....</>
+    <></>
   ) : null;
 }

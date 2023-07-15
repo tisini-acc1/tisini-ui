@@ -10,38 +10,12 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import React from "react";
 import SponsoredHeaderArticles from "./SponsoredHeaderArticles";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { tisiniAxios } from "@/lib/api";
 import useAuth from "@/hooks/useAuth";
 
 export default function MainHeader() {
   const { auth, dispatch } = useAuth();
-  const fetchSponsoredArticles = async () => {
-    dispatch({ type: "sponsored-articles/LOAD_START" });
-    try {
-      const response = await (
-        await tisiniAxios.get("/blogs/articles_sponsored/")
-      ).data;
-      // console.log({ response });
-
-      dispatch({ type: "sponsored-articles/LOAD_SUCCESS", payload: response });
-    } catch (err) {
-      // console.log({err});
-      dispatch({
-        type: "sponsored-articles/LOAD_FAILURE",
-        payload: JSON.stringify(err),
-      });
-    } finally {
-      dispatch({ type: "sponsored-articles/SETTLE" });
-    }
-  };
-  React.useEffect(() => {
-    Promise.allSettled([fetchSponsoredArticles()]).catch((err: any) => {
-      // console.log(err)
-    });
-  }, []);
   return (
     <header className="bg-primary w-full">
       <div className="max-w-7xl mx-auto p-4 w-full">

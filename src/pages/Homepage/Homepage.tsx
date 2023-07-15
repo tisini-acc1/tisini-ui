@@ -41,6 +41,30 @@ export default function Homepage() {
     dispatch,
     articles: { articles, error },
   } = useAppState();
+  const fetchSponsoredArticles = async () => {
+    dispatch({ type: "sponsored-articles/LOAD_START" });
+    try {
+      const response = await (
+        await tisiniAxios.get("/blogs/articles_sponsored/")
+      ).data;
+      // console.log({ response });
+
+      dispatch({ type: "sponsored-articles/LOAD_SUCCESS", payload: response });
+    } catch (err) {
+      // console.log({err});
+      dispatch({
+        type: "sponsored-articles/LOAD_FAILURE",
+        payload: JSON.stringify(err),
+      });
+    } finally {
+      dispatch({ type: "sponsored-articles/SETTLE" });
+    }
+  };
+  React.useEffect(() => {
+    Promise.allSettled([fetchSponsoredArticles(),fetchSponsoredArticles()]).catch((err: any) => {
+      // console.log(err)
+    });
+  }, []);
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     Promise.allSettled([fetchArticles()]).catch(() => {

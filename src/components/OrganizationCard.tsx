@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { OrganizationInterface } from "@/lib/types";
 
 type OrganizationCardProps = {
-  organization: OrganizationInterface 
+  organization: Pick<OrganizationInterface,'org_logo'|'organization_name'|'uid'> 
 };
 
 export default function OrganizationCard({

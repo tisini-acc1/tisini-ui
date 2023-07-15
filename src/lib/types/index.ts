@@ -103,7 +103,7 @@ export interface OrganizationInterface {
   uid: string; // UID
   organization_name: string; // Organization name with a max length of 300 and min length of 1
   org_logo?: string | null; // Optional Organization logo
-  question_sets: QuestionSetInterface[]; // Array of QuestionSet objects
+  // question_sets: QuestionSetInterface[]; // Array of QuestionSet objects
 }
 
 export interface QuestionPlayersInterface {

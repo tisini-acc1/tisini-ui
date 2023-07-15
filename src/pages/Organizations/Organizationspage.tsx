@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { privateAxios, tisiniAxios } from "@/lib/api";
-
 import OrganizationCard from "@/components/OrganizationCard";
 import React from "react";
+import { privateAxios } from "@/lib/api";
 import useAppState from "@/hooks/useAppState";
 
 export default function Organizationspage() {
