@@ -1,6 +1,4 @@
-import {
-  ArticlesActions,
-} from "../actions/state-actions";
+import { ArticlesActions } from "../actions";
 import { ArticlesState } from "@/lib/types/state";
 
 const articlesReducer = (
@@ -24,6 +22,11 @@ const articlesReducer = (
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case "articles/SETTLE":
+      return {
+        ...state,
+        loading: false,
       };
 
     default:

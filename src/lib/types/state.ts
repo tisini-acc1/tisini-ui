@@ -3,6 +3,7 @@
 import {
   ArticleInterface,
   OrganizationInterface,
+  PaginatedResponse,
   QuestionSetInterface,
   UserInterface,
 } from ".";
@@ -18,15 +19,27 @@ export type AuthState = {
   refresh_token: string;
   isAuthenticated: boolean;
 };
-
+/**
+ * ArticlesState
+ */
 export type ArticlesState = {
-  articles: ArticleInterface[];
+  articles: PaginatedResponse<ArticleInterface>;
   loading: boolean;
   error: string;
 };
-
+/**
+ * OrganizationsState
+ */
 export type OrganizationsState = {
-  organizations: OrganizationInterface[];
+  organizations: PaginatedResponse<OrganizationInterface>;
+  loading: boolean;
+  error: string;
+};
+/**
+ * Sponsored articles
+ */
+export type SponsoredArticlesState = {
+  articles: Array<ArticleInterface>;
   loading: boolean;
   error: string;
 };
@@ -37,8 +50,11 @@ export type OrganizationsState = {
 export type PersistState = {
   auth: AuthState;
 };
+/**
+ * QuestionSetState
+ */
 export type QuestionSetState = {
-  questionsets: QuestionSetInterface[];
+  questionsets: PaginatedResponse<QuestionSetInterface>;
   loading: boolean;
   error: string;
 };
@@ -50,18 +66,7 @@ export type AppState = {
   organizations: OrganizationsState;
   questionsets: QuestionSetState;
   articles: ArticlesState;
-};
-
-export type RolesPayload = {
-  [key: string]: any;
-  _id: string;
-  name: string;
-  description: string;
-  default: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  permissions: number;
-  __v: 0;
+  sponsoredArticles: SponsoredArticlesState;
 };
 
 export type KeyOfType<T, U> = {

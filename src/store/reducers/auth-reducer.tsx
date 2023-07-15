@@ -1,4 +1,4 @@
-import { AuthActions } from "../actions/state-actions";
+import { AuthActions } from "../actions";
 import { AuthState } from "@/lib/types/state";
 import { removeToken } from "@/lib/services/cookie-service";
 

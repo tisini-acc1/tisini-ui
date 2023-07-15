@@ -7,3 +7,14 @@ export const stateKeys: Record<AppStates, string> = {
   "tisini-app-authState": `${prefix}-authState`,
   "tisini-app-quizState": `${prefix}-quizState`,
 };
+export const defaultPagination = {
+  hasNextPage: false,
+  hasPrevPage: false,
+  nextPage: null,
+  prevPage: null,
+  page: 1,
+  limit: 10,
+  totalDocs: 0,
+  totalPages: 0,
+
+};

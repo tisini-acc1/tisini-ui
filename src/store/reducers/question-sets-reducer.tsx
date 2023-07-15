@@ -1,5 +1,5 @@
 import { QuestionSetState } from "@/lib/types/state";
-import { QuestionsetActions } from "../actions/state-actions";
+import { QuestionsetActions } from "../actions";
 
 const questionSetsReducer = (
   state: QuestionSetState,

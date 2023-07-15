@@ -1,4 +1,4 @@
-import OrganizationLayout from "@/layouts/OrganizationLayout";
+import BaseLayout from "@/layouts/BaseLayout";
 import ProtectedLayout from "@/layouts/ProtectedLayout";
 import Organizationspage from "@/pages/Organizations/Organizationspage";
 import QuestionSetsPage from "@/pages/QuestionSets/QuestionSetsPage";
@@ -8,11 +8,11 @@ import { Outlet, type RouteObject } from "react-router-dom";
 const organizationRoutes = {
   path: "/organizations",
   element: (
-    <OrganizationLayout>
+    <BaseLayout>
       <ProtectedLayout>
         <Outlet />
       </ProtectedLayout>
-    </OrganizationLayout>
+    </BaseLayout>
   ),
   children: [
     {

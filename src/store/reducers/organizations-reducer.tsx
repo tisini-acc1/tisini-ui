@@ -1,4 +1,4 @@
-import { OrganizationsActions } from "../actions/state-actions";
+import { OrganizationsActions } from "../actions";
 import { OrganizationsState } from "@/lib/types/state";
 
 const organizationsReducer = (

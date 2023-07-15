@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+
 import * as yup from "yup";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -42,7 +45,7 @@ export default function Loginpage() {
     resolver: yupResolver(schema),
   });
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const { dispatch, auth } = useAuth();
+  const { dispatch } = useAuth();
   return (
     <div className="w-full">
       {isLoading && <Loader isLoading />}
@@ -80,9 +83,10 @@ export default function Loginpage() {
                 },
               });
 
-              console.log(response);
+              // console.log(response);
             } catch (error: any) {
               if (error instanceof AxiosError) {
+                // eslint-disable-next-line no-unsafe-optional-chaining, @typescript-eslint/no-unsafe-member-access
                 toast.error((error.response?.data).detail);
               }
             } finally {

@@ -1,7 +1,6 @@
 import * as yup from "yup";
 
 import { NavLink } from 'react-router-dom';
-import React from "react";
 import { SignupUserInterface } from '@/lib/types';
 import TisiniValidator from '@/lib/validators/tisini';
 import { useForm } from "react-hook-form";
@@ -40,7 +39,7 @@ export default function RegisterPage() {
     defaultValues: { is_quiz_admin: false, is_author: false },
   });
  
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  // const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const onSubmit = async (data: SignupUserInterface) => {
     // try {
     //   const response = await fetch(`${BASE_URL}/users/register/`, {
