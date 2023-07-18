@@ -7,8 +7,10 @@ import React from "react";
 import moment from "moment";
 import { privateAxios } from "@/lib/api";
 import { useAppDispatch } from "@/store/hooks";
+import { initializeQuizPlay } from "@/store/slices/quiz-play.slice";
 
 export default function QuizPrePlayPage() {
+  const dispatch = useAppDispatch();
   const [quiz, setQuiz] = React.useState<QuestionSetInterface | null>(null);
   const { organizationId, questionSetId } = useParams<{
     organizationId: string;
@@ -34,7 +36,6 @@ export default function QuizPrePlayPage() {
     );
   }, []);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   return (
     <div className="max-w-2xl mx-auto p-4 md:p-6 min-h-[80vh] ">
@@ -63,7 +64,7 @@ export default function QuizPrePlayPage() {
           Startime {moment(quiz?.start_datetime).format("LLL")}
         </p>
         <p className="text-sm text-gray-500">
-          Endtime {moment(quiz?.end_datetime).format("LLL")}
+          End time {moment(quiz?.end_datetime).format("LLL")}
         </p>
         <p className="text-sm text-gray-500"></p>
         <div>
@@ -71,6 +72,7 @@ export default function QuizPrePlayPage() {
             className="bg-blue-500 text-white px-4 py-1 rounded min-w-[10rem]"
             type="button"
             onClick={() => {
+              dispatch(initializeQuizPlay(quiz!));
               navigate(
                 `/organizations/questionsets/${organizationId}/${questionSetId}/play`,
                 {

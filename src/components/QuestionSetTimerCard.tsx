@@ -96,6 +96,7 @@ export default function QuestionSetTimerCard({
           </div>
           <div className="flex">
             <Link
+        
               className="text-white bg-green-800 font-medium uppercase w-full text-center px-2 py-1 rounded border"
               to={`/organizations/questionsets/${organizationId}/${qset.uid}/preplay`}
             >

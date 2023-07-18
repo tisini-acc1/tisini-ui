@@ -1,5 +1,5 @@
 
-export default function TextQuestionPagePlay() {
+export default function TextAnswerQuestionPagePlay() {
   return (
     <div>TextQuestionPagePlay</div>
   )
