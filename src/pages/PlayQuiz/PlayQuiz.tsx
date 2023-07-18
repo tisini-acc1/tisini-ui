@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
-import MultipleAnswerQuestionPagePlay from "@/components/MultipleAnswerQuestionPagePlay";
-import SingleQuestionPagePlay from "@/components/SingleAnswerQuestionPagePlay";
-import TextAnswerQuestionPagePlay from "@/components/TextAnswerQuestionPagePlay";
+import MultipleAnswerQuestionPagePlay from "@/pages/PlayQuiz/MultipleAnswerQuestionPagePlay";
+import SingleQuestionPagePlay from "@/pages/PlayQuiz/SingleAnswerQuestionPagePlay";
+import TextAnswerQuestionPagePlay from "@/pages/PlayQuiz/TextAnswerQuestionPagePlay";
 import { useAppSelector } from "@/store/hooks";
 import React from "react";
 import { useNavigate } from "react-router-dom";

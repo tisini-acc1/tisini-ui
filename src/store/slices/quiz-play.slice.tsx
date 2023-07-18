@@ -3,6 +3,7 @@ import {
   AnswerInterface,
   QuestionInterface,
   QuestionSetInterface,
+  SelectableAnswerInterface,
 } from "@/lib/types";
 
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
@@ -51,9 +52,76 @@ const quizPlaySlice = createSlice({
       state.loading = true;
       state.error = null;
     },
+    quizPlayAnswerQuestion: (
+      state,
+      action: PayloadAction<{
+        answer: SelectableAnswerInterface;
+        status: QuestionAnswerStatus;
+        duration: number;
+      }>
+    ) => {
+      // check if question is already answered and question is in progress
+      state.progress.find(
+        (item) => item.question.uid !== state.currentQuestion!.uid
+      )
+        ? state.progress
+        : state.progress.push({
+            question: state.currentQuestion!,
+            answer: action.payload.answer,
+            status: action.payload.status,
+          });
+      // check if index is not greater than questions length
+      state.currentQuestion = {
+        ...state.currentQuestion!,
+        is_answered: true,
+        selected_answer: action.payload.answer,
+        duration: action.payload.duration,
+      };
+    },
+    quizPlayNextQuestion: (state) => {
+      state.currentQuestionIndex =
+        state.currentQuestionIndex < state.questions.length - 1
+          ? state.currentQuestionIndex + 1
+          : state.currentQuestionIndex;
+      state.currentQuestion = state.questions[state.currentQuestionIndex];
+      state.currentAnswers = shuffleItems(state.currentQuestion.answers);
+    },
+    quizPlaySkipQuestion: (state) => {
+      state.progress.push({
+        question: state.currentQuestion!,
+        answer: "",
+        status: "skipped",
+      });
+      state.currentQuestionIndex =
+        state.currentQuestionIndex < state.questions.length - 1
+          ? state.currentQuestionIndex + 1
+          : state.currentQuestionIndex;
+      state.currentQuestion = state.questions[state.currentQuestionIndex];
+      state.currentAnswers = shuffleItems(state.currentQuestion.answers);
+    },
+    quizPlayTimeoutQuestion: (state) => {
+      state.progress.push({
+        question: state.currentQuestion!,
+        answer: "",
+        status: "timedout",
+      });
+      state.currentQuestionIndex =
+        state.currentQuestionIndex < state.questions.length - 1
+          ? state.currentQuestionIndex + 1
+          : state.currentQuestionIndex;
+      state.currentQuestion = state.questions[state.currentQuestionIndex];
+      state.currentAnswers = shuffleItems(state.currentQuestion.answers);
+    },
   },
 });
 
-export const { initializeQuizPlay, quizPlayLoadStart } = quizPlaySlice.actions;
+export const {
+  initializeQuizPlay,
+  quizPlayLoadStart,
+  quizPlayTimeoutQuestion,
+  quizPlayAnswerQuestion,
+  quizPlayNextQuestion,
+  quizPlaySkipQuestion,
+} = quizPlaySlice.actions;
 
 export default quizPlaySlice.reducer;

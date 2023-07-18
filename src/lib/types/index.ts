@@ -73,6 +73,12 @@ export interface AnswerInterface {
   is_answer: boolean; // Is answer flag
 }
 
+export type SelectableAnswerInterface =
+  | AnswerInterface
+  | Array<AnswerInterface>
+  | Array<string>
+  | string;
+
 export interface QuestionInterface {
   uid: string; // ID
   question: string; // Question with a max length of 1000 and min length of 1
@@ -81,7 +87,7 @@ export interface QuestionInterface {
   timer: number; // Timer
   answers: AnswerInterface[]; // Array of Answer objects
   is_answered?: boolean; // Is answered flag
-  selected_answer?: AnswerInterface; // Optional Selected answer
+  selected_answer?: SelectableAnswerInterface; // Optional Selected answer
   duration?: number; // Duration
   quiz_type: "multiple" | "single" | "text"; // Quiz type
 }
