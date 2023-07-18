@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import SponsoredHeaderArticles from "./SponsoredHeaderArticles";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { logoutUser } from "@/store/slices/auth.slice";
 
 export default function MainHeader() {
   const { auth } = useAppSelector(state=>state.persist);
@@ -77,7 +78,7 @@ export default function MainHeader() {
                 <button
                   className="bg-red-300 text-primary rounded-md px-4"
                   onClick={() => {
-                    dispatch({ type: "auth/LOGOUT" });
+                    dispatch(logoutUser());
                   }}
                 >
                   Sign Out
