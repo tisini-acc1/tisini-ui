@@ -4,7 +4,6 @@ import {
   ArticleInterface,
   OrganizationInterface,
   PaginatedResponse,
-  QuestionSetInterface,
   UserInterface,
 } from ".";
 
@@ -49,24 +48,6 @@ export type SponsoredArticlesState = {
  */
 export type PersistState = {
   auth: AuthState;
-};
-/**
- * QuestionSetState
- */
-export type QuestionSetState = {
-  questionsets: PaginatedResponse<QuestionSetInterface>;
-  loading: boolean;
-  error: string;
-};
-/**
- * AppState
- */
-export type AppState = {
-  persist: PersistState;
-  organizations: OrganizationsState;
-  questionsets: QuestionSetState;
-  articles: ArticlesState;
-  sponsoredArticles: SponsoredArticlesState;
 };
 
 export type KeyOfType<T, U> = {

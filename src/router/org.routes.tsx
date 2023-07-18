@@ -1,6 +1,7 @@
 import BaseLayout from "@/layouts/BaseLayout";
 import ProtectedLayout from "@/layouts/ProtectedLayout";
 import Organizationspage from "@/pages/Organizations/Organizationspage";
+import PlayQuiz from "@/pages/PlayQuiz/PlayQuiz";
 import QuestionSetsPage from "@/pages/QuestionSets/QuestionSetsPage";
 import QuizPrePlayPage from "@/pages/QuizPrePlay/QuizPrePlayPage";
 import { Outlet, type RouteObject } from "react-router-dom";
@@ -28,8 +29,14 @@ const organizationRoutes = {
     },
     {
       // TODO: Add a route for the single question set page
-      path: "/organizations/:organizationId/question-sets/:questionSetId",
+      path: "/organizations/questionsets/:organizationId/:questionSetId/preplay",
       element: <QuizPrePlayPage />,
+      children: [],
+    },
+    // TODO: Play quiz route
+    {
+      path: "/organizations/questionsets/:organizationId/:questionSetId/play",
+      element: <PlayQuiz />,
       children: [],
     },
   ],

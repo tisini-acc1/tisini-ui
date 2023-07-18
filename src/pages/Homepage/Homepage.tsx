@@ -4,6 +4,19 @@
 import { ArticleInterface, PaginatedResponse } from "@/lib/types";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import {
+  articlesLoadFailure,
+  articlesLoadStart,
+  articlesLoadSuccess,
+  articlesSettle,
+} from "@/store/slices/articles.slice";
+import {
+  sponsoredArticlesLoadFailure,
+  sponsoredArticlesLoadStart,
+  sponsoredArticlesLoadSuccess,
+  sponsoredArticlesSettle,
+} from "@/store/slices/sponsored-articles.slice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import { AxiosError } from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,54 +27,48 @@ import React from "react";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { stripHtmlTags } from "@/lib/services/strip-htmltags";
 import { tisiniAxios } from "@/lib/api";
-import useAppState from "@/hooks/useAppState";
 
 export default function Homepage() {
+  const dispatch = useAppDispatch();
+  const { articles } = useAppSelector((state) => state.articles);
   const fetchArticles = async () => {
-    dispatch({ type: "articles/LOAD_START" });
+    dispatch(articlesLoadStart());
     try {
-      const response: PaginatedResponse<ArticleInterface> = await (
+      const response = (await (
         await tisiniAxios.get("/blogs/articles/?limit=5&page=1")
-      ).data;
-      // console.log({ response });
+      ).data) as PaginatedResponse<ArticleInterface>;
 
-      dispatch({ type: "articles/LOAD_SUCCESS", payload: response });
+      dispatch(articlesLoadSuccess(response));
     } catch (err) {
       // console.log(err);
       if (err instanceof AxiosError) {
         const { detail } = err.response?.data;
-        dispatch({ type: "articles/LOAD_FAILURE", payload: detail });
-        toast.error(error);
+        toast.error(detail as string);
+        dispatch(articlesLoadFailure(JSON.stringify(err)));
       }
     } finally {
-      dispatch({ type: "articles/SETTLE" });
+      dispatch(articlesSettle());
     }
   };
-  const {
-    dispatch,
-    articles: { articles, error },
-  } = useAppState();
   const fetchSponsoredArticles = async () => {
-    dispatch({ type: "sponsored-articles/LOAD_START" });
+    dispatch(sponsoredArticlesLoadStart());
     try {
-      const response = await (
+      const response = (await (
         await tisiniAxios.get("/blogs/articles_sponsored/")
-      ).data;
-      // console.log({ response });
+      ).data) as Array<ArticleInterface>;
 
-      dispatch({ type: "sponsored-articles/LOAD_SUCCESS", payload: response });
+      dispatch(sponsoredArticlesLoadSuccess(response));
     } catch (err) {
-      // console.log({err});
-      dispatch({
-        type: "sponsored-articles/LOAD_FAILURE",
-        payload: JSON.stringify(err),
-      });
+      dispatch(sponsoredArticlesLoadFailure(JSON.stringify(err)));
     } finally {
-      dispatch({ type: "sponsored-articles/SETTLE" });
+      dispatch(sponsoredArticlesSettle());
     }
   };
   React.useEffect(() => {
-    Promise.allSettled([fetchSponsoredArticles(),fetchSponsoredArticles()]).catch((err: any) => {
+    Promise.allSettled([
+      fetchSponsoredArticles(),
+      fetchSponsoredArticles(),
+    ]).catch(() => {
       // console.log(err)
     });
   }, []);
@@ -100,7 +107,9 @@ export default function Homepage() {
           <div className="flex flex-col items-center justify-center w-full h-full py-8"></div>
           {/* Header section */}
           <div
-          onClick={() => navigate(`/articles/${featuredArticle.slug}/single-read`)}
+            onClick={() =>
+              navigate(`/articles/${featuredArticle.slug}/single-read`)
+            }
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-4"
           >
             <div className="flex flex-col h-full">
@@ -149,8 +158,10 @@ export default function Homepage() {
                   className="border-b grid grid-cols-[2fr_1fr] gap-2 p-2"
                 >
                   <div className="relative ">
-                    <Link to={`/articles/${article.slug}/single-read`}
-                    className="text-sm font-semibold font-roboto text-primary hover:text-blue-600 hover:underline">
+                    <Link
+                      to={`/articles/${article.slug}/single-read`}
+                      className="text-sm font-semibold font-roboto text-primary hover:text-blue-600 hover:underline"
+                    >
                       {/* How Guler fits in to Real Madrids team - and their
                     youth-first transfer policy Guillermo Rai68 How Guler fits
                     in to Real Madrids team - and their youth-first transfer

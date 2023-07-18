@@ -1,14 +1,14 @@
 import { Navigate, useLocation } from "react-router-dom";
 
 import React from "react";
-import useAuth from "@/hooks/useAuth";
+import { useAppSelector } from "@/store/hooks";
 
 type ProtectedLayoutProps = {
   children: React.ReactNode;
 };
 
 export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
-  const { auth } = useAuth();
+  const { auth } = useAppSelector((state) => state.persist);
   //   React.useEffect(() => {
   //     if (!auth) {
   //       window.location.href = "/login";

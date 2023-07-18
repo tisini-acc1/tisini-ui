@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 import { QuestionSetInterface } from "@/lib/types";
@@ -7,15 +7,15 @@ import { qSetStatus } from "@/lib/qset-status";
 
 type QsetComponentProps = {
   qset: QuestionSetInterface;
-  orgId: string;
+  organizationId: string;
 };
 
 export default function QuestionSetTimerCard({
   qset,
-  orgId,
+  organizationId,
 }: QsetComponentProps) {
   const [targetTime, setTargetTime] = useState(moment());
-  const [remainingTime, setRemainingTime] = useState(
+  const [_remainingTime, setRemainingTime] = useState(
     moment.duration(targetTime.diff(moment()))
   );
 
@@ -86,18 +86,18 @@ export default function QuestionSetTimerCard({
 
       {qSetStatus.getStatus(qset) === "in-progress" && (
         <div className="flex flex-col gap-1">
-          <p className="text-center">
+          <div className="text-center">
             <span className=""> Will close in</span>
             <h1 className="tracking-wider font-mono font-bold text-lg">
               {`${progressTime("end").hours}:${progressTime("end").minutes}:${
                 progressTime("end").seconds
               }`}
             </h1>
-          </p>
+          </div>
           <div className="flex">
             <Link
               className="text-white bg-green-800 font-medium uppercase w-full text-center px-2 py-1 rounded border"
-              to={`/organizations/${orgId}/question-sets/${qset.uid}?`}
+              to={`/organizations/questionsets/${organizationId}/${qset.uid}/preplay`}
             >
               Start Quiz
             </Link>

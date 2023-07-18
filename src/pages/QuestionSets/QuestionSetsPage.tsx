@@ -6,48 +6,45 @@ import OrganizationQuestionSets from "@/components/OrganizationQuestionSets";
 import React from "react";
 import { defaultPagination } from "@/lib/constants";
 import { privateAxios } from "@/lib/api";
-import useAppState from "@/hooks/useAppState";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {
+  questionSetsLoadFailure,
+  questionSetsLoadStart,
+  questionSetsLoadSuccess,
+  questionSetsSettle,
+} from "@/store/slices/question-sets.slice";
+import { PaginatedResponse, QuestionSetInterface } from "@/lib/types";
 
 export default function QuestionSetsPage() {
   const organizationId = useParams<{ organizationId: string }>().organizationId;
-  const {
-    dispatch,
-    questionsets: { questionsets },
-  } = useAppState();
-  const fetchQuestionsets = async () => {
-    dispatch({ type: "question-sets/LOAD_START" });
+  const { questionSets } = useAppSelector((state) => state.questionSets);
+  const dispatch = useAppDispatch();
+  const fetchQuestionSets = async () => {
+    dispatch(questionSetsLoadStart());
     try {
       const data = (
         await privateAxios.get(
           `/quiz/organizations/${organizationId}/questionsets/`
         )
-      ).data;
-      // console.log('QuestionSetsPage.tsx: data: ', data);
+      ).data as Array<QuestionSetInterface>;
+      // console.log({ data });
       
-      dispatch({
-        type: "question-sets/LOAD_SUCCESS",
-        payload: {
-          pagination: { ...defaultPagination },
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          results: data,
-        },
-      });
+      dispatch(questionSetsLoadSuccess(data));
     } catch (error) {
       console.log(error);
-      dispatch({
-        type: "question-sets/LOAD_FAILURE",
-        payload: JSON.stringify(error),
-      });
+      dispatch(questionSetsLoadFailure(JSON.stringify(error)));
+    } finally {
+      dispatch(questionSetsSettle());
     }
-  }
+  };
 
   // const orgInfo = React.useMemo(() => {
   //   return organizations.find((org) => org.uid === organizationId);
 
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    Promise.allSettled([fetchQuestionsets()]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    Promise.allSettled([fetchQuestionSets()]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [organizationId]);
   // console.log({ organization, organizationId });
   const navigate = useNavigate();
@@ -79,7 +76,10 @@ export default function QuestionSetsPage() {
           </div>
         </div>
         {/* Organization questionsets */}
-        <OrganizationQuestionSets questionSets={questionsets.results} />
+        <OrganizationQuestionSets
+          questionSets={questionSets}
+          organizationId={organizationId!}
+        />
       </div>
     </div>
   );

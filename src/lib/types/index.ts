@@ -83,7 +83,10 @@ export interface QuestionInterface {
   is_answered?: boolean; // Is answered flag
   selected_answer?: AnswerInterface; // Optional Selected answer
   duration?: number; // Duration
+  quiz_type: "multiple" | "single" | "text"; // Quiz type
 }
+
+export type QuestionSetType = "NR" | "PR"; // NR - Normal, PR - Prediction
 
 export interface QuestionSetInterface {
   uid: string; // UID
@@ -97,6 +100,8 @@ export interface QuestionSetInterface {
   prize_won: string; // Prize won
   questions: QuestionInterface[]; // Array of Question objects,
   theme_image: string; // Theme image
+  description: string; // Description
+  quiz_type: QuestionSetType; // NR - Normal, PR - Prediction
 }
 
 export interface OrganizationInterface {

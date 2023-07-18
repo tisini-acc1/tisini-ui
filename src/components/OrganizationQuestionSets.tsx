@@ -3,8 +3,9 @@ import QuestionSetTimerCard from "./QuestionSetTimerCard";
 
 type QuestionSetProps = {
   questionSets: Array<QuestionSetInterface>;
+  organizationId: string;
 };
-export default function OrganizationQuestionSets({ questionSets }: QuestionSetProps) {
+export default function OrganizationQuestionSets({ questionSets,organizationId }: QuestionSetProps) {
   return (
     <div className="py-2 px-4">
       {questionSets?.length > 0 ? (
@@ -34,7 +35,7 @@ export default function OrganizationQuestionSets({ questionSets }: QuestionSetPr
                   {questionSet.questions.length} responses
                 </p>
               </div> */}
-                <QuestionSetTimerCard orgId="" qset={questionSet}  />
+                <QuestionSetTimerCard  qset={questionSet} organizationId={organizationId}  />
             </div>
           ))}
         </div>

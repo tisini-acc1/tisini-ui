@@ -1,69 +1,57 @@
 import {
-  ArticlesActions,
-  AuthActions,
-  OrganizationsActions,
-  QuestionsetActions,
-  SponsoredArticlesActions,
-  StateActions,
-} from "./actions";
-import { createContext, useEffect, useMemo, useReducer } from "react";
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from "redux-persist";
+import { persistCombineReducers, persistStore } from "redux-persist";
 
-import { AppState } from "@/lib/types/state";
-import articlesReducer from "./reducers/articles-reducers";
-import authReducer from "./reducers/auth-reducer";
-import initialState from "./initial-state";
-import organizationsReducer from "./reducers/organizations-reducer";
-import questionSetsReducer from "./reducers/question-sets-reducer";
-import sponsoredArticlesReducer from "./reducers/sponsored-articles-reducer";
+import articlesSlice from "./slices/articles.slice";
+import authSlice from "./slices/auth.slice";
+import { combineReducers } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
+import organizationsSlice from "./slices/organizations.slice";
+import persistReducer from "redux-persist/es/persistReducer";
+import questionSetsSlice from "./slices/question-sets.slice";
+import quizPlaySlice from "./slices/quiz-play.slice";
+import sponsoredArticlesSlice from "./slices/sponsored-articles.slice";
 import { stateKeys } from "@/lib/constants";
+import storage from "redux-persist/lib/storage";
 
-const AppStateContext = createContext<{
-  state: AppState;
-  dispatch: React.Dispatch<StateActions>;
-}>(
-  {} as {
-    state: AppState;
-    dispatch: () => null;
-  }
-);
+const persistConfig = {
+  key: `root-persist-${stateKeys["tisini-app-quiz-playState"]}`,
+  version: 1,
+  storage,
+  whitelist: ["quizPlay", "auth"],
+};
 
-const combinedReducer = (state: AppState, action: StateActions): AppState => ({
-  persist: {
-    auth: authReducer(state.persist.auth, action as AuthActions),
-  },
-  questionsets: questionSetsReducer(
-    state.questionsets,
-    action as QuestionsetActions
-  ),
-  organizations: organizationsReducer(
-    state.organizations,
-    action as OrganizationsActions
-  ),
-  articles: articlesReducer(state.articles, action as ArticlesActions),
-  sponsoredArticles: sponsoredArticlesReducer(
-    state.sponsoredArticles,
-    action as SponsoredArticlesActions
-  ),
+const rootReducer = combineReducers({
+  auth: authSlice,
+  quizPlay: quizPlaySlice,
 });
-function AppStateProvider({ children }: { children: React.ReactNode }) {
-  const [state, dispatch] = useReducer(combinedReducer, initialState);
 
-  const appState = useMemo<{
-    state: AppState;
-    dispatch: React.Dispatch<StateActions>;
-  }>(() => ({ state, dispatch }), [state]);
-  useEffect(() => {
-    localStorage.setItem(
-      stateKeys["tisini-app-authState"],
-      JSON.stringify(state.persist)
-    );
-  }, [state.persist]);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-  return (
-    <AppStateContext.Provider value={appState}>
-      {children}
-    </AppStateContext.Provider>
-  );
-}
+const store = configureStore({
+  reducer: {
+    persist: persistedReducer,
+    organizations: organizationsSlice,
+    questionSets: questionSetsSlice,
+    articles: articlesSlice,
+    sponsoredArticles: sponsoredArticlesSlice,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+const persistor = persistStore(store);
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export { persistor };
 
-export { AppStateContext, AppStateProvider };
+export default store;
