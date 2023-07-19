@@ -6,7 +6,6 @@ import {
   REGISTER,
   REHYDRATE,
 } from "redux-persist";
-import { persistCombineReducers, persistStore } from "redux-persist";
 
 import articlesSlice from "./slices/articles.slice";
 import authSlice from "./slices/auth.slice";
@@ -14,6 +13,7 @@ import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 import organizationsSlice from "./slices/organizations.slice";
 import persistReducer from "redux-persist/es/persistReducer";
+import { persistStore } from "redux-persist";
 import questionSetsSlice from "./slices/question-sets.slice";
 import quizPlaySlice from "./slices/quiz-play.slice";
 import sponsoredArticlesSlice from "./slices/sponsored-articles.slice";

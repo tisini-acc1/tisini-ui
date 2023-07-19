@@ -7,7 +7,6 @@ import {
 } from "@/store/slices/quiz-play.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
-import { AnswerInterface } from "@/lib/types";
 import React from "react";
 
 export default function MultipleAnswerQuestionPagePlay() {

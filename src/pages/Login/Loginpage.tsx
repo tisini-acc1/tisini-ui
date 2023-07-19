@@ -4,12 +4,6 @@
 import * as yup from "yup";
 
 import { ToastContainer, toast } from "react-toastify";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import {
-  loginStart,
-  loginSuccess,
-  loginFailure,
-} from "@/store/slices/auth.slice";
 
 import { AxiosError } from "axios";
 import BackHome from "@/components/BackHome";
@@ -18,8 +12,12 @@ import { NavLink } from "react-router-dom";
 import React from "react";
 import { SignInUserInterface } from "@/lib/types";
 import TisiniValidator from "@/lib/validators/tisini";
+import {
+  loginSuccess,
+} from "@/store/slices/auth.slice";
 import { setCookieToken } from "@/lib/services/cookie-service";
 import { tisiniAxios } from "@/lib/api";
+import { useAppDispatch } from "@/store/hooks";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 

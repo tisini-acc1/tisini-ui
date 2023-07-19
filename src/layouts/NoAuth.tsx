@@ -18,5 +18,5 @@ export const NoAuth = ({ children }: NoAuthProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const from = useLocation().state?.from ?? ("/" as string);
   const _redirect = decodeURIComponent(from as string);
-  return auth.isAuthenticated ? <Navigate to={_redirect} replace /> : children;
+  return auth.isAuthenticated ? <Navigate to={_redirect} replace /> : <>{children}</>;
 };

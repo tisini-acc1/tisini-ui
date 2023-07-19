@@ -19,7 +19,7 @@ export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
   const loginUrl = `/auth/login?_redirect=${encodedUrl}`;
 
   return auth.isAuthenticated ? (
-    children
+    <>{children}</>
   ) : (
     <Navigate
       to={loginUrl}

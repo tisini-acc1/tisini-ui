@@ -1,7 +1,7 @@
-import { PaginatedResponse } from "@/lib/types";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { QuestionSetInterface } from "@/lib/types";
 import { createSlice } from "@reduxjs/toolkit";
+
 // import { defaultPagination } from "@/lib/constants";
 
 /**

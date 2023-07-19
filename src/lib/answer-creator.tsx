@@ -42,7 +42,7 @@ export class AnswerCreator {
     }) as unknown as Pick<APIAnswer, "questions">;
     const points_earned = questionProgress.reduce((acc, progress) => {
       if (progress.status === "answered") {
-        return acc + progress.question.points;
+        return acc + progress.question.points
       }
       return acc;
     }, 0);

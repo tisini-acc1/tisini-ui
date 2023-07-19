@@ -1,19 +1,18 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 
-import { useNavigate, useParams } from "react-router-dom";
-
-import OrganizationQuestionSets from "@/components/OrganizationQuestionSets";
-import React from "react";
-import { defaultPagination } from "@/lib/constants";
-import { privateAxios } from "@/lib/api";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   questionSetsLoadFailure,
   questionSetsLoadStart,
   questionSetsLoadSuccess,
   questionSetsSettle,
 } from "@/store/slices/question-sets.slice";
-import { PaginatedResponse, QuestionSetInterface } from "@/lib/types";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useNavigate, useParams } from "react-router-dom";
+
+import OrganizationQuestionSets from "@/components/OrganizationQuestionSets";
+import { QuestionSetInterface } from "@/lib/types";
+import React from "react";
+import { privateAxios } from "@/lib/api";
 
 export default function QuestionSetsPage() {
   const organizationId = useParams<{ organizationId: string }>().organizationId;
