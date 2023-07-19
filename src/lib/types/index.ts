@@ -74,11 +74,7 @@ export interface AnswerInterface {
 }
 
 export type SelectableAnswerInterface =
-  | AnswerInterface
-  | Array<AnswerInterface>
-  | Array<string>
-  | string;
-
+ any
 export interface QuestionInterface {
   uid: string; // ID
   question: string; // Question with a max length of 1000 and min length of 1

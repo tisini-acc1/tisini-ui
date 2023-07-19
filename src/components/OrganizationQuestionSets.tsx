@@ -1,3 +1,4 @@
+import GridLoader from "./GridLoader";
 import { QuestionSetInterface } from "@/lib/types";
 import QuestionSetTimerCard from "./QuestionSetTimerCard";
 
@@ -40,7 +41,7 @@ export default function OrganizationQuestionSets({ questionSets,organizationId }
           ))}
         </div>
       ) : (
-        <p>No question sets found</p>
+       <GridLoader />
       )}
     </div>
   );

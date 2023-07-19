@@ -8,6 +8,7 @@ import {
 } from "@/store/slices/organizations.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
+import GridLoader from "@/components/GridLoader";
 import OrganizationCard from "@/components/OrganizationCard";
 import React from "react";
 import { privateAxios } from "@/lib/api";
@@ -47,11 +48,7 @@ export default function Organizationspage() {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-row gap-4">
-              <h1 className="text-2xl font-bold">No organization found</h1>
-            </div>
-          </div>
+         <GridLoader />
         )}
       </div>
     </main>
