@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 import {
@@ -9,7 +11,17 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import React from "react";
 
-export default function MultipleAnswerQuestionPagePlay() {
+type MultipleAnswerQuestionPagePlayProps = {
+  timeLeft: number;
+  clearTimer: () => void;
+  timeUsed: number;
+};
+
+export default function MultipleAnswerQuestionPagePlay({
+  timeLeft,
+  clearTimer,
+  timeUsed,
+}: MultipleAnswerQuestionPagePlayProps) {
   // Load the question from the database
   // load the answers from the database
   // setup the state for the answers
@@ -38,10 +50,11 @@ export default function MultipleAnswerQuestionPagePlay() {
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    clearTimer();
     dispatch(
       quizPlayAnswerQuestion({
         answer: selectedAnswers,
-        duration: 0,
+        duration: timeUsed,
         status: "answered",
       })
     );
@@ -51,9 +64,14 @@ export default function MultipleAnswerQuestionPagePlay() {
   }, [answers]);
   return (
     <form onSubmit={handleSubmit}>
-      {JSON.stringify({
-        selectedAnswers,
-      })}
+    
+      {/* time left */}
+      <div className="flex flex-row items-center gap-2 p-2">
+        <div className="flex flex-row items-center gap-2">
+          <div className="text-2xl font-bold">{timeLeft}</div>
+          <div className="text-2xl font-bold">seconds left</div>
+        </div>
+      </div>
       {/* <h1>Multiple Answer Question Page</h1> */}
       <h2>Question: {currentQuestion!.question}</h2>
       {currentQuestion?.is_answered ? (
@@ -116,7 +134,10 @@ export default function MultipleAnswerQuestionPagePlay() {
             <button
               type="button"
               className="bg-primary text-white rounded-md px-4 text-center"
-              onClick={() => dispatch(quizPlaySkipQuestion())}
+              onClick={() => {
+                clearTimer();
+                dispatch(quizPlaySkipQuestion({ duration: timeUsed }));
+              }}
             >
               Skip
             </button>

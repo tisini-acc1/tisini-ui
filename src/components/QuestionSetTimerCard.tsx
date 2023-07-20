@@ -3,34 +3,36 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { QuestionSetInterface } from "@/lib/types";
 import moment from "moment";
-import { qSetStatus } from "@/lib/qset-status";
+import { qSetStatus } from "@/lib/questionset-status";
 
-type QsetComponentProps = {
-  qset: QuestionSetInterface;
+type QuestionsetComponentProps = {
+  questionSet: QuestionSetInterface;
   organizationId: string;
 };
 
 export default function QuestionSetTimerCard({
-  qset,
+  questionSet,
   organizationId,
-}: QsetComponentProps) {
+}: QuestionsetComponentProps) {
   const [targetTime, setTargetTime] = useState(moment());
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_remainingTime, setRemainingTime] = useState(
     moment.duration(targetTime.diff(moment()))
   );
 
   useEffect(() => {
-    setTargetTime(moment(qset.start_datetime));
+    setTargetTime(moment(questionSet.start_datetime));
     const interval = setInterval(() => {
       setRemainingTime(moment.duration(targetTime.diff(moment())));
     }, 1000);
 
     return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const progressTime = (type: "start" | "end") => {
-    const startTime = moment(qSetStatus.getStartDate(qset));
-    const endTime = moment(qSetStatus.getEndDate(qset));
+    const startTime = moment(qSetStatus.getStartDate(questionSet));
+    const endTime = moment(qSetStatus.getEndDate(questionSet));
     const rt = moment.duration(
       type === "start" ? startTime.diff(moment()) : endTime.diff(moment())
     );
@@ -44,38 +46,37 @@ export default function QuestionSetTimerCard({
 
     return timeLeft;
   };
-  // console.log({orgId, qset: qset.uid});
-  
+  // console.log({orgId, questionSet: questionSet.uid});
 
   return (
     <li className="flex flex-col gap-1 p-2">
       <div className="flex justify-between border-b py-2">
-        <h1 className="font-bold">{qset.category_name}</h1>
+        <h1 className="font-bold">{questionSet.category_name}</h1>
         <div className="whitespace-nowrap">
-          {qSetStatus.getStatus(qset) === "not-started" && (
+          {qSetStatus.getStatus(questionSet) === "not-started" && (
             <span
-              className={`${qSetStatus.getBadgeColor(qset)} whitespace-nowrap`}
+              className={`${qSetStatus.getBadgeColor(questionSet)} whitespace-nowrap`}
             >
               {"Not started"}
             </span>
           )}
-          {qSetStatus.getStatus(qset) === "in-progress" && (
-            <span className={qSetStatus.getBadgeColor(qset)}>
+          {qSetStatus.getStatus(questionSet) === "in-progress" && (
+            <span className={qSetStatus.getBadgeColor(questionSet)}>
               {"In progress"}
             </span>
           )}
-          {qSetStatus.getStatus(qset) === "closed" && <span>{"Closed"}</span>}
+          {qSetStatus.getStatus(questionSet) === "closed" && <span>{"Closed"}</span>}
         </div>
       </div>
 
-      {qSetStatus.getStatus(qset) === "not-started" && (
+      {qSetStatus.getStatus(questionSet) === "not-started" && (
         <div className="flex flex-col gap-1">
           <div className="text-center">
             <span className=""> Will open in</span>
             <h1 className="tracking-wider font-mono font-bold text-lg">
               {`${
                 Number(progressTime("start").days) > 0 &&
-                progressTime("start").days+" days "
+                progressTime("start").days + " days "
               }${progressTime("start").hours}:${
                 progressTime("start").minutes
               }:${progressTime("start").seconds}`}
@@ -84,7 +85,7 @@ export default function QuestionSetTimerCard({
         </div>
       )}
 
-      {qSetStatus.getStatus(qset) === "in-progress" && (
+      {qSetStatus.getStatus(questionSet) === "in-progress" && (
         <div className="flex flex-col gap-1">
           <div className="text-center">
             <span className=""> Will close in</span>
@@ -96,9 +97,8 @@ export default function QuestionSetTimerCard({
           </div>
           <div className="flex">
             <Link
-        
               className="text-white bg-green-800 font-medium uppercase w-full text-center px-2 py-1 rounded border"
-              to={`/organizations/questionsets/${organizationId}/${qset.uid}/preplay`}
+              to={`/organizations/questionsets/${organizationId}/${questionSet.uid}/preplay`}
             >
               Start Quiz
             </Link>
@@ -106,7 +106,7 @@ export default function QuestionSetTimerCard({
         </div>
       )}
 
-      {qSetStatus.getStatus(qset) === "closed" && (
+      {qSetStatus.getStatus(questionSet) === "closed" && (
         <div className="flex flex-col gap-1">
           <h1 className="text-red-500 font-bold text-center py-4 uppercase">
             Quiz Closed
@@ -117,7 +117,7 @@ export default function QuestionSetTimerCard({
       <div className="w-full flex">
         <Link
           className="text-white bg-primary font-medium capitalize w-full text-center px-2 py-1 rounded border "
-          to={`/quizset-leaderboard/${qset.uid}`}
+          to={`/organizations/questionsets/${questionSet.uid}/leaderboard`}
         >
           leaderboard
         </Link>

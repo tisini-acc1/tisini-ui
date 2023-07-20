@@ -1,19 +1,19 @@
-import shuffleItems from "@/lib/shuffle";
 import {
   AnswerInterface,
   QuestionInterface,
   QuestionSetInterface,
   SelectableAnswerInterface,
 } from "@/lib/types";
-
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-export type QuestionProgress = 
-  {
-    question: QuestionInterface;
-    answer: AnswerInterface | Array<AnswerInterface> | string | Array<string>;
-    status: QuestionAnswerStatus;
-  }
+import shuffleItems from "@/lib/shuffle";
+
+export type QuestionProgress = {
+  question: QuestionInterface;
+  answer: AnswerInterface | Array<AnswerInterface> | string | Array<string>;
+  status: QuestionAnswerStatus;
+  duration: number;
+};
 
 type QuestionAnswerStatus = "timedout" | "answered" | "skipped"; //as const;
 export type PlayQuizState = {
@@ -31,6 +31,8 @@ export type PlayQuizState = {
   progress: Array<QuestionProgress>;
   currentQuestionIndex: number;
   totalQuestions: number;
+  currentOrganization: string;
+  isSubmitted: boolean;
 };
 const initialState: PlayQuizState = {
   loading: false,
@@ -43,6 +45,8 @@ const initialState: PlayQuizState = {
   currentAnswers: [],
   allAnswered: false,
   totalQuestions: 0,
+  currentOrganization: "",
+  isSubmitted: false,
 };
 
 const quizPlaySlice = createSlice({
@@ -51,22 +55,28 @@ const quizPlaySlice = createSlice({
   reducers: {
     initializeQuizPlay: (
       state,
-      action: PayloadAction<QuestionSetInterface>
+      action: PayloadAction<{ questionSet: QuestionSetInterface; org: string }>
     ) => {
-      state.questionSet = action.payload;
-      const incomingQuestions = Array.isArray(action.payload.questions)
-        ? shuffleItems(action.payload.questions).map((question, index) => ({
+      const { questionSet, org } = action.payload;
+      const incomingQuestions = Array.isArray(questionSet.questions)
+        ? shuffleItems(questionSet.questions).map((question, index) => ({
             ...question,
-            isLastQuestion: index === action.payload.questions.length - 1,
+            isLastQuestion: index === questionSet.questions.length - 1,
           }))
         : [];
-      state.questions = incomingQuestions;
+      state.questions = incomingQuestions.map((question) => ({
+        ...question,
+        is_answered: false,
+      }));
+      state.currentOrganization = org;
       state.currentQuestion = incomingQuestions[0];
       state.currentQuestionIndex = 0;
       state.currentAnswers = state.currentQuestion.answers;
       state.totalQuestions = state.questions.length;
       state.progress = [];
       state.allAnswered = false;
+      state.isSubmitted = false;
+      state.questionSet = questionSet;
     },
     quizPlayLoadStart: (state) => {
       state.loading = true;
@@ -101,6 +111,7 @@ const quizPlaySlice = createSlice({
           question: state.currentQuestion,
           answer: action.payload.answer,
           status: action.payload.status,
+          duration: action.payload.duration,
         },
       ];
 
@@ -117,8 +128,15 @@ const quizPlaySlice = createSlice({
           : state.currentQuestionIndex;
       state.currentQuestion = state.questions[state.currentQuestionIndex]!;
       state.currentAnswers = shuffleItems(state.currentQuestion.answers);
+      state.allAnswered = state.questions.reduce(
+        (acc, curr) => acc && curr.is_answered!,
+        true
+      );
     },
-    quizPlaySkipQuestion: (state) => {
+    quizPlaySkipQuestion: (
+      state,
+      action: PayloadAction<{ duration: number }>
+    ) => {
       // check if question is already answered and question is in progress
       state.questions = state.questions.map((question) =>
         question.uid === state.currentQuestion!.uid
@@ -126,7 +144,7 @@ const quizPlaySlice = createSlice({
               ...state.currentQuestion!,
               is_answered: true,
               selected_answer: "",
-              duration: 0,
+              duration: action.payload.duration,
             }
           : question
       );
@@ -145,7 +163,7 @@ const quizPlaySlice = createSlice({
         ...state.currentQuestion!,
         is_answered: true,
         selected_answer: "",
-        duration: 0,
+        duration: action.payload.duration,
       };
       state.progress = [
         ...state.progress,
@@ -153,6 +171,7 @@ const quizPlaySlice = createSlice({
           question: state.currentQuestion,
           answer: "",
           status: "skipped",
+          duration: action.payload.duration,
         },
       ];
       // check if the last question is answered
@@ -166,20 +185,40 @@ const quizPlaySlice = createSlice({
           : state.currentQuestionIndex;
       state.currentQuestion = state.questions[state.currentQuestionIndex];
       state.currentAnswers = shuffleItems(state.currentQuestion.answers);
-
     },
     quizPlayTimeoutQuestion: (state) => {
-      state.progress.push({
-        question: state.currentQuestion!,
-        answer: "",
-        status: "timedout",
-      });
-      state.currentQuestionIndex =
-        state.currentQuestionIndex < state.questions.length - 1
-          ? state.currentQuestionIndex + 1
-          : state.currentQuestionIndex;
-      state.currentQuestion = state.questions[state.currentQuestionIndex];
-      state.currentAnswers = shuffleItems(state.currentQuestion.answers);
+      state.currentQuestion = {
+        ...state.currentQuestion!,
+        is_answered: true,
+        selected_answer: "",
+        duration: 0,
+      };
+      state.progress = [
+        ...state.progress,
+        {
+          question: state.currentQuestion,
+          answer: "",
+          status: "timedout",
+          duration: 0,
+        },
+      ];
+      // check if the last question is answered
+      state.allAnswered = state.questions.reduce(
+        (acc, curr) => acc && curr.is_answered!,
+        true
+      );
+    },
+    quizPlaySyncTimeUsed: (
+      state,
+      action: PayloadAction<{ timeUsed: number }>
+    ) => {
+      state.currentQuestion = {
+        ...state.currentQuestion!,
+        duration: action.payload.timeUsed,
+      };
+    },
+    quizPlaySubmit: (state) => {
+      state.isSubmitted = true;
     },
   },
 });
@@ -191,6 +230,8 @@ export const {
   quizPlayAnswerQuestion,
   quizPlayNextQuestion,
   quizPlaySkipQuestion,
+  quizPlaySyncTimeUsed,
+  quizPlaySubmit
 } = quizPlaySlice.actions;
 
 export default quizPlaySlice.reducer;

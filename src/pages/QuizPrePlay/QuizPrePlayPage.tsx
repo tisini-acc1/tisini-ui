@@ -4,10 +4,10 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { QuestionSetInterface } from "@/lib/types";
 import React from "react";
+import { initializeQuizPlay } from "@/store/slices/quiz-play.slice";
 import moment from "moment";
 import { privateAxios } from "@/lib/api";
 import { useAppDispatch } from "@/store/hooks";
-import { initializeQuizPlay } from "@/store/slices/quiz-play.slice";
 
 export default function QuizPrePlayPage() {
   const dispatch = useAppDispatch();
@@ -34,12 +34,14 @@ export default function QuizPrePlayPage() {
     Promise.allSettled([fetchQuestioSet()]).catch((error) =>
       console.log(error)
     );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const navigate = useNavigate();
 
   return (
     <div className="max-w-2xl mx-auto p-4 md:p-6 min-h-[80vh] ">
       <div className="flex flex-col gap-2">
+        {quiz?.uid}
         <h1 className="text-2xl font-semibold text-gray-900">Quiz Pre-Play</h1>
         <div>
           <img
@@ -72,7 +74,9 @@ export default function QuizPrePlayPage() {
             className="bg-blue-500 text-white px-4 py-1 rounded min-w-[10rem]"
             type="button"
             onClick={() => {
-              dispatch(initializeQuizPlay(quiz!));
+              dispatch(
+                initializeQuizPlay({ org: organizationId!, questionSet: {...quiz!} })
+              );
               navigate(
                 `/organizations/questionsets/${organizationId}/${questionSetId}/play`,
                 {

@@ -36,7 +36,7 @@ export default function OrganizationQuestionSets({ questionSets,organizationId }
                   {questionSet.questions.length} responses
                 </p>
               </div> */}
-                <QuestionSetTimerCard  qset={questionSet} organizationId={organizationId}  />
+                <QuestionSetTimerCard  questionSet={questionSet} organizationId={organizationId}  />
             </div>
           ))}
         </div>

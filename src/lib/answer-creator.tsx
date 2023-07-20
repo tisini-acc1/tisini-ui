@@ -40,29 +40,58 @@ export class AnswerCreator {
     const questions = questionProgress.map((progress) => {
       return AnswerCreator.extractQuestionAndAnswers(progress);
     }) as unknown as Pick<APIAnswer, "questions">;
-    const points_earned = questionProgress.reduce((acc, progress) => {
-      if (progress.status === "answered") {
-        return acc + progress.question.points
-      }
-      return acc;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    const points_earned = (
+      questions as unknown as Array<{ points: number }>
+    ).reduce((acc, question) => {
+      return acc + question.points;
     }, 0);
-    const time_used = questionProgress.reduce((acc, progress) => {
-      if (progress.status === "answered") {
-        return acc + progress.question.duration!;
-      }
-      return acc;
+    const time_used = (
+      questions as unknown as Array<{ duration: number }>
+    ).reduce((acc, question) => {
+      return acc + question.duration;
     }, 0);
 
     // console.log({ questions });
 
     return {
-      questions: questions as unknown as APIAnswer["questions"],
+      questions: (questions as unknown as APIAnswer["questions"]).map(
+        (question) => {
+          const { user_answers, question_text } = question;
+          return {
+            question_text,
+            user_answers,
+          };
+        }
+      ),
+
       points_earned: points_earned > 0 ? points_earned : 0,
       time_used: time_used > 0 ? time_used : 0,
     };
   }
 
   public static extractQuestionAndAnswers(payload: QuestionProgress) {
+    const quizWithPoints =
+      payload.question.quiz_type === "multiple"
+        ? {
+            question_text: payload.question.question,
+            points: payload.question.points / payload.question.answers.length,
+            duration: payload.duration,
+            status: payload.status,
+          }
+        : payload.question.quiz_type === "single"
+        ? {
+            question_text: payload.question.question,
+            points: payload.question.points,
+            duration: payload.duration,
+            status: payload.status,
+          }
+        : {
+            question_text: payload.question.question,
+            points: payload.question.points,
+            duration: payload.duration,
+            status: payload.status,
+          };
     const question_text = payload.question.question;
     const user_answers = payload.answer as AnswerInterface;
 
@@ -76,7 +105,13 @@ export class AnswerCreator {
     } else if (typeof user_answers === "object") {
       answers = [{ answer_text: user_answers.answer }];
     }
-    return { question_text, user_answers: answers };
+    return {
+      question_text,
+      user_answers: answers,
+      points: quizWithPoints.points,
+      duration: quizWithPoints.duration,
+      status: quizWithPoints.status,
+    };
   }
 }
 

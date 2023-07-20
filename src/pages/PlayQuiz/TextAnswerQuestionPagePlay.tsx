@@ -1,12 +1,19 @@
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   quizPlayAnswerQuestion,
   quizPlayNextQuestion,
   quizPlaySkipQuestion,
 } from "@/store/slices/quiz-play.slice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+
 import React from "react";
 
-export default function TextAnswerQuestionPagePlay() {
+type TextAnswerQuestionPagePlayProps = {
+  timeLeft: number;
+  clearTimer: () => void;
+  timeUsed: number;
+};
+
+export default function TextAnswerQuestionPagePlay({timeLeft,timeUsed,clearTimer}: TextAnswerQuestionPagePlayProps) {
   const [answer, setAnswer] = React.useState("");
   const dispatch = useAppDispatch();
   const {
@@ -15,21 +22,31 @@ export default function TextAnswerQuestionPagePlay() {
     totalQuestions,
   } = useAppSelector((state) => state.persist.quizPlay);
   const submitAnswer = () => {
+    clearTimer();
     dispatch(
       quizPlayAnswerQuestion({
         answer: answer,
-        duration: 0,
+        duration: timeUsed,
         status: "answered",
       })
     );
     answer && setAnswer("");
   };
   const skipQuestion = () => {
-    dispatch(quizPlaySkipQuestion());
+    clearTimer();
+    dispatch(quizPlaySkipQuestion({duration:timeUsed}));
     answer && setAnswer("");
   };
   return (
     <div className="font-pop">
+     <div className="flex flex-row items-center gap-2 p-2">
+        <div className="flex flex-row items-center gap-2">
+          <div className="text-2xl font-bold">{timeLeft}</div>
+          <div className="text-2xl font-bold">seconds left</div>
+        </div>
+      </div>
+
+
       <p className="text-xl font-medium">
         <span className="">Question {currentQuestionIndex + 1}</span>/
         {totalQuestions} <br />

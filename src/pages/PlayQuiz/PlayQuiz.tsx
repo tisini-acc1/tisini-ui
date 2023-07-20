@@ -1,15 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+
 import Confetti from "react-confetti";
 import MultipleAnswerQuestionPagePlay from "@/pages/PlayQuiz/MultipleAnswerQuestionPagePlay";
+import QuizPlayDone from "./QuizPlayDone";
 import React from "react";
 import SingleQuestionPagePlay from "@/pages/PlayQuiz/SingleAnswerQuestionPagePlay";
 import TextAnswerQuestionPagePlay from "@/pages/PlayQuiz/TextAnswerQuestionPagePlay";
 import answerCreator from "@/lib/answer-creator";
 import { privateAxios } from "@/lib/api";
-import { useAppSelector } from "@/store/hooks";
+import { quizPlayTimeoutQuestion } from "@/store/slices/quiz-play.slice";
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -46,29 +50,79 @@ export default function PlayQuiz() {
       }, 10000);
     }
   }, [allAnswered]);
-  const submitResults = async () => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    try {
-      const payload = answerCreator.createPayload(progress);
-      const response = await privateAxios.post(
-        `/quiz/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
-        payload
-      );
-      console.log({ response });
-    } catch (error: any) {
-      console.log({ error });
+ 
+  const dispatch = useAppDispatch();
+  const [timeLeft, setTimeLeft] = React.useState<number>(
+    currentQuestion?.timer || 0
+  );
+  const timerRef = React.useRef<NodeJS.Timeout | null>(null);
+  // Time watch
+  React.useEffect(() => {
+    // Start the countdown only if the question is not answered
+    if (!currentQuestion?.is_answered) {
+      timerRef.current = setInterval(() => {
+        setTimeLeft((prevTimeLeft) => {
+          // If timer hits 0, clear the interval
+          if (prevTimeLeft === 1) {
+            clearInterval(timerRef.current!);
+          }
+          return prevTimeLeft > 0 ? prevTimeLeft - 1 : prevTimeLeft;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [currentQuestion, timeLeft]);
+
+  React.useEffect(() => {
+    if (timeLeft === 0) {
+      if (!currentQuestion?.is_answered) {
+        dispatch(quizPlayTimeoutQuestion());
+      }
+    }
+  }, [timeLeft]);
+
+  React.useEffect(() => {
+    if (currentQuestion?.timer && !currentQuestion?.is_answered) {
+      setTimeLeft(currentQuestion.timer);
+    }
+  }, [currentQuestion]);
+
+  const timeUsed = React.useMemo(() => {
+    return currentQuestion?.timer ? currentQuestion?.timer - timeLeft : 0;
+  }, [timeLeft]);
+  const clearTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
     }
   };
+
   return (
     <main className="min-h-[50vh]">
       {!allAnswered ? (
         <div className="max-w-7xl mx-auto p-4 w-full">
           {questionType === "multiple" ? (
-            <MultipleAnswerQuestionPagePlay />
+            <MultipleAnswerQuestionPagePlay
+              clearTimer={clearTimer}
+              timeLeft={timeLeft}
+              timeUsed={timeUsed}
+            />
           ) : questionType === "single" ? (
-            <SingleQuestionPagePlay />
+            <SingleQuestionPagePlay
+              clearTimer={clearTimer}
+              timeLeft={timeLeft}
+              timeUsed={timeUsed}
+            />
           ) : questionType === "text" ? (
-            <TextAnswerQuestionPagePlay />
+            <TextAnswerQuestionPagePlay
+              clearTimer={clearTimer}
+              timeLeft={timeLeft}
+              timeUsed={timeUsed}
+            />
           ) : (
             <div>Unknown</div>
           )}
@@ -83,7 +137,7 @@ export default function PlayQuiz() {
             You have answered all the questions. You can now view your results
             and see how you did.
           </p> */}
-          {questionType === "multiple" ? (
+          {/* {questionType === "multiple" ? (
             <div className="flex flex-col gap-4">
               <h1 className="text-2xl">All done</h1>
               <p>
@@ -99,7 +153,7 @@ export default function PlayQuiz() {
                   Submit results
                 </button>
               </div>
-              {/* Red note  */}
+             
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4 w-fit mx-auto max-w-xl">
                 <strong className="font-bold">Note: </strong>
                 <span className="block sm:inline">
@@ -130,7 +184,7 @@ export default function PlayQuiz() {
                   Submit results
                 </button>
               </div>
-              {/* Red note  */}
+             
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4 w-fit mx-auto max-w-xl">
                 <strong className="font-bold">Note: </strong>
                 <span className="block sm:inline">
@@ -161,7 +215,7 @@ export default function PlayQuiz() {
                   Submit results
                 </button>
               </div>
-              {/* Red note  */}
+             
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4 w-fit mx-auto max-w-xl">
                 <strong className="font-bold">Note: </strong>
                 <span className="block sm:inline">
@@ -170,11 +224,9 @@ export default function PlayQuiz() {
                   to view once the games have ended.
                 </span>
               </div>
-              <code>
-                {JSON.stringify(answerCreator.createPayload(progress), null, 2)}
-              </code>
             </div>
-          )}
+          )} */}
+          <QuizPlayDone/>
         </div>
       )}
     </main>

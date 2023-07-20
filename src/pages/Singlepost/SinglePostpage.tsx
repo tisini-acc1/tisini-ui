@@ -29,7 +29,7 @@ export default function SinglePostpage() {
   return (
     <div className="min-h-[50vh]">
       {loading && <Loader isLoading={loading} />}
-      <div className="max-w-2xl mx-auto py-2 flex flex-col gap-2">
+      <div className="max-w-2xl mx-auto py-2 flex flex-col gap-2 px-2">
         <div>
           <h1 className="text-2xl font-bold
           max-w-2xl mx-auto text-gray-800
