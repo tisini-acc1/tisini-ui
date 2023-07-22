@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import { Link } from "react-router-dom";
 import React from "react";
+import SponsoredHeaderArticles from "./SponsoredHeaderArticles";
 import { logoutUser } from "@/store/slices/auth.slice";
 
 export default function MainHeader() {
@@ -152,7 +153,7 @@ export default function MainHeader() {
       </div> */}
 
       {/* Desktop */}
-      <div className="hidden md:flex justify-between items-center py-2 max-w-7xl mx-auto">
+      <div className="hidden md:flex flex-col py-2 max-w-7xl mx-auto">
         <div className="flex justify-between items-center w-full">
           <div className="flex items-center">
             <Link to="/" className="text-white font-medium text-xl uppercase">
@@ -204,6 +205,8 @@ export default function MainHeader() {
             )}
           </div>
         </div>
+        <hr className="my-2"/>
+        <SponsoredHeaderArticles/>
       </div>
     </header>
   );
