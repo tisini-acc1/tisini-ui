@@ -21,7 +21,7 @@ export default function SingleQuestionPagePlay({
   clearTimer,
   timeUsed,
 }: SingleQuestionPagePlayProps) {
-  const { currentAnswers, currentQuestion } = useAppSelector(
+  const { currentAnswers, currentQuestion,currentQuestionIndex,totalQuestions } = useAppSelector(
     (state) => state.persist.quizPlay
   );
   const dispatch = useAppDispatch();
@@ -46,20 +46,31 @@ export default function SingleQuestionPagePlay({
   }, [answer, currentAnswers]);
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex flex-row items-center gap-2 p-2">
-        <div className="flex flex-row items-center gap-2">
-          <div className="text-2xl font-bold">{timeLeft}</div>
-          <div className="text-2xl font-bold">seconds left</div>
+      {!currentQuestion?.is_answered && (
+        <div className="flex flex-row items-center gap-2 p-2">
+          <div className="flex flex-row items-center gap-2">
+            <div className="text-2xl font-bold">{timeLeft}</div>
+            <div className="text-2xl font-bold">seconds left</div>
+          </div>
         </div>
-      </div>
+      )}
       {/* <h1>Multiple Answer Question Page</h1> */}
-      <h2>Question: {currentQuestion!.question}</h2>
+      <h2>Question <span className="p-2">
+        {currentQuestionIndex+1}/{totalQuestions}
+        </span>: {currentQuestion!.question}</h2>
       {currentQuestion?.is_answered ? (
         <div className="py-2 flex flex-col gap-2">
           <div>
-            <div>Selected answers</div>
+            <div className="underline">Selected answers</div>
           </div>
-          <div className="px-2 border rounded-md w-fit">
+          <div
+            className={`${
+              currentQuestion.selected_answer &&
+              currentQuestion.selected_answer.is_answer
+                ? "bg-green-600 text-light"
+                : "bg-red-600 text-white"
+            } px-2 border rounded-md w-fit`}
+          >
             {typeof currentQuestion.selected_answer === "object" &&
             Object.hasOwnProperty.call(
               currentQuestion.selected_answer,

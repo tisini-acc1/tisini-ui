@@ -229,8 +229,8 @@ export interface QuizSetLeaderBoardSummaryPayload {
 export interface QsetPlayer {
   id: number;
   q_player: QPlayer;
-  points: number;
-  timer: number;
+  points_earned: number;
+  time_used: number;
   score?: number;
 }
 

@@ -2,6 +2,7 @@
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
+import Loader from "@/components/Loader/Loader";
 import { NavLink } from "react-router-dom";
 import React from "react";
 import answerCreator from "@/lib/answer-creator";
@@ -19,13 +20,19 @@ export default function QuizPlayDone() {
   const summary = React.useMemo(() => {
     return answerCreator.createPayload(progress);
   }, [progress]);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
   const submitResults = async () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
+setIsLoading(true);
     try {
+      const dataToSend = {
+        ...summary,
+        time_used: summary.time_used! /totalQuestions
+      };
       await privateAxios.post(
         `/quiz/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
-        summary
+        dataToSend
       );
       // console.log({ response });
       dispatch(quizPlaySubmit());
@@ -33,9 +40,13 @@ export default function QuizPlayDone() {
       // console.log({ error });
       dispatch(quizPlaySubmit());
     }
+    finally{
+      setIsLoading(false);
+    }
   };
   return (
     <div>
+      <Loader isLoading={isLoading} />
       {questionSet?.quiz_type === "NR" ? (
         <div>
           {!isSubmitted && (

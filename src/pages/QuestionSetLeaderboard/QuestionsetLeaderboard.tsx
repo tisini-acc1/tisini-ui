@@ -27,11 +27,11 @@ export default function QuestionsetLeaderboard() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const computeScore = (player: QsetPlayer) => {
-    if (!player || !player.points || !player.timer) {
+    if (!player || !player.points_earned || !player.time_used) {
       return 0;
     }
-    const points = player.points;
-    const timer = player.timer;
+    const points = player.points_earned;
+    const timer = player.time_used;
     const score = points - timer;
 
     return score;
@@ -59,12 +59,15 @@ export default function QuestionsetLeaderboard() {
       leaderboard.question_players.sort((a, b) => {
         return b.score! - a.score!;
       });
+console.log({leaderboard});
 
       setLeaderBoard(leaderboard);
-      setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
       //   addToast("Something went wrong", { appearance: 'error', autoDismiss: true, placement: 'top-right' });
+    }
+    finally{
+      setIsLoading(false);
     }
   }, [questionSetId]);
 
@@ -125,6 +128,7 @@ export default function QuestionsetLeaderboard() {
                       <div className="ml-4 flex gap-1">
                         <div className="text-sm font-medium text-gray-900">
                           {player.q_player.first_name}
+                          {" "}
                           {player.q_player.last_name}
                         </div>
                       </div>
@@ -132,10 +136,10 @@ export default function QuestionsetLeaderboard() {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap border">
-                  {player.points}
+                  {player.points_earned}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap border">
-                  {player.timer}
+                  {player.time_used}
                 </td>
               </tr>
             ))}
