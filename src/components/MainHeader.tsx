@@ -81,27 +81,27 @@ export default function MainHeader() {
           {isMenuOpen && (
             <div className="absolute left-0 z-10 flex flex-col items-center w-full h-fit bg-primary py-2">
               <div className="flex flex-col items-center">
-                <Link to="/" className="text-white font-bold text-xl">
+                <Link to="/" className="text-white hover:underline text-xl">
                   Home
                 </Link>
-                <Link to="/about" className="text-white font-bold text-xl">
+                <Link to="/about" className="text-white hover:underline text-xl">
                   Live scores
                 </Link>
                 <Link
                   to="/organizations"
-                  className="text-white font-bold text-xl"
+                  className="text-white hover:underline text-xl"
                 >
                   Quiz
                 </Link>
               </div>
-              {!auth.isAuthenticated ? (
+              {auth.isAuthenticated ? (
                 <div>
-                  <div className="flex items-center">
+                  <div className="flex items-center py-2">
                     <button
                       onClick={() => {
                         dispatch(logoutUser());
                       }}
-                      className="text-white font-bold text-xl bg-red-500 py-1 px-2 rounded-md focus:outline-none"
+                      className="text-white text-xl bg-red-500 py-1 px-2 rounded-md focus:outline-none"
                     >
                       Logout
                     </button>
@@ -112,13 +112,13 @@ export default function MainHeader() {
                   <div className="flex items-center justify-center">
                     <Link
                       to="/login"
-                      className="text-white font-bold text-xl bg-primary-lighter py-1 px-2 rounded-md focus:outline-none"
+                      className="text-white text-xl bg-primary-lighter py-1 px-2 rounded-md focus:outline-none"
                     >
                       Sign up
                     </Link>
                     <Link
                       to="/login"
-                      className="text-white font-bold text-xl border-white border py-1 px-2 rounded-md focus:outline-none"
+                      className="text-white text-xl border-white border py-1 px-2 rounded-md focus:outline-none"
                     >
                       Login
                     </Link>
@@ -175,7 +175,7 @@ export default function MainHeader() {
               <div className="flex items-center gap-2">
                 <div className="flex items-center">
                   <button
-                    className="text-white font-bold text-md bg-red-500 px-2 rounded-md focus:outline-none"
+                    className="text-white text-md bg-red-500 px-2 rounded-md focus:outline-none"
                     onClick={() => {
                       dispatch(logoutUser());
                     }}
