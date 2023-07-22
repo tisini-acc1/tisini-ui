@@ -3,7 +3,7 @@ import type { RouteObject } from "react-router-dom";
 import articlesRoutes from "./articles.routes";
 import authRoutes from "./auth.routes";
 import baseRoutes from "./base.routes";
-import { createHashRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import organizationRoutes from "./org.routes";
 
 const routes = [
@@ -17,6 +17,6 @@ const routes = [
   },
 ] as RouteObject[];
 
-const router = createHashRouter(routes);
+const router = createBrowserRouter(routes);
 
 export default router;
