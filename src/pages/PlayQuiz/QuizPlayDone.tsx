@@ -74,16 +74,16 @@ setIsLoading(true);
                   <h1 className="text-green-500 text-xl">
                     Thank you for submitting your results
                   </h1>
-                  <div className="flex  gap-2 items-center justify-center">
+                  <div className="flex flex-col md:flex-row  gap-2 items-center justify-center">
                     <NavLink
                       to={`/organizations/${currentOrganization}`}
-                      className="border border-primary rounded-lg px-4 py-1 text-primary"
+                      className="border border-primary rounded-lg px-2 py-1 text-primary"
                     >
                       Back to quizzes
                     </NavLink>
                     <NavLink
                       to={`/organizations/questionsets/${questionSet.uid}/leaderboard`}
-                      className="bg-primary text-white px-4 py-1 rounded-lg"
+                      className="bg-primary text-white px-2 py-1 rounded-lg"
                     >
                       Leaderboard
                     </NavLink>
@@ -131,10 +131,10 @@ setIsLoading(true);
                     <h1 className="text-green-500 text-xl">
                       Thank you for submitting your results
                     </h1>
-                    <div className="flex  gap-2 items-center justify-center">
+                    <div className="flex flex-col md:flex-row gap-2 items-center justify-center">
                       <NavLink
                         to={`/organizations/${currentOrganization}`}
-                        className="border border-primary rounded-lg px-4 py-1 text-primary"
+                        className="border border-primary rounded-lg px-2 py-1 text-primary"
                       >
                         Back to quizzes
                       </NavLink>
@@ -142,7 +142,7 @@ setIsLoading(true);
                         to={`/organizations/questionsets/${
                           questionSet!.uid
                         }/leaderboard`}
-                        className="bg-primary text-white px-4 py-1 rounded-lg"
+                        className="bg-primary text-white px-2 py-1 rounded-lg"
                       >
                         Leaderboard
                       </NavLink>
