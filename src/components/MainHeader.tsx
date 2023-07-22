@@ -8,13 +8,16 @@
  * @desc [Application header]
  */
 
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+
 import { Link } from "react-router-dom";
 import React from "react";
-import { useAppSelector } from "@/store/hooks";
+import { logoutUser } from "@/store/slices/auth.slice";
 
 export default function MainHeader() {
   const { auth } = useAppSelector((state) => state.persist);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const dispatch = useAppDispatch();
   const defaultAvatar =
     "https://gravatar.com/avatar/cc8cbfcbd5bc4908182252d212020d52?d=mp";
 
@@ -81,10 +84,7 @@ export default function MainHeader() {
                 <Link to="/" className="text-white font-bold text-xl">
                   Home
                 </Link>
-                <Link
-                  to="/about"
-                  className="text-white font-bold text-xl"
-                >
+                <Link to="/about" className="text-white font-bold text-xl">
                   Live scores
                 </Link>
                 <Link
@@ -97,7 +97,12 @@ export default function MainHeader() {
               {!auth.isAuthenticated ? (
                 <div>
                   <div className="flex items-center">
-                    <button className="text-white font-bold text-xl bg-red-500 py-1 px-2 rounded-md focus:outline-none">
+                    <button
+                      onClick={() => {
+                        dispatch(logoutUser());
+                      }}
+                      className="text-white font-bold text-xl bg-red-500 py-1 px-2 rounded-md focus:outline-none"
+                    >
                       Logout
                     </button>
                   </div>
@@ -156,10 +161,7 @@ export default function MainHeader() {
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-4">
-              <Link
-                to="/about"
-                className="text-white font-bold text-md"
-              >
+              <Link to="/about" className="text-white font-bold text-md">
                 Live scores
               </Link>
               <Link
@@ -172,12 +174,14 @@ export default function MainHeader() {
             {auth.isAuthenticated ? (
               <div className="flex items-center gap-2">
                 <div className="flex items-center">
-                  <Link
-                    to="/login"
+                  <button
                     className="text-white font-bold text-md bg-red-500 px-2 rounded-md focus:outline-none"
+                    onClick={() => {
+                      dispatch(logoutUser());
+                    }}
                   >
                     Logout
-                  </Link>
+                  </button>
                 </div>
               </div>
             ) : (
