@@ -92,13 +92,13 @@ export default function RegisterPage() {
 
           <p className="text-center text-gray-600">
             Already have an account?{" "}
-            <NavLink to="/login" className="text-blue-500 hover:text-blue-600">
+            <NavLink to="/auth/login" className="text-blue-500 hover:text-blue-600">
               Login
             </NavLink>
           </p>
         </div>
         <form
-          className="flex flex-col justify-center items-center space-y-4 md:max-w-[30rem] border py-4 rounded px-4 md:px-8"
+          className="flex flex-col justify-center items-center space-y-4 w-full md:max-w-[30rem] border py-4 rounded px-4 md:px-8"
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onSubmit={handleSubmit((data) => onSubmit(data))}
         >
@@ -119,7 +119,7 @@ export default function RegisterPage() {
                 </span>
               )}
             </div>
-            <div className="w-full">
+            <div className="w-full flex flex-col">
               <label htmlFor="last_name">Last Name</label>
               <input
                 className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"

@@ -80,13 +80,13 @@ export default function MainHeader() {
         <div>
           {isMenuOpen && (
             <div className="absolute left-0 z-10 flex flex-col items-center w-full h-fit bg-primary py-2">
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center whitespace-nowrap">
                 <Link to="/" className="text-white hover:underline text-xl">
                   Home
                 </Link>
-                <Link to="/about" className="text-white hover:underline text-xl">
+                <a href="http://team.tisini.co.ke/live/" target="_blank" className="text-white  hover:underline text-xl">
                   Live scores
-                </Link>
+                </a>
                 <Link
                   to="/organizations"
                   className="text-white hover:underline text-xl"
@@ -111,13 +111,13 @@ export default function MainHeader() {
                 <div className="flex flex-col w-full h-fit bg-primary py-2">
                   <div className="flex items-center justify-center">
                     <Link
-                      to="/login"
+                      to="/auth/register"
                       className="text-white text-xl bg-primary-lighter py-1 px-2 rounded-md focus:outline-none"
                     >
                       Sign up
                     </Link>
                     <Link
-                      to="/login"
+                      to="/auth/login"
                       className="text-white text-xl border-white border py-1 px-2 rounded-md focus:outline-none"
                     >
                       Login
@@ -161,9 +161,9 @@ export default function MainHeader() {
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-4">
-              <Link to="/about" className="text-white font-bold text-md">
+              <a href="http://team.tisini.co.ke/live/" target="_blank" className="text-white whitespace-nowrap font-bold text-md">
                 Live scores
-              </Link>
+              </a>
               <Link
                 to="/organizations"
                 className="text-white font-bold text-md"
@@ -188,13 +188,13 @@ export default function MainHeader() {
               <div className="flex flex-col w-full h-fit bg-primary py-2">
                 <div className="flex items-center justify-center gap-2">
                   <Link
-                    to="/login"
+                    to="/auth/register"
                     className="text-white font-bold text-md bg-primary-lighter py-1 px-2 rounded-md focus:outline-none"
                   >
                     Sign up
                   </Link>
                   <Link
-                    to="/login"
+                    to="/auth/login"
                     className="text-white font-bold text-md border-white border py-1 px-2 rounded-md focus:outline-none"
                   >
                     Login
