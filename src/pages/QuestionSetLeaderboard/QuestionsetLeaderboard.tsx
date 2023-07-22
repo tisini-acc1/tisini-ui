@@ -81,12 +81,12 @@ console.log({leaderboard});
     : 0;
 
   return (
-    <main>
+    <main className="overflow-auto min-h-[50vh]">
       <Loader isLoading={isLoading} />
       {participantsLength > 0 ? (
         <div className="border p-4 my-2 rounded-2 shadow">
           <div className="flex p-4">
-            <h1 className="text-primary uppercase font-bold">
+            <h1 className="text-primary uppercase font-medium">
               {leaderBoard.category_name}
             </h1>
           </div>
@@ -94,35 +94,35 @@ console.log({leaderboard});
             <tr className="border">
               <th
                 scope="col"
-                className="border px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider"
+                className="border px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider"
               >
                 #
               </th>
               <th
                 scope="col"
-                className="border px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider"
+                className="border px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider"
               >
                 Player
               </th>
               <th
                 scope="col"
-                className="border px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider"
+                className="border px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider"
               >
                 Points
               </th>
               <th
                 scope="col"
-                className="border px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider"
+                className="border px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider"
               >
                 Avg time
               </th>
             </tr>
             {leaderBoard.question_players.map((player, index) => (
               <tr key={index}>
-                <td className="px-6 py-4 whitespace-nowrap border">
+                <td className="px-2 py-1 whitespace-nowrap border">
                   {index + 1}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap border">
+                <td className="px-2 py-1 whitespace-nowrap border">
                   <div>
                     <div className="flex items-center">
                       <div className="ml-4 flex gap-1">
@@ -135,10 +135,10 @@ console.log({leaderboard});
                     </div>
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap border">
+                <td className="px-2 py-1 whitespace-nowrap border">
                   {player.points_earned}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap border">
+                <td className="px-2 py-1 whitespace-nowrap border">
                   {player.time_used}
                 </td>
               </tr>
