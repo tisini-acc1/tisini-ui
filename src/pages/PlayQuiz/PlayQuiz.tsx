@@ -11,14 +11,12 @@ import QuizPlayDone from "./QuizPlayDone";
 import React from "react";
 import SingleQuestionPagePlay from "@/pages/PlayQuiz/SingleAnswerQuestionPagePlay";
 import TextAnswerQuestionPagePlay from "@/pages/PlayQuiz/TextAnswerQuestionPagePlay";
-import answerCreator from "@/lib/answer-creator";
-import { privateAxios } from "@/lib/api";
 import { quizPlayTimeoutQuestion } from "@/store/slices/quiz-play.slice";
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 export default function PlayQuiz() {
-  const { questions, currentQuestion, allAnswered, progress, questionSet } =
+  const { questions, currentQuestion, allAnswered } =
     useAppSelector((state) => state.persist.quizPlay);
   const navigate = useNavigate();
   const [isExploding, setIsExploding] = React.useState<boolean>(true);
