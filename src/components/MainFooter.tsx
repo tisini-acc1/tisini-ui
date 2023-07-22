@@ -6,9 +6,7 @@
  * @desc [Application footer]
  */
 
-"use client";
-
-import Link from "next/link";
+import { Link } from "react-router-dom";
 
 function MainFooter() {
   return (
@@ -17,7 +15,7 @@ function MainFooter() {
         <div className="flex items-center flex-col md:flex-row justify-around gap-4 border-b-[1px] border-light-darker py-4 mt-5">
           {/* Logo */}
           <h1 className="text-3xl font-bold text-white uppercase">
-            Tisini Org
+            Tisini
           </h1>
           {/* Newsletter */}
           <h2 className="text-lg font-semibold text-white">
@@ -47,7 +45,7 @@ function MainFooter() {
               <ul className="flex flex-col text-left">
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Home
@@ -55,7 +53,7 @@ function MainFooter() {
                 </li>
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Livescore
@@ -63,7 +61,7 @@ function MainFooter() {
                 </li>
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Matches
@@ -71,7 +69,7 @@ function MainFooter() {
                 </li>
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Quiz
@@ -85,7 +83,7 @@ function MainFooter() {
               <ul>
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Home
@@ -99,7 +97,7 @@ function MainFooter() {
               <ul>
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Home
@@ -113,7 +111,7 @@ function MainFooter() {
               <ul>
                 <li>
                   <Link
-                    href="/"
+                    to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Home
