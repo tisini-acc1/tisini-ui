@@ -79,10 +79,16 @@ export class AnswerCreator {
             duration: payload.duration,
             status: payload.status,
           }
-        : payload.question.quiz_type === "single"
+        : payload.question.quiz_type === "text"
         ? {
             question_text: payload.question.question,
-            points: payload.question.points,
+            points:
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+              payload.question.selected_answer.toLowercase().strip() ===
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+              payload.question.answers[0].answer.toLowerCase()
+                ? payload.question.points
+                : 0,
             duration: payload.duration,
             status: payload.status,
           }
