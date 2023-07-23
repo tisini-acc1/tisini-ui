@@ -94,35 +94,35 @@ console.log({leaderboard});
             <tr className="border">
               <th
                 scope="col"
-                className="border px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider"
+                className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
               >
                 #
               </th>
               <th
                 scope="col"
-                className="border px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider"
+                className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
               >
                 Nickname
               </th><th
                 scope="col"
-                className="border px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider"
+                className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
               >
                 First name
               </th><th
                 scope="col"
-                className="border px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider"
+                className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
               >
                 Last name
               </th>
               <th
                 scope="col"
-                className="border px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider"
+                className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
               >
                 Points
               </th>
               <th
                 scope="col"
-                className="border px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider"
+                className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
               >
                 Avg time
               </th>
@@ -135,7 +135,7 @@ console.log({leaderboard});
                 <td className="px-2 py-1 whitespace-nowrap border">
                   <Link to={'#'} 
                   className="text-blue-500 hover:text-primary-dark"
-                  >@{player.q_player.nickname}</Link>
+                  >{player.q_player.nickname}</Link>
                 </td>
                 <td className="px-2 py-1 whitespace-nowrap border">
                   {player.q_player.first_name}
