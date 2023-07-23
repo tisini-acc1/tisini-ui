@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
+import { Link, useParams } from "react-router-dom";
 import { QsetPlayer, QuizSetLeaderBoardSummaryPayload } from "@/lib/types";
 
 import Loader from "@/components/Loader/Loader";
 import React from "react";
 import { privateAxios } from "@/lib/api";
-import { useParams } from "react-router-dom";
 
 export default function QuestionsetLeaderboard() {
   const { questionSetId } = useParams() as { questionSetId: string };
@@ -102,7 +102,17 @@ console.log({leaderboard});
                 scope="col"
                 className="border px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider"
               >
-                Player
+                Nickname
+              </th><th
+                scope="col"
+                className="border px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider"
+              >
+                First name
+              </th><th
+                scope="col"
+                className="border px-2 py-1 text-left font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Last name
               </th>
               <th
                 scope="col"
@@ -123,18 +133,16 @@ console.log({leaderboard});
                   {index + 1}
                 </td>
                 <td className="px-2 py-1 whitespace-nowrap border">
-                  <div>
-                    <div className="flex items-center">
-                      <div className="ml-4 flex gap-1">
-                        <div className="text-sm font-medium text-gray-900">
-                          {player.q_player.first_name}
-                          {" "}
-                          {player.q_player.last_name}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <Link to={'#'} 
+                  className="text-blue-500 hover:text-primary-dark"
+                  >@{player.q_player.nickname}</Link>
                 </td>
+                <td className="px-2 py-1 whitespace-nowrap border">
+                  {player.q_player.first_name}
+                </td> <td className="px-2 py-1 whitespace-nowrap border">
+                  {player.q_player.last_name}
+                </td>
+             
                 <td className="px-2 py-1 whitespace-nowrap border">
                   {player.points_earned}
                 </td>

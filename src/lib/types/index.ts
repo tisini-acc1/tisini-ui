@@ -237,6 +237,7 @@ export interface QsetPlayer {
 interface QPlayer {
   id: number;
   first_name: string;
+  nickname: string;
   last_name: string;
   profile_pic?: string | null;
 }
