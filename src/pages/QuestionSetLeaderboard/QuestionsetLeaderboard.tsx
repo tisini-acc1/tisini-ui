@@ -84,7 +84,7 @@ console.log({leaderboard});
     <main className="overflow-auto min-h-[50vh]">
       <Loader isLoading={isLoading} />
       {participantsLength > 0 ? (
-        <div className="border p-4 my-2 rounded-2 shadow">
+        <div className="border p-4 my-2 rounded-2 w-full">
           <div className="flex p-4">
             <h1 className="text-primary uppercase font-medium">
               {leaderBoard.category_name}
