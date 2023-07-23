@@ -84,7 +84,7 @@ console.log({leaderboard});
     <main className="overflow-auto min-h-[50vh]">
       <Loader isLoading={isLoading} />
       {participantsLength > 0 ? (
-        <div className="border p-4 my-2 rounded-2 w-full">
+        <div className="p-4 my-2 rounded-2 w-full">
           <div className="flex p-4">
             <h1 className="text-primary uppercase font-medium">
               {leaderBoard.category_name}
@@ -128,7 +128,10 @@ console.log({leaderboard});
               </th>
             </tr>
             {leaderBoard.question_players.map((player, index) => (
-              <tr key={index}>
+              <tr key={index}
+              // zebra striping
+              className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"} hover:bg-gray-100`}
+              >
                 <td className="px-2 py-1 whitespace-nowrap border">
                   {index + 1}
                 </td>
