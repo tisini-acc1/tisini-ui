@@ -4,6 +4,7 @@ import Loader from "@/components/Loader/Loader";
 import React from "react";
 import { tisiniAxios } from "@/lib/api";
 import { useParams } from "react-router-dom";
+import './style.css'
 
 // const _defaultImage ='https://picsum.photos/500/500'
 export default function SinglePostpage() {
