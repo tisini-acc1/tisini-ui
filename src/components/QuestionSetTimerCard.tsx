@@ -75,8 +75,8 @@ export default function QuestionSetTimerCard({
             <span className=""> Will open in</span>
             <h1 className="tracking-wider font-mono font-bold text-lg">
               {`${
-                Number(progressTime("start").days) > 0 &&
-                progressTime("start").days + " days "
+                Number(progressTime("start").days) > 0?
+                progressTime("start").days + " days ":""
               }${progressTime("start").hours}:${
                 progressTime("start").minutes
               }:${progressTime("start").seconds}`}
