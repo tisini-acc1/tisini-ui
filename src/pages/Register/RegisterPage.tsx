@@ -104,7 +104,7 @@ export default function RegisterPage() {
         >
           <h1 className="text-2xl font-bold text-center ">Register</h1>
           {/* First and last name row */}
-          <div className="flex flex-col md:flex-row gap-2 justify-between w-full">
+          <div className="flex flex-col lg:flex-row gap-2 justify-between w-full">
             <div className="w-full flex flex-col">
               <label htmlFor="first_name">First Name</label>
               <input

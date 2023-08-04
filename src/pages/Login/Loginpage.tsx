@@ -20,7 +20,7 @@ import { tisiniAxios } from "@/lib/api";
 import { useAppDispatch } from "@/store/hooks";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
++254
 const schema = yup
   .object({
     password: yup
@@ -66,19 +66,23 @@ export default function Loginpage() {
               const response = await (
                 await tisiniAxios.post("/auth/login/", data)
               ).data;
-              const { tokens, ...profile } = response;
-              const { access, refresh } = JSON.parse(tokens as string) as {
-                access: string;
-                refresh: string;
-              };
+              const { access_token, refresh_token, ...profile } = response;
+              // const {  } = JSON.parse(tokens as string) as {
+              //   access: string;
+              //   refresh: string;
+              // };
+              if(!access_token || !refresh_token) {
+                toast.error("Something went wrong, please try again later");
+                return;
+              }
               setCookieToken({
-                accessToken: access,
-                refreshToken: refresh,
+                accessToken: access_token,
+                refreshToken: refresh_token,
               });
               dispatch(
                 loginSuccess({
-                  access_token: access,
-                  refresh_token: refresh,
+                  access_token: access_token,
+                  refresh_token: refresh_token,
                   user: profile,
                   error: "",
                   isAuthenticated: true,
