@@ -150,7 +150,7 @@ console.log({leaderboard});
                   {player.points_earned}
                 </td>
                 <td className="px-2 py-1 whitespace-nowrap border">
-                  {player.time_used}
+                  {typeof player.time_used ==='number' ? player.time_used.toFixed(2) : player.time_used}
                 </td>
               </tr>
             ))}
