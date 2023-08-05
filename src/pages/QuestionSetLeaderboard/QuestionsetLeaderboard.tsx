@@ -160,6 +160,14 @@ console.log({leaderboard});
         <div className="flex items-center justify-center min-h-[40vh]">
           {/* Rest of the JSX when there are no participants */}
           {/* Code omitted for brevity */}
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="text-3xl font-semibold text-gray-700">
+              No participants yet
+            </h1>
+            <p className="text-gray-500">
+              Participants will appear here once they start playing
+            </p>
+            </div>
         </div>
       )}
     </main>
