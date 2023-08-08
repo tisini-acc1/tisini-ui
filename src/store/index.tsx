@@ -21,7 +21,7 @@ import { stateKeys } from "@/lib/constants";
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
-  key: stateKeys["tisini-app-authState"],
+  key: stateKeys["uz-stUsx-aasSWlsdw5242-00981"],
   version: 1,
   storage,
   whitelist: ["quizPlay", "auth"],

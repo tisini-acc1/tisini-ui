@@ -50,35 +50,41 @@ export default function QuestionsetLeaderboard() {
       leaderboard.question_players =
         leaderboard.question_players && Array.isArray(leaderboard.question_players)
           ? leaderboard.question_players.map((player) => {
-              player.score = computeScore(player);
-              player.q_player.profile_pic =
-                player.q_player.profile_pic ?? baseGravatar;
-              return player;
-            })
+            player.score = computeScore(player);
+            player.q_player.profile_pic =
+              player.q_player.profile_pic ?? baseGravatar;
+            return player;
+          })
           : [];
       leaderboard.question_players.sort((a, b) => {
         return b.score! - a.score!;
       });
-console.log({leaderboard});
+      // console.log({leaderboard});
 
       setLeaderBoard(leaderboard);
     } catch (err) {
       setIsLoading(false);
       //   addToast("Something went wrong", { appearance: 'error', autoDismiss: true, placement: 'top-right' });
     }
-    finally{
+    finally {
       setIsLoading(false);
     }
   }, [questionSetId]);
 
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    Promise.allSettled([loadLeaderBoard()]).catch(() => {});
+    Promise.allSettled([loadLeaderBoard()]).catch(() => { });
   }, []);
 
-  const participantsLength = leaderBoard.question_players
-    ? leaderBoard.question_players.length
-    : 0;
+  // const participantsLength = leaderBoard.question_players
+  //   ? leaderBoard.question_players.length
+  //   : 0;
+  const participantsLength = React.useMemo(() => {
+    return leaderBoard.question_players
+      ? leaderBoard.question_players.length
+      : 0;
+  }, [leaderBoard.question_players]);
+
 
   return (
     <main className="overflow-auto min-h-[50vh]">
@@ -129,15 +135,15 @@ console.log({leaderboard});
             </tr>
             {leaderBoard.question_players.map((player, index) => (
               <tr key={index}
-              // zebra striping
-              className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"} hover:bg-gray-100`}
+                // zebra striping
+                className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"} hover:bg-gray-100`}
               >
                 <td className="px-2 py-1 whitespace-nowrap border">
                   {index + 1}
                 </td>
                 <td className="px-2 py-1 whitespace-nowrap border">
-                  <Link to={'#'} 
-                  className="text-blue-500 hover:text-primary-dark"
+                  <Link to={'#'}
+                    className="text-blue-500 hover:text-primary-dark"
                   >{player.q_player.nickname}</Link>
                 </td>
                 <td className="px-2 py-1 whitespace-nowrap border">
@@ -145,12 +151,12 @@ console.log({leaderboard});
                 </td> <td className="px-2 py-1 whitespace-nowrap border">
                   {player.q_player.last_name}
                 </td>
-             
+
                 <td className="px-2 py-1 whitespace-nowrap border">
                   {player.points_earned}
                 </td>
                 <td className="px-2 py-1 whitespace-nowrap border">
-                  {typeof player.time_used ==='number' ? player.time_used.toFixed(2) : player.time_used}
+                  {typeof player.time_used === 'number' ? player.time_used.toFixed(2) : player.time_used}
                 </td>
               </tr>
             ))}
@@ -167,7 +173,7 @@ console.log({leaderboard});
             <p className="text-gray-500">
               Participants will appear here once they start playing
             </p>
-            </div>
+          </div>
         </div>
       )}
     </main>

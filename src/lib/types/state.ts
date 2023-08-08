@@ -6,6 +6,7 @@ import {
   PaginatedResponse,
   UserInterface,
 } from ".";
+import { stateKeys } from "../constants";
 
 /**
  * AuthState
@@ -57,3 +58,9 @@ export type KeyOfType<T, U> = {
 // export type Y = PickKeysType<s, keyof s>;
 
 export type SortFunction<T> = (items: T[], field: string) => T[];
+export type AppStates = /*"tisini-app-authState" |*/ "uz-stUsx-aasSWlsdw5242-00981";
+export type LocalStorageKeyType = keyof typeof stateKeys;
+export type TokenType = {
+  accessToken: string;
+  refreshToken: string;
+};

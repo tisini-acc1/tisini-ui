@@ -1,4 +1,4 @@
-import { removeToken } from "@/lib/services/cookie-service";
+import { Cookie } from "@/lib/services";
 import { AuthState } from "@/lib/types/state";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
@@ -33,7 +33,7 @@ const authSlice = createSlice({
     }
     ,
     logoutUser: (state) => {
-      removeToken('tisini-tokens-369340a21d88d03d9509');
+      Cookie.removeToken('ck_63hsG-sscWPkl');
       state.loading = false;
       state.user = null;
       state.access_token = "";

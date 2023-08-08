@@ -8,6 +8,8 @@ import React from "react";
 import answerCreator from "@/lib/answer-creator";
 import { privateAxios } from "@/lib/api";
 import { quizPlaySubmit } from "@/store/slices/quiz-play.slice";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 export default function QuizPlayDone() {
   const {
@@ -24,11 +26,11 @@ export default function QuizPlayDone() {
   const dispatch = useAppDispatch();
   const submitResults = async () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-setIsLoading(true);
+    setIsLoading(true);
     try {
       const dataToSend = {
         ...summary,
-        time_used: summary.time_used! /totalQuestions
+        time_used: summary.time_used! / totalQuestions
       };
       await privateAxios.post(
         `/quiz/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
@@ -36,11 +38,25 @@ setIsLoading(true);
       );
       // console.log({ response });
       dispatch(quizPlaySubmit());
-    } catch (_) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (_: any) {
+      if (_ instanceof AxiosError && _.response?.status === 500) {
+        // retry
+        const dataToSend = {
+          ...summary,
+          time_used: summary.time_used! / totalQuestions
+        };
+        await privateAxios.post(
+          `/quiz/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
+          dataToSend
+        );
+        dispatch(quizPlaySubmit());
+        return;
+      }
+      toast.error("Something went wrong while submitting your results");
       // console.log({ error });
-      dispatch(quizPlaySubmit());
     }
-    finally{
+    finally {
       setIsLoading(false);
     }
   };
@@ -139,9 +155,8 @@ setIsLoading(true);
                         Back to quizzes
                       </NavLink>
                       <NavLink
-                        to={`/organizations/questionsets/${
-                          questionSet!.uid
-                        }/leaderboard`}
+                        to={`/organizations/questionsets/${questionSet!.uid
+                          }/leaderboard`}
                         className="bg-primary text-white px-2 py-1 rounded-lg"
                       >
                         Leaderboard

@@ -1,13 +1,10 @@
-import {
-  getCookieToken,
-  removeToken,
-  setCookieToken,
-} from "../services/cookie-service";
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 import jtwDecode, { JwtPayload } from "jwt-decode";
 
 import TisiniconfigService from "../config";
 import axios from "axios";
-import { stateKeys } from "../constants";
+import { Cookie, TisiniLocalStorage } from "../services";
 
 const baseURL =
   TisiniconfigService.getKey("MODE") === "development"
@@ -39,7 +36,7 @@ const privateAxios = axios.create({
     // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     Authorization:
       "JWT " +
-        getCookieToken("tisini-tokens-369340a21d88d03d9509")?.["accessToken"] ??
+      Cookie.getCookieToken("ck_63hsG-sscWPkl")?.["accessToken"] ??
       "",
   },
   withCredentials: true,
@@ -60,16 +57,19 @@ const privateAxios = axios.create({
 
 // Add a request interceptor to add the JWT token to the authorization header
 privateAxios.interceptors.request.use(
+  // eslint-disable-next-line @typescript-eslint/require-await
   async (config) => {
-    const token = getCookieToken("tisini-tokens-369340a21d88d03d9509");
-    // console.log("token: " + JSON.stringify(token));
+    const token = Cookie.getCookieToken("ck_63hsG-sscWPkl");
+    console.log("token: " + JSON.stringify(token));
 
     if (token) {
-      // removeToken('tisini-tokens-369340a21d88d03d9509')
-      // localStorage.rremoveToken('tisini-tokens-369340a21d88d03d9509')
-      // localStorage.removeItem(stateKeys["tisini-app-authState"])
+      Cookie.removeToken('ck_63hsG-sscWPkl')
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      // TisiniLocalStorage.removeKey('uz-stUsx-aasSWlsdw5242-00981')
       config.headers.Authorization = `JWT ${token.accessToken}`;
     }
+    // console.log("config: " + JSON.stringify(config));
+
     return config;
   },
   (error) => Promise.reject(error)
@@ -82,15 +82,15 @@ privateAxios.interceptors.response.use(
   async (error) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const originalRequest = error.config;
-    // console.log('Response error: ',error.response);
+    // console.log('Response error: ', error.response);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (error.response && error.response.status === 401 && !originalRequest._retry) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       originalRequest._retry = true;
-      const tokenPayload = getCookieToken("tisini-tokens-369340a21d88d03d9509");
-      // console.log("tokenPayload: " + JSON.stringify(tokenPayload));
-      
+      const tokenPayload = Cookie.getCookieToken("ck_63hsG-sscWPkl");
+      console.log("tokenPayload: " + JSON.stringify(tokenPayload));
+
       if (!tokenPayload) {
         return Promise.reject(error);
       }
@@ -99,11 +99,15 @@ privateAxios.interceptors.response.use(
 
       const currentTime = new Date().getTime() / 1000;
       if (decodedToken.exp! < currentTime) {
-        removeToken("tisini-tokens-369340a21d88d03d9509");
+        console.log("Token expired");
+        
+        TisiniLocalStorage.removeKey('uz-stUsx-aasSWlsdw5242-00981');
+        Cookie.removeToken("ck_63hsG-sscWPkl");
         return Promise.reject(error);
       }
       if (!decodedToken) {
-        removeToken("tisini-tokens-369340a21d88d03d9509");
+        // Cookie.removeToken("ck_63hsG-sscWPkl");
+        // TisiniLocalStorage.removeKey('uz-stUsx-aasSWlsdw5242-00981');
         return Promise.reject(error);
       }
       const refreshToken = tokenPayload.refreshToken;
@@ -111,31 +115,31 @@ privateAxios.interceptors.response.use(
         refresh_token: refreshToken,
       });
       // console.log("res: " + JSON.stringify(res));
-      
+
 
       if (res.status === 201 || res.status === 200) {
 
         // console.log("New token received: " + JSON.stringify(res.data));
         // authStore.updateRefreshToken(res.data.refreshToken);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        setCookieToken({
+        Cookie.setCookieToken('ck_63hsG-sscWPkl',{
           accessToken: res.data.access_token,
           refreshToken: res.data.refresh_token,
         });
         privateAxios.defaults.headers.common["Authorization"] =
           "JWT " +
-          getCookieToken("tisini-tokens-369340a21d88d03d9509").accessToken;
+          Cookie.getCookieToken("ck_63hsG-sscWPkl").accessToken;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         originalRequest.headers["Authorization"] =
           "JWT " +
-          getCookieToken("tisini-tokens-369340a21d88d03d9509").accessToken;
+          Cookie.getCookieToken("ck_63hsG-sscWPkl").accessToken;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         return privateAxios(originalRequest);
       }
     }
     // Reset the auth state (logout)
-    removeToken("tisini-tokens-369340a21d88d03d9509");
-    localStorage.removeItem(stateKeys["tisini-app-authState"])
+    // Cookie.removeToken("ck_63hsG-sscWPkl");
+    // TisiniLocalStorage.removeKey('uz-stUsx-aasSWlsdw5242-00981')
     return Promise.reject(error);
   }
 );

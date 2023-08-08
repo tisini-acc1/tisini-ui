@@ -15,7 +15,7 @@ import TisiniValidator from "@/lib/validators/tisini";
 import {
   loginSuccess,
 } from "@/store/slices/auth.slice";
-import { setCookieToken } from "@/lib/services/cookie-service";
+import { Cookie } from "@/lib/services";
 import { tisiniAxios } from "@/lib/api";
 import { useAppDispatch } from "@/store/hooks";
 import { useForm } from "react-hook-form";
@@ -75,7 +75,7 @@ export default function Loginpage() {
                 toast.error("Something went wrong, please try again later");
                 return;
               }
-              setCookieToken({
+              Cookie.setCookieToken('ck_63hsG-sscWPkl',{
                 accessToken: access_token,
                 refreshToken: refresh_token,
               });

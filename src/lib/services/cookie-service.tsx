@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-refresh/only-export-components */
+import { LocalStorageKeyType, TokenType } from "@/lib/types/state";
 interface CookieOptions {
   expires?: Date | number;
   path?: string;
@@ -7,10 +8,10 @@ interface CookieOptions {
   secure?: boolean;
 }
 
-export type CookieKeys = "tisini-tokens-369340a21d88d03d9509";
+export type CookieKeys = "ck_63hsG-sscWPkl";
 
 class Cookie {
-  static set<Key, Value>(
+  static set<Key extends CookieKeys, Value = any>(
     name: Key,
     value: Value,
     options: CookieOptions = {}
@@ -39,7 +40,7 @@ class Cookie {
     }
   }
 
-  static get<T, P>(name: string): P | null {
+  static get<T extends CookieKeys, P = any>(name: string): P | null {
     const cookies = document.cookie.split(";");
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();
@@ -54,25 +55,44 @@ class Cookie {
     }
     return null;
   }
+  static setCookieToken = <Key extends CookieKeys, CookiePayload extends TokenType>(key: Key, payload: CookiePayload) => {
+    Cookie.set<CookieKeys, CookiePayload>(key, payload);
+  };
+  static getCookieToken = <K extends CookieKeys, P extends TokenType>(
+    key: K
+  ) => {
+    return Cookie.get<K, P>(key) as TokenType;
+  };
+  static removeToken = <K extends CookieKeys>(key: K) => {
+    Cookie.set<K, TokenType>(key, {} as TokenType);
+  };
 }
 
-type TokenType = {
-  accessToken: string;
-  refreshToken: string;
-};
-export const setCookieToken = (token: TokenType) => {
-  Cookie.set<CookieKeys, TokenType>("tisini-tokens-369340a21d88d03d9509", token);
-};
-type GetCookieFunction<T, P> = (key: T) => P;
 
-export const getCookieToken: GetCookieFunction<CookieKeys, TokenType> = (
-  key
-) => {
-  return Cookie.get<CookieKeys, TokenType>(key) as TokenType;
-};
 
-export const removeToken = (key: CookieKeys) => {
-  Cookie.set<CookieKeys, TokenType>(key, {} as TokenType);
-};
 
-export default Cookie;
+
+class TisiniLocalStorage {
+  static set<Key extends LocalStorageKeyType, Value extends string>(name: Key, value: Value): void {
+    localStorage.setItem(name, JSON.stringify(value));
+  }
+
+  static get<T extends LocalStorageKeyType, P = any>(name: T): P | null {
+    const value = localStorage.getItem(name as string);
+    if (value) {
+      try {
+        return JSON.parse(value) as P;
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
+  }
+  static removeKey = <K extends LocalStorageKeyType>(key: K) => {
+    localStorage.removeItem(key as string);
+  }
+
+}
+
+export { Cookie, TisiniLocalStorage }
+export default Object.assign({}, Cookie, TisiniLocalStorage);//});
