@@ -116,6 +116,8 @@ export default function Loginpage() {
               type="text"
               id="phone_number"
               placeholder="Phone Number"
+              aria-invalid={errors.phone_number ? "true" : "false"}
+              autoComplete="tel-national"
               className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-0 focus:ring-primary
                   "
               {...register("phone_number", { required: true })}
@@ -132,6 +134,8 @@ export default function Loginpage() {
               type="password"
               id="password"
               placeholder="Password"
+              aria-invalid={errors.password ? "true" : "false"}
+              autoComplete="current-password"
               className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-0 focus:ring-primary"
               {...register("password", { required: true })}
             />

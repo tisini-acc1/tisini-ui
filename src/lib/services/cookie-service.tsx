@@ -94,5 +94,10 @@ class TisiniLocalStorage {
 
 }
 
+export function clearSession() {
+  Cookie.removeToken('ck_63hsG-sscWPkl')
+  TisiniLocalStorage.removeKey('uz-stUsx-aasSWlsdw5242-00981')
+}
+
 export { Cookie, TisiniLocalStorage }
 export default Object.assign({}, Cookie, TisiniLocalStorage);//});

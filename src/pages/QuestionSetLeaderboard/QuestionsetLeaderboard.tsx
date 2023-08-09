@@ -97,6 +97,7 @@ export default function QuestionsetLeaderboard() {
             </h1>
           </div>
           <table className="min-w-full divide-y divide-gray-200 border border-collapse">
+            <thead className="bg-gray-50">
             <tr className="border">
               <th
                 scope="col"
@@ -133,18 +134,15 @@ export default function QuestionsetLeaderboard() {
                 Avg time
               </th>
             </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
             {leaderBoard.question_players.map((player, index) => (
-              <tr key={index}
-                // zebra striping
-                className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"} hover:bg-gray-100`}
-              >
+              <tr key={player.id} className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"} hover:bg-gray-100`}>
                 <td className="px-2 py-1 whitespace-nowrap border">
                   {index + 1}
                 </td>
                 <td className="px-2 py-1 whitespace-nowrap border">
-                  <Link to={'#'}
-                    className="text-blue-500 hover:text-primary-dark"
-                  >{player.q_player.nickname}</Link>
+                 {player.q_player.nickname}
                 </td>
                 <td className="px-2 py-1 whitespace-nowrap border">
                   {player.q_player.first_name}
@@ -160,6 +158,7 @@ export default function QuestionsetLeaderboard() {
                 </td>
               </tr>
             ))}
+            </tbody>
           </table>
         </div>
       ) : (
