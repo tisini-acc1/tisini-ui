@@ -4,7 +4,7 @@ import jtwDecode, { JwtPayload } from "jwt-decode";
 
 import TisiniconfigService from "../config";
 import axios from "axios";
-import { Cookie, TisiniLocalStorage, clearSession } from "../services";
+import { Cookie } from "../services";
 
 const baseURL =
   TisiniconfigService.getKey("MODE") === "development"
@@ -42,18 +42,7 @@ const privateAxios = axios.create({
   withCredentials: true,
 });
 
-// const pri = axios.create({
-//   baseURL: baseURL,
-//   headers: {
-//     "Content-Type": "application/json",
-//     "Access-Control-Allow-Origin": "*",
-//     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-//     "Access-Control-Allow-Headers":
-//       "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials",
-//     "Access-Control-Allow-Credentials": "true",
-//   },
-//   withCredentials: true,
-// });
+
 
 // Add a request interceptor to add the JWT token to the authorization header
 privateAxios.interceptors.request.use(
@@ -63,9 +52,7 @@ privateAxios.interceptors.request.use(
     // console.log("token: " + JSON.stringify(token));
 
     if (token) {
-      // Cookie.removeToken('ck_63hsG-sscWPkl')
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      // TisiniLocalStorage.removeKey('uz-stUsx-aasSWlsdw5242-00981')
+    
       config.headers.Authorization = `JWT ${token.accessToken}`;
     }
     // console.log("config: " + JSON.stringify(config));
@@ -117,10 +104,6 @@ privateAxios.interceptors.response.use(
 
 
       if (res.status === 201 || res.status === 200) {
-
-        // console.log("New token received: " + JSON.stringify(res.data));
-        // authStore.updateRefreshToken(res.data.refreshToken);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         Cookie.setCookieToken('ck_63hsG-sscWPkl', {
           accessToken: res.data.access_token,
           refreshToken: res.data.refresh_token,

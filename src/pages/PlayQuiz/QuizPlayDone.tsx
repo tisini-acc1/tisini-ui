@@ -30,7 +30,7 @@ export default function QuizPlayDone() {
     try {
       const dataToSend = {
         ...summary,
-        time_used: summary.time_used! / totalQuestions
+        time_used: summary.time_used! / totalQuestions,
       };
       await privateAxios.post(
         `/quiz/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
@@ -38,25 +38,30 @@ export default function QuizPlayDone() {
       );
       // console.log({ response });
       dispatch(quizPlaySubmit());
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (_: any) {
       if (_ instanceof AxiosError && _.response?.status === 500) {
-        // retry
-        const dataToSend = {
-          ...summary,
-          time_used: summary.time_used! / totalQuestions
-        };
-        await privateAxios.post(
-          `/quiz/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
-          dataToSend
-        );
-        dispatch(quizPlaySubmit());
+        try {
+          // retry
+          const dataToSend = {
+            ...summary,
+            time_used: summary.time_used! / totalQuestions,
+          };
+          await privateAxios.post(
+            `/quiz/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
+            dataToSend
+          );
+          dispatch(quizPlaySubmit());
+          return;
+        } catch (error) {
+          // console.log({ error });
+          toast.error("Something went wrong while submitting your results");
+        }
         return;
       }
       toast.error("Something went wrong while submitting your results");
       // console.log({ error });
-    }
-    finally {
+    } finally {
       setIsLoading(false);
     }
   };
@@ -155,8 +160,9 @@ export default function QuizPlayDone() {
                         Back to quizzes
                       </NavLink>
                       <NavLink
-                        to={`/organizations/questionsets/${questionSet!.uid
-                          }/leaderboard`}
+                        to={`/organizations/questionsets/${
+                          questionSet!.uid
+                        }/leaderboard`}
                         className="bg-primary text-white px-2 py-1 rounded-lg"
                       >
                         Leaderboard

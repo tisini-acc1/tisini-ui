@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { QsetPlayer, QuizSetLeaderBoardSummaryPayload } from "@/lib/types";
 
 import Loader from "@/components/Loader/Loader";
@@ -42,19 +42,23 @@ export default function QuestionsetLeaderboard() {
     try {
       const data = await getQuestionSetLeaderBoards();
       const leaderboard = data as QuizSetLeaderBoardSummaryPayload;
-      if (leaderboard.question_players && leaderboard.question_players.length === 0) {
+      if (
+        leaderboard.question_players &&
+        leaderboard.question_players.length === 0
+      ) {
         setLeaderBoard(leaderboard);
         setIsLoading(false);
         return;
       }
       leaderboard.question_players =
-        leaderboard.question_players && Array.isArray(leaderboard.question_players)
+        leaderboard.question_players &&
+        Array.isArray(leaderboard.question_players)
           ? leaderboard.question_players.map((player) => {
-            player.score = computeScore(player);
-            player.q_player.profile_pic =
-              player.q_player.profile_pic ?? baseGravatar;
-            return player;
-          })
+              player.score = computeScore(player);
+              player.q_player.profile_pic =
+                player.q_player.profile_pic ?? baseGravatar;
+              return player;
+            })
           : [];
       leaderboard.question_players.sort((a, b) => {
         return b.score! - a.score!;
@@ -65,15 +69,14 @@ export default function QuestionsetLeaderboard() {
     } catch (err) {
       setIsLoading(false);
       //   addToast("Something went wrong", { appearance: 'error', autoDismiss: true, placement: 'top-right' });
-    }
-    finally {
+    } finally {
       setIsLoading(false);
     }
   }, [questionSetId]);
 
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    Promise.allSettled([loadLeaderBoard()]).catch(() => { });
+    Promise.allSettled([loadLeaderBoard()]).catch(() => {});
   }, []);
 
   // const participantsLength = leaderBoard.question_players
@@ -84,10 +87,10 @@ export default function QuestionsetLeaderboard() {
       ? leaderBoard.question_players.length
       : 0;
   }, [leaderBoard.question_players]);
-
+console.log({leaderBoard});
 
   return (
-    <main className="overflow-auto min-h-[50vh]">
+    <main className="overflow-auto min-h-[50vh] flex flex-col gap-2 max-w-7xl mx-auto">
       <Loader isLoading={isLoading} />
       {participantsLength > 0 ? (
         <div className="p-4 my-2 rounded-2 w-full">
@@ -96,68 +99,77 @@ export default function QuestionsetLeaderboard() {
               {leaderBoard.category_name}
             </h1>
           </div>
-          <table className="min-w-full divide-y divide-gray-200 border border-collapse">
+          <table className="  divide-y divide-gray-200 border border-collapse table-auto">
             <thead className="bg-gray-50">
-            <tr className="border">
-              <th
-                scope="col"
-                className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
-              >
-                #
-              </th>
-              <th
-                scope="col"
-                className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
-              >
-                Nickname
-              </th><th
-                scope="col"
-                className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
-              >
-                First name
-              </th><th
-                scope="col"
-                className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
-              >
-                Last name
-              </th>
-              <th
-                scope="col"
-                className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
-              >
-                Points
-              </th>
-              <th
-                scope="col"
-                className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
-              >
-                Avg time
-              </th>
-            </tr>
+              <tr className="border">
+                <th
+                  scope="col"
+                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                >
+                  #
+                </th>
+                <th
+                  scope="col"
+                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                >
+                  Nickname
+                </th>
+                {/* <th
+                  scope="col"
+                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                >
+                  First name
+                </th>
+                <th
+                  scope="col"
+                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                >
+                  Last name
+                </th> */}
+                <th
+                  scope="col"
+                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                >
+                  Points
+                </th>
+                <th
+                  scope="col"
+                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                >
+                  Avg time
+                </th>
+              </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-            {leaderBoard.question_players.map((player, index) => (
-              <tr key={player.id} className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"} hover:bg-gray-100`}>
-                <td className="px-2 py-1 whitespace-nowrap border">
-                  {index + 1}
-                </td>
-                <td className="px-2 py-1 whitespace-nowrap border">
-                 {player.q_player.nickname}
-                </td>
-                <td className="px-2 py-1 whitespace-nowrap border">
-                  {player.q_player.first_name}
-                </td> <td className="px-2 py-1 whitespace-nowrap border">
-                  {player.q_player.last_name}
-                </td>
-
-                <td className="px-2 py-1 whitespace-nowrap border">
-                  {player.points_earned}
-                </td>
-                <td className="px-2 py-1 whitespace-nowrap border">
-                  {typeof player.time_used === 'number' ? player.time_used.toFixed(2) : player.time_used}
-                </td>
-              </tr>
-            ))}
+              {leaderBoard.question_players.map((player, index) => (
+                <tr
+                  key={player.id}
+                  className={`${
+                    index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                  } hover:bg-gray-100`}
+                >
+                  <td className="px-2 py-1 whitespace-nowrap border">
+                    {index + 1}
+                  </td>
+                  <td className="px-2 py-1 whitespace-nowrap border">
+                    {player.q_player.nickname}
+                  </td>
+                  {/* <td className="px-2 py-1 whitespace-nowrap border">
+                    {player.q_player.first_name}
+                  </td>{" "}
+                  <td className="px-2 py-1 whitespace-nowrap border">
+                    {player.q_player.last_name}
+                  </td> */}
+                  <td className="px-2 py-1 whitespace-nowrap border">
+                    {player.points_earned}
+                  </td>
+                  <td className="px-2 py-1 whitespace-nowrap border">
+                    {typeof player.time_used === "number"
+                      ? player.time_used.toFixed(2)
+                      : player.time_used}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
