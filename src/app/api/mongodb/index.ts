@@ -1,47 +1,62 @@
+import moment from 'moment';
 import mongoose from 'mongoose'
+import configService from '../utils/config';
+import chalk from 'chalk';
 
-const MONGODB_URI = process.env.MONGO_URI!
+const MONGO_URI = process.env.MONGO_URI!
 
-if (!MONGODB_URI) {
+if (!MONGO_URI) {
   throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local'
+    'Please define the MONGO_URI environment variable inside .env.local'
   )
 }
 
-/**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections growing exponentially
- * during API Route usage.
- */
-let cached = (global as any).mongoose
+mongoose.connect(MONGO_URI, {
+})
 
-if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null }
-}
+mongoose.connection.on('error', (error) => {
+	const date = moment().format('LLLL');
+	const msg = {
+		error: error.message,
+		client: 'MongoDB',
+		date
+	};
+	console.log(chalk.red(JSON.stringify(msg)));
+});
+// mongoose.connection.on('connected', () => {
+// 	const time = moment(new Date().getTime()).format('LLLL');
+// 	logger.info({
+// 		message: 'Mongoose connected',
+// 		timestamp: time,
+// 		level: 'info',
+// 		service: 'Mongoose',
+// 		environment: envConfig.environment,
+// 		client: 'MongoDB'
+// 	});
+// });
+mongoose.connection.once('open', () => {
+	const date = moment().format('LLL');
+	const msg = {
+		message: 'Mongodb connection established',
+		timestamp: date,
+		client: 'MongoDB',
+		level: 'info',
+		service: 'Mongoose',
+		environment: configService.getKey('NODE_ENV')
+	};
+	console.info(msg);
+});
+mongoose.connection.on('disconnected', () => {
+	const date = moment().format('LLLL');
+	const msg = {
+		message: 'Disconnected from MongoDB',
+		timestamp: date,
+		client: 'MongoDB',
+		level: 'error',
+		service: 'Mongoose',
+		environment: configService.getKey('NODE_ENV')
+	};
+	console.error(chalk.red(JSON.stringify(msg)));
+});
 
-async function dbConnect() {
-  if (cached.conn) {
-    return cached.conn
-  }
-
-  if (!cached.promise) {
-    const opts = {
-      bufferCommands: false,
-    }
-
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose
-    })
-  }
-
-  try {
-    cached.conn = await cached.promise
-  } catch (e) {
-    cached.promise = null
-    throw e
-  }
-
-  return cached.conn
-}
-
-export default dbConnect
+export default mongoose;

@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import OrganizationModel from "@/app/api/models/organization";
 import { TisiniServerException } from "@/app/api/utils/TisiniServerException";
-import dbConnect from "@/app/api/mongodb";
+// import dbConnect from "@/app/api/mongodb";
 import validMongoId from "@/app/api/utils/mongo-id-validator";
 import { HttpStatus } from "@/app/api/utils/http-status.types";
 export async function GET(req: NextRequest, res: Response) {
   try {
-    await dbConnect();
+    // await dbConnect();
     const organizationId = req.url.slice(req.url.lastIndexOf("/") + 1);
     if (!validMongoId(organizationId)) {
       throw new TisiniServerException(

@@ -4,14 +4,14 @@ import validMongoId from "@/app/api/utils/mongo-id-validator";
 import RoleModel from "@/app/api/models/roles";
 import UserModel from "@/app/api/models/user";
 import PasswordHandler from "@/app/api/utils/Password.service";
-import dbConnect from "@/app/api/mongodb";
+// import dbConnect from "@/app/api/mongodb";
 import initRoles from "@/app/api/models/roles/role.init";
 import bcrypt from "bcryptjs";
 import { TisiniServerException } from "@/app/api/utils/TisiniServerException";
 import { HttpStatus } from "@/app/api/utils/http-status.types";
 export async function POST(req: Request, res: Response) {
   try {
-    await dbConnect();
+    // await dbConnect();
     const payload = UserSignUpDto.validateRegistration(await req.json());
     const roles = payload.roles;
     if (roles.length !== 0) {

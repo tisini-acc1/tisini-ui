@@ -3,7 +3,7 @@ import {
   UserDocumentModelInterface,
   UserInterface,
 } from "./user.interfaces";
-import mongoose from "mongoose";
+import mongoose from "@/app/api/mongodb";
 import PasswordHandler from "@/app/api/utils/Password.service";
 
 const UserSchema = new mongoose.Schema<UserDocumentInterface>(
@@ -58,9 +58,12 @@ const UserSchema = new mongoose.Schema<UserDocumentInterface>(
     timestamps: true,
   }
 );
-
-export default mongoose.models.User ||
-  mongoose.model<UserDocumentInterface, UserDocumentModelInterface>(
-    "User",
-    UserSchema
-  );
+const UserModel = mongoose.model<UserDocumentInterface, UserDocumentModelInterface>(
+  "User",
+  UserSchema
+);
+export default UserModel;
+// mongoose.models.User ||mongoose.model<UserDocumentInterface, UserDocumentModelInterface>(
+//     "User",
+//     UserSchema
+  // );

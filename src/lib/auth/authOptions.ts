@@ -23,25 +23,46 @@ const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        return pubTisiniApi
-          .post(`/users/login`, credentials)
-          .then((res) => {
-            if (res.status === 200) {
-              return res.data;
-            }
-          })
-          .catch((err: AxiosError) => {
-            if (err.response?.status === 401) {
-              throw new Error("Login failed");
-            }
-            throw new Error("Login failed");
-          })||null;
+        console.log("Credentials: ", credentials);
+        try {
+          const response = await pubTisiniApi.post(`/users/login`, credentials);
+          console.log("Response: ", response);
+          return response.data.profile;
+        } catch (error: any) {
+          if (error instanceof AxiosError) {
+            console.log("Error: ", error.response?.data?.message);
+            throw new Error(
+              error.response?.data?.message ?? "Invalid login credentials"
+            );
+          }
+          throw new Error(error.message);
+        }
+        // return (
+        //   pubTisiniApi
+        //     .post(`/users/login`, credentials)
+        //     .then((res) => {
+        //       if (res.status === 200) {
+        //         return res.data;
+        //       }
+        //     })
+        //     .catch((err: any) => {
+        //       console.log("Error: ", err.response);
+
+        //       // if (err.response?.status === 401) {
+        //       //   throw new Error("Invalid login credentials");
+        //       // }
+        //       throw new Error(
+        //         err.response?.data?.message ?? "Invalid login credentials"
+        //       );
+        //     }) || null
+        // );
       },
     }),
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       if (user) {
+        const { name, email, image, } = user;
         console.log("User: ", user);
 
         return true;
@@ -52,6 +73,13 @@ const authOptions: AuthOptions = {
       return baseUrl;
     },
     async session({ session, user, token }) {
+      if (token) {
+        session.accessToken = token.accessToken;
+        session.refreshToken = token.refreshToken;
+        session.user = user;
+        
+      }
+
       return session;
     },
     async jwt({ token, user, account, profile, isNewUser }) {

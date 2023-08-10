@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import QuestionSetModel from "@/app/api/models/questionset";
 import { apiPaginator } from "@/app/api/utils/paginator";
 import { TisiniServerException } from "@/app/api/utils/TisiniServerException";
-import dbConnect from "@/app/api/mongodb";
+// import dbConnect from "@/app/api/mongodb";
 export async function GET(req: NextRequest, res: Response) {
   try {
-    await dbConnect();
+    // await dbConnect();
     const { searchParams } = new URL(req.url);
     const orgId = req.url.slice(req.url.lastIndexOf("/") + 1);
     const { page, limit } = Object.fromEntries(searchParams.entries()) as {

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from "@/app/api/mongodb";
 import {
   RoleInterface,
   RoleDocument,
@@ -34,6 +34,6 @@ const RoleSchema = new mongoose.Schema<RoleDocument, RoleModelInterface>(
     timestamps: true,
   }
 );
-
-export default mongoose.models.Role ||
-  mongoose.model<RoleDocument, RoleModelInterface>("Role", RoleSchema);
+const Role = mongoose.model("Role", RoleSchema);
+export default Role;
+// mongoose.models.Role ||mongoose.model<RoleDocument, RoleModelInterface>("Role", RoleSchema);

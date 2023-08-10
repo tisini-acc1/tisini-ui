@@ -1,7 +1,8 @@
+// import dbConnect from "@/app/api/mongodb";
 import { NextResponse } from "next/server";
 import { UserLoginDto } from "../../dtos/create-user.dto";
+import roles from "@/app/api/models/roles";
 import UserModel from "@/app/api/models/user";
-import dbConnect from "@/app/api/mongodb";
 import PasswordHandler from "@/app/api/utils/Password.service";
 import bcrypt from "bcryptjs";
 import { JWTService } from "@/app/api/utils/JWT.service";
@@ -10,7 +11,7 @@ import { HttpStatus } from "@/app/api/utils/http-status.types";
 
 export async function POST(req: Request, res: Response) {
   try {
-    await dbConnect();
+    // await dbConnect();
     const payload = UserLoginDto.validateLogin(await req.json());
     const existingUser = await UserModel.findOne({
       phone_number: payload.phone_number,

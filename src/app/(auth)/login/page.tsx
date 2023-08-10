@@ -57,12 +57,19 @@ export default function Login() {
         <form
           action=""
           className="flex flex-col gap-4 p-4 border border-gray-300 rounded-md shadow-md w-full md:max-w-[40rem]  "
-          onSubmit={handleSubmit((data) => {
-            signIn("credentials", {
+          onSubmit={handleSubmit(async(data) => {
+            const response = await signIn("credentials", {
               phone_number: data.phone_number,
               password: data.password,
               redirect: false,
             });
+            if(response!.error){
+              console.log(response!.error)
+              
+            }
+            if(response!.ok){
+              console.log(response!.ok)
+            }
           })}
         >
           <div className="flex items-center justify-center">
