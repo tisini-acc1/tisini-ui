@@ -41,6 +41,12 @@ export default function QuizPlayDone() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (_: any) {
       if (_ instanceof AxiosError && _.response?.status === 500) {
+        if (_ instanceof AxiosError) {
+          if (_.response?.status === 500 || _.response?.status === 400) {
+            dispatch(quizPlaySubmit());
+            return;
+          }
+        }
         try {
           // retry
           const dataToSend = {
@@ -54,6 +60,16 @@ export default function QuizPlayDone() {
           dispatch(quizPlaySubmit());
           return;
         } catch (error) {
+          if (error instanceof AxiosError) {
+            if (
+              error.response?.status === 500 ||
+              error.response?.status === 400
+            ) {
+              dispatch(quizPlaySubmit());
+              return;
+            }
+          }
+
           // console.log({ error });
           toast.error("Something went wrong while submitting your results");
         }

@@ -73,8 +73,7 @@ export interface AnswerInterface {
   is_answer: boolean; // Is answer flag
 }
 
-export type SelectableAnswerInterface =
- any
+export type SelectableAnswerInterface = any;
 export interface QuestionInterface {
   uid: string; // ID
   question: string; // Question with a max length of 1000 and min length of 1
@@ -219,28 +218,91 @@ export type PaginatedResponse<T = any> = {
     totalPages: number;
   };
 };
-
-export interface QuizSetLeaderBoardSummaryPayload {
+export interface PredictiveLeaderBoard {
   uid: string;
   category_name: string;
-  question_players: QsetPlayer[];
+  leaderBoardType: "PR";
+  question_players: PredictiveLeaderBoardQuestionPlayer[];
 }
 
-export interface QsetPlayer {
+export interface PredictiveLeaderBoardQuestionPlayer {
   id: number;
-  q_player: QPlayer;
+  q_player: PredictiveLeaderBoardPlayer;
+  questions: PredictiveLeaderBoardQuestion[];
+  points_earned: null | number;
+  time_used: number;
+  score: number;
+}
+
+export interface PredictiveLeaderBoardPlayer {
+  id: number;
+  nickname: string;
+  first_name: string;
+  last_name: string;
+  profile_pic: string;
+}
+
+export interface PredictiveLeaderBoardQuestion {
+  uid: string;
+  question_text: PredictiveLeaderBoardQuestionText;
+  user_answers: PredictiveLeaderBoardUserAnswer[];
+}
+
+export interface PredictiveLeaderBoardQuestionText {
+  uid: string;
+  question_abbrev: PredictiveLeaderBoardQuestionAbbrev;
+}
+
+export interface PredictiveLeaderBoardQuestionAbbrev {
+  uid: string;
+  names: string;
+}
+
+export interface PredictiveLeaderBoardUserAnswer {
+  uid: string;
+  answer_text: string;
+  answer_marker: null | any; // The type 'any' is used because we don't know the possible values of answer_marker from the provided data.
+}
+
+export interface NormalLeaderBoard {
+  uid: string;
+  category_name: string;
+  question_players: NormalLeaderBoardQuestionPlayer[];
+  leaderBoardType: "NR";
+}
+
+export interface NormalLeaderBoardQuestionPlayer {
+  id: number;
+  q_player: NormalLeaderboardQPlayer;
   points_earned: number;
   time_used: number;
   score?: number;
 }
-
-interface QPlayer {
+export interface NormalLeaderboardQPlayer {
   id: number;
   first_name: string;
   nickname: string;
   last_name: string;
   profile_pic?: string | null;
 }
+export type GenericLeaderBoardData<T> = T extends "NR"
+  ? NormalLeaderBoard
+  : PredictiveLeaderBoard;
+
+// export type GenericLeaderBoard = <T = unknown>(
+//   data: T extends Pick<NormalLeaderBoard, "quiz_type">
+//     ? NormalLeaderBoard
+//     : PredictiveLeaderBoard
+// ) => NormalLeaderBoard | PredictiveLeaderBoard;
+
+type GenericLeaderBoardFunction = <T = unknown>(
+  data: T extends "NR"
+    ? NormalLeaderBoard
+    : T extends "PR"
+    ? PredictiveLeaderBoard
+    : never
+) => GenericLeaderBoardData<T>;
+
 export type ReducerFunction<StateType, ActionsType> = (
   state: StateType,
   action: ActionsType

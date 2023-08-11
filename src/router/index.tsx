@@ -5,12 +5,14 @@ import authRoutes from "./auth.routes";
 import baseRoutes from "./base.routes";
 import { createBrowserRouter } from "react-router-dom";
 import organizationRoutes from "./org.routes";
+import BaseErrorPage from "@/components/errors/BaseErrorPage";
 
 const routes = [
-  ...baseRoutes,
-  authRoutes,
-  organizationRoutes,
-  articlesRoutes,
+  {
+    path: "/",
+    errorElement: <BaseErrorPage />,
+    children: [...baseRoutes, authRoutes, organizationRoutes, articlesRoutes],
+  },
   {
     path: "*",
     element: <Notfound404 />,

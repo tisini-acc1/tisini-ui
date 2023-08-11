@@ -64,15 +64,6 @@ export default function QuestionSetsPage() {
               {/* {organization?.organization_name} */}
             </h1>
           </div>
-          <div>
-            {/* <img
-              src={organization?.org_logo!}
-              alt={organization?.uid}
-              width={500}
-              height={500}
-              className="object-cover h-10 w-full"
-            /> */}
-          </div>
         </div>
         {/* Organization questionsets */}
         <OrganizationQuestionSets
