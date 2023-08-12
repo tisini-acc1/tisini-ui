@@ -24,8 +24,7 @@ export default function QuestionsetLeaderboard() {
   );
   const { questionSetId } = useParams() as { questionSetId: string };
   const getQuestionSetLeaderBoards = async () => {
-    const response =  
-     (
+    const response = (
       await privateAxios.get(`/quiz/quiz_leaderboard/${questionSetId}`)
     ).data;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
@@ -116,7 +115,6 @@ export default function QuestionsetLeaderboard() {
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     Promise.allSettled([loadLeaderBoard()]).catch(() => {});
-    
   }, []);
 
   const normalLeaderBoardPlayersSize = React.useMemo(() => {
@@ -222,7 +220,8 @@ export default function QuestionsetLeaderboard() {
             </tbody>
           </table>
         </div>
-      ) : leaderBoardType === "PR" ? (
+      ) : leaderBoardType === "PR" &&
+        predictiveLeaderBoard[0]?.answers.length ? (
         <div>
           {/* Table */}
           <table className="min-w-full divide-y divide-gray-200 border border-collapse table-auto">
@@ -240,7 +239,7 @@ export default function QuestionsetLeaderboard() {
                 >
                   Nickname
                 </th>
-                {predictiveLeaderBoard[0].answers.map((column) => (
+                {predictiveLeaderBoard[0]?.answers.map((column) => (
                   <th
                     scope="col"
                     className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
@@ -251,26 +250,28 @@ export default function QuestionsetLeaderboard() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {predictiveLeaderBoard.map((cols, index) => (
-                <tr
-                  key={index}
-                  className={`${
-                    index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                  } hover:bg-gray-100`}
-                >
-                  <td className="px-2 py-1 whitespace-nowrap border">
-                    {index + 1}
-                  </td>
-                  <td className="px-2 py-1 whitespace-nowrap border">
-                    {cols.nickname}
-                  </td>
-                  {cols.answers.map((col) => (
+              {predictiveLeaderBoard &&
+                Array.isArray(predictiveLeaderBoard) &&
+                predictiveLeaderBoard.map((cols, index) => (
+                  <tr
+                    key={index}
+                    className={`${
+                      index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                    } hover:bg-gray-100`}
+                  >
                     <td className="px-2 py-1 whitespace-nowrap border">
-                      {col.answer}
+                      {index + 1}
                     </td>
-                  ))}
-                </tr>
-              ))}
+                    <td className="px-2 py-1 whitespace-nowrap border">
+                      {cols.nickname}
+                    </td>
+                    {cols.answers.map((col) => (
+                      <td className="px-2 py-1 whitespace-nowrap border">
+                        {col.answer}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
