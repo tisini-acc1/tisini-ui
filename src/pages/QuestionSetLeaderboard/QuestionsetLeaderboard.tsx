@@ -93,18 +93,16 @@ export default function QuestionsetLeaderboard() {
 
         setNormalLeaderBoard(leaderboard);
       } else {
-        const leaderboard = payload as PredictiveLeaderBoard;
-        console.log({ leaderboard });
+        const board = payload as PredictiveLeaderBoard;
 
-        const tableData = processPredictiveLeaderboard(
-          leaderBoard as unknown as PredictiveLeaderBoard
-        );
-        console.log({ tableData });
+        const tableData = processPredictiveLeaderboard(board);
         setPredictiveLeaderBoard(tableData);
       }
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
       setIsLoading(false);
-      console.log({ err });
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      console.log({ e: err.stack });
 
       //   addToast("Something went wrong", { appearance: 'error', autoDismiss: true, placement: 'top-right' });
     } finally {
@@ -132,13 +130,22 @@ export default function QuestionsetLeaderboard() {
   }, [leaderBoardType, normalLeaderBoard, predictiveLeaderBoard]);
   // const cookies = useTisiniCookies();
 
-  // console.log({ leaderBoard ,predictiveLeaderBoard,normalLeaderBoard,leaderBoardType});
+  // console.log({ predictiveLeaderBoard, normalLeaderBoard, leaderBoardType });
+  const bargeColorGenerator = () => ({
+    ["green"]: "bg-green-200 text-green-800 rounded-md",
+    ["yellow"]: "bg-yellow-200 text-yellow-800 rounded-md",
+    ["red"]: "bg-red-200 text-red-800 rounded-md",
+    ["blue"]: "bg-blue-200 text-blue-800 rounded-md",
+    ["purple"]: "bg-purple-200 text-purple-800 rounded-md",
+    ["pink"]: "bg-pink-200 text-pink-800 rounded-md",
+    ["indigo"]: "bg-indigo-200 text-800 rounded-md",
+  });
 
   return (
     <main className="overflow-auto min-h-[50vh] flex flex-col gap-2 max-w-7xl mx-auto">
       <Loader isLoading={isLoading} />
       {normalLeaderBoardPlayersSize > 0 && leaderBoardType === "NR" ? (
-        <div className="p-4 my-2 rounded-2 w-full">
+        <div className="p-4 my-2 rounded-2 w-full overflow-auto">
           <div className="flex p-4">
             <h1 className="text-primary uppercase font-medium">
               {normalLeaderBoard.category_name}
@@ -247,31 +254,110 @@ export default function QuestionsetLeaderboard() {
                     {column.question}
                   </th>
                 ))}
+                <th
+                  scope="col"
+                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                >
+                  Scrore
+                </th>
+                <th
+                  scope="col"
+                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                >
+                  Avg time
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {predictiveLeaderBoard &&
                 Array.isArray(predictiveLeaderBoard) &&
-                predictiveLeaderBoard.map((cols, index) => (
-                  <tr
-                    key={index}
-                    className={`${
-                      index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                    } hover:bg-gray-100`}
-                  >
-                    <td className="px-2 py-1 whitespace-nowrap border">
-                      {index + 1}
-                    </td>
-                    <td className="px-2 py-1 whitespace-nowrap border">
-                      {cols.nickname}
-                    </td>
-                    {cols.answers.map((col) => (
+                predictiveLeaderBoard
+                  .sort((a, b) =>
+                    a.score && b.score
+                      ? a.score - b.score
+                      : a.time_used - b.time_used
+                  )
+                  .map((cols, index) => (
+                    <tr
+                      key={index}
+                      className={`${
+                        index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                      } hover:bg-gray-100`}
+                    >
                       <td className="px-2 py-1 whitespace-nowrap border">
-                        {col.answer}
+                        {index + 1}
                       </td>
-                    ))}
-                  </tr>
-                ))}
+                      <td className="px-2 py-1 whitespace-nowrap border">
+                        {cols.nickname}
+                      </td>
+                      {cols.answers.map((col) => (
+                        <td className="px-2 py-1 whitespace-nowrap border">
+                          {col.status === "c" ? (
+                            <span className={`px-2 py-1`}>
+                              <span>
+                                {col.answer}{" "}
+                                <span className="text-xs">({col.status})</span>
+                              </span>
+                            </span>
+                          ) : col.status === "w" ? (
+                            <span
+                              className={`px-2 py-1 ${
+                                bargeColorGenerator()["red"]
+                              }`}
+                            >
+                              <span className={``}>
+                                <span>
+                                  {col.answer}{" "}
+                                  <span className="text-xs">
+                                    S: {col.status}
+                                    <br />
+                                    C: {col.answer}
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          ) : (
+                            <span className={`px-2 py-1`}>
+                              <span className={``}>
+                                <span>
+                                  {col.answer}{" "}
+                                  <span
+                                    className={`text-xs p-1 rounded-full ${
+                                      bargeColorGenerator().yellow
+                                    }`}
+                                  >
+                                    {col.status}
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          )}
+                        </td>
+                      ))}
+                      <td className="px-2 py-1 whitespace-nowrap border text-xs">
+                        {cols.score ? (
+                          <span
+                            className={`px-2 py-1 ${
+                              bargeColorGenerator()["green"]
+                            } `}
+                          >
+                            {cols.score}
+                          </span>
+                        ) : (
+                          <span
+                            className={`px-2 py-1 ${
+                              bargeColorGenerator()["yellow"]
+                            } `}
+                          >
+                            Pending
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-2 py-1 whitespace-nowrap border">
+                        {cols.time_used}
+                      </td>
+                    </tr>
+                  ))}
             </tbody>
           </table>
         </div>

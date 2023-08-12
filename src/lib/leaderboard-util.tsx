@@ -29,30 +29,35 @@ export function convertLeaderBoardData<T = unknown>(
 export function processPredictiveLeaderboard(
   leaderboard: PredictiveLeaderBoard
 ) {
-  const { question_players } = leaderboard;
+
+  
+  const { question_players } = leaderboard
 
   const players = question_players.map((player) => {
     const { q_player, questions, points_earned, time_used, score } = player;
     const { nickname, profile_pic } = q_player;
 
-    const answers = questions.map((question) => {
-      const { question_text, user_answers } = question;
-      const { question_abbrev } = question_text;
+    const answers =
+      questions && Array.isArray(questions)
+        ? questions.map((question) => {
+            const { question_text, user_answers } = question;
+            const { question_abbrev } = question_text;
 
-      const answer = user_answers[0];
-      type AnswerStatus = "Correct" | "Wrong" | "Unknown";
-      return {
-        question: question_abbrev.names,
-        answer: answer.answer_text,
-        correct: answer.answer_marker,
-        status:
-          answer.answer_marker === "IR"
-            ? "Correct"
-            : answer.answer_marker === "IW"
-            ? "Wrong"
-            : ("Unknown" as AnswerStatus),
-      };
-    });
+            const answer = user_answers[0];
+            type AnswerStatus = "c" | "w" | "u";
+            return {
+              question: question_abbrev.names,
+              answer: answer.answer_text,
+              correct: answer.answer_marker,
+              status:
+                answer.answer_marker === "IR"
+                  ? "c"
+                  : answer.answer_marker === "IW"
+                  ? "w"
+                  : ("u" as AnswerStatus),
+            };
+          })
+        : [];
 
     return {
       nickname,
@@ -63,5 +68,6 @@ export function processPredictiveLeaderboard(
       score,
     };
   });
+
   return players;
 }
