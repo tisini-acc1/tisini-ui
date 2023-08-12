@@ -258,7 +258,7 @@ export default function QuestionsetLeaderboard() {
                   scope="col"
                   className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
                 >
-                  Scrore
+                  Score
                 </th>
                 <th
                   scope="col"
