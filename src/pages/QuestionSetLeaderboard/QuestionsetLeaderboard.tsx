@@ -294,9 +294,8 @@ export default function QuestionsetLeaderboard() {
                         <td className="px-2 py-1 whitespace-nowrap border">
                           {col.status === "c" ? (
                             <span className={`px-2 py-1`}>
-                              <span>
-                                {col.answer}{" "}
-                                <span className="text-xs">({col.status})</span>
+                              <span className="text-xs">
+                                ({col.user_answer})
                               </span>
                             </span>
                           ) : col.status === "w" ? (
@@ -307,11 +306,8 @@ export default function QuestionsetLeaderboard() {
                             >
                               <span className={``}>
                                 <span>
-                                  {col.answer}{" "}
                                   <span className="text-xs">
-                                    S: {col.status}
-                                    <br />
-                                    C: {col.answer}
+                                    {col.user_answer}
                                   </span>
                                 </span>
                               </span>
@@ -320,7 +316,7 @@ export default function QuestionsetLeaderboard() {
                             <span className={`px-2 py-1`}>
                               <span className={``}>
                                 <span>
-                                  {col.answer}{" "}
+                                  {col.status}{" "}
                                   <span
                                     className={`text-xs p-1 rounded-full ${
                                       bargeColorGenerator().yellow
@@ -335,13 +331,13 @@ export default function QuestionsetLeaderboard() {
                         </td>
                       ))}
                       <td className="px-2 py-1 whitespace-nowrap border text-xs">
-                        {cols.score ? (
+                        {cols.points_earned ? (
                           <span
                             className={`px-2 py-1 ${
                               bargeColorGenerator()["green"]
                             } `}
                           >
-                            {cols.score}
+                            {cols.points_earned}
                           </span>
                         ) : (
                           <span
@@ -349,7 +345,7 @@ export default function QuestionsetLeaderboard() {
                               bargeColorGenerator()["yellow"]
                             } `}
                           >
-                            Pending
+                            0
                           </span>
                         )}
                       </td>

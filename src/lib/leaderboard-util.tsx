@@ -29,9 +29,7 @@ export function convertLeaderBoardData<T = unknown>(
 export function processPredictiveLeaderboard(
   leaderboard: PredictiveLeaderBoard
 ) {
-
-  
-  const { question_players } = leaderboard
+  const { question_players } = leaderboard;
 
   const players = question_players.map((player) => {
     const { q_player, questions, points_earned, time_used, score } = player;
@@ -40,15 +38,15 @@ export function processPredictiveLeaderboard(
     const answers =
       questions && Array.isArray(questions)
         ? questions.map((question) => {
-            const { question_text, user_answers } = question;
+            const { question_text, user_answers, } = question;
             const { question_abbrev } = question_text;
 
             const answer = user_answers[0];
             type AnswerStatus = "c" | "w" | "p";
             return {
               question: question_abbrev.names,
-              answer: answer.answer_text,
-              correct: answer.answer_marker,
+              user_answer: answer.answer_text,
+              // correct_answer: answer.answer_marker,
               status:
                 answer.answer_marker === "IR"
                   ? "c"
