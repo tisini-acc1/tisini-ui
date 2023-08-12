@@ -1,7 +1,7 @@
 import {
+  GenericLeaderBoardData,
   NormalLeaderBoard,
   PredictiveLeaderBoard,
-  GenericLeaderBoardData,
 } from "./types";
 
 export function convertLeaderBoardData<T = unknown>(
@@ -48,7 +48,7 @@ export function processPredictiveLeaderboard(
               user_answer: answer.answer_text,
               // correct_answer: answer.answer_marker,
               status:
-                answer.answer_marker === "IR"
+                answer.answer_marker === "IC"
                   ? "c"
                   : answer.answer_marker === "IW"
                   ? "w"

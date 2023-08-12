@@ -297,7 +297,7 @@ export default function QuestionsetLeaderboard() {
                       {cols.answers.map((col) => (
                         <td className="px-2 py-1 whitespace-nowrap border">
                           {col.status === "c" ? (
-                            <span className={`px-2 py-1`}>
+                            <span className={`px-2 py-1 ${bargeColorGenerator().green}`}>
                               <span className="text-xs">
                                 ({col.user_answer})
                               </span>
