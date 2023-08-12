@@ -295,7 +295,7 @@ export type GenericLeaderBoardData<T> = T extends "NR"
 //     : PredictiveLeaderBoard
 // ) => NormalLeaderBoard | PredictiveLeaderBoard;
 
-type GenericLeaderBoardFunction = <T = unknown>(
+export type GenericLeaderBoardFunction = <T = unknown>(
   data: T extends "NR"
     ? NormalLeaderBoard
     : T extends "PR"
