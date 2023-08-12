@@ -44,7 +44,7 @@ export function processPredictiveLeaderboard(
             const { question_abbrev } = question_text;
 
             const answer = user_answers[0];
-            type AnswerStatus = "c" | "w" | "u";
+            type AnswerStatus = "c" | "w" | "p";
             return {
               question: question_abbrev.names,
               answer: answer.answer_text,
@@ -54,7 +54,7 @@ export function processPredictiveLeaderboard(
                   ? "c"
                   : answer.answer_marker === "IW"
                   ? "w"
-                  : ("u" as AnswerStatus),
+                  : ("p" as AnswerStatus),
             };
           })
         : [];
