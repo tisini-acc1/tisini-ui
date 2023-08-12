@@ -34,10 +34,10 @@ export function processPredictiveLeaderboard(
   const players = question_players.map((player) => {
     const { q_player, questions, points_earned, time_used, score } = player;
     const { nickname, profile_pic } = q_player;
-
+const sortedQuestions = questions.sort((a,b)=>a.question_text.uid.localeCompare(b.question_text.uid))
     const answers =
-      questions && Array.isArray(questions)
-        ? questions.map((question) => {
+    sortedQuestions && Array.isArray(sortedQuestions)
+        ? sortedQuestions.map((question) => {
             const { question_text, user_answers, } = question;
             const { question_abbrev } = question_text;
 
