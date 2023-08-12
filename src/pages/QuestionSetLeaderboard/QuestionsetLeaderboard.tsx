@@ -1,20 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import { useParams } from "react-router-dom";
 import {
   GenericLeaderBoardData,
   NormalLeaderBoard,
   PredictiveLeaderBoard,
 } from "@/lib/types";
-
-import Loader from "@/components/Loader/Loader";
-import React from "react";
-import { privateAxios } from "@/lib/api";
 import {
   convertLeaderBoardData,
   processPredictiveLeaderboard,
 } from "@/lib/leaderboard-util";
+
+import Loader from "@/components/Loader/Loader";
+import React from "react";
+import { privateAxios } from "@/lib/api";
+import { useParams } from "react-router-dom";
+
 // import useTisiniCookies from "@/hooks/useTisiniCookies";
 
 export default function QuestionsetLeaderboard() {
@@ -28,7 +29,7 @@ export default function QuestionsetLeaderboard() {
       await privateAxios.get(`/quiz/quiz_leaderboard/${questionSetId}`)
     ).data;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
-    if (response.leaderBoardType === "PR") {
+    if (response.quiz_type === "PR") {
       setLeaderBoardType("PR");
       return convertLeaderBoardData<"PR">(
         response as PredictiveLeaderBoard,
@@ -261,7 +262,7 @@ export default function QuestionsetLeaderboard() {
                     {index + 1}
                   </td>
                   <td className="px-2 py-1 whitespace-nowrap border">
-                    {/* {player.q_player.nickname} */}
+                    {cols.nickname}
                   </td>
                   {cols.answers.map((col) => (
                     <td className="px-2 py-1 whitespace-nowrap border">

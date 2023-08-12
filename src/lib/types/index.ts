@@ -221,7 +221,7 @@ export type PaginatedResponse<T = any> = {
 export interface PredictiveLeaderBoard {
   uid: string;
   category_name: string;
-  leaderBoardType: "PR";
+  quiz_type: "PR";
   question_players: PredictiveLeaderBoardQuestionPlayer[];
 }
 
@@ -268,7 +268,7 @@ export interface NormalLeaderBoard {
   uid: string;
   category_name: string;
   question_players: NormalLeaderBoardQuestionPlayer[];
-  leaderBoardType: "NR";
+  quiz_type: "NR";
 }
 
 export interface NormalLeaderBoardQuestionPlayer {
