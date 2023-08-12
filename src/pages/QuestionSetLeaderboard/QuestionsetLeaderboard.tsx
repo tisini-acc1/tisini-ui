@@ -272,11 +272,15 @@ export default function QuestionsetLeaderboard() {
               {predictiveLeaderBoard &&
                 Array.isArray(predictiveLeaderBoard) &&
                 predictiveLeaderBoard
-                  .sort((a, b) =>
-                    a.score && b.score
-                      ? a.score - b.score
-                      : a.time_used - b.time_used
-                  )
+                  .sort((a, b) => {
+                    const aScore =
+                      parseFloat(a.points_earned as unknown as string) -
+                      a.time_used;
+                    const bScore =
+                      parseFloat(b.points_earned as unknown as string) -
+                      b.time_used;
+                    return bScore - aScore;
+                  })
                   .map((cols, index) => (
                     <tr
                       key={index}
