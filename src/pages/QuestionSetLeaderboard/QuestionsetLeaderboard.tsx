@@ -9,12 +9,14 @@ import {
 import {
   convertLeaderBoardData,
   processPredictiveLeaderboard,
+  processPredictiveLeaderboardV2,
 } from "@/lib/leaderboard-util";
 
 import Loader from "@/components/Loader/Loader";
 import React from "react";
 import { privateAxios } from "@/lib/api";
 import { useParams } from "react-router-dom";
+import { Leaderboard2QuizData } from "@/lib/types/leader-board";
 
 // import useTisiniCookies from "@/hooks/useTisiniCookies";
 
@@ -31,7 +33,7 @@ export default function QuestionsetLeaderboard() {
     if (response.quiz_type === "PR") {
       setLeaderBoardType("PR");
       return convertLeaderBoardData<"PR">(
-        response as PredictiveLeaderBoard,
+        response as Leaderboard2QuizData,
         "PR"
       );
     } else {
@@ -48,8 +50,8 @@ export default function QuestionsetLeaderboard() {
   >({} as GenericLeaderBoardData<"NR">);
   // Predictive Leaderboard
   const [predictiveLeaderBoard, setPredictiveLeaderBoard] = React.useState<
-    ReturnType<typeof processPredictiveLeaderboard>
-  >({} as ReturnType<typeof processPredictiveLeaderboard>);
+    ReturnType<typeof processPredictiveLeaderboardV2>
+  >({} as ReturnType<typeof processPredictiveLeaderboardV2>);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const loadLeaderBoard = React.useCallback(async () => {
@@ -95,7 +97,8 @@ export default function QuestionsetLeaderboard() {
       } else {
         const board = payload as PredictiveLeaderBoard;
 
-        const tableData = processPredictiveLeaderboard(board);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        const tableData = processPredictiveLeaderboardV2(board as unknown as any);
         setPredictiveLeaderBoard(tableData);
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -140,6 +143,7 @@ export default function QuestionsetLeaderboard() {
     ["pink"]: "bg-pink-200 text-pink-800 rounded-md",
     ["indigo"]: "bg-indigo-200 text-800 rounded-md",
   });
+console.log({leaderBoard});
 
   return (
     <main className="overflow-auto min-h-[50vh] flex flex-col gap-2 max-w-7xl mx-auto">
@@ -246,7 +250,7 @@ export default function QuestionsetLeaderboard() {
                 >
                   Nickname
                 </th>
-                {predictiveLeaderBoard[0]?.answers.map((column) => (
+                { predictiveLeaderBoard[0].answers.map((column) => (
                   <th
                     scope="col"
                     className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
@@ -275,10 +279,10 @@ export default function QuestionsetLeaderboard() {
                   .sort((a, b) => {
                     const aScore =
                       parseFloat(a.points_earned as unknown as string) -
-                      a.time_used;
+                      a.time_used!;
                     const bScore =
                       parseFloat(b.points_earned as unknown as string) -
-                      b.time_used;
+                      b.time_used!;
                     return bScore - aScore;
                   })
                   .map((cols, index) => (

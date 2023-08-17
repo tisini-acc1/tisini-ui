@@ -77,3 +77,249 @@ export const sampleBoard = {
   },
 };
 
+const payload2 = {
+  "uid": "141cba1e-c893-4f7d-b82e-c1f6ba4b616d",
+  "category_name": "Tisini Prediction Test",
+  "quiz_type": "PR",
+  "question_players": [
+      {
+          "id": 2,
+          "q_player": {
+              "id": 2,
+              "nickname": "Briodev",
+              "first_name": "Brian",
+              "last_name": "Odhiambo"
+          },
+          "marked_useranswers": [
+              {
+                  "id": 6,
+                  "question_abbrev": "Substitute",
+                  "user_answer": "3",
+                  "answer_marker": "IC"
+              },
+              {
+                  "id": 7,
+                  "question_abbrev": "Foul",
+                  "user_answer": "7",
+                  "answer_marker": "IW"
+              },
+              {
+                  "id": 8,
+                  "question_abbrev": "Corner",
+                  "user_answer": "4",
+                  "answer_marker": "IC"
+              },
+              {
+                  "id": 9,
+                  "question_abbrev": "Goal Kick",
+                  "user_answer": "11",
+                  "answer_marker": "IC"
+              },
+              {
+                  "id": 10,
+                  "question_abbrev": "Card",
+                  "user_answer": "2",
+                  "answer_marker": "IC"
+              },
+              {
+                  "id": 11,
+                  "question_abbrev": "Substitute",
+                  "user_answer": "3",
+                  "answer_marker": "IC"
+              },
+              {
+                  "id": 12,
+                  "question_abbrev": "Foul",
+                  "user_answer": "7",
+                  "answer_marker": "IW"
+              },
+              {
+                  "id": 13,
+                  "question_abbrev": "Corner",
+                  "user_answer": "4",
+                  "answer_marker": "IC"
+              },
+              {
+                  "id": 14,
+                  "question_abbrev": "Goal Kick",
+                  "user_answer": "11",
+                  "answer_marker": "IC"
+              },
+              {
+                  "id": 15,
+                  "question_abbrev": "Card",
+                  "user_answer": "2",
+                  "answer_marker": "IC"
+              }
+          ],
+          "points_earned": 40,
+          "time_used": 4.5
+      },
+      {
+          "id": 5,
+          "q_player": {
+              "id": 3,
+              "nickname": "tisini_admin",
+              "first_name": "Tisini",
+              "last_name": "Admin"
+          },
+          "marked_useranswers": [
+              {
+                  "id": 16,
+                  "question_abbrev": "Substitute",
+                  "user_answer": "3",
+                  "answer_marker": "IC"
+              },
+              {
+                  "id": 17,
+                  "question_abbrev": "Foul",
+                  "user_answer": "7",
+                  "answer_marker": "IW"
+              },
+              {
+                  "id": 18,
+                  "question_abbrev": "Corner",
+                  "user_answer": "4",
+                  "answer_marker": "IC"
+              },
+              {
+                  "id": 19,
+                  "question_abbrev": "Goal Kick",
+                  "user_answer": "11",
+                  "answer_marker": "IC"
+              },
+              {
+                  "id": 20,
+                  "question_abbrev": "Card",
+                  "user_answer": "3",
+                  "answer_marker": "IW"
+              }
+          ],
+          "points_earned": 30,
+          "time_used": null
+      }
+  ]
+}
+const leaderboard2Payload = {
+  uid: "141cba1e-c893-4f7d-b82e-c1f6ba4b616d",
+  category_name: "Tisini Prediction Test",
+  quiz_type: "PR",
+  question_players: [
+    {
+      id: 2,
+      q_player: {
+        id: 2,
+        nickname: "Briodev",
+        first_name: "Brian",
+        last_name: "Odhiambo",
+      },
+      marked_useranswers: [
+        {
+          id: 6,
+          question_abbrev: "Substitute",
+          user_answer: "3",
+          answer_marker: "IC",
+        },
+        {
+          id: 7,
+          question_abbrev: "Foul",
+          user_answer: "7",
+          answer_marker: "IW",
+        },
+        {
+          id: 8,
+          question_abbrev: "Corner",
+          user_answer: "4",
+          answer_marker: "IC",
+        },
+        {
+          id: 9,
+          question_abbrev: "Goal Kick",
+          user_answer: "11",
+          answer_marker: "IC",
+        },
+        {
+          id: 10,
+          question_abbrev: "Card",
+          user_answer: "2",
+          answer_marker: "IC",
+        },
+        {
+          id: 11,
+          question_abbrev: "Substitute",
+          user_answer: "3",
+          answer_marker: "IC",
+        },
+        {
+          id: 12,
+          question_abbrev: "Foul",
+          user_answer: "7",
+          answer_marker: "IW",
+        },
+        {
+          id: 13,
+          question_abbrev: "Corner",
+          user_answer: "4",
+          answer_marker: "IC",
+        },
+        {
+          id: 14,
+          question_abbrev: "Goal Kick",
+          user_answer: "11",
+          answer_marker: "IC",
+        },
+        {
+          id: 15,
+          question_abbrev: "Card",
+          user_answer: "2",
+          answer_marker: "IC",
+        },
+      ],
+      points_earned: 40,
+      time_used: 4.5,
+    },
+    {
+      id: 5,
+      q_player: {
+        id: 3,
+        nickname: "tisini_admin",
+        first_name: "Tisini",
+        last_name: "Admin",
+      },
+      marked_useranswers: [
+        {
+          id: 16,
+          question_abbrev: "Substitute",
+          user_answer: "3",
+          answer_marker: "IC",
+        },
+        {
+          id: 17,
+          question_abbrev: "Foul",
+          user_answer: "7",
+          answer_marker: "IW",
+        },
+        {
+          id: 18,
+          question_abbrev: "Corner",
+          user_answer: "4",
+          answer_marker: "IC",
+        },
+        {
+          id: 19,
+          question_abbrev: "Goal Kick",
+          user_answer: "11",
+          answer_marker: "IC",
+        },
+        {
+          id: 20,
+          question_abbrev: "Card",
+          user_answer: "3",
+          answer_marker: "IW",
+        },
+      ],
+      points_earned: 30,
+      time_used: null,
+    },
+  ],
+};
