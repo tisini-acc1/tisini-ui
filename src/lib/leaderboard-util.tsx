@@ -90,12 +90,12 @@ export const processPredictiveLeaderboardV2 = (
       answer_marker: string;
     };
 
-    const question: QuestionType = {
-      // some mock data
-      question_abbrev: "Sample",
-      user_answer: "Answer",
-      answer_marker: "Marker",
-    };
+    // const question: QuestionType = {
+    //   // some mock data
+    //   question_abbrev: "Sample",
+    //   user_answer: "Answer",
+    //   answer_marker: "Marker",
+    // };
 
     const answers =
       sortedQuestions && Array.isArray(sortedQuestions)

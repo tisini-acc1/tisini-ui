@@ -8,7 +8,7 @@ import {
 } from "@/lib/types";
 import {
   convertLeaderBoardData,
-  processPredictiveLeaderboard,
+  // processPredictiveLeaderboard,
   processPredictiveLeaderboardV2,
 } from "@/lib/leaderboard-util";
 

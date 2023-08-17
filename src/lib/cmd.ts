@@ -77,7 +77,7 @@ export const sampleBoard = {
   },
 };
 
-const payload2 = {
+export const payload2 = {
   "uid": "141cba1e-c893-4f7d-b82e-c1f6ba4b616d",
   "category_name": "Tisini Prediction Test",
   "quiz_type": "PR",
@@ -200,7 +200,7 @@ const payload2 = {
       }
   ]
 }
-const leaderboard2Payload = {
+export const leaderboard2Payload = {
   uid: "141cba1e-c893-4f7d-b82e-c1f6ba4b616d",
   category_name: "Tisini Prediction Test",
   quiz_type: "PR",
