@@ -232,7 +232,7 @@ console.log({leaderBoard});
           </table>
         </div>
       ) : leaderBoardType === "PR" &&
-        predictiveLeaderBoard[0]?.answers.length ? (
+        predictiveLeaderBoard.length ? (
         <div>
           {/* Table */}
           <table className="min-w-full divide-y divide-gray-200 border border-collapse table-auto">
