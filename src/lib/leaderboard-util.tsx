@@ -84,11 +84,11 @@ export const processPredictiveLeaderboardV2 = (
     const sortedQuestions = marked_useranswers.sort((a, b) =>
       a.question_abbrev.localeCompare(b.question_abbrev)
     );
-    type QuestionType = {
-      question_abbrev: string;
-      user_answer: string;
-      answer_marker: string;
-    };
+    // type QuestionType = {
+    //   question_abbrev: string;
+    //   user_answer: string;
+    //   answer_marker: string;
+    // };
 
     // const question: QuestionType = {
     //   // some mock data
@@ -102,18 +102,9 @@ export const processPredictiveLeaderboardV2 = (
         ? sortedQuestions.map((question) => {
           console.log({ question });
           
-            const questionKeys = new Set(Object.keys(question));
+            // const questionKeys = new Set(Object.keys(question));
 
-            const { answer_marker, question_abbrev, user_answer } = Array.from(
-              questionKeys
-            ).reduce<QuestionType>((acc, key) => {
-              // no check return acc
-              console.log({ key, value: question[key as keyof QuestionType] });
-              
-              acc[key as keyof QuestionType] =
-                question[key as keyof QuestionType]!;
-              return acc; // Always return the accumulator in the reducer
-            }, {} as QuestionType);
+            const { answer_marker, question_abbrev, user_answer } = question;
 
             // const answer = user_answer;
             type AnswerStatus = "c" | "w" | "p";
