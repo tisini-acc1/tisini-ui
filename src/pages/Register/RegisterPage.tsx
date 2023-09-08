@@ -15,14 +15,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 const schema = yup
   .object({
-    first_name: yup.string().required("First name is required"),
-    last_name: yup.string().required("Last name is required"),
     nickname: yup.string().required("Nickname is required"),
     password: yup
       .string()
       .required("Password is required")
       .min(6, "Password must be at least 6 characters"),
-    email: yup.string().email("Please provide valid email").required(),
     is_quiz_admin: yup.bool().default(false).optional(),
     is_author: yup.bool().default(false).optional(),
     phone_number: yup
@@ -103,44 +100,6 @@ export default function RegisterPage() {
           onSubmit={handleSubmit((data) => onSubmit(data))}
         >
           <h1 className="text-2xl font-bold text-center ">Register</h1>
-          {/* First and last name row */}
-          <div className="flex flex-col lg:flex-row gap-2 justify-between w-full">
-            <div className="w-full flex flex-col">
-              <label htmlFor="first_name">First Name</label>
-              <input
-                className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="First Name"
-                type="text"
-                {...register("first_name", { required: true })}
-              />
-              {errors.first_name && (
-                <span className="text-red-500">
-                  {errors.first_name.message}
-                </span>
-              )}
-            </div>
-            <div className="w-full flex flex-col">
-              <label htmlFor="last_name">Last Name</label>
-              <input
-                className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Last Name"
-                type="text"
-                {...register("last_name", { required: true })}
-              />
-            </div>
-          </div>
-          <div className="w-full flex flex-col">
-            <label htmlFor="email">Email address</label>
-            <input
-              className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-              placeholder="Email"
-              type="email"
-              {...register("email", { required: true })}
-            />
-            {errors.email && (
-              <span className="text-red-500">{errors.email.message}</span>
-            )}
-          </div>
           <div className="w-full flex flex-col">
             <label htmlFor="phone_number">Nick name</label>
             <input

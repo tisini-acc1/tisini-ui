@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface SignupUserInterface {
   nickname: string; // Nickname with a max length of 255 and min length of 1
-  email: string; // Email with a max length of 255 and min length of 1
-  first_name: string; // Optional first name with a max length of 255
-  last_name: string; // Optional last name with a max length of 255
+  // email: string; // Email with a max length of 255 and min length of 1
+  // first_name: string; // Optional first name with a max length of 255
+  // last_name: string; // Optional last name with a max length of 255
   password: string; // Password with a max length of 68 and min length of 6
   phone_number: string; // Optional phone number with a max length of 15
   is_quiz_admin: boolean; // Is quiz admin flag
@@ -27,7 +27,7 @@ export interface LoginUserResponseInterface extends UserInterface {
 export interface RegisterUserResponseInterface
   extends Pick<
     SignupUserInterface,
-    "nickname" | "email" | "first_name" | "last_name"
+    "nickname" | 'password' | 'phone_number' | 'is_quiz_admin' | 'is_author'
   > {
   id: number; // ID
   is_quiz_admin: boolean; // Is quiz admin flag
