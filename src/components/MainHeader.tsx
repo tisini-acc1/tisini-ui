@@ -112,13 +112,13 @@ export default function MainHeader() {
                 <div className="flex flex-col w-full h-fit bg-primary py-2">
                   <div className="flex items-center justify-center">
                     <Link
-                      to="/auth/register"
+                      to="/auth/login?tab=register"
                       className="text-white text-xl bg-primary-lighter py-1 px-2 rounded-md focus:outline-none"
                     >
                       Sign up
                     </Link>
                     <Link
-                      to="/auth/login"
+                      to="/auth/login?tab=login"
                       className="text-white text-xl border-white border py-1 px-2 rounded-md focus:outline-none"
                     >
                       Login
@@ -189,13 +189,13 @@ export default function MainHeader() {
               <div className="flex flex-col w-full h-fit bg-primary py-2">
                 <div className="flex items-center justify-center gap-2">
                   <Link
-                    to="/auth/register"
+                    to="/auth/login?tab=register"
                     className="text-white font-bold text-md bg-primary-lighter py-1 px-2 rounded-md focus:outline-none"
                   >
                     Sign up
                   </Link>
                   <Link
-                    to="/auth/login"
+                    to="/auth/login?tab=login"
                     className="text-white font-bold text-md border-white border py-1 px-2 rounded-md focus:outline-none"
                   >
                     Login

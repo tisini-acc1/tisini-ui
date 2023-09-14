@@ -12,15 +12,13 @@ import { NavLink } from "react-router-dom";
 import React from "react";
 import { SignInUserInterface } from "@/lib/types";
 import TisiniValidator from "@/lib/validators/tisini";
-import {
-  loginSuccess,
-} from "@/store/slices/auth.slice";
+import { loginSuccess } from "@/store/slices/auth.slice";
 import { Cookie } from "@/lib/services";
 import { tisiniAxios } from "@/lib/api";
 import { useAppDispatch } from "@/store/hooks";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-+254
++254;
 const schema = yup
   .object({
     password: yup
@@ -39,7 +37,10 @@ const schema = yup
       }),
   })
   .required();
-export default function Loginpage() {
+type Props = {
+  setTabs: React.Dispatch<React.SetStateAction<"login" | "register">>;
+};
+export default function Loginpage({ setTabs }: Props) {
   const {
     register,
     handleSubmit,
@@ -55,7 +56,39 @@ export default function Loginpage() {
       {isLoading && <Loader isLoading />}
       <ToastContainer />
       <div className="flex p-4 md:p-8 flex-col items-center justify-center max-w-7xl min-h-screen mx-auto">
-        <BackHome />
+      <div className="py-4">
+          <NavLink
+            to="/"
+            className="flex items-center space-x-2 text-gray-600 hover:text-gray-800"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 text-gray-800"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path d="M12 14l9-5-9-5-9 5 9 5z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 17l-2 2m0 0l-2-2m2 2v-6"
+              />
+            </svg>
+            <span className="text-xl font-bold">Tisini Quiz</span>
+          </NavLink>
+
+          {/* <p className="text-center text-gray-600">
+            Already have an account?{" "}
+            <NavLink
+              to="/auth/login"
+              className="text-blue-500 hover:text-blue-600"
+            >
+              Login
+            </NavLink>
+          </p> */}
+        </div>
         <form
           action=""
           className="flex flex-col gap-4 p-4 border border-gray-300 rounded-md shadow-md w-full md:max-w-[40rem]  "
@@ -71,11 +104,11 @@ export default function Loginpage() {
               //   access: string;
               //   refresh: string;
               // };
-              if(!access_token || !refresh_token) {
+              if (!access_token || !refresh_token) {
                 toast.error("Something went wrong, please try again later");
                 return;
               }
-              Cookie.setCookieToken('ck_63hsG-sscWPkl',{
+              Cookie.setCookieToken("ck_63hsG-sscWPkl", {
                 accessToken: access_token,
                 refreshToken: refresh_token,
               });
@@ -104,6 +137,7 @@ export default function Loginpage() {
           <div className="flex items-center justify-center">
             {/* Image placeholder */}
             <div className="w-20 h-20 bg-gray-300 rounded-full"></div>
+            
           </div>
           <div>
             <h1 className="text-2xl font-bold text-center">
@@ -155,9 +189,14 @@ export default function Loginpage() {
           <hr />
           <p className="text-center">
             {"Don't have an account? "}
-            <NavLink to="/auth/register" className="text-primary">
+            <button
+              className="text-primary"
+              onClick={() => {
+                setTabs("register");
+              }}
+            >
               Register
-            </NavLink>
+            </button>
           </p>
         </form>
       </div>
