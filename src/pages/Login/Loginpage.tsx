@@ -6,7 +6,6 @@ import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 
 import { AxiosError } from "axios";
-import BackHome from "@/components/BackHome";
 import Loader from "@/components/Loader/Loader";
 import { NavLink } from "react-router-dom";
 import React from "react";
