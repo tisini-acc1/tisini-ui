@@ -2,7 +2,7 @@
 
 import * as yup from "yup";
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import Loader from "@/components/Loader/Loader";
@@ -33,7 +33,10 @@ const schema = yup
       }),
   })
   .required();
-export default function RegisterPage() {
+type Props = {
+  setTabs: React.Dispatch<React.SetStateAction<"login" | "register">>;
+};
+export default function RegisterPage({ setTabs }: Props) {
   const {
     register,
     handleSubmit,
@@ -42,7 +45,9 @@ export default function RegisterPage() {
     resolver: yupResolver(schema),
     defaultValues: { is_quiz_admin: false, is_author: false },
   });
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  // const _redirectUrl = use
+
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const onSubmit = async (data: SignupUserInterface) => {
@@ -51,7 +56,7 @@ export default function RegisterPage() {
       const response = (await tisiniAxios.post(`/auth/register/`, data)).data;
       response && toast.success("Account created successfully");
       setTimeout(() => {
-        navigate("/auth/login");
+        setTabs("login");
       }, 2000);
     } catch (error: any) {
       console.log(error);
@@ -87,12 +92,15 @@ export default function RegisterPage() {
             <span className="text-xl font-bold">Tisini Quiz</span>
           </NavLink>
 
-          <p className="text-center text-gray-600">
+          {/* <p className="text-center text-gray-600">
             Already have an account?{" "}
-            <NavLink to="/auth/login" className="text-blue-500 hover:text-blue-600">
+            <NavLink
+              to="/auth/login"
+              className="text-blue-500 hover:text-blue-600"
+            >
               Login
             </NavLink>
-          </p>
+          </p> */}
         </div>
         <form
           className="flex flex-col justify-center items-center space-y-4 w-full md:max-w-[30rem] border py-4 rounded px-4 md:px-8"
@@ -152,9 +160,12 @@ export default function RegisterPage() {
           <hr />
           <p className="text-center">
             {"Already have an account? "}
-            <NavLink to="/auth/login" className="text-primary">
+            <button
+              className="text-primary"
+              onClick={() => setTabs("login")}
+            >
               Login
-            </NavLink>
+            </button>
           </p>
         </form>{" "}
       </div>
