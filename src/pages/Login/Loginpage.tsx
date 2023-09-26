@@ -17,7 +17,7 @@ import { tisiniAxios } from "@/lib/api";
 import { useAppDispatch } from "@/store/hooks";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-+254;
+
 const schema = yup
   .object({
     password: yup
@@ -39,7 +39,7 @@ const schema = yup
 type Props = {
   setTabs: React.Dispatch<React.SetStateAction<"login" | "register">>;
 };
-export default function Loginpage({ setTabs }: Props) {
+export default function LoginPage({ setTabs }: Props) {
   const {
     register,
     handleSubmit,
@@ -175,6 +175,14 @@ export default function Loginpage({ setTabs }: Props) {
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password.message}</p>
             )}
+          </div>
+          <div className="flex flex-col">
+            <NavLink
+              to="/auth/forgot-password"
+              className="text-primary hover:text-primary-light"
+            >
+              Forgot Password?
+            </NavLink>
           </div>
 
           <div className="flex flex-col">
