@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 
-import * as yup from "yup";
-
-
-
 import React from "react";
 import { GetOtp } from "./GetOtp";
 import SubmitPassword from "./SubmitPassword";
