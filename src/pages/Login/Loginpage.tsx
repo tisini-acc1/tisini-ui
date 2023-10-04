@@ -176,14 +176,7 @@ export default function LoginPage({ setTabs }: Props) {
               <p className="text-red-500 text-sm">{errors.password.message}</p>
             )}
           </div>
-          <div className="flex flex-col">
-            <NavLink
-              to="/auth/forgot-password"
-              className="text-primary hover:text-primary-light"
-            >
-              Forgot Password?
-            </NavLink>
-          </div>
+       
 
           <div className="flex flex-col">
             <button
@@ -192,6 +185,15 @@ export default function LoginPage({ setTabs }: Props) {
             >
               Login
             </button>
+          </div>
+          <br />
+          <div className="flex flex-col">
+            <NavLink
+              to="/auth/forgot-password"
+              className="text-primary hover:text-primary-light"
+            >
+              Forgot Password?
+            </NavLink>
           </div>
           <hr />
           <p className="text-center">
