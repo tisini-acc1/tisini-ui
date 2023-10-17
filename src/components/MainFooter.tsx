@@ -14,9 +14,7 @@ function MainFooter() {
       <footer className="text-white max-w-7xl mx-auto w-full">
         <div className="flex items-center flex-col md:flex-row justify-around gap-4 border-b-[1px] border-light-darker py-4 mt-5">
           {/* Logo */}
-          <h1 className="text-3xl font-bold text-white uppercase">
-            Tisini
-          </h1>
+          <h1 className="text-3xl font-bold text-white uppercase">Tisini</h1>
           {/* Newsletter */}
           <h2 className="text-lg font-semibold text-white">
             Subscribe to our newsletter
@@ -53,7 +51,7 @@ function MainFooter() {
                 </li>
                 <li>
                   <Link
-                    to="/"
+                    to="/scores"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Livescore

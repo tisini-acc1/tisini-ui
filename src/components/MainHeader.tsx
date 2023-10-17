@@ -85,9 +85,12 @@ export default function MainHeader() {
                 <Link to="/" className="text-white hover:underline text-xl">
                   Home
                 </Link>
-                <a href="https://tisiniscores.netlify.app/" target="_blank" className="text-white  hover:underline text-xl">
+                <Link
+                  to="/scores"
+                  className="text-white whitespace-nowrap font-bold text-md"
+                >
                   Live scores
-                </a>
+                </Link>
                 <Link
                   to="/organizations"
                   className="text-white hover:underline text-xl"
@@ -162,9 +165,19 @@ export default function MainHeader() {
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-4">
-              <a href="https://tisiniscores.netlify.app" target="_blank" className="text-white whitespace-nowrap font-bold text-md">
+              {/* <a
+                href="https://tisiniscores.netlify.app"
+                target="_blank"
+                className="text-white whitespace-nowrap font-bold text-md"
+              >
                 Live scores
-              </a>
+              </a> */}
+              <Link
+                to="/scores"
+                className="text-white whitespace-nowrap font-bold text-md"
+              >
+                Live scores
+              </Link>
               <Link
                 to="/organizations"
                 className="text-white font-bold text-md"
@@ -205,8 +218,8 @@ export default function MainHeader() {
             )}
           </div>
         </div>
-        <hr className="my-2"/>
-        <SponsoredHeaderArticles/>
+        <hr className="my-2" />
+        <SponsoredHeaderArticles />
       </div>
     </header>
   );
