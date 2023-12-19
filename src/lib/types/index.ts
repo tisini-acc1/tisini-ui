@@ -250,10 +250,10 @@ export interface PredictiveLeaderBoardQuestion {
 
 export interface PredictiveLeaderBoardQuestionText {
   uid: string;
-  question_abbrev: PredictiveLeaderBoardQuestionAbbrev;
+  game_event: PredictiveLeaderBoardGameEvent;
 }
 
-export interface PredictiveLeaderBoardQuestionAbbrev {
+export interface PredictiveLeaderBoardGameEvent {
   uid: string;
   names: string;
 }
