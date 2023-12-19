@@ -5,7 +5,7 @@ type PlayerID = number;
 type PlayerNickname = string;
 type PlayerFirstName = string;
 type PlayerLastName = string;
-type QuestionAbbrev = string;
+type GameEvent = string;
 type UserAnswer = string;
 type AnswerMarker = "IC" | "IW" | null;
 type Points = number;
@@ -20,7 +20,7 @@ interface QPlayer {
 
 interface MarkedUserAnswer {
   id: number;
-  question_abbrev: QuestionAbbrev;
+  game_event: GameEvent;
   user_answer: UserAnswer;
   answer_marker: AnswerMarker;
 }

@@ -42,12 +42,12 @@ export function processPredictiveLeaderboard(
       sortedQuestions && Array.isArray(sortedQuestions)
         ? sortedQuestions.map((question) => {
             const { question_text, user_answers } = question;
-            const { question_abbrev } = question_text;
+            const { game_event } = question_text;
 
             const answer = user_answers[0];
             type AnswerStatus = "c" | "w" | "p";
             return {
-              question: question_abbrev.names,
+              question: game_event.names,
               user_answer: answer.answer_text,
               // correct_answer: answer.answer_marker,
               status:
@@ -82,7 +82,7 @@ export const processPredictiveLeaderboardV2 = (
     const { q_player, marked_useranswers, points_earned, time_used } = player;
     const { nickname } = q_player;
     const sortedQuestions = marked_useranswers.sort((a, b) =>
-      a.question_abbrev.localeCompare(b.question_abbrev)
+      a.game_event.localeCompare(b.game_event)
     );
     // type QuestionType = {
     //   question_abbrev: string;
@@ -104,12 +104,12 @@ export const processPredictiveLeaderboardV2 = (
           
             // const questionKeys = new Set(Object.keys(question));
 
-            const { answer_marker, question_abbrev, user_answer } = question;
+            const { answer_marker, game_event, user_answer } = question;
 
             // const answer = user_answer;
             type AnswerStatus = "c" | "w" | "p";
             return {
-              question: question_abbrev,
+              question: game_event,
               user_answer: user_answer,
               // correct_answer: answer.answer_marker,
               status:
