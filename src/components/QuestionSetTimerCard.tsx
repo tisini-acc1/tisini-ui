@@ -46,7 +46,31 @@ export default function QuestionSetTimerCard({
 
     return timeLeft;
   };
+
+  const afterPlay = () =>  {
+    const currentDate = new Date();
+    const endTime = new Date(questionSet.end_datetime);
+
+    const timeDifference = currentDate.getTime() - endTime.getTime();
+    const secondsDifference = timeDifference / 1000;
+
+    if (secondsDifference < 60) {
+      return `${Math.floor(secondsDifference)} seconds ago`;
+    } else if (secondsDifference < 3600) {
+      const minutes = Math.floor(secondsDifference / 60);
+      return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
+    } else if (secondsDifference < 86400) {
+      const hours = Math.floor(secondsDifference / 3600);
+      return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
+    } else {
+      const days = Math.floor(secondsDifference / 86400);
+      return `${days} ${days === 1 ? 'days' : 'days'} ago`;
+    }
+  }
   // console.log({orgId, questionSet: questionSet.uid});
+
+  const startQuizLabel = questionSet.quiz_type === "PR" ? "Start Tano Bora": "Start Quiz";
+  const closedQuizLabel = questionSet.quiz_type === "PR" ? "Tano Bora Closed": "Quiz Closed";
 
   return (
     <li className="flex flex-col gap-1 p-2">
@@ -100,7 +124,7 @@ export default function QuestionSetTimerCard({
               className="text-white bg-green-800 font-medium uppercase w-full text-center px-2 py-1 rounded border"
               to={`/organizations/questionsets/${organizationId}/${questionSet.uid}/preplay`}
             >
-              Start Quiz
+              {startQuizLabel}
             </Link>
           </div>
         </div>
@@ -109,8 +133,11 @@ export default function QuestionSetTimerCard({
       {qSetStatus.getStatus(questionSet) === "closed" && (
         <div className="flex flex-col gap-1">
           <h1 className="text-red-500 font-bold text-center py-4 uppercase">
-            Quiz Closed
+            {closedQuizLabel}
           </h1>
+          <p className="text-center">
+            Played: {afterPlay()}
+          </p>
         </div>
       )}
 
