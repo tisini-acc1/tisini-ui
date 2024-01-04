@@ -11,7 +11,10 @@
     "preview": "vite preview --port 3000 --host tisini.co.ke"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@mui/material": "^5.15.3",
     "@reduxjs/toolkit": "^1.9.5",
     "@tanstack/react-query": "^4.35.3",
     "he": "^1.2.0",
