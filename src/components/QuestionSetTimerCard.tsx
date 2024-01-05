@@ -64,7 +64,7 @@ export default function QuestionSetTimerCard({
       return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
     } else {
       const days = Math.floor(secondsDifference / 86400);
-      return `${days} ${days === 1 ? 'days' : 'days'} ago`;
+      return `${days} ${days === 1 ? 'day' : 'days'} ago`;
     }
   }
   // console.log({orgId, questionSet: questionSet.uid});
