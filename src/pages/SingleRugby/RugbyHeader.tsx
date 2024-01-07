@@ -3,10 +3,18 @@ import { Typography, Box, useTheme } from "@mui/material";
 import { tokens } from "@/theme/ScoresTheme";
 import homeLogo from "@/assets/homeLogo.png";
 import awayLogo from "@/assets/awayLogo.png";
+import { FixtureDetails, Scores } from "@/lib/types/scores";
 
-const RugbyHeader = ({ fixDetails, fixScores }) => {
+type HeaderProps = {
+  details: [FixtureDetails];
+  fixScores: Scores;
+};
+
+const RugbyHeader = ({ details, fixScores }: HeaderProps) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const fixDetails = details[0];
 
   return (
     <Box display="flex" flexDirection="column" bgcolor={colors.primary[300]}>

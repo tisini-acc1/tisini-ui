@@ -1,10 +1,17 @@
 import { Box } from "@mui/material";
 
+import { Cards, Stats } from "@/lib/types/scores";
 import StatsRow from "@/components/scores/singleFixture/StatsRow";
 import StatsHalf from "@/components/scores/singleFixture/StatsHalf";
 
-const RugbyStats = ({ home, away, cards }) => {
-  const getStat = (arry, name) => {
+type StatsProps = {
+  home: Stats[];
+  away: Stats[];
+  cards: Cards;
+};
+
+const RugbyStats = ({ home, away, cards }: StatsProps) => {
+  const getStat = (arry: Stats[], name: string) => {
     let stat = 0;
     if (!arry) {
       return stat;
@@ -16,10 +23,14 @@ const RugbyStats = ({ home, away, cards }) => {
       }
     }
 
-    return parseInt(stat);
+    return stat;
   };
 
-  const passAccuracy = (arry, complete, incomplete) => {
+  const passAccuracy = (
+    arry: Stats[],
+    complete: string,
+    incomplete: string
+  ) => {
     const compPasses = getStat(arry, complete);
     const totalPasses = compPasses + getStat(arry, incomplete);
 
@@ -46,13 +57,13 @@ const RugbyStats = ({ home, away, cards }) => {
         homeStat={
           !passAccuracy(home, "Pass", "Incomplete Pass")
             ? 0
-            : passAccuracy(home, "Pass", "Incomplete Pass") + "%"
+            : `${passAccuracy(home, "Pass", "Incomplete Pass")}"%"`
         }
         stat={"Pass accuracy"}
         awayStat={
           !passAccuracy(away, "Pass", "Incomplete Pass")
             ? 0
-            : passAccuracy(away, "Pass", "Incomplete Pass") + "%"
+            : `${passAccuracy(away, "Pass", "Incomplete Pass")}"%"`
         }
       />
 

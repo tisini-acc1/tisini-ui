@@ -102,6 +102,20 @@ export type FixtureStats = [
   []
 ];
 
+export type Standings = {
+  position: number;
+  team_name: string;
+  year: string;
+  round1: string;
+  round2: string;
+  round3: string;
+  round4: string;
+  round5: string;
+  round6: string;
+  totalpts: string;
+  league: string;
+};
+
 export type GroupByDate = {
   [date: string]: Fixture[];
 };
