@@ -2,20 +2,33 @@ import React, { useEffect, useState } from "react";
 import { Box, useTheme } from "@mui/material";
 
 import { tokens } from "@/theme/ScoresTheme";
-import LineupsTitle from "@/components/scores/lineups/LineupsTitle";
+import { FixtureDetails, Lineup } from "@/lib/types/scores";
 import HomePlayer from "@/components/scores/lineups/HomePlayer";
 import AwayPlayer from "@/components/scores/lineups/AwayPlayer";
+import LineupsTitle from "@/components/scores/lineups/LineupsTitle";
 
-const FootballLineUps = ({ teams, squads }) => {
+type LineupsProps = {
+  teams: [FixtureDetails];
+  squads: Lineup[];
+};
+
+const FootballLineUps = ({ teams, squads }: LineupsProps) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const [homePlayers, setHomePlayers] = useState([]);
-  const [awayPlayers, setAwayPlayers] = useState([]);
+  const [homePlayers, setHomePlayers] = useState<Lineup[]>([]);
+  const [awayPlayers, setAwayPlayers] = useState<Lineup[]>([]);
+
+  // console.log(teams);
+  // console.log(squads);
 
   useEffect(() => {
-    const groupPlayersByTeam = (data, homeId, awayId) => {
-      const teamPlayer = {};
+    const groupPlayersByTeam = (
+      data: Lineup[],
+      homeId: string,
+      awayId: string
+    ) => {
+      const teamPlayer: { [key: string]: Lineup[] } = {};
 
       data.forEach((player) => {
         const key = player.teamId;
@@ -42,8 +55,8 @@ const FootballLineUps = ({ teams, squads }) => {
       return teamPlayer;
     };
 
-    const homeId = teams.team1_id;
-    const awayId = teams.team2_id;
+    const homeId = teams[0].team1_id;
+    const awayId = teams[0].team2_id;
 
     const lineups = groupPlayersByTeam(squads, homeId, awayId);
 

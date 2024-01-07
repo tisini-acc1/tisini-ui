@@ -68,6 +68,29 @@ export type Fouls = {
   Homewon: number;
 };
 
+export type Lineup = {
+  Jersey_No: string;
+  fixture_id: string;
+  id: string;
+  last_updated: string;
+  player_id: string;
+  player_type: string;
+  pname: string;
+  teamId: string;
+  team_player_id: string;
+};
+
+export type SingleFixtureStats = [
+  [FixtureDetails],
+  Stats[],
+  Stats[],
+  Scores,
+  Lineup[],
+  Cards,
+  Fouls,
+  []
+];
+
 export type FixtureStats = [
   [FixtureDetails],
   [Stats[]],

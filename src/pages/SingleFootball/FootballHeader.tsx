@@ -2,16 +2,20 @@ import homeLogo from "@/assets/homeLogo.png";
 import awayLogo from "@/assets/awayLogo.png";
 import { Typography, Box, useTheme } from "@mui/material";
 import { tokens } from "@/theme/ScoresTheme";
+import { FixtureDetails, Scores } from "@/lib/types/scores";
 
-// interface HeaderProps {
-//   teams: object;
-//   scores: object;
-// }
+type HeaderProps = {
+  teamDetails: FixtureDetails[];
+  scores: Scores;
+};
 
-const FootballHeader = ({ teams, scores }) => {
+const FootballHeader = ({ teamDetails, scores }: HeaderProps) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const teams = teamDetails[0];
+
+  // console.log(teams);
   return (
     <Box display="flex" flexDirection="column" bgcolor={colors.primary[300]}>
       {/* Match details */}

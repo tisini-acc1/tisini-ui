@@ -15,6 +15,15 @@ import FootballHeader from "./FootballHeader";
 import FootballLineUps from "./FootballLineUps";
 import FootballScorers from "./FootballScorers";
 import FetchFixtureById from "@/lib/scores/FetchFixtureById";
+import {
+  Cards,
+  FixtureDetails,
+  Fouls,
+  Lineup,
+  Scores,
+  SingleFixtureStats,
+  Stats,
+} from "@/lib/types/scores";
 
 interface TabPanelProps {
   children?: ReactNode;
@@ -56,18 +65,19 @@ export default function SingleFootball() {
 
   const { fixtureId } = useParams();
 
-  const { data, isLoading } = useQuery(["footballById"], () =>
-    FetchFixtureById(fixtureId!)
+  const { data, isLoading } = useQuery<SingleFixtureStats, Error>(
+    ["footballById"],
+    () => FetchFixtureById(fixtureId!)
   );
-  console.log(data);
-  const details = data?.data[0][0];
-  const home = data?.data[1];
-  const away = data?.data[2];
-  const scores = data?.data[3];
-  const lineups = data?.data[4];
-  const cards = data?.data[5];
-  const fouls = data?.data[6];
-
+  // console.log(data);
+  const details = data?.[0];
+  const home = data?.[1];
+  const away = data?.[2];
+  const scores = data?.[3];
+  const lineups = data?.[4];
+  const cards = data?.[5];
+  const fouls = data?.[6];
+  console.log(lineups);
   const [value, setValue] = useState(1);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -82,7 +92,10 @@ export default function SingleFootball() {
     <Grid container>
       <Grid item xs={12} p={1}>
         <Box bgcolor={colors.primary[300]} sx={{ width: "100%" }}>
-          <FootballHeader teams={details} scores={scores} />
+          <FootballHeader
+            teamDetails={details as [FixtureDetails]}
+            scores={scores as Scores}
+          />
           <AppBar position="static">
             <Tabs
               value={value}
@@ -99,14 +112,17 @@ export default function SingleFootball() {
           </AppBar>
 
           <TabPanel value={value} index={0} dir={theme.direction}>
-            <FootballLineUps teams={details} squads={lineups} />
+            <FootballLineUps
+              teams={details as [FixtureDetails]}
+              squads={lineups as Lineup[]}
+            />
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
             <FootballStats
-              home={home}
-              away={away}
-              cards={cards}
-              fouls={fouls}
+              home={home as Stats[]}
+              away={away as Stats[]}
+              cards={cards as Cards}
+              fouls={fouls as Fouls}
             />
           </TabPanel>
           <TabPanel value={value} index={2} dir={theme.direction}>

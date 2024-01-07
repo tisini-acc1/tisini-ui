@@ -1,11 +1,12 @@
 import axios from "axios";
+import { SingleFixtureStats } from "../types/scores";
 
 const FetchFixtureById = async (fixtureId: string) => {
-  const data = await axios.get(
+  const res = await axios.get<SingleFixtureStats>(
     `https://apis.tisini.co.ke/apiagent2.php?event=${fixtureId}`
   );
 
-  return data;
+  return res.data;
 };
 
 export default FetchFixtureById;
