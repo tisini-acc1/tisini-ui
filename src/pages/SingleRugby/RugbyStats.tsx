@@ -57,13 +57,13 @@ const RugbyStats = ({ home, away, cards }: StatsProps) => {
         homeStat={
           !passAccuracy(home, "Pass", "Incomplete Pass")
             ? 0
-            : `${passAccuracy(home, "Pass", "Incomplete Pass")}"%"`
+            : `${passAccuracy(home, "Pass", "Incomplete Pass")}%`
         }
         stat={"Pass accuracy"}
         awayStat={
           !passAccuracy(away, "Pass", "Incomplete Pass")
             ? 0
-            : `${passAccuracy(away, "Pass", "Incomplete Pass")}"%"`
+            : `${passAccuracy(away, "Pass", "Incomplete Pass")}%`
         }
       />
 

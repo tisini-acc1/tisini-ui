@@ -93,8 +93,8 @@ export type SingleFixtureStats = [
 
 export type FixtureStats = [
   [FixtureDetails],
-  [Stats[]],
-  [Stats[]],
+  Stats[],
+  Stats[],
   Scores,
   [],
   Cards,
