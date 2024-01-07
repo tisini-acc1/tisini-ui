@@ -1,6 +1,8 @@
-const GroupRubgyFixtures = (data) => {
-  const groupDataByDate = (data) => {
-    const groupedData = {};
+import { Fixture, GroupByDate, GroupedFixtures } from "../types/scores";
+
+const GroupRubgyFixtures = (data: Fixture[]) => {
+  const groupDataByDate = (data: Fixture[]) => {
+    const groupedData: GroupByDate = {};
 
     data.forEach((item) => {
       const date = item.game_date.split(" ")[0]; // Extract the date without the time part
@@ -13,8 +15,8 @@ const GroupRubgyFixtures = (data) => {
     return groupedData;
   };
 
-  const groupDataByLeague = (data) => {
-    const groupedData = {};
+  const groupDataByLeague = (data: GroupByDate) => {
+    const groupedData: GroupedFixtures = {};
 
     for (const [key, value] of Object.entries(data)) {
       if (!groupedData[key]) {

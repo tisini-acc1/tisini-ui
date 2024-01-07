@@ -4,6 +4,17 @@ import { Box, Grid, Typography } from "@mui/material";
 import homeLogo from "../../assets/homeLogo.png";
 import awayLogo from "../../assets/awayLogo.png";
 
+type Props = {
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: string;
+  awayScore: string;
+  fixtureId: string;
+  fixtureType: string;
+  fixtureState: string;
+  minute: string;
+};
+
 const SingleResult = ({
   homeTeam,
   awayTeam,
@@ -13,7 +24,7 @@ const SingleResult = ({
   fixtureType,
   fixtureState,
   minute,
-}) => {
+}: Props) => {
   const navigate = useNavigate();
 
   const handleClick = () => {

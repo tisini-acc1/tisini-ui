@@ -1,36 +1,43 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
+import { useTheme, Theme } from "@mui/material/styles";
 
 import Dates from "../Football/Dates";
 import { tokens } from "@/theme/ScoresTheme";
 import SingleResult from "../Football/SingleResult";
 import FetchRugbyFixtures from "@/lib/scores/FetchRugbyFixtures";
 import GroupRubgyFixtures from "@/lib/scores/GroupRugbyFixtures";
+import { Fixture, FixturesArray } from "@/lib/types/scores";
 
 const Rugby = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const isSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm")
+  );
 
-  const { isLoading, data } = useQuery(["rugbyFixtures"], FetchRugbyFixtures);
+  const { isLoading, data } = useQuery<Fixture[], Error>(
+    ["rugbyFixtures"],
+    FetchRugbyFixtures
+  );
 
   const rugbyFixtures = useMemo(() => {
-    if (!data) return [];
+    if (!data) return {};
 
-    const fixtures = GroupRubgyFixtures(data.data);
-    return data ? fixtures : [];
+    const fixtures = GroupRubgyFixtures(data);
+    return data ? fixtures : {};
   }, [data]);
 
   const rugbyDates = useMemo(() => {
     if (!data) return [];
 
-    const fixtures = GroupRubgyFixtures(data.data);
+    const fixtures = GroupRubgyFixtures(data);
     return data ? Object.keys(fixtures) : [];
   }, [data]);
 
-  const [fixtures, setFixtures] = useState([]);
+  const [fixtures, setFixtures] = useState<FixturesArray[]>([]);
   const [filterDate, setFilterDate] = useState(rugbyDates[0]);
 
   const dates = rugbyDates.slice(0, 7).reverse();
@@ -41,8 +48,10 @@ const Rugby = () => {
 
   useEffect(() => {
     const fetchDayFixtures = () => {
-      if (rugbyFixtures[filterDate]) {
-        setFixtures(Object.entries(rugbyFixtures[filterDate]));
+      if (filterDate) {
+        if (rugbyFixtures[filterDate]) {
+          setFixtures(Object.entries(rugbyFixtures[filterDate]));
+        }
       }
     };
 
