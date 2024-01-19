@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-function createData(Player, Team, G, A) {
+function createData(Player: string, Team: string, G: number, A: number) {
   return { Player, Team, G, A };
 }
 
@@ -39,7 +39,7 @@ export default function FootballScorers() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.name}
+              key={row.Player}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">

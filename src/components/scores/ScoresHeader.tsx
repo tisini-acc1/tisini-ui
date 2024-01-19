@@ -1,7 +1,7 @@
 import { Button, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-import tisini from '../../assets/brandTisini.jpg'
+import tisini from "../../assets/brandTisini.jpg";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const Header = () => {
           backgroundSize: "fit",
           backgroundPosition: "center",
           width: "100%",
-          height: "13em",
+          height: "11em",
           position: "relative",
         }}
       >
@@ -37,7 +37,6 @@ const Header = () => {
         </Grid>
       </Grid>
     </nav>
-
   );
 };
 

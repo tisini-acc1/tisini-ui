@@ -24,6 +24,7 @@ import {
   SingleFixtureStats,
   Stats,
 } from "@/lib/types/scores";
+import Spinner from "@/components/spinner/Spinner";
 
 interface TabPanelProps {
   children?: ReactNode;
@@ -85,7 +86,7 @@ export default function SingleFootball() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (
