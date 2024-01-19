@@ -77,7 +77,7 @@ export default function SingleFootball() {
   const lineups = data?.[4];
   const cards = data?.[5];
   const fouls = data?.[6];
-  console.log(lineups);
+
   const [value, setValue] = useState(1);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -96,6 +96,7 @@ export default function SingleFootball() {
             teamDetails={details as [FixtureDetails]}
             scores={scores as Scores}
           />
+
           <AppBar position="static">
             <Tabs
               value={value}
