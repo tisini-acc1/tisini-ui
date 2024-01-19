@@ -3,6 +3,7 @@ import { Box, useTheme } from "@mui/material";
 import MainFooter from "@/components/MainFooter";
 import ScoresHeader from "@/components/scores/ScoresHeader";
 import { tokens } from "@/theme/ScoresTheme";
+import MainHeader from "@/components/MainHeader";
 
 // import { tokens } from "../theme";
 
@@ -15,18 +16,20 @@ const ScoresLayout = () => {
   const colors = tokens(theme.palette.mode);
 
   return (
-    <Box maxWidth="md" margin="auto">
-      <Box minHeight="100vh" display="flex" flexDirection="column">
-        <ScoresHeader />
+    <>
+      <Box maxWidth="md" margin="auto">
+        <Box minHeight="100vh" display="flex" flexDirection="column">
+          <MainHeader />
+          <ScoresHeader />
 
-        <Box bgcolor={colors.primary[400]}>
-          <Outlet />
+          <Box bgcolor={colors.primary[400]}>
+            <Outlet />
+          </Box>
         </Box>
-
-        {/* <Footer /> */}
-        <MainFooter />
       </Box>
-    </Box>
+      {/* <Footer /> */}
+      <MainFooter />
+    </>
   );
 };
 

@@ -10,6 +10,7 @@ import { tokens } from "@/theme/ScoresTheme";
 import { Fixture, FixturesArray } from "@/lib/types/scores";
 import GroupBallFixtures from "../../lib/scores/GroupBallFixtures";
 import fetchFootballFixtures from "../../lib/scores/FetchFootballFixtures";
+import Spinner from "@/components/spinner/Spinner";
 
 const Football = () => {
   const theme: Theme = useTheme();
@@ -61,7 +62,7 @@ const Football = () => {
     fetchDayFixtures();
   }, [filterDate, ballFixtures]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Spinner />;
 
   // if (isError) return <h2>{error.message}</h2>;
 

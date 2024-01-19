@@ -9,6 +9,7 @@ import SingleResult from "../Football/SingleResult";
 import FetchRugbyFixtures from "@/lib/scores/FetchRugbyFixtures";
 import GroupRubgyFixtures from "@/lib/scores/GroupRugbyFixtures";
 import { Fixture, FixturesArray } from "@/lib/types/scores";
+import Spinner from "@/components/spinner/Spinner";
 
 const Rugby = () => {
   const theme = useTheme();
@@ -90,7 +91,7 @@ const Rugby = () => {
   //   fetchDayFixtures();
   // }, [allFixtures, filterDate, dates]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Spinner />;
 
   return (
     <Box display="flex" flexDirection="row" width="100%" p={0.5} pt={0}>

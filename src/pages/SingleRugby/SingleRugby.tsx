@@ -24,6 +24,7 @@ import {
   Standings,
   Stats,
 } from "@/lib/types/scores";
+import Spinner from "@/components/spinner/Spinner";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -82,8 +83,8 @@ const SingleRugby = () => {
   const lineups = data?.[4];
   const cards = data?.[5];
   const league = data?.[7];
-  console.log(details);
-  console.log(scores);
+  // console.log(details);
+  // console.log(scores);
   // const handleChange = (event: React.SyntheticEvent, newValue: number) => {
   //   setValue(newValue);
   // };
@@ -95,7 +96,7 @@ const SingleRugby = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (
