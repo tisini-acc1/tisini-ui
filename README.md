@@ -1,28 +1,75 @@
-# Tisini UI
+# Nuxt 3 Minimal Starter
 
-# Development
+Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-Requirements
-- Node 18+
-- pmpm
+## Setup
 
-# After cloning the application 
-Ensure to add the following to your application. Location might vary based on os
+Make sure to install the dependencies:
 
-```
-Windows 10 - "C:\Windows\System32\drivers\etc\hosts"
-Linux - "/etc/hosts"
-Mac OS X - "/private/etc/hosts"
-```
-Ensure to add the following domain for the app to run.
-```txt
-127.0.0.1  127.0.0.1 tisini.co.ke
-```
-Once done proceed to install packages using
-```sh
+```bash
+# npm
+npm install
+
+# pnpm
 pnpm install
+
+# yarn
+yarn install
+
+# bun
+bun install
 ```
-Then run to serve the website locally on your machine
+
+## Development Server
+
+Start the development server on `http://localhost:3000`:
+
+```bash
+# npm
+npm run dev
+
+# pnpm
+pnpm run dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
 ```
-pnpm dev
-``` 
+
+## Production
+
+Build the application for production:
+
+```bash
+# npm
+npm run build
+
+# pnpm
+pnpm run build
+
+# yarn
+yarn build
+
+# bun
+bun run build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm run preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
