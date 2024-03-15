@@ -73,9 +73,9 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
       )}
 
       <StatsRow
-        homeStat={getStat(home, "Shot") + getStat(home, "Goal")}
+        homeStat={getStat(home, "Shot")}
         stat={"Attempts"}
-        awayStat={getStat(away, "Shot") + getStat(away, "Goal")}
+        awayStat={getStat(away, "Shot")}
       />
 
       <StatsRow
