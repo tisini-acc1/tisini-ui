@@ -269,7 +269,19 @@ export default function MainHeader() {
           </div>
           <div className="hidden md:flex items-center gap-4">
             {auth.isAuthenticated ? (
-              <></>
+              <div className="flex items-center gap-4 flex-row-reverse">
+                <button
+                  onClick={() => {
+                    dispatch(logoutUser());
+                  }}
+                  className="text-md px-4 md:px-6 bg-red-400 hover:bg-red-500 text-light py-2 rounded-md"
+                >
+                  Logout
+                </button>
+                <div className="flex items-center">
+                  <div>{auth.user!.nickname}</div>
+                </div>
+              </div>
             ) : (
               <div className="flex items-center gap-4">
                 {/* <Link
