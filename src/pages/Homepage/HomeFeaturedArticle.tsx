@@ -3,6 +3,7 @@ import { ArticleInterface } from "@/lib/types";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 type Props = {
   article: ArticleInterface;
@@ -23,12 +24,15 @@ function HomeFeaturedArticle({ article }: Props) {
         />
       </div>
       <div className="px-4 py-2">
-        <h1 className="text-2xl font-bold text-primary">
+        <NavLink
+          to={`/articles/${article.slug}/single-read`}
+          className="text-2xl font-bold text-primary"
+        >
           {/* Sergio Rico was trampled by a horse. This is the incredible
             story of how he cheated death Sergio Rico was trampled by a
             horse. This is the incredible story of how he cheated death */}
           {stripHtmlTags(article?.article_title)}
-        </h1>
+        </NavLink>
         <p className="text-lg font-semibold ">
           {/* After winning Ligue 1, Sergio Rico travelled to El Rocio for a
             religious festival – where a tragic accident left him fighting

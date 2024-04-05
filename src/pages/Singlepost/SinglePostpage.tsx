@@ -5,6 +5,7 @@ import React from "react";
 import { tisiniAxios } from "@/lib/api";
 import { useParams } from "react-router-dom";
 import './style.css'
+import MaxWidthWrapper from "@/components/max-width-wrapper";
 
 // const _defaultImage ='https://picsum.photos/500/500'
 export default function SinglePostpage() {
@@ -30,10 +31,10 @@ export default function SinglePostpage() {
   return (
     <div className="min-h-[50vh]">
       {loading && <Loader isLoading={loading} />}
-      <div className="max-w-2xl mx-auto py-2 flex flex-col gap-2 px-2">
-        <div>
+      <MaxWidthWrapper className=" py-2 flex flex-col gap-2 px-2">
+        <div className="text-left">
           <h1 className="text-2xl font-bold
-          max-w-2xl mx-auto text-gray-800
+           mx-auto text-gray-800
           ">{post?.article_title}</h1>
         </div>
         <img
@@ -43,19 +44,19 @@ export default function SinglePostpage() {
         />
         <div>
           <div className="flex items-center gap-4 py-2 border-b px-2 my-1">
-            <span className="text-primary text-sm truncate">
+            <span className="text-primary truncate text-lg">
               <strong>Author:</strong> {post?.author.first_name}{" "}
               {post?.author.last_name}
             </span>
-            <span className="text-primary text-sm truncate">
+            <span className="text-primary text-lg truncate">
               {new Date(post?.publish ?? "").toDateString()}
             </span>
           </div>
-          <div>
+          <div className="text-xl">
             {HtmlDecoder({ html: post?.article_body ?? "", exerpt: false })}
           </div>
         </div>
-      </div>
+      </MaxWidthWrapper>
     </div>
   );
 }
