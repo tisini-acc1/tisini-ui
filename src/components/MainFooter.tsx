@@ -10,15 +10,20 @@ import { Link } from "react-router-dom";
 
 function MainFooter() {
   return (
-    <div className="bg-primary-darker min-h-[20rem] p-4 py-8">
+    <div className="bg-primary min-h-[20rem] p-4 py-8">
       <footer className="text-white max-w-7xl mx-auto w-full">
         <div className="flex items-center flex-col md:flex-row justify-around gap-4 border-b-[1px] border-light-darker py-4 mt-5">
           {/* Logo */}
-          <h1 className="text-3xl font-bold text-white uppercase">
-            Tisini
-          </h1>
+          <div className="flex flex-col justify-center items-center gap2">
+            <img
+              src="/android-chrome-192x192.png"
+              alt=""
+              className="w-20 h-20 "
+            />
+            {/* <h1 className="text-4xl font-bold text-white uppercase">Tisini</h1> */}
+          </div>
           {/* Newsletter */}
-          <h2 className="text-lg font-semibold text-white">
+          <h2 className="font-semibold text-white text-3xl">
             Subscribe to our newsletter
           </h2>
           {/* Form */}
@@ -37,7 +42,7 @@ function MainFooter() {
           </form>
         </div>
         {/* Links */}
-        <div className="py-2">
+        <div className="py-2 text-xl">
           <div className="md:flex-row gap-4 mt-5 grid grid-cols-1 lg:grid-cols-4">
             {/* Quick links */}
             <div className="flex gap-4 flex-col">
@@ -122,7 +127,7 @@ function MainFooter() {
           </div>
         </div>
         {/* Copyright */}
-        <div className="flex justify-center items-center gap-4 mt-5">
+        <div className="flex justify-center items-center gap-4 mt-5 text-xl">
           <p className="text-white">
             &copy; {new Date().getFullYear()} Tisini Org. All rights reserved.
           </p>

@@ -1,23 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
-/* 
-TiemposHeadline-Medium.woff2
-TiemposHeadline-Regular.woff2
-TiemposHeadlineWeb-Regular.woff2
-TiemposText-Medium.woff2TiemposText-Regular.woff2
- */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "TiemposHeadline", serif;
-}
 
 .input {
   @apply px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500;
+}
+
+@layer base {
+  body {
+    @apply font-catamaran;
+  }
 }

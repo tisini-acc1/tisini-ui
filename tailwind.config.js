@@ -2,12 +2,15 @@
 export default {
   content: ["./src/**/*.{html,ts,tsx,js,jsx,mdx,sass,css,scss}"],
   theme: {
+    fontFamily: {
+      catamaran: ["Catamaran", "Inter", "sans-serif"],
+    },
     extend: {
       colors: {
         primary: {
           lightest: "#8AB6D6",
           lighter: "#418FB9",
-          DEFAULT: "#05233D",
+          DEFAULT: "#0092E0",
           darker: "#031B29",
           darkest: "#010E15",
         },
