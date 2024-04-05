@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 
 import { ArticleInterface, PaginatedResponse } from "@/lib/types";
-import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import {
   articlesLoadFailure,
@@ -19,13 +18,10 @@ import {
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import { AxiosError } from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HomePageLoadingComponent from "./HomePageLoadingComponent";
 import MainFooter from "@/components/MainFooter";
 import MainHeader from "@/components/MainHeader";
 import React from "react";
-import { faMessage } from "@fortawesome/free-regular-svg-icons";
-import { stripHtmlTags } from "@/lib/services/strip-htmltags";
 import { tisiniAxios } from "@/lib/api";
 import HomeBannerArticles from "./HomeBannerArticles";
 
@@ -81,7 +77,6 @@ export default function Homepage() {
   }, []);
   // const handleLoadMore = async () => {
   // };
-  const navigate = useNavigate();
   // console.log(data);
   const articlesLength = React.useMemo(() => {
     return articles.results.length;

@@ -4,7 +4,7 @@ import { Menu } from "@headlessui/react";
 import { LucideMenu } from "lucide-react";
 
 import React from "react";
-import SponsoredHeaderArticles from "./SponsoredHeaderArticles";
+// import SponsoredHeaderArticles from "./SponsoredHeaderArticles";
 import { logoutUser } from "@/store/slices/auth.slice";
 import MaxWidthWrapper from "./max-width-wrapper";
 import { cn } from "@/lib/cn";
@@ -39,13 +39,13 @@ export default function MainHeader() {
     },
   ];
 
-  const unauthenticatedLinks = [...generalLinks, ...authLinks.unauthenticated];
+  // const unauthenticatedLinks = [...generalLinks, ...authLinks.unauthenticated];
 
   const { auth } = useAppSelector((state) => state.persist);
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  // const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const dispatch = useAppDispatch();
-  const defaultAvatar =
-    "https://gravatar.com/avatar/cc8cbfcbd5bc4908182252d212020d52?d=mp";
+  // const defaultAvatar =
+  //   "https://gravatar.com/avatar/cc8cbfcbd5bc4908182252d212020d52?d=mp";
 
   return (
     // <header className="bg-primary w-full">
@@ -307,8 +307,10 @@ export default function MainHeader() {
               <Menu.Items
                 className={`absolute right-0 top-16 bg-white border border-gray-200 rounded-md shadow-lg z-10 h-fit p-4 flex flex-col w-full`}
               >
-                {generalLinks.map((link, index) => (
-                  <Menu.Item>
+                {generalLinks.map((link) => (
+                  <Menu.Item
+                  key={link.href}
+                  >
                     {({ active }) => (
                       <Link
                         className={cn(
@@ -349,8 +351,10 @@ export default function MainHeader() {
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 gap-2">
-                    {authLinks.unauthenticated.map((link, index) => (
-                      <Menu.Item>
+                    {authLinks.unauthenticated.map((link) => (
+                      <Menu.Item
+                      key={link.href}
+                      >
                         {({ active }) => (
                           <Link
                             className={cn(
