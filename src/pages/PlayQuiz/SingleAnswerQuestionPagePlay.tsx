@@ -4,11 +4,12 @@
 import {
   quizPlayAnswerQuestion,
   quizPlayNextQuestion,
-  quizPlaySkipQuestion,
+  // quizPlaySkipQuestion,
 } from "@/store/slices/quiz-play.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import React from "react";
+import { cn } from "@/lib/cn";
 
 type SingleQuestionPagePlayProps = {
   timeLeft: number;
@@ -21,9 +22,12 @@ export default function SingleQuestionPagePlay({
   clearTimer,
   timeUsed,
 }: SingleQuestionPagePlayProps) {
-  const { currentAnswers, currentQuestion,currentQuestionIndex,totalQuestions } = useAppSelector(
-    (state) => state.persist.quizPlay
-  );
+  const {
+    currentAnswers,
+    currentQuestion,
+    currentQuestionIndex,
+    totalQuestions,
+  } = useAppSelector((state) => state.persist.quizPlay);
   const dispatch = useAppDispatch();
   const [answer, setAnswer] = React.useState<string>("");
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,21 +59,26 @@ export default function SingleQuestionPagePlay({
         </div>
       )}
       {/* <h1>Multiple Answer Question Page</h1> */}
-      <h2>Question <span className="p-2">
-        {currentQuestionIndex+1}/{totalQuestions}
-        </span>: {currentQuestion!.question}</h2>
+      <h2 className="text-2xl font-bold text-gray-900">
+        Question{" "}
+        <span className="p-2">
+          {currentQuestionIndex + 1}/{totalQuestions}
+        </span>
+        : {currentQuestion!.question}
+      </h2>
       {currentQuestion?.is_answered ? (
         <div className="py-2 flex flex-col gap-2">
-          <div>
+          <div className="text-xl font-semibold text-gray-900">
             <div className="underline">Selected answers</div>
           </div>
           <div
-            className={`${
-              currentQuestion.selected_answer &&
-              currentQuestion.selected_answer.is_answer
-                ? "bg-green-600 text-light"
-                : "bg-red-600 text-white"
-            } px-2 border rounded-md w-fit`}
+            className={cn(
+              // currentQuestion.selected_answer &&
+              //   currentQuestion.selected_answer.is_answer
+              //   ? "bg-green-600 text-light"
+              //   : "bg-red-600 text-white",
+              "px-2 border rounded-md w-fit text-lg font-semibold text-gray-900"
+            )}
           >
             {typeof currentQuestion.selected_answer === "object" &&
             Object.hasOwnProperty.call(
@@ -85,7 +94,7 @@ export default function SingleQuestionPagePlay({
           {currentQuestion!.answers.map((answer) => (
             <div
               key={answer.uid}
-              className="flex flex-row items-center gap-2 p-2"
+              className="flex flex-row items-center gap-2 p-2 text-lg font-semibold text-gray-900"
             >
               <input
                 type="radio"
@@ -103,21 +112,23 @@ export default function SingleQuestionPagePlay({
         {!currentQuestion?.is_answered && (
           <button
             type="submit"
-            className="bg-primary text-white rounded-md px-4 text-center disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-primary text-white rounded-md px-6 text-center disabled:opacity-50 disabled:cursor-not-allowed text-lg py-2 "
             disabled={currentQuestion?.is_answered}
           >
             Submit
           </button>
         )}
         <div className="flex gap-2">
-          <button
-            type="button"
-            className="bg-primary text-white rounded-md px-4 text-center"
-            onClick={() => dispatch(quizPlayNextQuestion())}
-          >
-            Next
-          </button>
-          {!currentQuestion?.is_answered && (
+          {currentQuestion?.is_answered && (
+            <button
+              type="button"
+              className="bg-primary text-white rounded-md text-center text-xl py-1 px-8"
+              onClick={() => dispatch(quizPlayNextQuestion())}
+            >
+              Next question
+            </button>
+          )}
+          {/* {!currentQuestion?.is_answered && (
             <button
               type="button"
               className="bg-primary text-white rounded-md px-4 text-center"
@@ -128,7 +139,7 @@ export default function SingleQuestionPagePlay({
             >
               Skip
             </button>
-          )}
+          )} */}
         </div>
       </div>
     </form>

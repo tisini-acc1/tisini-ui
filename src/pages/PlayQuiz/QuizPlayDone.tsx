@@ -85,7 +85,7 @@ export default function QuizPlayDone() {
     <div>
       <Loader isLoading={isLoading} />
       {questionSet?.quiz_type === "NR" ? (
-        <div>
+        <div className="text-xl">
           {!isSubmitted && (
             <h1>Congratulations you have completed the quiz.👏 </h1>
           )}
@@ -141,7 +141,7 @@ export default function QuizPlayDone() {
           </div>
         </div>
       ) : (
-        <div>
+        <div className="text-xl">
           {!isSubmitted && (
             <h1>Congratulations you have completed the quiz.</h1>
           )}

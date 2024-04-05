@@ -17,6 +17,7 @@ import React from "react";
 import { privateAxios } from "@/lib/api";
 import { useParams } from "react-router-dom";
 import { Leaderboard2QuizData } from "@/lib/types/leader-board";
+import MaxWidthWrapper from "@/components/max-width-wrapper";
 
 // import useTisiniCookies from "@/hooks/useTisiniCookies";
 
@@ -98,7 +99,9 @@ export default function QuestionsetLeaderboard() {
         const board = payload as PredictiveLeaderBoard;
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        const tableData = processPredictiveLeaderboardV2(board as unknown as any);
+        const tableData = processPredictiveLeaderboardV2(
+          board as unknown as any
+        );
         setPredictiveLeaderBoard(tableData);
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -143,10 +146,10 @@ export default function QuestionsetLeaderboard() {
     ["pink"]: "bg-pink-200 text-pink-800 rounded-md",
     ["indigo"]: "bg-indigo-200 text-800 rounded-md",
   });
-console.log({leaderBoard});
+  console.log({ leaderBoard });
 
   return (
-    <main className="overflow-auto min-h-[50vh] flex flex-col gap-2 max-w-7xl mx-auto">
+    <MaxWidthWrapper className="overflow-auto min-h-[50vh] flex flex-col gap-2 py-4">
       <Loader isLoading={isLoading} />
       {normalLeaderBoardPlayersSize > 0 && leaderBoardType === "NR" ? (
         <div className="p-4 my-2 rounded-2 w-full overflow-auto">
@@ -155,42 +158,31 @@ console.log({leaderBoard});
               {normalLeaderBoard.category_name}
             </h1>
           </div>
-          <table className="  divide-y divide-gray-200 border border-collapse table-auto">
+          <table className="divide-y divide-gray-200 border border-collapse table-auto">
             <thead className="bg-gray-50">
               <tr className="border">
                 <th
                   scope="col"
-                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                  className="border px-2 py-1 text-left text-white whitespace-nowrap"
                 >
                   #
                 </th>
                 <th
                   scope="col"
-                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                  className="border px-2 py-1 text-left text-white whitespace-nowrap"
                 >
                   Nickname
                 </th>
-                {/* <th
-                  scope="col"
-                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
-                >
-                  First name
-                </th>
+                
                 <th
                   scope="col"
-                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
-                >
-                  Last name
-                </th> */}
-                <th
-                  scope="col"
-                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                  className="border px-2 py-1 text-left text-white whitespace-nowrap"
                 >
                   Points
                 </th>
                 <th
                   scope="col"
-                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                  className="border px-2 py-1 text-left text-white whitespace-nowrap"
                 >
                   Avg time
                 </th>
@@ -211,12 +203,7 @@ console.log({leaderBoard});
                     <td className="px-2 py-1 whitespace-nowrap border">
                       {player.q_player.nickname}
                     </td>
-                    {/* <td className="px-2 py-1 whitespace-nowrap border">
-                    {player.q_player.first_name}
-                  </td>{" "}
-                  <td className="px-2 py-1 whitespace-nowrap border">
-                    {player.q_player.last_name}
-                  </td> */}
+
                     <td className="px-2 py-1 whitespace-nowrap border">
                       {player.points_earned}
                     </td>
@@ -231,8 +218,7 @@ console.log({leaderBoard});
             </tbody>
           </table>
         </div>
-      ) : leaderBoardType === "PR" &&
-        predictiveLeaderBoard.length ? (
+      ) : leaderBoardType === "PR" && predictiveLeaderBoard.length ? (
         <div>
           {/* Table */}
           <table className="min-w-full divide-y divide-gray-200 border border-collapse table-auto">
@@ -240,33 +226,33 @@ console.log({leaderBoard});
               <tr className="border">
                 <th
                   scope="col"
-                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                  className="border px-2 py-1 text-left text-white whitespace-nowrap"
                 >
                   #
                 </th>
                 <th
                   scope="col"
-                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                  className="border px-2 py-1 text-left text-white whitespace-nowrap"
                 >
                   Nickname
                 </th>
-                { predictiveLeaderBoard[0].answers.map((column) => (
+                {predictiveLeaderBoard[0].answers.map((column) => (
                   <th
                     scope="col"
-                    className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                    className="border px-2 py-1 text-left text-white whitespace-nowrap"
                   >
                     {column.question}
                   </th>
                 ))}
                 <th
                   scope="col"
-                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                  className="border px-2 py-1 text-left text-white whitespace-nowrap"
                 >
                   Score
                 </th>
                 <th
                   scope="col"
-                  className="border px-2 py-1 text-left text-gray-500 whitespace-nowrap"
+                  className="border px-2 py-1 text-left text-white whitespace-nowrap"
                 >
                   Avg time
                 </th>
@@ -301,7 +287,11 @@ console.log({leaderBoard});
                       {cols.answers.map((col) => (
                         <td className="px-2 py-1 whitespace-nowrap border">
                           {col.status === "c" ? (
-                            <span className={`px-2 py-1 ${bargeColorGenerator().green}`}>
+                            <span
+                              className={`px-2 py-1 ${
+                                bargeColorGenerator().green
+                              }`}
+                            >
                               <span className="text-xs">
                                 ({col.user_answer})
                               </span>
@@ -373,12 +363,12 @@ console.log({leaderBoard});
             <h1 className="text-3xl font-semibold text-gray-700">
               No participants yet
             </h1>
-            <p className="text-gray-500">
+            <p className="text-white">
               Participants will appear here once they start playing
             </p>
           </div>
         </div>
       )}
-    </main>
+    </MaxWidthWrapper>
   );
 }

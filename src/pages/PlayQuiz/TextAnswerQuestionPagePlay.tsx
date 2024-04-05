@@ -1,7 +1,7 @@
 import {
   quizPlayAnswerQuestion,
   quizPlayNextQuestion,
-  quizPlaySkipQuestion,
+  // quizPlaySkipQuestion,
 } from "@/store/slices/quiz-play.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
@@ -13,14 +13,15 @@ type TextAnswerQuestionPagePlayProps = {
   timeUsed: number;
 };
 
-export default function TextAnswerQuestionPagePlay({timeLeft,timeUsed,clearTimer}: TextAnswerQuestionPagePlayProps) {
+export default function TextAnswerQuestionPagePlay({
+  timeLeft,
+  timeUsed,
+  clearTimer,
+}: TextAnswerQuestionPagePlayProps) {
   const [answer, setAnswer] = React.useState("");
   const dispatch = useAppDispatch();
-  const {
-    currentQuestion,
-    currentQuestionIndex,
-    totalQuestions,
-  } = useAppSelector((state) => state.persist.quizPlay);
+  const { currentQuestion, currentQuestionIndex, totalQuestions } =
+    useAppSelector((state) => state.persist.quizPlay);
   const submitAnswer = () => {
     clearTimer();
     dispatch(
@@ -32,28 +33,30 @@ export default function TextAnswerQuestionPagePlay({timeLeft,timeUsed,clearTimer
     );
     answer && setAnswer("");
   };
-  const skipQuestion = () => {
-    clearTimer();
-    dispatch(quizPlaySkipQuestion({duration:timeUsed}));
-    answer && setAnswer("");
-  };
+  // const skipQuestion = () => {
+  //   clearTimer();
+  //   dispatch(quizPlaySkipQuestion({ duration: timeUsed }));
+  //   answer && setAnswer("");
+  // };
   return (
     <div className="font-pop">
-     <div className="flex flex-row items-center gap-2 p-2">
+      <div className="flex flex-row items-center gap-2 p-2">
         <div className="flex flex-row items-center gap-2">
           <div className="text-2xl font-bold">{timeLeft}</div>
           <div className="text-2xl font-bold">seconds left</div>
         </div>
       </div>
 
-
       <p className="text-xl font-medium">
         <span className="">Question {currentQuestionIndex + 1}</span>/
         {totalQuestions} <br />
       </p>
       <br />
+      <p>
+        <span className="text-xl font-bold">Question:</span>{" "}
         {currentQuestion?.question}
-     
+      </p>
+
       <div className="mt-4">
         <label className="text-xl">Answer</label>
         {currentQuestion?.is_answered ? (
@@ -67,7 +70,7 @@ export default function TextAnswerQuestionPagePlay({timeLeft,timeUsed,clearTimer
         ) : (
           <input
             type="text"
-            className="w-full border-2 border-gray-300 p-2 rounded-lg ring-0 focus:ring-0 focus:border-primary"
+            className="w-full border-2 border-gray-300 p-2 rounded-lg ring-0 focus:ring-0 focus:border-primary text-xl"
             value={answer}
             placeholder="Enter your answer here"
             disabled={currentQuestion?.is_answered}
@@ -78,7 +81,7 @@ export default function TextAnswerQuestionPagePlay({timeLeft,timeUsed,clearTimer
       </div>
       {/* add more actions of skip,continue and submit */}
       <div className="mt-4 flex p-2 justify-start gap-2 py-4">
-        <div>
+        {/* <div>
           {!currentQuestion?.is_answered && (
             <button
               className="bg-primary text-white px-4 py-2 rounded-lg mr-2"
@@ -87,7 +90,7 @@ export default function TextAnswerQuestionPagePlay({timeLeft,timeUsed,clearTimer
               Skip
             </button>
           )}
-        </div>
+        </div> */}
         <div>
           {currentQuestion?.is_answered && !currentQuestion.isLastQuestion ? (
             <button
@@ -98,7 +101,7 @@ export default function TextAnswerQuestionPagePlay({timeLeft,timeUsed,clearTimer
             </button>
           ) : !currentQuestion?.is_answered ? (
             <button
-              className="bg-primary text-white px-4 py-2 rounded-lg"
+              className="bg-primary text-white px-6 py-2 rounded-lg text-xl"
               onClick={submitAnswer}
             >
               Submit
