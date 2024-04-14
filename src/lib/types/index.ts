@@ -232,6 +232,7 @@ export interface PredictiveLeaderBoardQuestionPlayer {
   points_earned: null | number;
   time_used: number;
   score: number;
+  has_player_paid: boolean;
 }
 
 export interface PredictiveLeaderBoardPlayer {
