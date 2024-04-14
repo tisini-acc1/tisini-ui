@@ -272,6 +272,7 @@ export default function QuestionsetLeaderboard() {
                     return bScore - aScore;
                   })
                   .map((cols, index) => (
+                    cols.has_player_paid ? (
                     <tr
                       key={index}
                       className={`${
@@ -351,6 +352,7 @@ export default function QuestionsetLeaderboard() {
                         {cols.time_used}
                       </td>
                     </tr>
+                    ) : null
                   ))}
             </tbody>
           </table>
