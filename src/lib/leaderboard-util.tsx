@@ -33,7 +33,7 @@ export function processPredictiveLeaderboard(
   const { question_players } = leaderboard;
 
   const players = question_players.map((player) => {
-    const { q_player, questions, points_earned, time_used, score } = player;
+    const { q_player, questions, points_earned, time_used, score, has_player_paid } = player;
     const { nickname, profile_pic } = q_player;
     const sortedQuestions = questions.sort((a, b) =>
       a.question_text.uid.localeCompare(b.question_text.uid)
@@ -67,6 +67,7 @@ export function processPredictiveLeaderboard(
       points_earned,
       time_used,
       score,
+      has_player_paid,
     };
   });
 
@@ -79,7 +80,7 @@ export const processPredictiveLeaderboardV2 = (
   const { question_players } = leaderboard;
 
   const players = question_players.map((player) => {
-    const { q_player, marked_useranswers, points_earned, time_used } = player;
+    const { q_player, marked_useranswers, points_earned, time_used, has_player_paid } = player;
     const { nickname } = q_player;
     const sortedQuestions = marked_useranswers.sort((a, b) =>
       a.game_event.localeCompare(b.game_event)
@@ -127,6 +128,7 @@ export const processPredictiveLeaderboardV2 = (
       answers,
       points_earned,
       time_used,
+      has_player_paid
     };
   });
   return players;
