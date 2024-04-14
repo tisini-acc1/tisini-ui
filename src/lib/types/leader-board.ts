@@ -10,6 +10,7 @@ type UserAnswer = string;
 type AnswerMarker = "IC" | "IW" | null;
 type Points = number;
 type TimeUsed = number | null;
+type HasPlayerPaid = boolean;
 
 interface QPlayer {
   id: PlayerID;
@@ -31,6 +32,7 @@ interface QuestionPlayer {
   marked_useranswers: MarkedUserAnswer[];
   points_earned: Points;
   time_used: TimeUsed;
+  has_player_paid: HasPlayerPaid;
 }
 
 export interface Leaderboard2QuizData {
