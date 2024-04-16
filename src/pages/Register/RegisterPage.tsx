@@ -59,7 +59,10 @@ export default function RegisterPage({ setTabs }: Props) {
         setTabs("login");
       }, 2000);
     } catch (error: any) {
-      console.log(error);
+     if (error instanceof AxiosError) {
+                // eslint-disable-next-line no-unsafe-optional-chaining, @typescript-eslint/no-unsafe-member-access
+                toast.error((error.response?.data).detail);
+              }
     } finally {
       setIsLoading(false);
     }
