@@ -12,6 +12,7 @@ import TisiniValidator from "@/lib/validators/tisini";
 import { tisiniAxios } from "@/lib/api";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { AxiosError } from "axios";
 
 const schema = yup
   .object({
@@ -59,10 +60,10 @@ export default function RegisterPage({ setTabs }: Props) {
         setTabs("login");
       }, 2000);
     } catch (error: any) {
-     if (error instanceof AxiosError) {
-                // eslint-disable-next-line no-unsafe-optional-chaining, @typescript-eslint/no-unsafe-member-access
-                toast.error((error.response?.data).detail);
-              }
+      if (error instanceof AxiosError) {
+        // eslint-disable-next-line no-unsafe-optional-chaining, @typescript-eslint/no-unsafe-member-access
+        toast.error((error.response?.data).detail);
+      }
     } finally {
       setIsLoading(false);
     }
