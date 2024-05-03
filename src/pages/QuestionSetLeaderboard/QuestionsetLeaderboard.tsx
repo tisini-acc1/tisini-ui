@@ -148,7 +148,7 @@ export default function QuestionsetLeaderboard() {
   const authenticatedUserPlayed = React.useMemo(() => {
     const player =
       leaderBoardType === "PR" &&
-      predictiveLeaderBoard.filter((p) => p.has_player_paid).length
+      predictiveLeaderBoard.length
         ? predictiveLeaderBoard.find(
             (p) =>
               p.nickname.toLowerCase() === auth.user?.nickname.toLowerCase()
