@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
@@ -18,10 +22,15 @@ import { privateAxios } from "@/lib/api";
 import { useParams } from "react-router-dom";
 import { Leaderboard2QuizData } from "@/lib/types/leader-board";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
+import { useAppSelector } from "@/store/hooks";
+import toast from "react-hot-toast";
+import { AxiosError } from "axios";
+import { ToastContainer } from "react-toastify";
 
 // import useTisiniCookies from "@/hooks/useTisiniCookies";
 
 export default function QuestionsetLeaderboard() {
+  const auth = useAppSelector((state) => state.persist.auth);
   const [leaderBoardType, setLeaderBoardType] = React.useState<"NR" | "PR">(
     "NR"
   );
@@ -100,6 +109,7 @@ export default function QuestionsetLeaderboard() {
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         const tableData = processPredictiveLeaderboardV2(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           board as unknown as any
         );
         setPredictiveLeaderBoard(tableData);
@@ -135,7 +145,21 @@ export default function QuestionsetLeaderboard() {
     }
   }, [leaderBoardType, normalLeaderBoard, predictiveLeaderBoard]);
   // const cookies = useTisiniCookies();
-
+  const authenticatedUserPlayed = React.useMemo(() => {
+    const player =
+      leaderBoardType === "PR" &&
+      predictiveLeaderBoard.filter((p) => p.has_player_paid).length
+        ? predictiveLeaderBoard.find(
+            (p) =>
+              p.nickname.toLowerCase() === auth.user?.nickname.toLowerCase()
+          )
+        : null;
+    const hasPlayerPaid = player ? player?.has_player_paid : false;
+    return {
+      player,
+      hasPlayerPaid,
+    };
+  }, [predictiveLeaderBoard, auth.user, leaderBoardType]);
   // console.log({ predictiveLeaderBoard, normalLeaderBoard, leaderBoardType });
   const bargeColorGenerator = () => ({
     ["green"]: "bg-green-200 text-green-800 rounded-md",
@@ -146,11 +170,46 @@ export default function QuestionsetLeaderboard() {
     ["pink"]: "bg-pink-200 text-pink-800 rounded-md",
     ["indigo"]: "bg-indigo-200 text-800 rounded-md",
   });
+
+  const makePayment = async () => {
+    setIsLoading(true);
+    try {
+      await privateAxios.post(`/mpesa/resend/`);
+      toast.success("Payment sent successfully!");
+      window.location.reload();
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        // tiast
+        toast.error((error.response?.data).detail);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
   console.log({ leaderBoard });
 
   return (
     <MaxWidthWrapper className="overflow-auto min-h-[50vh] flex flex-col gap-2 py-4">
       <Loader isLoading={isLoading} />
+      <ToastContainer />
+      <div>
+        {authenticatedUserPlayed.player &&
+        !authenticatedUserPlayed.hasPlayerPaid ? (
+          <div className="flex flex-col text-center items-center gap-2 p-4 bg-red-100 text-red-800 rounded-md">
+            <h1 className="text-lg font-semibold">You have not paid yet!</h1>
+            <p className="text-sm">
+              You will not be able to see your position on the leaderboard until
+              you make payment.
+            </p>
+            <button
+              className="bg-primary text-white px-4 py-2 rounded-md w-fit"
+              onClick={makePayment}
+            >
+              Pay now
+            </button>
+          </div>
+        ) : null}
+      </div>
       {normalLeaderBoardPlayersSize > 0 && leaderBoardType === "NR" ? (
         <div className="p-4 my-2 rounded-2 w-full overflow-auto">
           <div className="flex p-4">
@@ -158,6 +217,7 @@ export default function QuestionsetLeaderboard() {
               {normalLeaderBoard.category_name}
             </h1>
           </div>
+
           <table className="divide-y divide-gray-200 border border-collapse table-auto">
             <thead className="bg-gray-50">
               <tr className="border">
@@ -173,7 +233,7 @@ export default function QuestionsetLeaderboard() {
                 >
                   Nickname
                 </th>
-                
+
                 <th
                   scope="col"
                   className="border px-2 py-1 text-left text-white whitespace-nowrap"
@@ -218,7 +278,8 @@ export default function QuestionsetLeaderboard() {
             </tbody>
           </table>
         </div>
-      ) : leaderBoardType === "PR" && predictiveLeaderBoard.length ? (
+      ) : leaderBoardType === "PR" &&
+        predictiveLeaderBoard.filter((p) => p.has_player_paid).length ? (
         <div>
           {/* Table */}
           <table className="min-w-full divide-y divide-gray-200 border border-collapse table-auto">
@@ -271,8 +332,8 @@ export default function QuestionsetLeaderboard() {
                       b.time_used!;
                     return bScore - aScore;
                   })
+                  .filter((p) => p.has_player_paid)
                   .map((cols, index) => (
-                    cols.has_player_paid ? (
                     <tr
                       key={index}
                       className={`${
@@ -352,7 +413,6 @@ export default function QuestionsetLeaderboard() {
                         {cols.time_used}
                       </td>
                     </tr>
-                    ) : null
                   ))}
             </tbody>
           </table>
