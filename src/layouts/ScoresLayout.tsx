@@ -17,9 +17,9 @@ const ScoresLayout = () => {
 
   return (
     <>
+      <MainHeader />
       <Box maxWidth="md" margin="auto">
         <Box minHeight="100vh" display="flex" flexDirection="column">
-          <MainHeader />
           <ScoresHeader />
 
           <Box bgcolor={colors.primary[400]}>
