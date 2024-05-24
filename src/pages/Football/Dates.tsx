@@ -1,5 +1,6 @@
-import { Box, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
+
+import { cn } from "@/lib/cn";
 
 interface DatesProps {
   date: string;
@@ -8,19 +9,7 @@ interface DatesProps {
 }
 
 const Dates: React.FC<DatesProps> = ({ date, onClick, isSelected }) => {
-  const [cursor, setCursor] = useState("default");
-
   const input = new Date(date);
-
-  // const daysOfWeek = [
-  //   "Sunday",
-  //   "Monday",
-  //   "Tuesday",
-  //   "Wednesday",
-  //   "Thursday",
-  //   "Friday",
-  //   "Saturday",
-  // ];
 
   const months = [
     "JAN",
@@ -46,25 +35,19 @@ const Dates: React.FC<DatesProps> = ({ date, onClick, isSelected }) => {
   const month = months[monthIdx];
 
   return (
-    <Box
-      m={0.8}
-      p={0.3}
-      onMouseOver={() => setCursor("pointer")}
+    <div
+      className={cn(
+        "cursor-pointer",
+        isSelected ? "font-bold bg-slate-500" : ""
+      )}
       onClick={() => onClick(date)}
-      bgcolor={isSelected ? "blueviolet" : ""}
-      style={{ cursor: cursor }}
     >
-      <Box
-        display="flex"
-        flexDirection="row"
-        whiteSpace="nowrap"
-        overflow="hidden"
-      >
-        <Typography>
+      <div className="flex whitespace-nowrap m-2">
+        <div className="py-1">
           {myArray[2]} {month}
-        </Typography>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 

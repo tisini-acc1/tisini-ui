@@ -1,25 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
-import { useTheme, Theme } from "@mui/material/styles";
-import { Box, Typography, useMediaQuery } from "@mui/material";
 
 import Dates from "./Dates";
 import SingleResult from "./SingleResult";
-import { tokens } from "@/theme/ScoresTheme";
-// import Loader from "@/components/Loader/Loader";
+import Spinner from "@/components/spinner/Spinner";
 import { Fixture, FixturesArray } from "@/lib/types/scores";
 import GroupBallFixtures from "../../lib/scores/GroupBallFixtures";
 import fetchFootballFixtures from "../../lib/scores/FetchFootballFixtures";
-import Spinner from "@/components/spinner/Spinner";
 
 const Football = () => {
-  const theme: Theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-
-  const isSmallScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("sm")
-  );
-
   const { data, isLoading } = useQuery<Fixture[], Error>(
     ["footballFixtures"],
     fetchFootballFixtures
@@ -67,51 +56,30 @@ const Football = () => {
   // if (isError) return <h2>{error.message}</h2>;
 
   return (
-    <Box display="flex" flexDirection="row" width="100%" p={0.5} pt={0}>
-      {!isSmallScreen && (
-        <Box
-          mr={0.5}
-          width={`${100 - 85}%`}
-          border="1px solid black"
-          bgcolor={colors.primary[400]}
-        >
-          Kenya
-        </Box>
-      )}
-
-      <Box width="100%" mt={0.5}>
-        <Box
-          m={0.3}
-          display="flex"
-          justifyContent="space-evenly"
-          bgcolor={colors.primary[900]}
-        >
+    <div className="flex ">
+      <div className="w-full ">
+        <div className="flex justify-evenly bg-black-lighter ">
           {dates.map((date, key) => (
-            <Box key={key}>
+            <div key={key}>
               <Dates
                 date={date}
                 onClick={(date) => setFilterDate(date)}
                 isSelected={date === filterDate}
               />
-            </Box>
+            </div>
           ))}
-        </Box>
+        </div>
 
         {fixtures.map((league, key) => (
-          <Box mb={2} key={key}>
-            <Box display="flex" bgcolor={colors.primary[600]} mb={0.2} p={0.7}>
-              <Box display="flex" gap={0.5} color={colors.gray[100]}>
-                <Typography variant="h6" fontSize="small" fontWeight="bold">
-                  Kenya:
-                </Typography>
-                <Typography variant="h6" fontSize="small" fontWeight="bold">
-                  {league[0]}
-                </Typography>
-              </Box>
-            </Box>
+          <div key={key} className="shadow-lg mb-4 p-2">
+            <div className="flex bg-black p-2">
+              <div className="font-semibold text-sm">
+                <div className="">Kenya: {league[0]}</div>
+              </div>
+            </div>
 
             {league[1].map((fixtures, key) => (
-              <Box key={key}>
+              <div key={key}>
                 <SingleResult
                   homeTeam={fixtures.team1_name}
                   awayTeam={fixtures.team2_name}
@@ -122,12 +90,12 @@ const Football = () => {
                   fixtureState={fixtures.game_status}
                   minute={fixtures.minute}
                 />
-              </Box>
+              </div>
             ))}
-          </Box>
+          </div>
         ))}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 
