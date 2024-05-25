@@ -47,7 +47,7 @@ export default function ScoresHeader() {
   //   "https://gravatar.com/avatar/cc8cbfcbd5bc4908182252d212020d52?d=mp";
 
   return (
-    <nav className="sticky top-0 bg-black z-[500]">
+    <nav className="sticky top-0 bg-white z-[500]">
       <div className=" p-4 text-2xl">
         <MaxWidthWrapper>
           <div className="flex items-center justify-between">
@@ -186,7 +186,7 @@ export default function ScoresHeader() {
         </MaxWidthWrapper>
       </div>
 
-      <div className="flex justify-between p-2 text-base md:text-xl bg-black-lighter">
+      <div className="flex justify-between p-2 text-base md:text-xl text-primary bg-slate-50">
         <div className="flex items-center space-x-2 font-bold">
           <button className="p-2 px-4 ">
             <Link to="/scores">⚽ Football</Link>

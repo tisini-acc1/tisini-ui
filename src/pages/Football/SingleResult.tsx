@@ -37,7 +37,7 @@ const SingleResult = ({
   return (
     <div
       onClick={handleClick}
-      className="border-b border-gray-900 py-3 hover:bg-red-400 cursor-pointer"
+      className="border-b border-gray-900 py-3 hover:bg-red-400 cursor-pointer text-primary"
     >
       <div className="grid grid-cols-12 gap-2 text-sm font-semibold whitespace-nowrap">
         <div className="col-span-5 flex gap-1 lg:flex-col flex-row-reverse lg:justify-center items-center">
