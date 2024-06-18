@@ -15,8 +15,8 @@ function HomeFeaturedArticle({ article }: Props) {
       <div className="h-64 md:h-96">
         <img
           src={
-            article?.featured_image
-              ? article?.featured_image
+            article?.featured_image_url
+              ? article?.featured_image_url
               : "https://via.placeholder.com/150"
           }
           alt="hero"
