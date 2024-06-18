@@ -21,7 +21,7 @@ export default function Organizationspage() {
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       dispatch(organizationsLoadStart());
-      const data = (await privateAxios.get("/quiz/organizations/")).data;
+      const data = (await privateAxios.get("/tano_bora/organizations/")).data;
       // console.log(data);
 
       // dispatch({ type: "organizations/LOAD_SUCCESS", payload: data });
