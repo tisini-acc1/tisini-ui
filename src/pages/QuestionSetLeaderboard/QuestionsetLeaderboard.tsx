@@ -37,7 +37,7 @@ export default function QuestionsetLeaderboard() {
   const { questionSetId } = useParams() as { questionSetId: string };
   const getQuestionSetLeaderBoards = async () => {
     const response = (
-      await privateAxios.get(`/quiz/quiz_leaderboard/${questionSetId}`)
+      await privateAxios.get(`/tano_bora/quiz_leaderboard/${questionSetId}`)
     ).data;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
     if (response.quiz_type === "PR") {
