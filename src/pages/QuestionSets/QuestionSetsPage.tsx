@@ -23,7 +23,7 @@ export default function QuestionSetsPage() {
     try {
       const data = (
         await privateAxios.get(
-          `/quiz/organizations/${organizationId}/questionsets/`
+          `/tano_bora/organizations/${organizationId}/questionsets/`
         )
       ).data as Array<QuestionSetInterface>;
       // console.log({ data });
