@@ -34,7 +34,7 @@ export default function MainHeader() {
       href: "/scores",
     },
     {
-      title: "Quiz",
+      title: "Tano Bora",
       href: "/organizations",
     },
   ];
