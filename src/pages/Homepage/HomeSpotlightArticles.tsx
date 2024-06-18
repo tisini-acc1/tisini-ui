@@ -48,7 +48,7 @@ function HomeSpotlightArticles({ articles }: Props) {
             </div>
             <div className="max-h-96">
               <img
-                src={article.featured_image!}
+                src={article.featured_image_url!}
                 alt="hero"
                 className="inset-0 object-cover border h-full w-full rounded-md bg-gray-100"
               />
