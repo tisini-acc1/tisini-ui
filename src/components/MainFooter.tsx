@@ -77,7 +77,7 @@ function MainFooter() {
                     to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
-                    Quiz
+                    Tano Bora
                   </Link>
                 </li>
               </ul>
