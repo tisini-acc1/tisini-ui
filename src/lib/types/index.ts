@@ -38,7 +38,7 @@ export interface ArticleInterface {
   article_title: string; // Article title with a max length of 800 and min length of 1
   slug: string; // Slug with pattern ^[-a-zA-Z0-9_]+$ and a max length of 50 and min length of 1
   article_category: ArticleCategoryInterface; // ArticleCategory object
-  featured_image?: string | null; // Optional Featured image
+  featured_image_url?: string | null; // Optional Featured image
   excerpt?: string; // Optional Excerpt
   article_body?: string | null; // Optional Article body
   is_featured: boolean; // Is featured flag
