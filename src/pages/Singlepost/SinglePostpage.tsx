@@ -38,7 +38,7 @@ export default function SinglePostpage() {
           ">{post?.article_title}</h1>
         </div>
         <img
-          src={post?.featured_image ?? ""}
+          src={post?.featured_image_url ?? ""}
           alt="logo"
           className="rounded max-h-96"
         />
