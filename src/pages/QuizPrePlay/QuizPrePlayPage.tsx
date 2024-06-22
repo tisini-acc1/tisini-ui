@@ -22,7 +22,7 @@ export default function QuizPrePlayPage() {
     try {
       const response = await (
         await privateAxios.get(
-          `/quiz/organizations/${organizationId}/questionsets/${questionSetId}/`
+          `/tano_bora/organizations/${organizationId}/questionsets/${questionSetId}/`
         )
       ).data;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
