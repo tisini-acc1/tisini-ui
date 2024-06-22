@@ -33,7 +33,7 @@ export default function QuizPlayDone() {
         time_used: summary.time_used! / totalQuestions,
       };
       await privateAxios.post(
-        `/quiz/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
+        `/tano_bora/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
         dataToSend
       );
       // console.log({ response });
@@ -54,7 +54,7 @@ export default function QuizPlayDone() {
             time_used: summary.time_used! / totalQuestions,
           };
           await privateAxios.post(
-            `/quiz/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
+            `/tano_bora/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
             dataToSend
           );
           dispatch(quizPlaySubmit());
