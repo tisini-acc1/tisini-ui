@@ -1,16 +1,8 @@
-import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import Grid from "@mui/material/Grid";
-import AppBar from "@mui/material/AppBar";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
 import { useQuery } from "@tanstack/react-query";
-import Typography from "@mui/material/Typography";
 
 import FootballStats from "./FootballStats";
-import { tokens } from "@/theme/ScoresTheme";
 import FootballHeader from "./FootballHeader";
 import FootballLineUps from "./FootballLineUps";
 import FootballScorers from "./FootballScorers";
@@ -26,43 +18,10 @@ import {
 } from "@/lib/types/scores";
 import Spinner from "@/components/spinner/Spinner";
 
-interface TabPanelProps {
-  children?: ReactNode;
-  dir?: string;
-  index: number;
-  value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
-}
-
 export default function SingleFootball() {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [activeTab, setActiveTab] = useState(0);
+
+  const tabs = ["Overview", "Stats", "Line ups"];
 
   const { fixtureId } = useParams();
 
@@ -79,59 +38,47 @@ export default function SingleFootball() {
   const cards = data?.[5];
   const fouls = data?.[6];
 
-  const [value, setValue] = useState(1);
-
-  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+  const tabContents = [
+    <FootballScorers />,
+    <FootballStats
+      home={home as Stats[]}
+      away={away as Stats[]}
+      cards={cards as Cards}
+      fouls={fouls as Fouls}
+    />,
+    <FootballLineUps
+      teams={details as [FixtureDetails]}
+      squads={lineups as Lineup[]}
+    />,
+  ];
 
   if (isLoading) {
     return <Spinner />;
   }
 
   return (
-    <Grid container>
-      <Grid item xs={12} p={1}>
-        <Box bgcolor={colors.primary[300]} sx={{ width: "100%" }}>
-          <FootballHeader
-            teamDetails={details as [FixtureDetails]}
-            scores={scores as Scores}
-          />
+    <div className="min-h-screen bg-gray-100 rounded-lg p-2 border-2 border-indigo-200 text-gray-500">
+      <FootballHeader
+        teamDetails={details as [FixtureDetails]}
+        scores={scores as Scores}
+      />
+      <div className="flex overflow-x-auto gap-1 bg-white p-1 rounded-md">
+        {tabs.map((tab, idx) => (
+          <button
+            key={idx}
+            className={`p-2 md:p-4 rounded-lg text-gray-700 text-base font-bold flex-grow w-80 hover:bg-gray-300 hover:bg-opacity-40 ${
+              activeTab === idx ? "bg-indigo-200" : ""
+            }`}
+            onClick={() => setActiveTab(idx)}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
 
-          <AppBar position="static">
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              indicatorColor="secondary"
-              textColor="secondary"
-              variant="fullWidth"
-              aria-label="full width tabs example"
-            >
-              <Tab label="Lineups" {...a11yProps(0)} />
-              <Tab label="Team stats" {...a11yProps(1)} />
-              <Tab label="Top scorers" {...a11yProps(2)} disabled />
-            </Tabs>
-          </AppBar>
-
-          <TabPanel value={value} index={0} dir={theme.direction}>
-            <FootballLineUps
-              teams={details as [FixtureDetails]}
-              squads={lineups as Lineup[]}
-            />
-          </TabPanel>
-          <TabPanel value={value} index={1} dir={theme.direction}>
-            <FootballStats
-              home={home as Stats[]}
-              away={away as Stats[]}
-              cards={cards as Cards}
-              fouls={fouls as Fouls}
-            />
-          </TabPanel>
-          <TabPanel value={value} index={2} dir={theme.direction}>
-            <FootballScorers />
-          </TabPanel>
-        </Box>
-      </Grid>
-    </Grid>
+      <div className="mt-2 text-gray-700 bg-white rounded-md">
+        {tabContents[activeTab]}
+      </div>
+    </div>
   );
 }

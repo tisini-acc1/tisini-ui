@@ -18,7 +18,7 @@ const Football = () => {
     if (!data) return [];
 
     const fixtures = GroupBallFixtures(data);
-
+    console.log(fixtures);
     return data ? Object.entries(fixtures) : [];
   }, [data]);
 
@@ -54,7 +54,6 @@ const Football = () => {
   if (isLoading) return <Spinner />;
 
   // if (isError) return <h2>{error.message}</h2>;
-  console.log(fixtures);
 
   return (
     <div className="flex ">

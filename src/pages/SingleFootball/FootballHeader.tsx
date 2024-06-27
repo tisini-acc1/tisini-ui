@@ -1,7 +1,5 @@
 import homeLogo from "@/assets/homeLogo.png";
 import awayLogo from "@/assets/awayLogo.png";
-import { Typography, Box, useTheme } from "@mui/material";
-import { tokens } from "@/theme/ScoresTheme";
 import { FixtureDetails, Scores } from "@/lib/types/scores";
 
 type HeaderProps = {
@@ -10,188 +8,79 @@ type HeaderProps = {
 };
 
 const FootballHeader = ({ teamDetails, scores }: HeaderProps) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-
   const teams = teamDetails[0];
 
   // console.log(teams);
   return (
-    <Box display="flex" flexDirection="column" bgcolor={colors.primary[300]}>
+    <div className="flex flex-col justify-between">
       {/* Match details */}
-      <Box
-        p={0.3}
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        borderBottom="2px solid black"
-      >
-        <Box
-          m={0.2}
-          p={0.4}
-          display="flex"
-          alignItems="center"
-          borderRadius={2}
-          bgcolor="lightgray"
-        >
-          <Typography fontSize="0.8em" fontWeight="bold" color="red">
+      <div className="flex justify-between border-b border-black p-1">
+        <div className="flex items-center rounded-md bg-gray-300">
+          <div className="text-red-500 font-bold text-xs py-1 px-2 md:text-lg">
             Round: {teams["matchday"]}
-          </Typography>
-        </Box>
+          </div>
+        </div>
 
-        <Box p={0.4} borderRadius={2}>
-          <Typography variant="h6" fontSize="1em" fontWeight="bold">
-            {teams["league"]}
-          </Typography>
-        </Box>
+        <div className="text-gray-700 text-base md:text-lg font-bold pt-2">
+          {teams["league"]}
+        </div>
 
-        <Box
-          display="flex"
-          alignItems="center"
-          m={0.2}
-          p={0.4}
-          borderRadius={2}
-          bgcolor="lightgray"
-        >
-          <Typography fontSize="0.8em" fontWeight="bold" color="red">
+        <div className="flex items-center rounded-md bg-gray-300">
+          <div className="text-red-500 font-bold text-xs py-1 px-2 md:text-lg">
             {teams["game_date"].split(" ")[0]}
-          </Typography>
-        </Box>
-      </Box>
+          </div>
+        </div>
+      </div>
 
       {/* Match content (team names and scores) */}
-      <Box display="flex" flexDirection="column" height="5.5em" pt={1}>
-        <Box
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-evenly"
-          mt={0.2}
-        >
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            width={`${100 / 3}%`}
-          >
-            <Box
-              height="3em"
-              width="3em"
-              borderRadius="50%"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              bgcolor={colors.gray[400]}
-            >
+      <div className="flex justify-evenly p-4">
+        {/* Home details */}
+        <div className="flex flex-col items-center space-y-1">
+          <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center h-14 w-14 p-1 bg-gray-400 rounded-full">
               <img src={homeLogo} alt="City Stars" height="40em" width="40em" />
-            </Box>
-          </Box>
+            </div>
+          </div>
 
+          <div className="text-base md:text-xl font-semibold">
+            {teams["team1_name"]}
+          </div>
+        </div>
+
+        {/* Scores & Time */}
+        <div className="flex flex-col items-center justify-center">
           {teams.game_status === "notstarted" ? (
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width={`${100 / 3}%`}
-            >
-              <Typography variant="h4" fontWeight="bold">
-                --
-              </Typography>
-            </Box>
+            <div className="flex items-center justify-center">"15:00"</div>
           ) : (
-            <Box display="flex" flexDirection="row" width={`${100 / 3}%`}>
-              <Box
-                display="flex"
-                justifyContent="flex-end"
-                alignItems="center"
-                width={`${100 / 3}%`}
-              >
-                <Typography variant="h3" fontWeight="bold">
-                  {scores.Home}
-                </Typography>
-              </Box>
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                width={`${100 / 3}%`}
-              >
-                <Typography variant="h4" fontWeight="bold">
-                  --
-                </Typography>
-              </Box>
-              <Box
-                display="flex"
-                justifyContent="flex-start"
-                alignItems="center"
-                width={`${100 / 3}%`}
-              >
-                <Typography variant="h3" fontWeight="bold">
-                  {scores.Away}
-                </Typography>
-              </Box>
-            </Box>
+            <div>
+              <div className="flex font-bold text-xl md:text-3xl">
+                <div className="">{scores.Home}</div>
+
+                <div className="mx-1 md:mx-2">&ndash;</div>
+
+                <div className="">{scores.Away}</div>
+              </div>
+              <div className="font-semibold text-sm md:text-base text-center">
+                {teams["game_status"] === "started" ? teams["minute"] : "FT"}
+              </div>
+            </div>
           )}
+        </div>
 
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            width={`${100 / 3}%`}
-          >
-            <Box
-              height="3em"
-              width="3em"
-              borderRadius="50%"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              bgcolor={colors.gray[400]}
-            >
+        {/* Away Team */}
+        <div className="flex flex-col items-center space-y-1">
+          <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center h-14 w-14 p-1 bg-gray-400 rounded-full">
               <img src={awayLogo} alt="City Stars" height="40em" width="40em" />
-            </Box>
-          </Box>
-        </Box>
+            </div>
+          </div>
 
-        <Box display="flex" flexDirection="row" justifyContent="space-evenly">
-          <Box width={`${100 / 3}%`}>
-            <Typography
-              variant="h6"
-              fontSize="0.9em"
-              fontWeight="bold"
-              textAlign="center"
-              color={colors.gray[100]}
-            >
-              {teams["team1_name"]}
-            </Typography>
-          </Box>
-          <Box width={`${100 / 3}%`}>
-            <Typography
-              variant="h6"
-              fontSize="0.9em"
-              fontWeight="bold"
-              textAlign="center"
-            >
-              {teams["game_status"] === "notstarted"
-                ? "15:00"
-                : teams["game_status"] === "started"
-                ? teams["minute"]
-                : "FT"}
-            </Typography>
-          </Box>
-          <Box width={`${100 / 3}%`}>
-            <Typography
-              variant="h6"
-              fontSize="0.9em"
-              fontWeight="bold"
-              textAlign="center"
-              color={colors.gray[100]}
-            >
-              {teams["team2_name"]}
-            </Typography>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+          <div className="text-base md:text-xl font-semibold">
+            {teams["team2_name"]}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
