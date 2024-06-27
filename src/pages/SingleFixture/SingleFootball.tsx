@@ -2,10 +2,9 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import FootballStats from "../SingleFootball/FootballStats";
+import FootballStats from "../../components/scores/stats/FootballStats";
 import FetchFixtureById from "@/lib/scores/FetchFixtureById";
-import FootballScorers from "../SingleFootball/FootballScorers";
-import FootballLineUps from "../SingleFootball/FootballLineUps";
+import FootballScorers from "../../components/scores/FootballScorers";
 import {
   Cards,
   FixtureDetails,
@@ -17,6 +16,7 @@ import {
 } from "@/lib/types/scores";
 import Spinner from "@/components/spinner/Spinner";
 import FixtureHeader from "./FixtureHeader";
+import FixtureLineups from "./FixtureLineups";
 
 export default function SingleFootball() {
   const [activeTab, setActiveTab] = useState(0);
@@ -46,7 +46,7 @@ export default function SingleFootball() {
       cards={cards as Cards}
       fouls={fouls as Fouls}
     />,
-    <FootballLineUps
+    <FixtureLineups
       teams={details as [FixtureDetails]}
       squads={lineups as Lineup[]}
     />,

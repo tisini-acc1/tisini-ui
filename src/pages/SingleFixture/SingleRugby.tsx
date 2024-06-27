@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import RugbyStats from "../SingleRugby/RugbyStats";
-import RugbyLineUps from "../SingleRugby/RugbyLineUps";
-import RugbyStandings from "../SingleRugby/RugbyStandings";
+import RugbyStats from "../../components/scores/stats/RugbyStats";
+import RugbyStandings from "../../components/scores/RugbyStandings";
 import FetchFixtureById from "@/lib/scores/FetchFixtureById";
 import {
   Cards,
@@ -17,6 +16,7 @@ import {
 } from "@/lib/types/scores";
 import Spinner from "@/components/spinner/Spinner";
 import FixtureHeader from "./FixtureHeader";
+import FixtureLineups from "./FixtureLineups";
 
 const SingleRugby = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -48,7 +48,7 @@ const SingleRugby = () => {
       away={away as Stats[]}
       cards={cards as Cards}
     />,
-    <RugbyLineUps
+    <FixtureLineups
       teams={details as [FixtureDetails]}
       squads={lineups as Lineup[]}
     />,

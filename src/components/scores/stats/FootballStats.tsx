@@ -1,5 +1,3 @@
-import { Box } from "@mui/material";
-
 import { Cards, Fouls, Stats } from "@/lib/types/scores";
 import StatsRow from "@/components/scores/singleFixture/StatsRow";
 import StatsHalf from "@/components/scores/singleFixture/StatsHalf";
@@ -61,7 +59,7 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
   const posession = calcPosession(home, away);
 
   return (
-    <Box mt={1} display="flex" flexDirection="column">
+    <div className="flex flex-col space-y-2 bg-red-400">
       <StatsHalf />
 
       {home.length !== 0 && away.length !== 0 && (
@@ -135,7 +133,7 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
         stat={"Corner kicks"}
         awayStat={getStat(away, "Corner")}
       />
-    </Box>
+    </div>
   );
 };
 
