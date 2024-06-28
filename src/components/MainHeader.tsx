@@ -308,9 +308,7 @@ export default function MainHeader() {
                 className={`absolute right-0 top-16 bg-white border border-gray-200 rounded-md shadow-lg z-10 h-fit p-4 flex flex-col w-full`}
               >
                 {generalLinks.map((link) => (
-                  <Menu.Item
-                  key={link.href}
-                  >
+                  <Menu.Item key={link.href}>
                     {({ active }) => (
                       <Link
                         className={cn(
@@ -352,9 +350,7 @@ export default function MainHeader() {
                 ) : (
                   <div className="grid grid-cols-1 gap-2">
                     {authLinks.unauthenticated.map((link) => (
-                      <Menu.Item
-                      key={link.href}
-                      >
+                      <Menu.Item key={link.href}>
                         {({ active }) => (
                           <Link
                             className={cn(

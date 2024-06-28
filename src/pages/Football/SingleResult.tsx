@@ -1,110 +1,75 @@
 import { useNavigate } from "react-router-dom";
-import { Box, Grid, Typography } from "@mui/material";
 
-import homeLogo from "../../assets/homeLogo.png";
-import awayLogo from "../../assets/awayLogo.png";
+import homeImg from "../../assets/homeLogo.png";
+import awayImg from "../../assets/awayLogo.png";
+import { Fixture } from "@/lib/types/scores";
+import { teamImages } from "@/lib/constants/site_images";
 
-type Props = {
-  homeTeam: string;
-  awayTeam: string;
-  homeScore: string;
-  awayScore: string;
-  fixtureId: string;
-  fixtureType: string;
-  fixtureState: string;
-  minute: string;
-};
-
-const SingleResult = ({
-  homeTeam,
-  awayTeam,
-  homeScore,
-  awayScore,
-  fixtureId,
-  fixtureType,
-  fixtureState,
-  minute,
-}: Props) => {
+const SingleResult = ({ fixture }: { fixture: Fixture }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (fixtureType === "football") {
-      navigate(`/scores/football/${fixtureId}`);
+    if (fixture.fixture_type === "football") {
+      navigate(`/scores/football/${fixture.id}`);
     } else {
-      navigate(`/scores/rugby/${fixtureId}`);
+      navigate(`/scores/rugby/${fixture.id}`);
     }
   };
 
-  return (
-    <Grid
-      container
-      borderBottom="1px solid black"
-      onClick={handleClick}
-      sx={{
-        "&:hover": {
-          bgcolor: "lightgray",
-          cursor: "pointer",
-        },
-      }}
-    >
-      <Grid item xs={1}>
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="100%"
-        >
-          <Typography variant="h6" fontSize="small" fontWeight="bold">
-            {fixtureState === "notstarted"
-              ? `⌛`
-              : fixtureState === "started"
-              ? minute
-              : "FT"}
-          </Typography>
-        </Box>
-      </Grid>
-      <Grid item xs={10}>
-        <Box p={0.3}>
-          <Box display="flex" gap={0.5} flexDirection="row">
-            <Box>
-              <img
-                style={{ width: "1rem", height: "1rem" }}
-                src={homeLogo}
-                alt=""
-              />
-            </Box>
-            <Typography variant="h6" fontSize="small" fontWeight="bold">
-              {homeTeam}
-            </Typography>
-          </Box>
-          <Box display="flex" gap={0.5} flexDirection="row">
-            <Box>
-              <img
-                style={{ width: "1rem", height: "1rem" }}
-                src={awayLogo}
-                alt=""
-              />
-            </Box>
-            <Typography variant="h6" fontSize="small" fontWeight="bold">
-              {awayTeam}
-            </Typography>
-          </Box>
-        </Box>
-      </Grid>
+  const homeWin = fixture.home_score > fixture.away_score;
+  const awayWin = fixture.away_score > fixture.home_score;
 
-      {fixtureState !== "notstarted" && (
-        <Grid item xs={1}>
-          <Box p={0.6}>
-            <Typography variant="h6" fontSize="small" fontWeight="bold">
-              {homeScore}
-            </Typography>
-            <Typography variant="h6" fontSize="small" fontWeight="bold">
-              {awayScore}
-            </Typography>
-          </Box>
-        </Grid>
-      )}
-    </Grid>
+  const homeLogo = teamImages[fixture.team1_id] ?? homeImg;
+  const awayLogo = teamImages[fixture.team2_id] ?? awayImg;
+
+  return (
+    <div
+      onClick={handleClick}
+      className="m-1 border-b border-gray-300 rounded-md py-3 hover:bg-gray-300 cursor-pointer text-primary"
+    >
+      <div className="grid grid-cols-12 gap-2 text-sm font-semibold">
+        <div className="col-span-5 flex gap-1 lg:flex-col flex-row-reverse lg:justify-center items-center">
+          <img className="w-10 h-10 " src={homeLogo} alt="" />
+          <div className=" text-gray-450 text-right">{fixture.team1_name}</div>
+        </div>
+
+        <div className="col-span-2 flex items-center justify-center">
+          {fixture.game_status === "notstarted" ? (
+            <div className="animate-spin-slow">⌛</div>
+          ) : (
+            <div
+              className="flex flex-col items-center font-bold
+            lg:text-3xl text-base"
+            >
+              <div className="flex">
+                <div className={homeWin ? "text-gray-900" : "text-gray-500"}>
+                  {fixture.home_score}
+                </div>
+
+                <div className="mx-1 md:mx-2">&ndash;</div>
+
+                <div className={awayWin ? "text-gray-900" : "text-gray-500"}>
+                  {fixture.away_score}
+                </div>
+              </div>
+              <div className="text-xs">
+                {fixture.game_status === "ended"
+                  ? "FT"
+                  : fixture.minute == "45" &&
+                    fixture.game_moment == "secondhalf"
+                  ? "HT"
+                  : fixture.minute}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="col-span-5 flex gap-1 lg:flex-col flex-row lg:justify-center items-center">
+          <img className="w-10 h-10" src={awayLogo} alt="" />
+          <div>{fixture.team2_name}</div>
+        </div>
+      </div>
+    </div>
   );
 };
 
