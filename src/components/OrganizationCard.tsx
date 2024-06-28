@@ -27,7 +27,7 @@ export default function OrganizationCard({
             to={`/organizations/${organization.uid}`}
             className="bg-primary text-white p-2 rounded-md px-4 text-center capitalize"
           >
-            View active quizes
+            View active Tano Bora
           </NavLink>
         </div>
       </div>
