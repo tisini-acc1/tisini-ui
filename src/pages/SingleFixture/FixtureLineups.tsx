@@ -69,83 +69,83 @@ const FixtureLineups = ({ teams, squads }: LineupsProps) => {
   // console.log(awayPlayers);
 
   return (
-    <Box bgcolor={colors.primary[300]}>
-      {/* first 11 section */}
-      <Box mb={2}>
-        <LineupsTitle title={"Starting players"} />
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          p={0.5}
-          mb={0.5}
-          bgcolor={colors.primary[400]}
-        >
-          <Box>
-            {homePlayers.map((player) => (
-              <Box key={player.player_id}>
-                {player.player_type === "first11" && (
-                  <Box>
-                    <HomePlayer name={player.pname} jersey={player.Jersey_No} />
-                  </Box>
-                )}
-              </Box>
-            ))}
-          </Box>
-          <Box>
-            {awayPlayers.map((player) => (
-              <Box key={player.player_id}>
-                {player.player_type === "first11" && (
-                  <Box>
-                    <AwayPlayer name={player.pname} jersey={player.Jersey_No} />
-                  </Box>
-                )}
-              </Box>
-            ))}
-          </Box>
-        </Box>
+    <div>lineups</div>
+    // <Box bgcolor={colors.primary[300]}>
+    //   {/* first 11 section */}
+    //   <Box mb={2}>
+    //     <LineupsTitle title={"Starting players"} />
+    //     <Box
+    //       display="flex"
+    //       justifyContent="space-between"
+    //       p={0.5}
+    //       mb={0.5}
+    //       bgcolor={colors.primary[400]}
+    //     >
+    //       <Box>
+    //         {homePlayers.map((player) => (
+    //           <Box key={player.player_id}>
+    //             {player.player_type === "first11" && (
+    //               <Box>
+    //                 <HomePlayer name={player.pname} jersey={player.Jersey_No} />
+    //               </Box>
+    //             )}
+    //           </Box>
+    //         ))}
+    //       </Box>
+    //       <Box>
+    //         {awayPlayers.map((player) => (
+    //           <Box key={player.player_id}>
+    //             {player.player_type === "first11" && (
+    //               <Box>
+    //                 <AwayPlayer name={player.pname} jersey={player.Jersey_No} />
+    //               </Box>
+    //             )}
+    //           </Box>
+    //         ))}
+    //       </Box>
+    //     </Box>
 
-        {/* subs section */}
-        <Box>
-          <LineupsTitle title={"Substitutes"} />
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            p={0.5}
-            mb={0.5}
-            bgcolor={colors.primary[400]}
-          >
-            <Box>
-              {homePlayers.map((player) => (
-                <Box key={player.player_id}>
-                  {player.player_type === "sub" && (
-                    <Box>
-                      <HomePlayer
-                        name={player.pname}
-                        jersey={player.Jersey_No}
-                      />
-                    </Box>
-                  )}
-                </Box>
-              ))}
-            </Box>
-            <Box>
-              {awayPlayers.map((player) => (
-                <Box key={player.player_id}>
-                  {player.player_type === "sub" && (
-                    <Box>
-                      <AwayPlayer
-                        name={player.pname}
-                        jersey={player.Jersey_No}
-                      />
-                    </Box>
-                  )}
-                </Box>
-              ))}
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+    //     <Box>
+    //       <LineupsTitle title={"Substitutes"} />
+    //       <Box
+    //         display="flex"
+    //         justifyContent="space-between"
+    //         p={0.5}
+    //         mb={0.5}
+    //         bgcolor={colors.primary[400]}
+    //       >
+    //         <Box>
+    //           {homePlayers.map((player) => (
+    //             <Box key={player.player_id}>
+    //               {player.player_type === "sub" && (
+    //                 <Box>
+    //                   <HomePlayer
+    //                     name={player.pname}
+    //                     jersey={player.Jersey_No}
+    //                   />
+    //                 </Box>
+    //               )}
+    //             </Box>
+    //           ))}
+    //         </Box>
+    //         <Box>
+    //           {awayPlayers.map((player) => (
+    //             <Box key={player.player_id}>
+    //               {player.player_type === "sub" && (
+    //                 <Box>
+    //                   <AwayPlayer
+    //                     name={player.pname}
+    //                     jersey={player.Jersey_No}
+    //                   />
+    //                 </Box>
+    //               )}
+    //             </Box>
+    //           ))}
+    //         </Box>
+    //       </Box>
+    //     </Box>
+    //   </Box>
+    // </Box>
   );
 };
 

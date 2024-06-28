@@ -16,7 +16,7 @@ import {
 } from "@/lib/types/scores";
 import Spinner from "@/components/spinner/Spinner";
 import FixtureHeader from "./FixtureHeader";
-import FixtureLineups from "./FixtureLineups";
+import FootballLineups from "@/components/scores/lineups/FootballLineups";
 
 export default function SingleFootball() {
   const [activeTab, setActiveTab] = useState(0);
@@ -46,11 +46,13 @@ export default function SingleFootball() {
       cards={cards as Cards}
       fouls={fouls as Fouls}
     />,
-    <FixtureLineups
+    <FootballLineups
       teams={details as [FixtureDetails]}
       squads={lineups as Lineup[]}
     />,
   ];
+
+  console.log(lineups);
 
   if (isLoading) {
     return <Spinner />;

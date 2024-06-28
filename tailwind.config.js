@@ -30,6 +30,12 @@ export default {
           DEFAULT: "#121212",
         },
       },
+      backgroundImage: {
+        homeLg: "url('/src/assets/img/home-pitch-lg.png')",
+        homeSm: "url('/src/assets/img/home-pitch.png')",
+        awayLg: "url('/src/assets/img/away-pitch-lg.png')",
+        awaySm: "url('/src/assets/img/away-pitch.png')",
+      },
     },
   },
   plugins: [require("@tailwindcss/forms")],

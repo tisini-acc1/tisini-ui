@@ -16,7 +16,7 @@ import {
 } from "@/lib/types/scores";
 import Spinner from "@/components/spinner/Spinner";
 import FixtureHeader from "./FixtureHeader";
-import FixtureLineups from "./FixtureLineups";
+import RugbyLineups from "@/components/scores/lineups/RugbyLineups";
 
 const SingleRugby = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -48,7 +48,7 @@ const SingleRugby = () => {
       away={away as Stats[]}
       cards={cards as Cards}
     />,
-    <FixtureLineups
+    <RugbyLineups
       teams={details as [FixtureDetails]}
       squads={lineups as Lineup[]}
     />,
