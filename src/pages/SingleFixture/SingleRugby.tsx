@@ -30,7 +30,6 @@ const SingleRugby = () => {
     () => FetchFixtureById(fixtureId!)
   );
 
-  console.log(data);
   const details = data?.[0];
   const home = data?.[1];
   const away = data?.[2];
