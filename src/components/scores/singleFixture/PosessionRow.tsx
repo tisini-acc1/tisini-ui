@@ -10,7 +10,7 @@ const PosessionRow = ({ homeStat, stat, awayStat }: PosessionProps) => {
   const awayPercentage = total === 0 ? 0 : (parseInt(awayStat) / total) * 100;
 
   return (
-    <div className="flex flex-col p-2 bg-green-300">
+    <div className="flex flex-col p-2 ">
       <div className="flex justify-between text-xl font-bold px-1">
         <div>{`${homeStat}%`}</div>
         <div className="text-gray-600">{stat}</div>
