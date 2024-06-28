@@ -25,7 +25,7 @@ const SingleResult = ({ fixture }: { fixture: Fixture }) => {
   return (
     <div
       onClick={handleClick}
-      className="border-b border-gray-300 py-3 hover:bg-gray-300 cursor-pointer text-primary"
+      className="m-1 border-b border-gray-300 rounded-md py-3 hover:bg-gray-300 cursor-pointer text-primary"
     >
       <div className="grid grid-cols-12 gap-2 text-sm font-semibold">
         <div className="col-span-5 flex gap-1 lg:flex-col flex-row-reverse lg:justify-center items-center">

@@ -71,18 +71,18 @@ const Football = () => {
         </div>
 
         {fixtures.map((league, key) => (
-          <div key={key} className="shadow-lg mb-4 p-2">
-            <div className="flex bg-black p-2">
-              <div className="font-semibold text-sm">
-                <div className="">Kenya: {league[0]}</div>
+          <div key={key} className="mb-4 p-2 ">
+            <div className="flex flex-col border rounded-xl">
+              <div className="font-semibold text-sm bg-black-lighter rounded-md p-1">
+                Kenya: {league[0]}
               </div>
-            </div>
 
-            {league[1].map((fixture) => (
-              <div key={fixture.id}>
-                <SingleResult fixture={fixture} />
-              </div>
-            ))}
+              {league[1].map((fixture) => (
+                <div key={fixture.id}>
+                  <SingleResult fixture={fixture} />
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
