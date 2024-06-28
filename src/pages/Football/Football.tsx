@@ -89,6 +89,7 @@ const Football = () => {
                   fixtureType={fixtures.fixture_type}
                   fixtureState={fixtures.game_status}
                   minute={fixtures.minute}
+                  gameMoment={fixtures.game_moment}
                 />
               </div>
             ))}

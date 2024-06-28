@@ -1,11 +1,7 @@
 import { Cards, Fouls, Stats } from "@/lib/types/scores";
 import StatsRow from "@/components/scores/singleFixture/StatsRow";
 import StatsHalf from "@/components/scores/singleFixture/StatsHalf";
-import {
-  calcPosession,
-  getStat,
-  passAccuracy,
-} from "@/lib/scores/calculations";
+import { calcPosession, getStat } from "@/lib/scores/calculations";
 import PosessionRow from "../singleFixture/PosessionRow";
 import AccuracyRow from "../singleFixture/AccuracyRow";
 
@@ -26,8 +22,16 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
   const homePasses = getStat(home, "Pass") + getStat(home, "Incomplete Pass");
   const awayPasses = getStat(away, "Pass") + getStat(away, "Incomplete Pass");
 
-  console.log(homePasses);
-  console.log(awayPasses);
+  // console.log(homePasses);
+  // console.log(awayPasses);
+
+  if (home.length < 1 && away.length < 1) {
+    return (
+      <div className="flex justify-center items-center text-xl font-bold h-96">
+        No Data!
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col space-y-4 ">

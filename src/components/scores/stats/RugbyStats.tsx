@@ -1,7 +1,8 @@
-import { Box } from "@mui/material";
-
 import { Cards, Stats } from "@/lib/types/scores";
+import AccuracyRow from "../singleFixture/AccuracyRow";
+import PosessionRow from "../singleFixture/PosessionRow";
 import StatsRow from "@/components/scores/singleFixture/StatsRow";
+import { calcPosession, getStat } from "@/lib/scores/calculations";
 import StatsHalf from "@/components/scores/singleFixture/StatsHalf";
 
 type StatsProps = {
@@ -11,86 +12,99 @@ type StatsProps = {
 };
 
 const RugbyStats = ({ home, away, cards }: StatsProps) => {
-  const getStat = (arry: Stats[], name: string) => {
-    let stat = 0;
-    if (!arry) {
-      return stat;
-    }
+  const posession = calcPosession(home, away);
 
-    for (const item of arry) {
-      if (item.name === name) {
-        stat += parseInt(item.total);
-      }
-    }
+  const homeOnly = home.length > 1 && away.length == 0;
+  const awayOnly = away.length > 1 && home.length == 0;
+  const bothTeams = away.length > 1 && home.length > 1;
 
-    return stat;
-  };
+  const homePasses =
+    getStat(home, "Pass") +
+    getStat(home, "Incomplete Pass") +
+    getStat(home, "Forward pass");
+  const awayPasses =
+    getStat(away, "Pass") +
+    getStat(away, "Incomplete Pass") +
+    getStat(away, "Forward pass");
 
-  const passAccuracy = (
-    arry: Stats[],
-    complete: string,
-    incomplete: string
-  ) => {
-    const compPasses = getStat(arry, complete);
-    const totalPasses = compPasses + getStat(arry, incomplete);
-
-    return Math.round((compPasses / totalPasses) * 100);
-  };
+  if (home.length < 1 && away.length < 1) {
+    return (
+      <div className="flex justify-center items-center text-xl font-bold h-96">
+        No Data!
+      </div>
+    );
+  }
 
   return (
-    <Box mt={1} display="flex" flexDirection="column">
+    <div className="flex flex-col space-y-6 ">
       <StatsHalf />
+
+      {home.length !== 0 && away.length !== 0 && (
+        <PosessionRow
+          homeStat={`${posession.home}`}
+          stat={"Possession"}
+          awayStat={`${posession.away}`}
+        />
+      )}
 
       <StatsRow
         homeStat={getStat(home, "Carries")}
         stat={"Carries"}
         awayStat={getStat(away, "Carries")}
+        homeOnly={homeOnly}
+        awayOnly={awayOnly}
+        bothTeams={bothTeams}
       />
 
-      <StatsRow
-        homeStat={getStat(home, "Pass") + getStat(home, "Forward passes")}
-        stat={"Total passes"}
-        awayStat={getStat(away, "Pass") + getStat(home, "Forward passes")}
+      <AccuracyRow
+        hComp={getStat(home, "Pass")}
+        aComp={getStat(away, "Pass")}
+        hTotal={homePasses}
+        aTotal={awayPasses}
+        stat={"Complete passes"}
+        homeOnly={homeOnly}
+        awayOnly={awayOnly}
+        bothTeams={bothTeams}
       />
 
-      <StatsRow
-        homeStat={
-          !passAccuracy(home, "Pass", "Incomplete Pass")
-            ? 0
-            : `${passAccuracy(home, "Pass", "Incomplete Pass")}%`
-        }
-        stat={"Pass accuracy"}
-        awayStat={
-          !passAccuracy(away, "Pass", "Incomplete Pass")
-            ? 0
-            : `${passAccuracy(away, "Pass", "Incomplete Pass")}%`
-        }
-      />
-
-      <StatsRow
-        homeStat={getStat(home, "Tackles")}
-        stat={"Tackles"}
-        awayStat={getStat(away, "Tackles")}
+      <AccuracyRow
+        hComp={getStat(home, "Tackles")}
+        aComp={getStat(away, "Tackles")}
+        hTotal={getStat(home, "Missed tackles") + getStat(home, "Tackles")}
+        aTotal={getStat(away, "Missed tackles") + getStat(away, "Tackles")}
+        stat={"Successful tackles"}
+        homeOnly={homeOnly}
+        awayOnly={awayOnly}
+        bothTeams={bothTeams}
       />
 
       <StatsRow
         homeStat={getStat(home, "Penalties conceded")}
         stat={"Penalties conceded"}
         awayStat={getStat(away, "Penalties conceded")}
+        homeOnly={homeOnly}
+        awayOnly={awayOnly}
+        bothTeams={bothTeams}
       />
 
       <StatsRow
         homeStat={cards.Homeyellow}
         stat={"Yellow cards"}
         awayStat={cards.Awayyellow}
+        homeOnly={homeOnly}
+        awayOnly={awayOnly}
+        bothTeams={bothTeams}
       />
 
       <StatsRow
         homeStat={cards.Homered}
         stat={"Red cards"}
         awayStat={cards.Awayred}
+        homeOnly={homeOnly}
+        awayOnly={awayOnly}
+        bothTeams={bothTeams}
       />
-    </Box>
+    </div>
   );
 };
 

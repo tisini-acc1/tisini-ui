@@ -20,7 +20,8 @@ export const calcPosession = (homeArry: Stats[], awayArry: Stats[]) => {
     return (
       getStat(arry, "Pass") +
       getStat(arry, "Incomplete Pass") +
-      getStat(arry, "Progress Pass")
+      getStat(arry, "Progress Pass") +
+      getStat(arry, "Forward pass")
     );
   };
 

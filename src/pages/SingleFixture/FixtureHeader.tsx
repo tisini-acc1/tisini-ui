@@ -9,26 +9,27 @@ type HeaderProps = {
 
 const FixtureHeader = ({ teamDetails, scores }: HeaderProps) => {
   const teams = teamDetails[0];
+  const homeWin = scores.Home > scores.Away;
+  const awayWin = scores.Away > scores.Home;
 
-  console.log(teams.fixture_type);
   return (
     <div className="flex flex-col justify-between">
       {/* Match details */}
-      <div className="flex justify-between border-b border-black p-1">
+      <div className="flex justify-between gap-2 border-b border-black p-1">
         <div className="flex items-center rounded-md bg-gray-300 w">
-          <div className="text-red-500 font-bold text-xs py-1 px-2 md:text-lg whitespace-nowrap text-ellipsis">
+          <div className="text-gray-800 font-bold text-xs py-1 px-2 md:text-lg whitespace-nowrap text-ellipsis">
             {teams.fixture_type === "football"
               ? `Round: ${teams["matchday"]}`
               : `${teams.matchday}`}
           </div>
         </div>
 
-        <div className="text-gray-700 text-base md:text-lg font-bold pt-2 whitespace-nowrap text-ellipsis capitalize">
+        <div className="text-gray-800 text-base md:text-lg font-bold pt-2 whitespace-nowrap text-ellipsis capitalize overflow-hidden">
           {teams["league"]}
         </div>
 
         <div className="flex items-center rounded-md bg-gray-300">
-          <div className="text-red-500 font-bold text-xs py-1 px-2 md:text-lg whitespace-nowrap text-ellipsis">
+          <div className="text-gray-800 font-bold text-xs py-1 px-2 md:text-lg whitespace-nowrap text-ellipsis">
             {teams["game_date"].split(" ")[0]}
           </div>
         </div>
@@ -44,7 +45,7 @@ const FixtureHeader = ({ teamDetails, scores }: HeaderProps) => {
             </div>
           </div>
 
-          <div className="text-sm md:text-xl font-semibold">
+          <div className="text-sm md:text-xl font-semibold text-center">
             {teams["team1_name"]}
           </div>
         </div>
@@ -52,18 +53,28 @@ const FixtureHeader = ({ teamDetails, scores }: HeaderProps) => {
         {/* Scores & Time */}
         <div className="flex flex-col items-center justify-center w-1/5">
           {teams.game_status === "notstarted" ? (
-            <div className="flex items-center justify-center">"15:00"</div>
+            <div className="animate-spin-slow">⌛</div>
           ) : (
             <div>
               <div className="flex font-bold text-xl md:text-3xl">
-                <div className="">{scores.Home}</div>
+                <div className={homeWin ? "text-gray-900" : "text-gray-500"}>
+                  {scores.Home}
+                </div>
 
                 <div className="mx-1 md:mx-2">&ndash;</div>
 
-                <div className="">{scores.Away}</div>
+                <div className={awayWin ? "text-gray-900" : "text-gray-500"}>
+                  {scores.Away}
+                </div>
               </div>
+
               <div className="font-semibold text-sm md:text-base text-center">
-                {teams["game_status"] === "started" ? teams["minute"] : "FT"}
+                {teams["game_status"] === "ended"
+                  ? "FT"
+                  : teams["minute"] == "45" &&
+                    teams["game_moment"] == "secondhalf"
+                  ? "HT"
+                  : teams["minute"]}
               </div>
             </div>
           )}
@@ -77,7 +88,7 @@ const FixtureHeader = ({ teamDetails, scores }: HeaderProps) => {
             </div>
           </div>
 
-          <div className="text-sm md:text-xl font-semibold">
+          <div className="text-sm md:text-xl font-semibold text-center">
             {teams["team2_name"]}
           </div>
         </div>

@@ -36,6 +36,9 @@ export default {
         awayLg: "url('/src/assets/img/away-pitch-lg.png')",
         awaySm: "url('/src/assets/img/away-pitch.png')",
       },
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
+      }
     },
   },
   plugins: [require("@tailwindcss/forms")],

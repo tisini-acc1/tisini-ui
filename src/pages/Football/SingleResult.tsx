@@ -12,6 +12,7 @@ type Props = {
   fixtureType: string;
   fixtureState: string;
   minute: string;
+  gameMoment: string;
 };
 
 const SingleResult = ({
@@ -22,6 +23,7 @@ const SingleResult = ({
   fixtureId,
   fixtureType,
   fixtureState,
+  gameMoment,
   minute,
 }: Props) => {
   const navigate = useNavigate();
@@ -34,35 +36,52 @@ const SingleResult = ({
     }
   };
 
+  const homeWin = homeScore > awayScore;
+  const awayWin = awayScore > homeScore;
+
   return (
     <div
       onClick={handleClick}
-      className="border-b border-gray-900 py-3 hover:bg-red-400 cursor-pointer text-primary"
+      className="border-b border-gray-300 py-3 hover:bg-gray-300 cursor-pointer text-primary"
     >
-      <div className="grid grid-cols-12 gap-2 text-sm font-semibold whitespace-nowrap">
+      <div className="grid grid-cols-12 gap-2 text-sm font-semibold">
         <div className="col-span-5 flex gap-1 lg:flex-col flex-row-reverse lg:justify-center items-center">
-          <img className="lg:w-10 lg:h-10 w-4 h-4" src={homeLogo} alt="" />
-          <div className=" text-gray-450">{homeTeam}</div>
+          <img className="w-10 h-10" src={homeLogo} alt="" />
+          <div className=" text-gray-450 text-right">{homeTeam}</div>
         </div>
 
         <div className="col-span-2 flex items-center justify-center">
-          {fixtureState !== "notstarted" && (
+          {fixtureState === "notstarted" ? (
+            <div className="animate-spin-slow">⌛</div>
+          ) : (
             <div
               className="flex flex-col items-center font-bold
             lg:text-3xl text-base"
             >
-              <div>
-                {homeScore} - {awayScore}
+              <div className="flex">
+                <div className={homeWin ? "text-gray-900" : "text-gray-500"}>
+                  {homeScore}
+                </div>
+
+                <div className="mx-1 md:mx-2">&ndash;</div>
+
+                <div className={awayWin ? "text-gray-900" : "text-gray-500"}>
+                  {awayScore}
+                </div>
               </div>
               <div className="text-xs">
-                {fixtureState === "started" ? minute : "FT"}
+                {fixtureState === "ended"
+                  ? "FT"
+                  : minute == "45" && gameMoment == "secondhalf"
+                  ? "HT"
+                  : minute}
               </div>
             </div>
           )}
         </div>
 
         <div className="col-span-5 flex gap-1 lg:flex-col flex-row lg:justify-center items-center">
-          <img className="lg:w-10 lg:h-10 h-5 w-5" src={awayLogo} alt="" />
+          <img className="w-10 h-10" src={awayLogo} alt="" />
           <div>{awayTeam}</div>
         </div>
       </div>
