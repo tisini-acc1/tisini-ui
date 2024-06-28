@@ -65,18 +65,9 @@ const Rugby = () => {
               </div>
             </div>
 
-            {league[1].map((fixtures, key) => (
-              <div key={key}>
-                <SingleResult
-                  homeTeam={fixtures.team1_name}
-                  awayTeam={fixtures.team2_name}
-                  homeScore={fixtures.home_score}
-                  awayScore={fixtures.away_score}
-                  fixtureId={fixtures.id}
-                  fixtureType={fixtures.fixture_type}
-                  fixtureState={fixtures.game_status}
-                  minute={fixtures.minute}
-                />
+            {league[1].map((fixture) => (
+              <div key={fixture.id}>
+                <SingleResult fixture={fixture} />
               </div>
             ))}
           </div>

@@ -1,43 +1,26 @@
 import { useNavigate } from "react-router-dom";
 
-import homeLogo from "../../assets/homeLogo.png";
-import awayLogo from "../../assets/awayLogo.png";
+import homeImg from "../../assets/homeLogo.png";
+import awayImg from "../../assets/awayLogo.png";
+import { Fixture } from "@/lib/types/scores";
+import { teamImages } from "@/lib/constants/site_images";
 
-type Props = {
-  homeTeam: string;
-  awayTeam: string;
-  homeScore: string;
-  awayScore: string;
-  fixtureId: string;
-  fixtureType: string;
-  fixtureState: string;
-  minute: string;
-  gameMoment: string;
-};
-
-const SingleResult = ({
-  homeTeam,
-  awayTeam,
-  homeScore,
-  awayScore,
-  fixtureId,
-  fixtureType,
-  fixtureState,
-  gameMoment,
-  minute,
-}: Props) => {
+const SingleResult = ({ fixture }: { fixture: Fixture }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (fixtureType === "football") {
-      navigate(`/scores/football/${fixtureId}`);
+    if (fixture.fixture_type === "football") {
+      navigate(`/scores/football/${fixture.id}`);
     } else {
-      navigate(`/scores/rugby/${fixtureId}`);
+      navigate(`/scores/rugby/${fixture.id}`);
     }
   };
 
-  const homeWin = homeScore > awayScore;
-  const awayWin = awayScore > homeScore;
+  const homeWin = fixture.home_score > fixture.away_score;
+  const awayWin = fixture.away_score > fixture.home_score;
+
+  const homeLogo = teamImages[fixture.team1_id] ?? homeImg;
+  const awayLogo = teamImages[fixture.team2_id] ?? awayImg;
 
   return (
     <div
@@ -46,12 +29,12 @@ const SingleResult = ({
     >
       <div className="grid grid-cols-12 gap-2 text-sm font-semibold">
         <div className="col-span-5 flex gap-1 lg:flex-col flex-row-reverse lg:justify-center items-center">
-          <img className="w-10 h-10" src={homeLogo} alt="" />
-          <div className=" text-gray-450 text-right">{homeTeam}</div>
+          <img className="w-10 h-10 " src={homeLogo} alt="" />
+          <div className=" text-gray-450 text-right">{fixture.team1_name}</div>
         </div>
 
         <div className="col-span-2 flex items-center justify-center">
-          {fixtureState === "notstarted" ? (
+          {fixture.game_status === "notstarted" ? (
             <div className="animate-spin-slow">⌛</div>
           ) : (
             <div
@@ -60,21 +43,22 @@ const SingleResult = ({
             >
               <div className="flex">
                 <div className={homeWin ? "text-gray-900" : "text-gray-500"}>
-                  {homeScore}
+                  {fixture.home_score}
                 </div>
 
                 <div className="mx-1 md:mx-2">&ndash;</div>
 
                 <div className={awayWin ? "text-gray-900" : "text-gray-500"}>
-                  {awayScore}
+                  {fixture.away_score}
                 </div>
               </div>
               <div className="text-xs">
-                {fixtureState === "ended"
+                {fixture.game_status === "ended"
                   ? "FT"
-                  : minute == "45" && gameMoment == "secondhalf"
+                  : fixture.minute == "45" &&
+                    fixture.game_moment == "secondhalf"
                   ? "HT"
-                  : minute}
+                  : fixture.minute}
               </div>
             </div>
           )}
@@ -82,7 +66,7 @@ const SingleResult = ({
 
         <div className="col-span-5 flex gap-1 lg:flex-col flex-row lg:justify-center items-center">
           <img className="w-10 h-10" src={awayLogo} alt="" />
-          <div>{awayTeam}</div>
+          <div>{fixture.team2_name}</div>
         </div>
       </div>
     </div>

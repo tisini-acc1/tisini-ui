@@ -1,6 +1,7 @@
-import homeLogo from "@/assets/homeLogo.png";
-import awayLogo from "@/assets/awayLogo.png";
+import homeImg from "@/assets/homeLogo.png";
+import awayImg from "@/assets/awayLogo.png";
 import { FixtureDetails, Scores } from "@/lib/types/scores";
+import { teamImages } from "@/lib/constants/site_images";
 
 type HeaderProps = {
   teamDetails: FixtureDetails[];
@@ -9,6 +10,10 @@ type HeaderProps = {
 
 const FixtureHeader = ({ teamDetails, scores }: HeaderProps) => {
   const teams = teamDetails[0];
+
+  const homeLogo = teamImages[teams.team1_id] ?? homeImg;
+  const awayLogo = teamImages[teams.team2_id] ?? awayImg;
+
   const homeWin = scores.Home > scores.Away;
   const awayWin = scores.Away > scores.Home;
 
@@ -40,8 +45,8 @@ const FixtureHeader = ({ teamDetails, scores }: HeaderProps) => {
         {/* Home details */}
         <div className="flex flex-col items-center space-y-1 w-2/5">
           <div className="flex items-center justify-center">
-            <div className="flex items-center justify-center h-14 w-14 p-1 bg-gray-400 rounded-full">
-              <img src={homeLogo} alt="City Stars" height="40em" width="40em" />
+            <div className="flex items-center justify-center h-14 w-14 p-1 bg-gray-200 rounded-full">
+              <img src={homeLogo} alt="" height="50em" width="50em" />
             </div>
           </div>
 
@@ -83,8 +88,8 @@ const FixtureHeader = ({ teamDetails, scores }: HeaderProps) => {
         {/* Away Team */}
         <div className="flex flex-col items-center space-y-1 w-2/5">
           <div className="flex items-center justify-center">
-            <div className="flex items-center justify-center h-14 w-14 p-1 bg-gray-400 rounded-full">
-              <img src={awayLogo} alt="City Stars" height="40em" width="40em" />
+            <div className="flex items-center justify-center h-14 w-14 p-1 bg-gray-200 rounded-full">
+              <img src={awayLogo} alt="" height="50em" width="50em" />
             </div>
           </div>
 
