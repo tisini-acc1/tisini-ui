@@ -53,7 +53,7 @@ export default function ScoresHeader() {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <img
-                src="/android-chrome-192x192.png"
+                src="src/assets/img/tisini.png"
                 alt=""
                 className="w-10 h-10 "
               />
