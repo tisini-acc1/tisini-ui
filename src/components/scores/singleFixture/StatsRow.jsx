@@ -1,15 +1,21 @@
-const StatsRow = ({ homeStat, stat, awayStat }) => {
+const StatsRow = ({
+  homeStat,
+  stat,
+  awayStat,
+  homeOnly,
+  awayOnly,
+  bothTeams,
+}) => {
   const total = homeStat + awayStat;
   const homePercentage = total === 0 ? 0 : (homeStat / total) * 100;
   const awayPercentage = total === 0 ? 0 : (awayStat / total) * 100;
-  console.log(total);
 
   return (
     <div className="flex flex-col p-2 bg-green-300">
       <div className="flex justify-between text-xl font-bold px-1">
-        <div>{homeStat}</div>
+        <div>{bothTeams || homeOnly ? homeStat : "-"}</div>
         <div className="text-gray-600">{stat}</div>
-        <div>{awayStat}</div>
+        <div>{bothTeams || awayOnly ? awayStat : "-"}</div>
       </div>
 
       <div className="flex justify-evenly space-x-1 ">
@@ -25,7 +31,6 @@ const StatsRow = ({ homeStat, stat, awayStat }) => {
         </div>
 
         {/* away bar */}
-
         <div className="bg-red-300 flex-1 rounded">
           <div className="relative h-4 rounded bg-gray-300">
             <div className="absolute top-0 left-0 h-full w-full rounded bg-gray-300"></div>
