@@ -116,7 +116,7 @@ export default function QuizPlayDone() {
                       to={`/organizations/${currentOrganization}`}
                       className="border border-primary rounded-lg px-2 py-1 text-primary"
                     >
-                      Back to quizzes
+                      Back to Tano Bora
                     </NavLink>
                     <NavLink
                       to={`/organizations/questionsets/${questionSet.uid}/leaderboard`}
@@ -143,7 +143,7 @@ export default function QuizPlayDone() {
       ) : (
         <div className="text-xl">
           {!isSubmitted && (
-            <h1>Congratulations you have completed the quiz.</h1>
+            <h1>Congratulations you have completed the Tano Bora.👏</h1>
           )}
           <div className="max-w-xl p-2 border mx-auto my-2 shadow-md py-4">
             {!isSubmitted && (
@@ -173,7 +173,7 @@ export default function QuizPlayDone() {
                         to={`/organizations/${currentOrganization}`}
                         className="border border-primary rounded-lg px-2 py-1 text-primary"
                       >
-                        Back to quizzes
+                        Back to Tano Bora
                       </NavLink>
                       <NavLink
                         to={`/organizations/questionsets/${
