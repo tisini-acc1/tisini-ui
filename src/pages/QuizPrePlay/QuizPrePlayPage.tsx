@@ -46,7 +46,7 @@ export default function QuizPrePlayPage() {
   return (
     <MaxWidthWrapper className="max-w-7xl mx-auto p-4 md:p-6 min-h-[80vh] ">
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold text-gray-900">Quiz Pre-Play</h1>
+        <h1 className="text-2xl font-semibold text-gray-900">Tano Bora Pre-Play</h1>
         <div>
           <img
             className="w-full h-80 object-cover mt-2 border rounded my-2"
