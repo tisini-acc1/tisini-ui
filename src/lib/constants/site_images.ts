@@ -1,105 +1,174 @@
 export const leagues: { [key: string]: string } = {
-  "32": "/src/assets/leagues/CUP-BLUE-Photoroom.png-Photoroom.png",
-  "34": "/src/assets/leagues/Enterprise-Cup (1).png",
-  "109": "/src/assets/leagues/Enterprise-Cup (1).png",
-  "111": "/src/assets/leagues/Rugby Super Series.png",
-  "1": "/src/assets/leagues/fkf-premier-league.png",
-  "100": "/src/assets/leagues/Kenya_Cup_logo.png",
-  "90": "/src/assets/leagues/Kenya_Cup_logo.png",
-  "31": "/src/assets/leagues/Kenya_Cup_logo.png",
+  "32": new URL(
+    "/src/assets/leagues/CUP-BLUE-Photoroom.png-Photoroom.png",
+    import.meta.url
+  ).href,
+  "34": new URL("/src/assets/leagues/Enterprise-Cup (1).png", import.meta.url)
+    .href,
+  "109": new URL("/src/assets/leagues/Enterprise-Cup (1).png", import.meta.url)
+    .href,
+  "111": new URL("/src/assets/leagues/Rugby Super Series.png", import.meta.url)
+    .href,
+  "1": new URL("/src/assets/leagues/fkf-premier-league.png", import.meta.url)
+    .href,
+  "100": new URL("/src/assets/leagues/Kenya_Cup_logo.png", import.meta.url)
+    .href,
+  "90": new URL("/src/assets/leagues/Kenya_Cup_logo.png", import.meta.url).href,
+  "31": new URL("/src/assets/leagues/Kenya_Cup_logo.png", import.meta.url).href,
 };
 
 export const teamImages: { [key: string]: string } = {
-  "166": "/src/assets/rugby/blak blad.png",
-  "1044": "/src/assets/rugby/Buffaloes.PNG",
-  "1046": "/src/assets/rugby/Cheetahs.PNG",
-  "812": "/src/assets/rugby/Dkfv4aSW0AAR1hB.png",
-  "416": "/src/assets/rugby/Dkfv4aSW0AAR1hB.png",
-  "459": "/src/assets/rugby/Dkfv4aSW0AAR1hB.png",
-  "171": "/src/assets/rugby/Impala.png",
-  "618": "/src/assets/rugby/Impala.png",
-  "800": "/src/assets/rugby/Impala.png",
-  "603": "/src/assets/rugby/Impala.png",
-  "881": "/src/assets/rugby/JKUAT.png",
-  "824": "/src/assets/rugby/JKUAT.png",
-  "620": "/src/assets/rugby/JKUAT.png",
-  "578": "/src/assets/rugby/JKUAT.png",
-  "832": "/src/assets/rugby/kabras.png",
-  "797": "/src/assets/rugby/kabras.png",
-  "462": "/src/assets/rugby/kabras.png",
-  "243": "/src/assets/rugby/kabras.png",
-  "469": "/src/assets/rugby/KCB.png",
-  "172": "/src/assets/rugby/KCB.png",
-  "1045": "/src/assets/rugby/Lions.PNG",
-  "163": "/src/assets/rugby/Meanmachinerfclogo.png",
-  "626": "/src/assets/rugby/Meanmachinerfclogo.png",
-  "798": "/src/assets/rugby/Meanmachinerfclogo.png",
-  "458": "/src/assets/rugby/Nondies__1_-removebg-preview.png",
-  "675": "/src/assets/rugby/Nondies__1_-removebg-preview.png",
-  "616": "/src/assets/rugby/Oilers.png",
-  "703": "/src/assets/rugby/Oilers.png",
-  "869": "/src/assets/rugby/Oilers.png",
-  "169": "/src/assets/rugby/Oilers.png",
-  "702": "/src/assets/rugby/Quins.png",
-  "613": "/src/assets/rugby/Quins.png",
-  "605": "/src/assets/rugby/Quins.png",
-  "471": "/src/assets/rugby/Quins.png",
-  "1043": "/src/assets/rugby/Rhinos.PNG",
-  "585": "/src/assets/rugby/Rhinos.PNG",
-  "820": "/src/assets/rugby/SC Pirates.png",
-  "819": "/src/assets/rugby/trans-falcons.png",
-  "461": "/src/assets/rugby/trans-falcons.png",
-  "162": "/src/assets/rugby/trans-falcons.png",
-  "159": "/src/assets/rugby/trans-falcons.png",
-  "899": "/src/assets/rugby/Western Bulls (2).png",
-  "466": "/src/assets/rugby/Western Bulls (2).png",
-  "979": "/src/assets/football/Bondo United.png",
-  "612": "/src/assets/football/Bungoma Queens.jpg",
-  "1009": "/src/assets/football/Bungoma Queens.jpg",
-  "1035": "/src/assets/football/COMPEL FC.png",
-  "183": "/src/assets/football/Kayole Starlets.jpg",
-  "494": "/src/assets/football/KENYA PRISONS.png",
-  "477": "/src/assets/football/Kibarage Sportiff (1).png",
-  "307": "/src/assets/football/Kings Football Academy.png",
-  "1141": "/src/assets/football/KIRIGITI.png",
-  "291": "/src/assets/football/KISPED.jpg",
-  "111": "/src/assets/football/KSG.png",
-  "787": "/src/assets/football/MAKARIOS.png",
-  "438": "/src/assets/football/MathareUnited.png",
-  "18": "/src/assets/football/MathareUnited.png",
-  "1056": "/src/assets/football/Mombasa olympic Ladies.png",
-  "699": "/src/assets/football/Mombasa Stars.jpg",
-  "127": "/src/assets/football/NAIROBI UNITED.png",
-  "975": "/src/assets/football/Nakuru Bucks.jpg",
-  "835": "/src/assets/football/LSA.png",
-  "457": "/src/assets/football/RE UNION.png",
-  "871": "/src/assets/football/ROYAL SOCCER.png",
-  "487": "/src/assets/football/ROYAL UNITED.png",
-  "287": "/src/assets/football/SS ASSAD.png",
-  "55": "/src/assets/football/TANDAZA.png",
-  "1029": "/src/assets/football/Trans Nzoia FC.png",
-  "545": "/src/assets/football/UON OLYMPIC.png",
-  "880": "/src/assets/football/VALEO.png",
-  "178": "/src/assets/football/VIHIGA QUEENS (1).png",
-  "58": "/src/assets/football/VIONGOZI.png",
-  "805": "/src/assets/football/WALALAH.png",
-  "174": "/src/assets/football/WAYLIGHT.png",
-  "2": "/src/assets/football/Gor-Mahia-logo (1).png",
-  "77": "/src/assets/football/sofapaka-fc-logo-9B8F6A7B91-seeklogo.com.png",
-  "149": "/src/assets/football/Ulinzi_Stars_FC_logo.png",
-  "198":
+  "166": new URL("/src/assets/rugby/blak blad.png", import.meta.url).href,
+  "1044": new URL("/src/assets/rugby/Buffaloes.PNG", import.meta.url).href,
+  "1046": new URL("/src/assets/rugby/Cheetahs.PNG", import.meta.url).href,
+  "812": new URL("/src/assets/rugby/Dkfv4aSW0AAR1hB.png", import.meta.url).href,
+  "416": new URL("/src/assets/rugby/Dkfv4aSW0AAR1hB.png", import.meta.url).href,
+  "459": new URL("/src/assets/rugby/Dkfv4aSW0AAR1hB.png", import.meta.url).href,
+  "171": new URL("/src/assets/rugby/Impala.png", import.meta.url).href,
+  "618": new URL("/src/assets/rugby/Impala.png", import.meta.url).href,
+  "800": new URL("/src/assets/rugby/Impala.png", import.meta.url).href,
+  "603": new URL("/src/assets/rugby/Impala.png", import.meta.url).href,
+  "881": new URL("/src/assets/rugby/JKUAT.png", import.meta.url).href,
+  "824": new URL("/src/assets/rugby/JKUAT.png", import.meta.url).href,
+  "620": new URL("/src/assets/rugby/JKUAT.png", import.meta.url).href,
+  "578": new URL("/src/assets/rugby/JKUAT.png", import.meta.url).href,
+  "832": new URL("/src/assets/rugby/kabras.png", import.meta.url).href,
+  "797": new URL("/src/assets/rugby/kabras.png", import.meta.url).href,
+  "462": new URL("/src/assets/rugby/kabras.png", import.meta.url).href,
+  "243": new URL("/src/assets/rugby/kabras.png", import.meta.url).href,
+  "469": new URL("/src/assets/rugby/KCB.png", import.meta.url).href,
+  "172": new URL("/src/assets/rugby/KCB.png", import.meta.url).href,
+  "1045": new URL("/src/assets/rugby/Lions.PNG", import.meta.url).href,
+  "163": new URL("/src/assets/rugby/Meanmachinerfclogo.png", import.meta.url)
+    .href,
+  "626": new URL("/src/assets/rugby/Meanmachinerfclogo.png", import.meta.url)
+    .href,
+  "798": new URL("/src/assets/rugby/Meanmachinerfclogo.png", import.meta.url)
+    .href,
+  "458": new URL(
+    "/src/assets/rugby/Nondies__1_-removebg-preview.png",
+    import.meta.url
+  ).href,
+  "675": new URL(
+    "/src/assets/rugby/Nondies__1_-removebg-preview.png",
+    import.meta.url
+  ).href,
+  "616": new URL("/src/assets/rugby/Oilers.png", import.meta.url).href,
+  "703": new URL("/src/assets/rugby/Oilers.png", import.meta.url).href,
+  "869": new URL("/src/assets/rugby/Oilers.png", import.meta.url).href,
+  "169": new URL("/src/assets/rugby/Oilers.png", import.meta.url).href,
+  "702": new URL("/src/assets/rugby/Quins.png", import.meta.url).href,
+  "613": new URL("/src/assets/rugby/Quins.png", import.meta.url).href,
+  "605": new URL("/src/assets/rugby/Quins.png", import.meta.url).href,
+  "471": new URL("/src/assets/rugby/Quins.png", import.meta.url).href,
+  "1043": new URL("/src/assets/rugby/Rhinos.PNG", import.meta.url).href,
+  "585": new URL("/src/assets/rugby/Rhinos.PNG", import.meta.url).href,
+  "820": new URL("/src/assets/rugby/SC Pirates.png", import.meta.url).href,
+  "819": new URL("/src/assets/rugby/trans-falcons.png", import.meta.url).href,
+  "461": new URL("/src/assets/rugby/trans-falcons.png", import.meta.url).href,
+  "162": new URL("/src/assets/rugby/trans-falcons.png", import.meta.url).href,
+  "159": new URL("/src/assets/rugby/trans-falcons.png", import.meta.url).href,
+  "899": new URL("/src/assets/rugby/Western Bulls (2).png", import.meta.url)
+    .href,
+  "466": new URL("/src/assets/rugby/Western Bulls (2).png", import.meta.url)
+    .href,
+  "979": new URL("/src/assets/football/Bondo United.png", import.meta.url).href,
+  "612": new URL("/src/assets/football/Bungoma Queens.jpg", import.meta.url)
+    .href,
+  "1009": new URL("/src/assets/football/Bungoma Queens.jpg", import.meta.url)
+    .href,
+  "1035": new URL("/src/assets/football/COMPEL FC.png", import.meta.url).href,
+  "183": new URL("/src/assets/football/Kayole Starlets.jpg", import.meta.url)
+    .href,
+  "494": new URL("/src/assets/football/KENYA PRISONS.png", import.meta.url)
+    .href,
+  "477": new URL(
+    "/src/assets/football/Kibarage Sportiff (1).png",
+    import.meta.url
+  ).href,
+  "307": new URL(
+    "/src/assets/football/Kings Football Academy.png",
+    import.meta.url
+  ).href,
+  "1141": new URL("/src/assets/football/KIRIGITI.png", import.meta.url).href,
+  "291": new URL("/src/assets/football/KISPED.jpg", import.meta.url).href,
+  "111": new URL("/src/assets/football/KSG.png", import.meta.url).href,
+  "787": new URL("/src/assets/football/MAKARIOS.png", import.meta.url).href,
+  "438": new URL("/src/assets/football/MathareUnited.png", import.meta.url)
+    .href,
+  "18": new URL("/src/assets/football/MathareUnited.png", import.meta.url).href,
+  "1056": new URL(
+    "/src/assets/football/Mombasa olympic Ladies.png",
+    import.meta.url
+  ).href,
+  "699": new URL("/src/assets/football/Mombasa Stars.jpg", import.meta.url)
+    .href,
+  "127": new URL("/src/assets/football/NAIROBI UNITED.png", import.meta.url)
+    .href,
+  "975": new URL("/src/assets/football/Nakuru Bucks.jpg", import.meta.url).href,
+  "835": new URL("/src/assets/football/LSA.png", import.meta.url).href,
+  "457": new URL("/src/assets/football/RE UNION.png", import.meta.url).href,
+  "871": new URL("/src/assets/football/ROYAL SOCCER.png", import.meta.url).href,
+  "487": new URL("/src/assets/football/ROYAL UNITED.png", import.meta.url).href,
+  "287": new URL("/src/assets/football/SS ASSAD.png", import.meta.url).href,
+  "55": new URL("/src/assets/football/TANDAZA.png", import.meta.url).href,
+  "1029": new URL("/src/assets/football/Trans Nzoia FC.png", import.meta.url)
+    .href,
+  "545": new URL("/src/assets/football/UON OLYMPIC.png", import.meta.url).href,
+  "880": new URL("/src/assets/football/VALEO.png", import.meta.url).href,
+  "178": new URL("/src/assets/football/VIHIGA QUEENS (1).png", import.meta.url)
+    .href,
+  "58": new URL("/src/assets/football/VIONGOZI.png", import.meta.url).href,
+  "805": new URL("/src/assets/football/WALALAH.png", import.meta.url).href,
+  "174": new URL("/src/assets/football/WAYLIGHT.png", import.meta.url).href,
+  "2": new URL("/src/assets/football/Gor-Mahia-logo (1).png", import.meta.url)
+    .href,
+  "77": new URL(
+    "/src/assets/football/sofapaka-fc-logo-9B8F6A7B91-seeklogo.com.png",
+    import.meta.url
+  ).href,
+  "149": new URL(
+    "/src/assets/football/Ulinzi_Stars_FC_logo.png",
+    import.meta.url
+  ).href,
+  "198": new URL(
     "/src/assets/football/Znoia_Sugar_F.C._logo-Photoroom.png-Photoroom.png",
-  "5": "/src/assets/football/tusker-fc-logo-2788AE204B-seeklogo.com.png",
-  "595": "/src/assets/football/tusker-fc-logo-2788AE204B-seeklogo.com.png",
-  "6": "/src/assets/football/kcb football logo.png",
-  "36": "/src/assets/football/Kakamega_Homeboyz_F.C._logo.png",
-  "10": "/src/assets/football/dIrN6fqG-bBiFBAKT.png",
-  "1": "/src/assets/football/Bidco_FC_logo.gif",
-  "147": "/src/assets/football/afc-leopards-logo-1FE51F62E5-seeklogo.com.png",
-  "76": "/src/assets/football/3633358601154909bfef9f231a6df682-0-1.png",
-  "84": "/src/assets/football/240982120_259204366207977_7073992088656259999_n-Photoroom.png-Photoroom.png",
-  "85": "/src/assets/football/93869.png",
-  "7": "/src/assets/football/61619.png",
-  "12": "/src/assets/football/17104.png",
-  "557": "/src/assets/football/0078-Photoroom.png-Photoroom.png",
+    import.meta.url
+  ).href,
+  "5": new URL(
+    "/src/assets/football/tusker-fc-logo-2788AE204B-seeklogo.com.png",
+    import.meta.url
+  ).href,
+  "595": new URL(
+    "/src/assets/football/tusker-fc-logo-2788AE204B-seeklogo.com.png",
+    import.meta.url
+  ).href,
+  "6": new URL("/src/assets/football/kcb football logo.png", import.meta.url)
+    .href,
+  "36": new URL(
+    "/src/assets/football/Kakamega_Homeboyz_F.C._logo.png",
+    import.meta.url
+  ).href,
+  "10": new URL("/src/assets/football/dIrN6fqG-bBiFBAKT.png", import.meta.url)
+    .href,
+  "1": new URL("/src/assets/football/Bidco_FC_logo.gif", import.meta.url).href,
+  "147": new URL(
+    "/src/assets/football/afc-leopards-logo-1FE51F62E5-seeklogo.com.png",
+    import.meta.url
+  ).href,
+  "76": new URL(
+    "/src/assets/football/3633358601154909bfef9f231a6df682-0-1.png",
+    import.meta.url
+  ).href,
+  "84": new URL(
+    "/src/assets/football/240982120_259204366207977_7073992088656259999_n-Photoroom.png-Photoroom.png",
+    import.meta.url
+  ).href,
+  "85": new URL("/src/assets/football/93869.png", import.meta.url).href,
+  "7": new URL("/src/assets/football/61619.png", import.meta.url).href,
+  "12": new URL("/src/assets/football/17104.png", import.meta.url).href,
+  "557": new URL(
+    "/src/assets/football/0078-Photoroom.png-Photoroom.png",
+    import.meta.url
+  ).href,
 };
