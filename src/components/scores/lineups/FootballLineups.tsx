@@ -83,11 +83,11 @@ const FootballLineups = ({ teams, squads }: LineupsProps) => {
                 </div>
 
                 <div className="flex md:flex-col justify-evenly md:space-y-6">
-                  <PlayerTile player={homePlayers[6]} />
+                  <PlayerTile player={homePlayers[5]} />
                   <div></div>
                   <PlayerTile player={homePlayers[9]} />
                   <div></div>
-                  <PlayerTile player={homePlayers[7]} />
+                  <PlayerTile player={homePlayers[8]} />
                 </div>
 
                 <div className="flex md:flex-col justify-evenly">
