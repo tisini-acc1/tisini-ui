@@ -80,18 +80,12 @@ function MainFooter() {
                     Tano Bora
                   </Link>
                 </li>
-              </ul>
-            </div>
-            {/* Quick links */}
-            <div className="flex gap-4 flex-col ">
-              <h1>Quick Links</h1>
-              <ul>
                 <li>
                   <Link
                     to="/"
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
-                    Home
+                    Private Policy
                   </Link>
                 </li>
               </ul>
@@ -108,6 +102,14 @@ function MainFooter() {
                     Home
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/"
+                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                  >
+                    Private Policy
+                  </Link>
+                </li>
               </ul>
             </div>
             {/* Quick links */}
@@ -120,6 +122,36 @@ function MainFooter() {
                     className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
                   >
                     Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/"
+                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                  >
+                    Private Policy
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            {/* Quick links */}
+            <div className="flex gap-4 flex-col ">
+              <h1>Quick Links</h1>
+              <ul>
+                <li>
+                  <Link
+                    to="/"
+                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/"
+                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                  >
+                    Private Policy
                   </Link>
                 </li>
               </ul>
