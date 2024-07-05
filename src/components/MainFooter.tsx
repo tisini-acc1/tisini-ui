@@ -51,7 +51,7 @@ function MainFooter() {
                 <li>
                   <Link
                     to="/"
-                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                    className="text-white hover:text-primary-darkest transition duration-300 ease-in-out"
                   >
                     Home
                   </Link>
@@ -59,7 +59,7 @@ function MainFooter() {
                 <li>
                   <Link
                     to="/"
-                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                    className="text-white hover:text-primary-darkest transition duration-300 ease-in-out"
                   >
                     Livescore
                   </Link>
@@ -67,7 +67,7 @@ function MainFooter() {
                 <li>
                   <Link
                     to="/"
-                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                    className="text-white hover:text-primary-darkest transition duration-300 ease-in-out"
                   >
                     Matches
                   </Link>
@@ -75,15 +75,15 @@ function MainFooter() {
                 <li>
                   <Link
                     to="/"
-                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                    className="text-white hover:text-primary-darkest transition duration-300 ease-in-out"
                   >
                     Tano Bora
                   </Link>
                 </li>
                 <li>
                   <Link
-                    to="/"
-                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                    to="/privacy-policy"
+                    className="text-white hover:text-primary-darkest transition duration-300 ease-in-out"
                   >
                     Private Policy
                   </Link>
@@ -97,15 +97,15 @@ function MainFooter() {
                 <li>
                   <Link
                     to="/"
-                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                    className="text-white hover:text-primary-darkest transition duration-300 ease-in-out"
                   >
                     Home
                   </Link>
                 </li>
                 <li>
                   <Link
-                    to="/"
-                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                    to="/privacy-policy"
+                    className="text-white hover:text-primary-darkest transition duration-300 ease-in-out"
                   >
                     Private Policy
                   </Link>
@@ -119,15 +119,15 @@ function MainFooter() {
                 <li>
                   <Link
                     to="/"
-                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                    className="text-white hover:text-primary-darkest transition duration-300 ease-in-out"
                   >
                     Home
                   </Link>
                 </li>
                 <li>
                   <Link
-                    to="/"
-                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                    to="/privacy-policy"
+                    className="text-white hover:text-primary-darkest transition duration-300 ease-in-out"
                   >
                     Private Policy
                   </Link>
@@ -141,15 +141,15 @@ function MainFooter() {
                 <li>
                   <Link
                     to="/"
-                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                    className="text-white hover:text-primary-darkest transition duration-300 ease-in-out"
                   >
                     Home
                   </Link>
                 </li>
                 <li>
                   <Link
-                    to="/"
-                    className="text-white hover:text-primary-lighter transition duration-300 ease-in-out"
+                    to="/privacy-policy"
+                    className="text-white hover:text-primary-darkest transition duration-300 ease-in-out"
                   >
                     Private Policy
                   </Link>
