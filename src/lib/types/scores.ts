@@ -78,6 +78,7 @@ export type Lineup = {
   pname: string;
   teamId: string;
   team_player_id: string;
+  lineupposition: string;
 };
 
 export type SingleFixtureStats = [
