@@ -1,24 +1,24 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import FootballStats from "../../components/scores/stats/FootballStats";
 import FetchFixtureById from "@/lib/scores/FetchFixtureById";
 import {
   Cards,
   FixtureDetails,
-  Fouls,
   Lineup,
   Scores,
   SingleFixtureStats,
+  // Standings,
   Stats,
 } from "@/lib/types/scores";
 import Spinner from "@/components/spinner/Spinner";
 import FixtureHeader from "./FixtureHeader";
-import FootballLineups from "@/components/scores/lineups/FootballLineups";
+import RugbyLineups from "@/components/scores/lineups/RugbyLineups";
 import FixtureOverview from "./FixtureOverview";
+import RugbyStats from "@/components/scores/stats/RugbyStats";
 
-export default function SingleFootball() {
+const SingleRugby = () => {
   const [activeTab, setActiveTab] = useState(1);
 
   const tabs = ["Details", "Stats", "Line ups"];
@@ -26,27 +26,28 @@ export default function SingleFootball() {
   const { fixtureId } = useParams();
 
   const { data, isLoading } = useQuery<SingleFixtureStats, Error>(
-    ["footballById"],
+    ["rugbyById"],
     () => FetchFixtureById(fixtureId!)
   );
-  // console.log(data);
+
   const details = data?.[0];
   const home = data?.[1];
   const away = data?.[2];
   const scores = data?.[3];
   const lineups = data?.[4];
   const cards = data?.[5];
-  const fouls = data?.[6];
+  // const league = data?.[7];
+  // console.log(details);
+  // console.log(scores);
 
   const tabContents = [
     <FixtureOverview />,
-    <FootballStats
+    <RugbyStats
       home={home as Stats[]}
       away={away as Stats[]}
       cards={cards as Cards}
-      fouls={fouls as Fouls}
     />,
-    <FootballLineups
+    <RugbyLineups
       teams={details as [FixtureDetails]}
       squads={lineups as Lineup[]}
     />,
@@ -81,4 +82,6 @@ export default function SingleFootball() {
       </div>
     </div>
   );
-}
+};
+
+export default SingleRugby;

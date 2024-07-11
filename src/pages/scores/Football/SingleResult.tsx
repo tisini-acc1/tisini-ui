@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import homeImg from "../../assets/homeLogo.png";
-import awayImg from "../../assets/awayLogo.png";
+import homeImg from "@/assets/homeLogo.png";
+import awayImg from "@/assets/awayLogo.png";
 import { Fixture } from "@/lib/types/scores";
 import { teamImages } from "@/lib/constants/site_images";
 

@@ -1,11 +1,11 @@
 import type { RouteObject } from "react-router-dom";
 
-import Rugby from "@/pages/Rugby/Rugby";
-import Football from "@/pages/Football/Football";
+import Football from "@/pages/scores/Football/Football";
 import ScoresLayout from "@/layouts/ScoresLayout";
-import SingleRugby from "@/pages/SingleFixture/SingleRugby";
 import ThemeProviderWrapper from "@/theme/ThemeProviderWrapper";
-import SingleFootball from "@/pages/SingleFixture/SingleFootball";
+import Rugby from "@/pages/scores/Rugby/Rugby";
+import SingleFootball from "@/pages/scores/SingleFixture/SingleFootball";
+import SingleRugby from "@/pages/scores/SingleFixture/SingleRugby";
 
 const scoresRoutes = {
   path: "/scores",

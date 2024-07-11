@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 import MaxWidthWrapper from "../max-width-wrapper";
 import { logoutUser } from "@/store/slices/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import tisini from "@/assets/img/tisini.png";
+// import tisini from "@/assets/img/tisini.png";
 
 export default function ScoresHeader() {
   const authLinks = {
@@ -34,7 +34,7 @@ export default function ScoresHeader() {
       href: "/scores",
     },
     {
-      title: "Quiz",
+      title: "Tano Bora",
       href: "/organizations",
     },
   ];
@@ -53,7 +53,7 @@ export default function ScoresHeader() {
         <MaxWidthWrapper>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <img src={tisini} alt="" className="w-10 h-10 " />
+              {/* <img src={tisini} alt="" className="w-10 h-10 " /> */}
               <Link
                 to="/"
                 className="text-3xl font-extrabold text-primary ml-2 uppercase"
@@ -107,7 +107,7 @@ export default function ScoresHeader() {
             <Menu className="md:hidden" as="div">
               <Menu>
                 <Menu.Button>
-                  <LucideMenu size={32} />
+                  <LucideMenu size={32} className="text-black/50" />
                 </Menu.Button>
                 <Menu.Items
                   className={`absolute right-0 top-16 bg-white border border-gray-200 rounded-md shadow-lg z-10 h-fit p-4 flex flex-col w-full`}
@@ -184,12 +184,15 @@ export default function ScoresHeader() {
       </div>
 
       <div className="flex justify-between p-2 text-base md:text-xl text-primary bg-slate-50">
-        <div className="flex items-center space-x-2 font-bold">
+        <div className="flex items-center md:space-x-2 font-bold">
           <button className="p-2 px-4 ">
             <Link to="/scores">⚽ Football</Link>
           </button>
           <button className="p-2 px-4 ">
             <Link to="/scores/rugby">🏉 Rugby</Link>
+          </button>
+          <button className="p-2 px-4 ">
+            <Link to="/tournaments">🏆 Tournaments</Link>
           </button>
         </div>
 

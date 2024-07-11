@@ -1,6 +1,5 @@
 import MainFooter from "@/components/MainFooter";
 import MainHeader from "@/components/MainHeader";
-import React from "react";
 
 type BaseLayoutProps = {
   children: React.ReactNode;

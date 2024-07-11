@@ -7,6 +7,8 @@ import { createBrowserRouter } from "react-router-dom";
 import organizationRoutes from "./org.routes";
 import BaseErrorPage from "@/components/errors/BaseErrorPage";
 import scoresRoutes from "./scores.routes";
+import tournamentRoutes from "./tournaments.routes";
+import streamRoutes from "./stream.routes";
 
 const routes = [
   {
@@ -18,6 +20,8 @@ const routes = [
       organizationRoutes,
       articlesRoutes,
       scoresRoutes,
+      tournamentRoutes,
+      streamRoutes,
     ],
   },
   {
