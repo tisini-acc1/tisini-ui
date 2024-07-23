@@ -60,6 +60,11 @@ export const tournaments = [
 export const tournaData: TournamentData = {
   "Tisini Crucial Cup": {
     logo: logo,
+    hero: {
+      title: "Rausha Kipaji Cup",
+      subtitle: "Africa's premier youth football tournament",
+      buttonText: "18th - 21st April, 2024",
+    },
     about: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
               molestias repellendus facere accusamus voluptatem illum doloremque
               voluptates, incidunt ut porro ex exercitationem qui nesciunt odit
@@ -147,6 +152,11 @@ export const tournaData: TournamentData = {
   },
   "Nairobi International Cup": {
     logo: logo2,
+    hero: {
+      title: "Nairobi International Cup",
+      subtitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
+      buttonText: "August, 2024",
+    },
     about: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
               molestias repellendus facere accusamus voluptatem illum doloremque
               voluptates, incidunt ut porro ex exercitationem qui nesciunt odit

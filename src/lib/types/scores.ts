@@ -153,8 +153,15 @@ export type TFooter = {
   contacts: contacts[];
 };
 
+export type THero = {
+  title: string;
+  subtitle: string;
+  buttonText: string;
+};
+
 export type Tournament = {
   logo: string;
+  hero: THero;
   about: string;
   questions: Question[];
   footer: TFooter;
