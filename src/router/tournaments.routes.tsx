@@ -7,15 +7,15 @@ import SingleTournament from "@/pages/tournaments/SingleTournament/SingleTournam
 
 const tournamentRoutes = {
   path: "/tournaments",
-  element: (
-    <BaseLayout>
-      <Outlet />
-    </BaseLayout>
-  ),
+  element: <Outlet />,
   children: [
     {
       path: "/tournaments",
-      element: <Tournaments />,
+      element: (
+        <BaseLayout>
+          <Tournaments />
+        </BaseLayout>
+      ),
     },
     {
       path: "/tournaments/:tournament",

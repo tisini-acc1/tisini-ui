@@ -1,5 +1,44 @@
+import { RiTeamLine } from "react-icons/ri";
+import { IoIosPerson } from "react-icons/io";
+import { SiTalenthouse } from "react-icons/si";
+import { TiSocialDribbbleCircular } from "react-icons/ti";
+import { FaFacebook } from "react-icons/fa6";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaInstagram } from "react-icons/fa6";
+import { FaLinkedinIn } from "react-icons/fa6";
+import { FaWhatsapp } from "react-icons/fa6";
+import { FaPhoneAlt } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+
 import nic from "@/assets/img/tourn-1.jpg";
 import kipaji from "@/assets/img/tourn-2.jpg";
+
+import logo from "@/assets/football/Bidco_FC_logo.gif";
+import logo2 from "@/assets/rugby/Impala.png";
+import { TournamentData } from "../types/scores";
+
+export const navigation = [
+  {
+    name: "home",
+    href: "/",
+  },
+  {
+    name: "about",
+    href: "/about",
+  },
+  {
+    name: "FAQs",
+    href: "/faqs",
+  },
+  {
+    name: "Gallery",
+    href: "/gallery",
+  },
+  {
+    name: "Fixtures",
+    href: "/fixtures",
+  },
+];
 
 export const tournaments = [
   {
@@ -17,3 +56,180 @@ export const tournaments = [
     img: kipaji,
   },
 ];
+
+export const tournaData: TournamentData = {
+  "Tisini Crucial Cup": {
+    logo: logo,
+    about: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
+              molestias repellendus facere accusamus voluptatem illum doloremque
+              voluptates, incidunt ut porro ex exercitationem qui nesciunt odit
+              cumque iusto laboriosam ducimus facilis accusantium eveniet
+              pariatur et saepe quo? Accusantium quia quas provident quam
+              placeat, obcaecati quis quo quisquam! Saepe perferendis magnam
+              earum vitae? Cumque expedita mollitia enim delectus et fugiat
+              rerum nostrum adipisci numquam veritatis autem laboriosam,
+              aspernatur corporis libero vel dolor quas alias, molestiae
+              consequuntur dolorum. Minima perferendis harum, consequuntur ut
+              facere magni quas soluta vel nisi rem voluptates ducimus dolorem
+              tenetur. Sequi provident vel, reprehenderit ducimus vitae odio
+              sunt laboriosam?`,
+    questions: [
+      {
+        id: 1,
+        question: "What are the dates of the tournament?",
+        answer: "Thursday 18th April – Sunday 21st of April, 2024",
+      },
+      {
+        id: 2,
+        question: "Where will tisini crucial take place?",
+        answer:
+          "Nakuru Boys High School and Nakuru Girls High School, in Nakuru County, Kenya.",
+      },
+      {
+        id: 3,
+        question: "What are the age categories?",
+        answer: "U7, U9, U11, U13, U15, U17 and U20.",
+      },
+      {
+        id: 4,
+        question: "How many people will be involved?",
+        answer:
+          "7,600 Participants (players, coaches, referees, parents, fans, service providers, and stakeholders)",
+      },
+      {
+        id: 5,
+        question: "Will there be media coverage?",
+        answer:
+          "Yes, local and national newspapers, television stations, and radio stations will be present.",
+      },
+      {
+        id: 6,
+        question: "What about international coverage?",
+        answer:
+          "Through our social media platforms, international audience will be able to follow all the action live.",
+      },
+    ],
+
+    footer: {
+      logo: "",
+      socials: [
+        {
+          name: "facebook",
+          icon: FaFacebook,
+          link: "https://web.facebook.com/profile.php?id=100063722136488&mibextid=ZbWKwL&_rdc=1&_rdr",
+        },
+        {
+          name: "twitter",
+          icon: FaXTwitter,
+          link: "https://twitter.com/RaushaKipajiCup",
+        },
+        {
+          name: "instagram",
+          icon: FaInstagram,
+          link: "https://www.instagram.com/raushakipajicup/?utm_source=qr&igsh=MXJ2OHVyNzFxZTRyMA%3D%3D",
+        },
+        {
+          name: "linkedin",
+          icon: FaLinkedinIn,
+          link: "https://www.linkedin.com/in/rausha-kipaji-cup-2657572aa/",
+        },
+      ],
+
+      contacts: [
+        { icon: FaPhoneAlt, contact: "+254 723 803355,  +254 723 158975" },
+        { icon: FaWhatsapp, contact: "+254 720 435886,  +47 944 49 948" },
+        {
+          icon: MdEmail,
+          contact: "info@raushakipaji.com",
+        },
+      ],
+    },
+  },
+  "Nairobi International Cup": {
+    logo: logo2,
+    about: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
+              molestias repellendus facere accusamus voluptatem illum doloremque
+              voluptates, incidunt ut porro ex exercitationem qui nesciunt odit
+              cumque iusto laboriosam ducimus facilis accusantium eveniet
+              pariatur et saepe quo? Accusantium quia quas provident quam
+              placeat, obcaecati quis quo quisquam! Saepe perferendis magnam
+              earum vitae? Cumque expedita mollitia enim delectus et fugiat
+              rerum nostrum adipisci numquam veritatis autem laboriosam,
+              aspernatur corporis libero vel dolor quas alias, molestiae
+              consequuntur dolorum. Minima perferendis harum, consequuntur ut
+              facere magni quas soluta vel nisi rem voluptates ducimus dolorem
+              tenetur. Sequi provident vel, reprehenderit ducimus vitae odio
+              sunt laboriosam?`,
+    questions: [
+      {
+        id: 1,
+        question: "What are the dates of the tournament?",
+        answer: "Thursday 18th April – Sunday 21st of April, 2024",
+      },
+      {
+        id: 2,
+        question: "Where will nic take place?",
+        answer:
+          "Nakuru Boys High School and Nakuru Girls High School, in Nakuru County, Kenya.",
+      },
+      {
+        id: 3,
+        question: "What are the age categories?",
+        answer: "U7, U9, U11, U13, U15, U17 and U20.",
+      },
+      {
+        id: 4,
+        question: "How many people will be involved?",
+        answer:
+          "7,600 Participants (players, coaches, referees, parents, fans, service providers, and stakeholders)",
+      },
+      {
+        id: 5,
+        question: "Will there be media coverage?",
+        answer:
+          "Yes, local and national newspapers, television stations, and radio stations will be present.",
+      },
+      {
+        id: 6,
+        question: "What about international coverage?",
+        answer:
+          "Through our social media platforms, international audience will be able to follow all the action live.",
+      },
+    ],
+
+    footer: {
+      logo: "",
+      socials: [
+        {
+          name: "facebook",
+          icon: FaFacebook,
+          link: "",
+        },
+        {
+          name: "twitter",
+          icon: FaXTwitter,
+          link: "",
+        },
+        {
+          name: "instagram",
+          icon: FaInstagram,
+          link: "",
+        },
+        {
+          name: "linkedin",
+          icon: FaLinkedinIn,
+          link: "",
+        },
+      ],
+
+      contacts: [
+        { icon: FaPhoneAlt, contact: "+254 723 803355,  +254 723 158975" },
+        { icon: FaWhatsapp, contact: "+254 720 435886,  +47 944 49 948" },
+        {
+          icon: MdEmail,
+          contact: "info@nic.com",
+        },
+      ],
+    },
+  },
+};
