@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-// import { CgMenuRight, CgClose } from "react-icons/cg";
+import { CgMenuRight, CgClose } from "react-icons/cg";
+import { Link as ScrollLink } from "react-scroll";
 
 import { navigation, tournaData } from "@/lib/constants/tournaments";
 import NavMobile from "./NavMobile";
@@ -28,8 +29,8 @@ const Header = () => {
   return (
     <header
       className={`${
-        bg ? "bg-primary" : "bg-none"
-      } fixed left-0 w-full z-20 transition-all duration-200`}
+        bg ? "bg-white" : "bg-none"
+      } fixed left-0 w-full z-20 transition-all duration-200 px-2`}
     >
       <div className="container mx-auto">
         <div className="flex justify-between items-center">
@@ -39,26 +40,32 @@ const Header = () => {
 
           <div
             onClick={() => setMobileNav(!mobileNav)}
-            className="text-2xl text-white md:hidden lg:text-xl cursor-pointer"
+            className="text-2xl md:hidden lg:text-xl cursor-pointer"
           >
-            {/* {mobileNav ? <CgClose /> : <CgMenuRight />} */}
+            {mobileNav ? <CgClose /> : <CgMenuRight />}
           </div>
 
           <nav className="hidden md:flex">
             <ul className="md:flex items-center gap-x-12">
               {navigation.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    className="capitalize text-white hover:border-b hover:border-[#ff581f] hover:text-[#ff581f] transition-all"
-                    to={item.href}
+                <li key={item.id} className="cursor-pointer">
+                  <ScrollLink
+                    className="capitalize font-semibold hover:border-b hover:border-[#ff581f] hover:text-[#ff581f] transition-all"
+                    offset={item.offset}
+                    to={item.target}
+                    smooth
+                    spy
+                    activeClass="active"
                   >
                     {item.name}
-                  </Link>
+                  </ScrollLink>
                 </li>
               ))}
 
-              <button className="hover:bg-green-600 bg-orange  text-xl rounded-md backdrop-blur-md transition p-2">
-                <Link to="/fixtures">Get Fixtures</Link>
+              <button className="hover:bg-green-600 bg-blue-500  text-xl rounded-md backdrop-blur-md transition p-2">
+                <Link to={`/tournaments/${tournament}/fixtures`}>
+                  Get Fixtures
+                </Link>
               </button>
 
               {/* <a

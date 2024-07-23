@@ -36,6 +36,7 @@ export default {
         awayLg: "url('/src/assets/img/away-pitch-lg.png')",
         awaySm: "url('/src/assets/img/away-pitch.png')",
         heroT: "url('src/assets/img/footballer-min.jpg')",
+        heroS: "url('src/assets/tournaments/hero.jpg')"
       },
       animation: {
         'spin-slow': 'spin 3s linear infinite',

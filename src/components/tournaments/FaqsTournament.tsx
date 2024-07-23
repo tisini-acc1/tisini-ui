@@ -15,7 +15,7 @@ export const FaqsTournament = ({ faqs, img }: FaqsProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="section">
+    <section id="faqs" className="section px-2">
       <div className="container mx-auto">
         <h1 className="text-2xl lg:text-[40px] leading-tight font-semibold  text-center mb-8">
           FAQS

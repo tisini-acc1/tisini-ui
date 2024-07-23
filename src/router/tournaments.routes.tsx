@@ -4,6 +4,7 @@ import BaseLayout from "@/layouts/BaseLayout";
 import Notfound404 from "@/pages/Notfoud404/Notfound404";
 import Tournaments from "@/pages/tournaments/Tournament/Tournaments";
 import SingleTournament from "@/pages/tournaments/SingleTournament/SingleTournament";
+import { TournamentFixtures } from "@/pages/tournaments/fixtures/TournamentFixtures";
 
 const tournamentRoutes = {
   path: "/tournaments",
@@ -20,6 +21,10 @@ const tournamentRoutes = {
     {
       path: "/tournaments/:tournament",
       element: <SingleTournament />,
+    },
+    {
+      path: "/tournaments/:tournament/fixtures",
+      element: <TournamentFixtures />,
     },
     {
       path: "*",

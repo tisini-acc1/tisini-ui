@@ -1,5 +1,5 @@
-import { tournaData } from "@/lib/constants/tournaments";
 import { TFooter } from "@/lib/types/scores";
+import { tournaData } from "@/lib/constants/tournaments";
 
 import { Link, useParams } from "react-router-dom";
 
@@ -12,7 +12,7 @@ export const Footer = () => {
   const date = new Date().getFullYear();
 
   return (
-    <footer className="py-4 bg-black text-white">
+    <footer id="contacts" className="py-4 mt-4 bg-black text-white">
       <div className="max-w-[1100px] flex gap-4 flex-col md:flex-row items-center justify-between mx-auto py-4 border-b-2 border-gray-400">
         <div className="">
           <Link className="" to={"/"}>

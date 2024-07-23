@@ -1,7 +1,3 @@
-import { RiTeamLine } from "react-icons/ri";
-import { IoIosPerson } from "react-icons/io";
-import { SiTalenthouse } from "react-icons/si";
-import { TiSocialDribbbleCircular } from "react-icons/ti";
 import { FaFacebook } from "react-icons/fa6";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa6";
@@ -19,25 +15,14 @@ import { TournamentData } from "../types/scores";
 
 export const navigation = [
   {
+    id: 1,
     name: "home",
-    href: "/",
+    target: "home",
+    offset: -100,
   },
-  {
-    name: "about",
-    href: "/about",
-  },
-  {
-    name: "FAQs",
-    href: "/faqs",
-  },
-  {
-    name: "Gallery",
-    href: "/gallery",
-  },
-  {
-    name: "Fixtures",
-    href: "/fixtures",
-  },
+  { id: 2, name: "about", target: "about", offset: -80 },
+  { id: 3, name: "FAQs", target: "faqs", offset: -90 },
+  { id: 3, name: "Contacts", target: "contacts", offset: 0 },
 ];
 
 export const tournaments = [
@@ -217,7 +202,7 @@ export const tournaData: TournamentData = {
     ],
 
     footer: {
-      logo: "",
+      logo: logo,
       socials: [
         {
           name: "facebook",

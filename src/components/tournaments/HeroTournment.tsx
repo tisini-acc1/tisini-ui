@@ -10,7 +10,10 @@ export const HeroTournment = () => {
     tourna && tournaData[tourna] ? tournaData[tourna].hero : ({} as THero);
 
   return (
-    <section className="h-[90vh] w-full bg-hero bg-center bg-cover bg-no-repeat text-white relative pt-[225px] pb-[254px]">
+    <section
+      id="home"
+      className="h-[90vh] w-full bg-heroS bg-center bg-cover bg-no-repeat text-white relative pt-[225px] pb-[254px]"
+    >
       <div className="bg-blue-900 bg-opacity-70 absolute inset-0"></div>
 
       <div className="text-center relative">

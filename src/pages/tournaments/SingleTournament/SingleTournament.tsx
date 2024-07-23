@@ -13,8 +13,6 @@ const SingleTournament = () => {
   const tourna: Tournament =
     title && tournaData[title] ? tournaData[title] : ({} as Tournament);
 
-  console.log(title);
-  console.log(tourna);
   return (
     <main className="h-screen">
       <Header />

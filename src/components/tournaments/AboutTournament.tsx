@@ -10,7 +10,7 @@ export const AboutTournament = () => {
     tourna && tournaData[tourna] ? tournaData[tourna].about : ({} as TAbout);
 
   return (
-    <section className="section py-10">
+    <section id="about" className="section py-10 px-2">
       <div className="container mx-auto">
         <div className="text-center mb-8 lg:mb-12">
           <h5 className="capitalize text-blue-500 font-semibold mb-4">
