@@ -29,9 +29,6 @@ dependencies:
   clsx:
     specifier: ^2.1.0
     version: 2.1.0
-  dompurify:
-    specifier: ^3.1.6
-    version: 3.1.6
   he:
     specifier: ^1.2.0
     version: 1.2.0
@@ -1632,10 +1629,6 @@ packages:
     dependencies:
       '@babel/runtime': 7.23.7
       csstype: 3.1.2
-    dev: false
-
-  /dompurify@3.1.6:
-    resolution: {integrity: sha512-cTOAhc36AalkjtBpfG6O8JimdTMWNXjiePT2xQH/ppBGi/4uIpmj8eKyIkMJErXWARyINV/sB38yf8JCLF5pbQ==}
     dev: false
 
   /electron-to-chromium@1.4.460:
