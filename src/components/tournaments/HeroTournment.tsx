@@ -36,10 +36,6 @@ export const HeroTournment = () => {
             Register Here
           </a>
         </div>
-
-        {/* <div className="bottom-0 flex items-center justify-center">
-          <FlipClock />
-        </div> */}
       </div>
     </section>
   );

@@ -1,39 +1,43 @@
-import React from "react";
+import { tournaData } from "@/lib/constants/tournaments";
+import { TAbout } from "@/lib/types/scores";
+
+import { useParams } from "react-router-dom";
 
 export const AboutTournament = () => {
+  const { tournament } = useParams<{ tournament: string }>();
+  const tourna = tournament?.replace(/-/g, " ");
+  const { theme, image, story } =
+    tourna && tournaData[tourna] ? tournaData[tourna].about : ({} as TAbout);
+
   return (
-    <section className="">
-      <div className="container mx-auto ">
-        <div className="flex flex-col lg:flex-row lg:gap-x-[100px]">
-          <div className="flex-1 order-1 lg:-order-1 flex justify-center mt-8 lg:mt-0">
-            <div className="mx-auto h-[450] w-[600]">
-              <img
-                className="h-full rounded-lg shadow-lg"
-                src=""
-                alt="hero-image"
-              />
+    <section className="section py-10">
+      <div className="container mx-auto">
+        <div className="text-center mb-8 lg:mb-12">
+          <h5 className="capitalize text-blue-500 font-semibold mb-4">
+            About the Tournament
+          </h5>
+          <h1 className="text-2xl lg:text-[40px] leading-tight font-semibold max-w-[750px] mx-auto">
+            {theme}
+          </h1>
+        </div>
+
+        <div className="flex flex-col gap-4 lg:flex-row">
+          <div className="flex-1">
+            <div className="flex gap-4 flex-col lg:p-4 text-base">
+              <p className="text-[#71717a]">{story}</p>
             </div>
           </div>
 
-          <div className="flex flex-1 flex-col justify-end">
-            <h2 className="title">Why Rausha Kipaji Cup</h2>
-            <p className="text-[#71717a]">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-              molestias repellendus facere accusamus voluptatem illum doloremque
-              voluptates, incidunt ut porro ex exercitationem qui nesciunt odit
-              cumque iusto laboriosam ducimus facilis accusantium eveniet
-              pariatur et saepe quo? Accusantium quia quas provident quam
-              placeat, obcaecati quis quo quisquam! Saepe perferendis magnam
-              earum vitae? Cumque expedita mollitia enim delectus et fugiat
-              rerum nostrum adipisci numquam veritatis autem laboriosam,
-              aspernatur corporis libero vel dolor quas alias, molestiae
-              consequuntur dolorum. Minima perferendis harum, consequuntur ut
-              facere magni quas soluta vel nisi rem voluptates ducimus dolorem
-              tenetur. Sequi provident vel, reprehenderit ducimus vitae odio
-              sunt laboriosam?
-            </p>
-
-            <div className="mt-8 grid grid-cols-2 gap-x-8 gap-y-4"></div>
+          <div className="flex-1">
+            <div className="flex items-center justify-center h-full">
+              <div className="h-[750] w-[600]">
+                <img
+                  className="rounded-lg shadow-lg"
+                  src={image}
+                  alt="hero-image"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

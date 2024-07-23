@@ -13,8 +13,8 @@ import { MdEmail } from "react-icons/md";
 import nic from "@/assets/img/tourn-1.jpg";
 import kipaji from "@/assets/img/tourn-2.jpg";
 
-import logo from "@/assets/football/Bidco_FC_logo.gif";
-import logo2 from "@/assets/rugby/Impala.png";
+import logo from "@/assets/tournaments/t-logo.png";
+import about from "@/assets/tournaments/about.jpeg";
 import { TournamentData } from "../types/scores";
 
 export const navigation = [
@@ -65,7 +65,10 @@ export const tournaData: TournamentData = {
       subtitle: "Africa's premier youth football tournament",
       buttonText: "18th - 21st April, 2024",
     },
-    about: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
+    about: {
+      theme: "2024 Focus –Going Green Through Sports!",
+      image: about,
+      story: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
               molestias repellendus facere accusamus voluptatem illum doloremque
               voluptates, incidunt ut porro ex exercitationem qui nesciunt odit
               cumque iusto laboriosam ducimus facilis accusantium eveniet
@@ -78,6 +81,8 @@ export const tournaData: TournamentData = {
               facere magni quas soluta vel nisi rem voluptates ducimus dolorem
               tenetur. Sequi provident vel, reprehenderit ducimus vitae odio
               sunt laboriosam?`,
+    },
+
     questions: [
       {
         id: 1,
@@ -116,7 +121,7 @@ export const tournaData: TournamentData = {
     ],
 
     footer: {
-      logo: "",
+      logo: logo,
       socials: [
         {
           name: "facebook",
@@ -151,13 +156,16 @@ export const tournaData: TournamentData = {
     },
   },
   "Nairobi International Cup": {
-    logo: logo2,
+    logo: logo,
     hero: {
       title: "Nairobi International Cup",
       subtitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
       buttonText: "August, 2024",
     },
-    about: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
+    about: {
+      theme: "2024 Focus –Going Green Through Sports!",
+      image: about,
+      story: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
               molestias repellendus facere accusamus voluptatem illum doloremque
               voluptates, incidunt ut porro ex exercitationem qui nesciunt odit
               cumque iusto laboriosam ducimus facilis accusantium eveniet
@@ -170,6 +178,7 @@ export const tournaData: TournamentData = {
               facere magni quas soluta vel nisi rem voluptates ducimus dolorem
               tenetur. Sequi provident vel, reprehenderit ducimus vitae odio
               sunt laboriosam?`,
+    },
     questions: [
       {
         id: 1,

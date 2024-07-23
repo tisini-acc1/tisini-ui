@@ -159,10 +159,16 @@ export type THero = {
   buttonText: string;
 };
 
+export type TAbout = {
+  theme: string;
+  image: string;
+  story: string;
+};
+
 export type Tournament = {
   logo: string;
   hero: THero;
-  about: string;
+  about: TAbout;
   questions: Question[];
   footer: TFooter;
 

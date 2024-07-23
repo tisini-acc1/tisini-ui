@@ -16,7 +16,7 @@ const SingleTournament = () => {
   console.log(title);
   console.log(tourna);
   return (
-    <main className="bg-black h-screen">
+    <main className="h-screen">
       <Header />
       <HeroTournment />
       <AboutTournament />

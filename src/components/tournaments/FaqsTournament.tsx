@@ -4,6 +4,8 @@
 import { Question } from "@/lib/types/scores";
 import { useState } from "react";
 
+import faqsImage from "@/assets/tournaments/faqs.jpg";
+
 type FaqsProps = {
   faqs: Question[];
   img: string;
@@ -11,16 +13,24 @@ type FaqsProps = {
 
 export const FaqsTournament = ({ faqs, img }: FaqsProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  console.log(faqs);
+
   return (
     <section className="section">
       <div className="container mx-auto">
-        <h1 className="title text-center mb-8">'FAQS'</h1>
+        <h1 className="text-2xl lg:text-[40px] leading-tight font-semibold  text-center mb-8">
+          FAQS
+        </h1>
 
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-1 order-1 lg:-order-1">
-            <div>
-              <img src="" alt="" />
+            <div className="flex items-center justify-center h-full">
+              <div className="h-[750] w-[600]">
+                <img
+                  src={faqsImage}
+                  alt="image"
+                  className="rounded-lg shadow-lg"
+                />
+              </div>
             </div>
           </div>
 
