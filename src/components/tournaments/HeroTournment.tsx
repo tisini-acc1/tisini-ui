@@ -12,7 +12,7 @@ export const HeroTournment = () => {
   return (
     <section
       id="home"
-      className="h-[90vh] w-full bg-heroS bg-center bg-cover bg-no-repeat text-white relative pt-[225px] pb-[254px]"
+      className="h-[90vh] w-full bg-heroS bg-center bg-cover bg-no-repeat text-white relative pt-[225px] pb-[254px] px-8"
     >
       <div className="bg-blue-900 bg-opacity-70 absolute inset-0"></div>
 
