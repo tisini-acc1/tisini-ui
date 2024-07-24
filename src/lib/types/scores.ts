@@ -1,3 +1,5 @@
+import { ComponentType } from "react";
+
 export type Fixture = {
   id: string;
   team1_id: string;
@@ -128,3 +130,51 @@ export type GroupedFixtures = {
 };
 
 export type FixturesArray = [string, Fixture[]];
+
+export type Question = {
+  id: number;
+  question: string;
+  answer: string;
+};
+
+export type Social = {
+  name: string;
+  icon: ComponentType;
+  link: string;
+};
+
+// export type Links = { name: string; link: string };
+
+export type contacts = { icon: ComponentType; contact: string };
+
+export type TFooter = {
+  logo: string;
+  socials: Social[];
+  contacts: contacts[];
+};
+
+export type THero = {
+  title: string;
+  subtitle: string;
+  buttonText: string;
+};
+
+export type TAbout = {
+  theme: string;
+  image: string;
+  story: string;
+};
+
+export type Tournament = {
+  logo: string;
+  hero: THero;
+  about: TAbout;
+  questions: Question[];
+  footer: TFooter;
+
+  // other tournament details
+};
+
+export type TournamentData = {
+  [key: string]: Tournament;
+};
