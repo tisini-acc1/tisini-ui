@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 import MaxWidthWrapper from "../max-width-wrapper";
 import { logoutUser } from "@/store/slices/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import tisini from "@/assets/img/tisini.png";
+// import tisini from "@/assets/img/tisini.png";
 
 export default function ScoresHeader() {
   const authLinks = {
@@ -53,7 +53,7 @@ export default function ScoresHeader() {
         <MaxWidthWrapper>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <img src={tisini} alt="" className="w-10 h-10 " />
+              {/* <img src={tisini} alt="" className="w-10 h-10 " /> */}
               <Link
                 to="/"
                 className="text-3xl font-extrabold text-primary ml-2 uppercase"

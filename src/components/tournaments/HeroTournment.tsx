@@ -17,7 +17,7 @@ export const HeroTournment = () => {
       <div className="bg-blue-900 bg-opacity-70 absolute inset-0"></div>
 
       <div className="text-center relative">
-        <h1 className="text-5xl uppercase mx-auto font-semibold mb-5 lg:text-[64px] lg:leading-tight lg:max-w-[888px]">
+        <h1 className="text-2xl uppercase mx-auto font-semibold mb-5 lg:text-[64px] lg:leading-tight lg:max-w-[888px]">
           {title}
         </h1>
 
@@ -29,7 +29,7 @@ export const HeroTournment = () => {
           {buttonText}
         </button>
 
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <a
             href="https://portal.tisini.co.ke/auth/register/team-owner"
             target="_blank"
@@ -38,7 +38,7 @@ export const HeroTournment = () => {
           >
             Register Here
           </a>
-        </div>
+        </div> */}
       </div>
     </section>
   );
