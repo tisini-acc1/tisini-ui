@@ -35,7 +35,11 @@ export default function MainHeader() {
     },
     {
       title: "Tano Bora",
-      href: "/organizations",
+      href: "/tanobora",
+    },
+    {
+      title: "Quiz",
+      href: "/quiz",
     },
   ];
 
@@ -50,18 +54,20 @@ export default function MainHeader() {
     <div className="border-b p-4 text-2xl sticky top-0 bg-white z-[500]">
       <MaxWidthWrapper>
         <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <img
-              src="/android-chrome-192x192.png"
-              alt=""
-              className="w-10 h-10 "
-            />
-            <Link
+          <div className="flex items-center ">
+            <Link to={"/"} className="h-12">
+              <img
+                src="/src/assets/img/TISINI-transparent-Logo.png"
+                alt=""
+                className="h-full"
+              />
+            </Link>
+            {/* <Link
               to="/"
               className="text-3xl font-extrabold text-primary ml-2 uppercase"
             >
               Tisini
-            </Link>
+            </Link> */}
           </div>
           <div className="hidden md:flex gap-4 items-center font-bold">
             {generalLinks.map((link, index) => (

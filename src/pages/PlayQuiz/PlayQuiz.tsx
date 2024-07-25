@@ -13,25 +13,36 @@ import React from "react";
 import SingleQuestionPagePlay from "@/pages/PlayQuiz/SingleAnswerQuestionPagePlay";
 import TextAnswerQuestionPagePlay from "@/pages/PlayQuiz/TextAnswerQuestionPagePlay";
 import { quizPlayTimeoutQuestion } from "@/store/slices/quiz-play.slice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import SingleQuizQuestion from "./SingleQuizQuestion";
 
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 export default function PlayQuiz() {
-  const { questions, currentQuestion, allAnswered } =
-    useAppSelector((state) => state.persist.quizPlay);
-  const navigate = useNavigate();
+  const { questions, currentQuestion, allAnswered } = useAppSelector(
+    (state) => state.persist.quizPlay
+  );
+
   const [isExploding, setIsExploding] = React.useState<boolean>(true);
+  const [count, setCount] = React.useState<number>(0);
+
+  const navigate = useNavigate();
+  let location = useLocation();
+
+  const url = location.pathname.startsWith("/quiz") ? "quiz" : "tanobora";
+
   React.useEffect(() => {
     // check there are questions if not navigate to organizations
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    questions.length === 0 && navigate("/organizations");
+    questions.length === 0 && navigate(`/${url}`);
   }, [questions, navigate]);
+
   const questionType = React.useMemo(() => {
     if (questions.length > 0) {
       return currentQuestion?.quiz_type;
     }
     return "";
   }, [questions, currentQuestion]);
+
   // Create a function that will check if all questions are answered and show coffeti once all questions are answered then timout after 2seconds
   React.useEffect(() => {
     if (allAnswered) {
@@ -49,7 +60,7 @@ export default function PlayQuiz() {
       }, 10000);
     }
   }, [allAnswered]);
- 
+
   const dispatch = useAppDispatch();
   const [timeLeft, setTimeLeft] = React.useState<number>(
     currentQuestion?.timer || 0
@@ -101,43 +112,88 @@ export default function PlayQuiz() {
     }
   };
 
-  return (
-    <main className="min-h-[50vh]"><ToastContainer/>
-      {!allAnswered ? (
-        <div className="max-w-7xl mx-auto p-4 w-full">
-          {questionType === "multiple" ? (
-            <MultipleAnswerQuestionPagePlay
-              clearTimer={clearTimer}
-              timeLeft={timeLeft}
-              timeUsed={timeUsed}
-            />
-          ) : questionType === "single" ? (
-            <SingleQuestionPagePlay
-              clearTimer={clearTimer}
-              timeLeft={timeLeft}
-              timeUsed={timeUsed}
-            />
-          ) : questionType === "text" ? (
-            <TextAnswerQuestionPagePlay
-              clearTimer={clearTimer}
-              timeLeft={timeLeft}
-              timeUsed={timeUsed}
-            />
-          ) : (
-            <div>Unknown</div>
-          )}
-        </div>
-      ) : (
-        <div className="max-w-7xl mx-auto text-center p-4">
-          {isExploding && (
-            <Confetti width={window.innerWidth} height={window.innerHeight} />
-          )}
-          {/* <h1 className="text-2xl">All done</h1>
-          <p>
+  if (url === "quiz") {
+    return (
+      <main className="min-h-[50vh]">
+        <ToastContainer />
+
+        {!allAnswered ? (
+          <div className="max-w-7xl mx-auto p-4 w-full">
+            {questionType === "text" ? (
+              <SingleQuizQuestion
+                clearTimer={clearTimer}
+                timeLeft={timeLeft}
+                timeUsed={timeUsed}
+                count={count}
+                setCount={setCount}
+              />
+            ) : (
+              <div>Unknown</div>
+            )}
+          </div>
+        ) : (
+          <div className="max-w-7xl mx-auto text-center p-4">
+            {isExploding && (
+              <Confetti width={window.innerWidth} height={window.innerHeight} />
+            )}
+
+            <QuizPlayDone count={count} />
+          </div>
+        )}
+      </main>
+    );
+  } else {
+    return (
+      <main className="min-h-[50vh]">
+        <ToastContainer />
+
+        {!allAnswered ? (
+          <div className="max-w-7xl mx-auto p-4 w-full">
+            {questionType === "multiple" ? (
+              <MultipleAnswerQuestionPagePlay
+                clearTimer={clearTimer}
+                timeLeft={timeLeft}
+                timeUsed={timeUsed}
+              />
+            ) : questionType === "single" ? (
+              <SingleQuestionPagePlay
+                clearTimer={clearTimer}
+                timeLeft={timeLeft}
+                timeUsed={timeUsed}
+              />
+            ) : questionType === "text" ? (
+              <TextAnswerQuestionPagePlay
+                clearTimer={clearTimer}
+                timeLeft={timeLeft}
+                timeUsed={timeUsed}
+              />
+            ) : (
+              <div>Unknown</div>
+            )}
+          </div>
+        ) : (
+          <div className="max-w-7xl mx-auto text-center p-4">
+            {isExploding && (
+              <Confetti width={window.innerWidth} height={window.innerHeight} />
+            )}
+
+            <QuizPlayDone count={count} />
+          </div>
+        )}
+      </main>
+    );
+  }
+}
+
+{
+  /* <h1 className="text-2xl">All done</h1>
+  <p>
             You have answered all the questions. You can now view your results
             and see how you did.
-          </p> */}
-          {/* {questionType === "multiple" ? (
+          </p> */
+}
+{
+  /* {questionType === "multiple" ? (
             <div className="flex flex-col gap-4">
               <h1 className="text-2xl">All done</h1>
               <p>
@@ -225,10 +281,5 @@ export default function PlayQuiz() {
                 </span>
               </div>
             </div>
-          )} */}
-          <QuizPlayDone/>
-        </div>
-      )}
-    </main>
-  );
+          )} */
 }
