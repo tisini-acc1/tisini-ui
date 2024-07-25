@@ -7,6 +7,7 @@
  */
 
 import { Link } from "react-router-dom";
+import logo from '@/assets/img/TISINI-transparent-Logo.png'
 
 function MainFooter() {
   return (
@@ -16,7 +17,7 @@ function MainFooter() {
           {/* Logo */}
           <div className="flex flex-col justify-center items-center gap2">
             <img
-              src="/src/assets/img/TISINI-transparent-Logo.png"
+              src={logo}
               alt=""
               className=" h-20 "
             />

@@ -8,6 +8,7 @@ import React from "react";
 import { logoutUser } from "@/store/slices/auth.slice";
 import MaxWidthWrapper from "./max-width-wrapper";
 import { cn } from "@/lib/cn";
+import logo from '@/assets/img/TISINI-transparent-Logo.png'
 
 export default function MainHeader() {
   const authLinks = {
@@ -57,7 +58,7 @@ export default function MainHeader() {
           <div className="flex items-center ">
             <Link to={"/"} className="h-12">
               <img
-                src="/src/assets/img/TISINI-transparent-Logo.png"
+                src={logo}
                 alt=""
                 className="h-full"
               />
