@@ -27,7 +27,7 @@ export default function QuizPlayDone({ count }: { count: number }) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
 
-  const qtype = questionSet?.quiz_type === "NR" ? "quiz" : "tano_bora";
+  const qtype = questionSet?.quiz_type === "NR" ? "quiz" : "tanobora";
 
   const submitResults = async () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises

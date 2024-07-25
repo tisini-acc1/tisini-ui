@@ -35,7 +35,6 @@ export default function QuizPrePlayPage() {
       ).data;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       setQuiz(response);
-      console.log({ response });
     } catch (error) {
       console.log(error);
     }
@@ -102,22 +101,26 @@ export default function QuizPrePlayPage() {
               className="bg-primary hover:bg-blue-500 text-white px-4  rounded min-w-[10rem] w-full text-xl sm:text-2xl py-2 flex items-center justify-center gap-2 flex-row transition-all duration-300 ease-in-out"
               type="button"
               onClick={() => {
-                dispatch(
-                  initializeQuizPlay({
-                    org: organizationId!,
-                    questionSet: { ...quiz! },
-                  })
-                );
-                navigate(
-                  `/${url}/questionsets/${organizationId}/${questionSetId}/play`,
-                  {
-                    replace: true,
-                    state: {
-                      questionsetType: quiz?.quiz_type ?? "NR",
-                      questionsetId: quiz?.uid ?? "",
-                    },
-                  }
-                );
+                if (quiz) {
+                  dispatch(
+                    initializeQuizPlay({
+                      org: organizationId!,
+                      questionSet: { ...quiz! },
+                    })
+                  );
+                  navigate(
+                    `/${url}/questionsets/${organizationId}/${questionSetId}/play`,
+                    {
+                      replace: true,
+                      state: {
+                        questionsetType: quiz?.quiz_type ?? "NR",
+                        questionsetId: quiz?.uid ?? "",
+                      },
+                    }
+                  );
+                } else {
+                  alert('Something went wrong!')
+                }
               }}
             >
               <LucidePlay size={36} /> Play

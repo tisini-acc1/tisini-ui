@@ -27,13 +27,13 @@ export default function Organizationspage() {
       dispatch(organizationsLoadStart());
 
       if (url.pathname === "/tanobora") {
-        const data = (await privateAxios.get("/tano_bora/organizations/")).data;
+        const data = (await privateAxios.get("/tanobora/organizations/")).data;
         dispatch(organizationsLoadSuccess(data));
-        console.log(data);
+        // console.log(data);
       } else if (url.pathname === "/quiz") {
         const data = (await privateAxios.get("/quiz/organizations/")).data;
         dispatch(organizationsLoadSuccess(data));
-        console.log(data);
+        // console.log(data);
       }
 
       // dispatch({ type: "organizations/LOAD_SUCCESS", payload: data });

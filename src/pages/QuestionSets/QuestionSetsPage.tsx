@@ -21,7 +21,7 @@ export default function QuestionSetsPage() {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
-  const url = location.pathname.startsWith("/tanobora") ? "tano_bora" : "quiz";
+  const url = location.pathname.startsWith("/tanobora") ? "tanobora" : "quiz";
 
   const fetchQuestionSets = async () => {
     dispatch(questionSetsLoadStart());
@@ -31,7 +31,7 @@ export default function QuestionSetsPage() {
           `/${url}/organizations/${organizationId}/questionsets/`
         )
       ).data as Array<QuestionSetInterface>;
-      console.log({ data });
+      // console.log({ data });
 
       dispatch(questionSetsLoadSuccess(data));
     } catch (error) {
