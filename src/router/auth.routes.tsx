@@ -1,5 +1,7 @@
 import { NoAuth } from "@/layouts/NoAuth";
+import ProtectedLayout from "@/layouts/ProtectedLayout";
 import ForgotPassword from "@/pages/ForgotPassword/ForgotPassword";
+import ProfilePage from "@/pages/Profile/ProfilePage";
 import AppAuth from "@/pages/auth/AppAuth";
 import { Outlet, type RouteObject } from "react-router-dom";
 
@@ -23,11 +25,15 @@ const authRoutes = {
           <ForgotPassword />
         </NoAuth>
       ),
-    }
-    // {
-    //   path: "/auth/register",
-    //   element: <RegisterPage />,
-    // },
+    },
+    {
+      path: "/auth/profile",
+      element: (
+        <ProtectedLayout>
+          <ProfilePage />
+        </ProtectedLayout>
+      ),
+    },
   ],
 } satisfies RouteObject;
 
