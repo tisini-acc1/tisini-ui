@@ -12,21 +12,32 @@ import GridLoader from "@/components/GridLoader";
 import OrganizationCard from "@/components/OrganizationCard";
 import React from "react";
 import { privateAxios } from "@/lib/api";
+import { useLocation } from "react-router-dom";
 
 export default function Organizationspage() {
   const { organizations } = useAppSelector((state) => state.organizations);
   const dispatch = useAppDispatch();
+
+  const url = useLocation();
+
   const fetchOrganizations = async () => {
     dispatch({ type: "organizations/LOAD_START" });
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       dispatch(organizationsLoadStart());
-      const data = (await privateAxios.get("/tano_bora/organizations/")).data;
-      // console.log(data);
+
+      if (url.pathname === "/tanobora") {
+        const data = (await privateAxios.get("/tano_bora/organizations/")).data;
+        dispatch(organizationsLoadSuccess(data));
+        console.log(data);
+      } else if (url.pathname === "/quiz") {
+        const data = (await privateAxios.get("/quiz/organizations/")).data;
+        dispatch(organizationsLoadSuccess(data));
+        console.log(data);
+      }
 
       // dispatch({ type: "organizations/LOAD_SUCCESS", payload: data });
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      dispatch(organizationsLoadSuccess(data));
     } catch (error: any) {
       console.log(error);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -34,10 +45,12 @@ export default function Organizationspage() {
       dispatch(organizationsLoadFailure(JSON.stringify(error)));
     }
   };
+
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     Promise.allSettled([fetchOrganizations()]);
   }, []);
+
   return (
     <main className="min-h-[50vh]">
       <div className="max-w-7xl mx-auto p-4 w-full">
@@ -48,7 +61,7 @@ export default function Organizationspage() {
             ))}
           </div>
         ) : (
-         <GridLoader />
+          <GridLoader />
         )}
       </div>
     </main>

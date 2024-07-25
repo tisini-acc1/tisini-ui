@@ -16,9 +16,9 @@ function MainFooter() {
           {/* Logo */}
           <div className="flex flex-col justify-center items-center gap2">
             <img
-              src="/android-chrome-192x192.png"
+              src="/src/assets/img/TISINI-transparent-Logo.png"
               alt=""
-              className="w-20 h-20 "
+              className=" h-20 "
             />
             {/* <h1 className="text-4xl font-bold text-white uppercase">Tisini</h1> */}
           </div>

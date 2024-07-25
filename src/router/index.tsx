@@ -8,6 +8,8 @@ import organizationRoutes from "./org.routes";
 import BaseErrorPage from "@/components/errors/BaseErrorPage";
 import scoresRoutes from "./scores.routes";
 import tournamentRoutes from "./tournaments";
+import quizRoutes from "./quiz.routes";
+import tanoboraRoutes from "./tanobora.routes";
 
 const routes = [
   {
@@ -16,8 +18,10 @@ const routes = [
     children: [
       ...baseRoutes,
       authRoutes,
-      organizationRoutes,
+      // organizationRoutes,
       articlesRoutes,
+      quizRoutes,
+      tanoboraRoutes,
       scoresRoutes,
       tournamentRoutes,
     ],

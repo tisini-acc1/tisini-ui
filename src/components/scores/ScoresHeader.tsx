@@ -34,8 +34,12 @@ export default function ScoresHeader() {
       href: "/scores",
     },
     {
+      title: "Tano Bora",
+      href: "/tanobora",
+    },
+    {
       title: "Quiz",
-      href: "/organizations",
+      href: "/quiz",
     },
   ];
 
@@ -53,12 +57,12 @@ export default function ScoresHeader() {
         <MaxWidthWrapper>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              {/* <img src={tisini} alt="" className="w-10 h-10 " /> */}
-              <Link
-                to="/"
-                className="text-3xl font-extrabold text-primary ml-2 uppercase"
-              >
-                Tisini
+              <Link to={"/"} className="h-12">
+                <img
+                  src="/src/assets/img/TISINI-transparent-Logo.png"
+                  alt=""
+                  className="h-full"
+                />
               </Link>
             </div>
             <div className="hidden md:flex gap-4 items-center font-bold">
@@ -107,7 +111,7 @@ export default function ScoresHeader() {
             <Menu className="md:hidden" as="div">
               <Menu>
                 <Menu.Button>
-                  <LucideMenu size={32} />
+                  <LucideMenu size={32} className="text-black" />
                 </Menu.Button>
                 <Menu.Items
                   className={`absolute right-0 top-16 bg-white border border-gray-200 rounded-md shadow-lg z-10 h-fit p-4 flex flex-col w-full`}

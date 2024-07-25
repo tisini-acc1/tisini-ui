@@ -27,7 +27,7 @@ export default function QuestionSetTimerCard({
     }, 1000);
 
     return () => clearInterval(interval);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const progressTime = (type: "start" | "end") => {
@@ -47,7 +47,7 @@ export default function QuestionSetTimerCard({
     return timeLeft;
   };
 
-  const afterPlay = () =>  {
+  const afterPlay = () => {
     const currentDate = new Date();
     const endTime = new Date(questionSet.end_datetime);
 
@@ -58,19 +58,23 @@ export default function QuestionSetTimerCard({
       return `${Math.floor(secondsDifference)} seconds ago`;
     } else if (secondsDifference < 3600) {
       const minutes = Math.floor(secondsDifference / 60);
-      return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
+      return `${minutes} ${minutes === 1 ? "minute" : "minutes"} ago`;
     } else if (secondsDifference < 86400) {
       const hours = Math.floor(secondsDifference / 3600);
-      return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
+      return `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
     } else {
       const days = Math.floor(secondsDifference / 86400);
-      return `${days} ${days === 1 ? 'day' : 'days'} ago`;
+      return `${days} ${days === 1 ? "day" : "days"} ago`;
     }
-  }
+  };
   // console.log({orgId, questionSet: questionSet.uid});
 
-  const startQuizLabel = questionSet.quiz_type === "PR" ? "Start Tano Bora": "Start Quiz";
-  const closedQuizLabel = questionSet.quiz_type === "PR" ? "Tano Bora Closed": "Quiz Closed";
+  const startQuizLabel =
+    questionSet.quiz_type === "PR" ? "Start Tano Bora" : "Start Quiz";
+  const closedQuizLabel =
+    questionSet.quiz_type === "PR" ? "Tano Bora Closed" : "Quiz Closed";
+
+  const url = questionSet.quiz_type === "PR" ? "tanobora" : "quiz";
 
   return (
     <li className="flex flex-col gap-1 p-2">
@@ -79,7 +83,9 @@ export default function QuestionSetTimerCard({
         <div className="whitespace-nowrap">
           {qSetStatus.getStatus(questionSet) === "not-started" && (
             <span
-              className={`${qSetStatus.getBadgeColor(questionSet)} whitespace-nowrap`}
+              className={`${qSetStatus.getBadgeColor(
+                questionSet
+              )} whitespace-nowrap`}
             >
               {"Not started"}
             </span>
@@ -89,7 +95,9 @@ export default function QuestionSetTimerCard({
               {"In progress"}
             </span>
           )}
-          {qSetStatus.getStatus(questionSet) === "closed" && <span>{"Closed"}</span>}
+          {qSetStatus.getStatus(questionSet) === "closed" && (
+            <span>{"Closed"}</span>
+          )}
         </div>
       </div>
 
@@ -99,8 +107,9 @@ export default function QuestionSetTimerCard({
             <span className=""> Will open in</span>
             <h1 className="tracking-wider font-mono font-bold text-lg">
               {`${
-                Number(progressTime("start").days) > 0?
-                progressTime("start").days + " days ":""
+                Number(progressTime("start").days) > 0
+                  ? progressTime("start").days + " days "
+                  : ""
               }${progressTime("start").hours}:${
                 progressTime("start").minutes
               }:${progressTime("start").seconds}`}
@@ -122,7 +131,7 @@ export default function QuestionSetTimerCard({
           <div className="flex">
             <Link
               className="text-white bg-green-800 font-medium uppercase w-full text-center px-2 py-1 rounded border"
-              to={`/organizations/questionsets/${organizationId}/${questionSet.uid}/preplay`}
+              to={`/${url}/questionsets/${organizationId}/${questionSet.uid}/preplay`}
             >
               {startQuizLabel}
             </Link>
@@ -135,16 +144,14 @@ export default function QuestionSetTimerCard({
           <h1 className="text-red-500 font-bold text-center py-4 uppercase">
             {closedQuizLabel}
           </h1>
-          <p className="text-center">
-            Played: {afterPlay()}
-          </p>
+          <p className="text-center">Played: {afterPlay()}</p>
         </div>
       )}
 
       <div className="w-full flex">
         <Link
           className="text-white bg-primary font-medium capitalize w-full text-center px-2 py-1 rounded border "
-          to={`/organizations/questionsets/${questionSet.uid}/leaderboard`}
+          to={`/${url}/questionsets/${questionSet.uid}/leaderboard`}
         >
           leaderboard
         </Link>

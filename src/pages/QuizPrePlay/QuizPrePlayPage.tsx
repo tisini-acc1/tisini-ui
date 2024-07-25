@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { QuestionSetInterface } from "@/lib/types";
 import React from "react";
@@ -18,11 +18,19 @@ export default function QuizPrePlayPage() {
     organizationId: string;
     questionSetId: string;
   }>();
+  let location = useLocation();
+
+  const url = location.pathname.startsWith("/tanobora") ? "tanobora" : "quiz";
+
+  const title = location.pathname.startsWith("/tanobora")
+    ? "Tano Bora"
+    : "Quiz";
+
   const fetchQuestioSet = async () => {
     try {
       const response = await (
         await privateAxios.get(
-          `/tano_bora/organizations/${organizationId}/questionsets/${questionSetId}/`
+          `/${url}/organizations/${organizationId}/questionsets/${questionSetId}/`
         )
       ).data;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -46,7 +54,9 @@ export default function QuizPrePlayPage() {
   return (
     <MaxWidthWrapper className="max-w-7xl mx-auto p-4 md:p-6 min-h-[80vh] ">
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold text-gray-900">Tano Bora Pre-Play</h1>
+        <h1 className="text-2xl font-semibold text-gray-900">
+          {`${title} Pre-Play`}
+        </h1>
         <div>
           <img
             className="w-full h-80 object-cover mt-2 border rounded my-2"
@@ -99,7 +109,7 @@ export default function QuizPrePlayPage() {
                   })
                 );
                 navigate(
-                  `/organizations/questionsets/${organizationId}/${questionSetId}/play`,
+                  `/${url}/questionsets/${organizationId}/${questionSetId}/play`,
                   {
                     replace: true,
                     state: {

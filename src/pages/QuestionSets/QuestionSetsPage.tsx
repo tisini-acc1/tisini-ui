@@ -7,7 +7,7 @@ import {
   questionSetsSettle,
 } from "@/store/slices/question-sets.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import OrganizationQuestionSets from "@/components/OrganizationQuestionSets";
 import { QuestionSetInterface } from "@/lib/types";
@@ -17,17 +17,22 @@ import { privateAxios } from "@/lib/api";
 export default function QuestionSetsPage() {
   const organizationId = useParams<{ organizationId: string }>().organizationId;
   const { questionSets } = useAppSelector((state) => state.questionSets);
+
   const dispatch = useAppDispatch();
+  const location = useLocation();
+
+  const url = location.pathname.startsWith("/tanobora") ? "tano_bora" : "quiz";
+
   const fetchQuestionSets = async () => {
     dispatch(questionSetsLoadStart());
     try {
       const data = (
         await privateAxios.get(
-          `/tano_bora/organizations/${organizationId}/questionsets/`
+          `/${url}/organizations/${organizationId}/questionsets/`
         )
       ).data as Array<QuestionSetInterface>;
-      // console.log({ data });
-      
+      console.log({ data });
+
       dispatch(questionSetsLoadSuccess(data));
     } catch (error) {
       console.log(error);

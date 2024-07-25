@@ -11,7 +11,7 @@ import { quizPlaySubmit } from "@/store/slices/quiz-play.slice";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
-export default function QuizPlayDone() {
+export default function QuizPlayDone({ count }: { count: number }) {
   const {
     progress,
     questionSet,
@@ -19,21 +19,28 @@ export default function QuizPlayDone() {
     totalQuestions,
     currentOrganization,
   } = useAppSelector((state) => state.persist.quizPlay);
+
   const summary = React.useMemo(() => {
     return answerCreator.createPayload(progress);
   }, [progress]);
+
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
+
+  const qtype = questionSet?.quiz_type === "NR" ? "quiz" : "tano_bora";
+
   const submitResults = async () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     setIsLoading(true);
     try {
       const dataToSend = {
         ...summary,
+        points_earned: qtype === "quiz" ? count : 0,
         time_used: summary.time_used! / totalQuestions,
       };
+
       await privateAxios.post(
-        `/tano_bora/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
+        `/${qtype}/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
         dataToSend
       );
       // console.log({ response });
@@ -54,7 +61,7 @@ export default function QuizPlayDone() {
             time_used: summary.time_used! / totalQuestions,
           };
           await privateAxios.post(
-            `/tano_bora/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
+            `/${qtype}/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
             dataToSend
           );
           dispatch(quizPlaySubmit());
@@ -81,6 +88,9 @@ export default function QuizPlayDone() {
       setIsLoading(false);
     }
   };
+
+  console.log(summary.points_earned);
+
   return (
     <div>
       <Loader isLoading={isLoading} />
@@ -97,7 +107,7 @@ export default function QuizPlayDone() {
                   <p>
                     Total Questions: {totalQuestions} <br />
                   </p>
-                  <p>Total Points scored: {summary.points_earned}</p>
+                  <p>Total Points scored: {count}</p>
                   <p>
                     Average time:{" "}
                     {(summary.time_used! / totalQuestions).toFixed(2)} seconds
@@ -113,13 +123,13 @@ export default function QuizPlayDone() {
                   </h1>
                   <div className="flex flex-col md:flex-row  gap-2 items-center justify-center">
                     <NavLink
-                      to={`/organizations/${currentOrganization}`}
+                      to={`/quiz/${currentOrganization}`}
                       className="border border-primary rounded-lg px-2 py-1 text-primary"
                     >
-                      Back to Tano Bora
+                      Back to Quizzes
                     </NavLink>
                     <NavLink
-                      to={`/organizations/questionsets/${questionSet.uid}/leaderboard`}
+                      to={`/quiz/questionsets/${questionSet.uid}/leaderboard`}
                       className="bg-primary text-white px-2 py-1 rounded-lg"
                     >
                       Leaderboard
@@ -170,13 +180,13 @@ export default function QuizPlayDone() {
                     </h1>
                     <div className="flex flex-col md:flex-row gap-2 items-center justify-center">
                       <NavLink
-                        to={`/organizations/${currentOrganization}`}
+                        to={`/tanobora/${currentOrganization}`}
                         className="border border-primary rounded-lg px-2 py-1 text-primary"
                       >
                         Back to Tano Bora
                       </NavLink>
                       <NavLink
-                        to={`/organizations/questionsets/${
+                        to={`/tanobora/questionsets/${
                           questionSet!.uid
                         }/leaderboard`}
                         className="bg-primary text-white px-2 py-1 rounded-lg"
