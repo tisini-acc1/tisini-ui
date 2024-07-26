@@ -26,7 +26,7 @@ export default function PlayQuiz() {
   const [count, setCount] = React.useState<number>(0);
 
   const navigate = useNavigate();
-  let location = useLocation();
+  const location = useLocation();
 
   const url = location.pathname.startsWith("/quiz") ? "quiz" : "tanobora";
 

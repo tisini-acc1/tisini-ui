@@ -35,7 +35,7 @@ export default function QuizPlayDone({ count }: { count: number }) {
     try {
       const dataToSend = {
         ...summary,
-        points_earned: qtype === "quiz" ? count : 0,
+        points_earned: qtype === "quiz" ? summary.points_earned : 0,
         time_used: summary.time_used! / totalQuestions,
       };
 

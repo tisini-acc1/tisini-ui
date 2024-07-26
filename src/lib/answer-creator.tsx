@@ -1,3 +1,4 @@
+import { checkObjectProp } from "./check-obj-prop";
 import { AnswerInterface } from "./types";
 import { QuestionProgress } from "@/store/slices/quiz-play.slice";
 
@@ -18,7 +19,7 @@ type QuestionWithAnswersProgress = Array<QuestionProgress>;
 export class AnswerCreator {
   private static instance: AnswerCreator;
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
+  private constructor() { }
 
   static getInstance(): AnswerCreator {
     if (!AnswerCreator.instance) {
@@ -71,24 +72,27 @@ export class AnswerCreator {
   }
 
   public static extractQuestionAndAnswers(payload: QuestionProgress) {
+    const points =  checkObjectProp(payload.question, 'selected_answer', ({ selected_answer }) => {
+      return checkObjectProp(selected_answer as AnswerInterface, 'is_answer', (ans) => ans.is_answer) ? true : false
+    }) ? 10 : 0
     const quizWithPoints =
       payload.question.quiz_type === "multiple"
         ? {
+          question_text: payload.question.question,
+          points: payload.question.points / payload.question.answers.length,
+          duration: payload.duration,
+          status: payload.status,
+        }
+        : payload.question.quiz_type === "text"
+          ? {
             question_text: payload.question.question,
-            points: payload.question.points / payload.question.answers.length,
+            points:  points,
             duration: payload.duration,
             status: payload.status,
           }
-        : payload.question.quiz_type === "text"
-        ? {
-          question_text: payload.question.question,
-          points: payload.question.points,
-          duration: payload.duration,
-          status: payload.status,
-          }
-        : {
+          : {
             question_text: payload.question.question,
-            points: payload.question.points,
+            points: points,
             duration: payload.duration,
             status: payload.status,
           };
