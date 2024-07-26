@@ -162,7 +162,7 @@ export type THero = {
 export type TAbout = {
   theme: string;
   image: string;
-  story: string;
+  story: string[];
 };
 
 export type Tournament = {

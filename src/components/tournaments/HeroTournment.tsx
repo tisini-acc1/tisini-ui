@@ -14,7 +14,7 @@ export const HeroTournment = () => {
       id="home"
       className="h-[90vh] w-full bg-heroS bg-center bg-cover bg-no-repeat text-white relative pt-[225px] pb-[254px] px-8"
     >
-      <div className="bg-blue-900 bg-opacity-70 absolute inset-0"></div>
+      <div className="bg-[#959eb7] bg-opacity-70 absolute inset-0"></div>
 
       <div className="text-center relative">
         <h1 className="text-2xl uppercase mx-auto font-semibold mb-5 lg:text-[64px] lg:leading-tight lg:max-w-[888px]">

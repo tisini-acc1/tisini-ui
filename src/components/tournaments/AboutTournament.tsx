@@ -24,13 +24,17 @@ export const AboutTournament = () => {
         <div className="flex flex-col gap-4 lg:flex-row">
           <div className="flex-1">
             <div className="flex gap-4 flex-col lg:p-4 text-base">
-              <p className="text-[#71717a]">{story}</p>
+              {story.map((item, idx) => (
+                <p key={idx} className="text-[#71717a]">
+                  {item}
+                </p>
+              ))}
             </div>
           </div>
 
           <div className="flex-1">
             <div className="flex items-center justify-center h-full">
-              <div className="h-[750] w-[600]">
+              <div className="">
                 <img
                   className="rounded-lg shadow-lg"
                   src={image}
