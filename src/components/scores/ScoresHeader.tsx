@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 import MaxWidthWrapper from "../max-width-wrapper";
 import { logoutUser } from "@/store/slices/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-// import tisini from "@/assets/img/tisini.png";
+import tisini from "@/assets/img/TISINI-transparent-Logo.png";
 
 export default function ScoresHeader() {
   const authLinks = {
@@ -58,11 +58,7 @@ export default function ScoresHeader() {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Link to={"/"} className="h-12">
-                <img
-                  src="/src/assets/img/TISINI-transparent-Logo.png"
-                  alt=""
-                  className="h-full"
-                />
+                <img src={tisini} alt="" className="h-full" />
               </Link>
             </div>
             <div className="hidden md:flex gap-4 items-center font-bold">
