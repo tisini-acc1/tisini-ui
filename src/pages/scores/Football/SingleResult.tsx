@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import homeImg from "../../assets/homeLogo.png";
-import awayImg from "../../assets/awayLogo.png";
+import homeImg from "@/assets/homeLogo.png";
+import awayImg from "@/assets/awayLogo.png";
 import { Fixture } from "@/lib/types/scores";
 import { teamImages } from "@/lib/constants/site_images";
 
@@ -35,7 +35,11 @@ const SingleResult = ({ fixture }: { fixture: Fixture }) => {
 
         <div className="col-span-2 flex items-center justify-center">
           {fixture.game_status === "notstarted" ? (
-            <div className="animate-spin-slow">⌛</div>
+            fixture.game_time === "" ? (
+              <div className="animate-spin-slow">⌛</div>
+            ) : (
+              <div>{fixture.game_time}</div>
+            )
           ) : (
             <div
               className="flex flex-col items-center font-bold

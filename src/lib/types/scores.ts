@@ -10,9 +10,11 @@ export type Fixture = {
   team2_name: string;
   status: string;
   game_status: string;
+  game_time: string;
   minute: string;
   second: string;
   game_moment: string;
+  game_minute: string;
   league: string;
   home_score: string;
   away_score: string;
@@ -41,14 +43,25 @@ export type FixtureDetails = {
   teamview: string;
 };
 
-export type Stats = {
-  event_id: string;
-  gameid: string;
-  id: string;
-  name: string;
+export type SubEvent = {
+  subeventid: string;
+  subeventname: string;
+  totalsubevent: string;
   team: string;
-  time: string;
+  gameidid: string;
+};
+
+export type Event = {
+  event_id: string;
+  name: string;
   total: string;
+  team: string;
+  fixtureid: string;
+  "sub-event": SubEvent[];
+};
+
+export type Stats = {
+  [eventName: string]: Event;
 };
 
 export type Scores = {
@@ -81,29 +94,43 @@ export type Lineup = {
   teamId: string;
   team_player_id: string;
   lineupposition: string;
+  red: string;
 };
 
-export type SingleFixtureStats = [
-  [FixtureDetails],
-  Stats[],
-  Stats[],
-  Scores,
-  Lineup[],
-  Cards,
-  Fouls,
-  []
-];
+export type GameHighlights = {
+  event_name: string;
+  event_id: string;
+  team: string;
+  gameid: string;
+  narration: string;
+  player_id: string;
+  subevent_id: string;
+  subeventName: string;
+  subplayer_id: string;
+  subplayer_name: string;
+  game_minute: string;
+  game_second: string;
+  game_moment: string;
+  teamplayer_id: string;
+  player_type: string;
+  pname: string;
+  Jersey_No: string;
+  subsubevent_id: string;
+  zone_id: null;
+  tss: null;
+};
 
-export type FixtureStats = [
-  [FixtureDetails],
-  Stats[],
-  Stats[],
-  Scores,
-  [],
-  Cards,
-  Fouls,
-  []
-];
+export type SingleFixtureStats = {
+  fixture: FixtureDetails[];
+  home: Stats;
+  away: Stats;
+  scores: Scores;
+  players: Lineup[];
+  cards: Cards;
+  fouls: Fouls;
+  standing: [];
+  gamedetails: GameHighlights[];
+};
 
 export type Standings = {
   position: number;

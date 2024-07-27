@@ -1,11 +1,10 @@
 import type { RouteObject } from "react-router-dom";
 
-import Rugby from "@/pages/Rugby/Rugby";
-import Football from "@/pages/Football/Football";
+import Rugby from "@/pages/scores/Rugby/Rugby";
 import ScoresLayout from "@/layouts/ScoresLayout";
-import SingleRugby from "@/pages/SingleFixture/SingleRugby";
+import Football from "@/pages/scores/Football/Football";
 import ThemeProviderWrapper from "@/theme/ThemeProviderWrapper";
-import SingleFootball from "@/pages/SingleFixture/SingleFootball";
+import SingleFixture from "@/pages/scores/SingleFixture/SingleFixture";
 
 const scoresRoutes = {
   path: "/scores",
@@ -29,11 +28,11 @@ const scoresRoutes = {
     },
     {
       path: "/scores/football/:fixtureId",
-      element: <SingleFootball />,
+      element: <SingleFixture />,
     },
     {
       path: "/scores/rugby/:fixtureId",
-      element: <SingleRugby />,
+      element: <SingleFixture />,
     },
   ],
 } satisfies RouteObject;

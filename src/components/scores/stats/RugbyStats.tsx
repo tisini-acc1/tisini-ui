@@ -2,21 +2,24 @@ import { Cards, Stats } from "@/lib/types/scores";
 import AccuracyRow from "../singleFixture/AccuracyRow";
 import PosessionRow from "../singleFixture/PosessionRow";
 import StatsRow from "@/components/scores/singleFixture/StatsRow";
-import { calcPosession, getStat } from "@/lib/scores/calculations";
+import { calcRugbyPosession, getStat } from "@/lib/scores/calculations";
 import StatsHalf from "@/components/scores/singleFixture/StatsHalf";
 
 type StatsProps = {
-  home: Stats[];
-  away: Stats[];
+  home: Stats;
+  away: Stats;
   cards: Cards;
 };
 
 const RugbyStats = ({ home, away, cards }: StatsProps) => {
-  const posession = calcPosession(home, away);
+  const posession = calcRugbyPosession(home, away);
 
-  const homeOnly = home.length > 1 && away.length == 0;
-  const awayOnly = away.length > 1 && home.length == 0;
-  const bothTeams = away.length > 1 && home.length > 1;
+  const homePass = home["Pass"].total;
+  const awayPass = away["Pass"].total;
+
+  const homeOnly = parseInt(awayPass) <= 0;
+  const awayOnly = parseInt(homePass) <= 0;
+  const bothTeams = parseInt(awayPass) > 0 && parseInt(homePass) > 0;
 
   const homePasses =
     getStat(home, "Pass") +
@@ -26,20 +29,14 @@ const RugbyStats = ({ home, away, cards }: StatsProps) => {
     getStat(away, "Pass") +
     getStat(away, "Incomplete Pass") +
     getStat(away, "Forward pass");
-
-  if (home.length < 1 && away.length < 1) {
-    return (
-      <div className="flex justify-center items-center text-xl font-bold h-96">
-        No Data!
-      </div>
-    );
-  }
-
+  console.log(home["Pass"].total);
+  console.log(getStat(home, "Forward pass"));
+  console.log(away["Pass"].total);
   return (
     <div className="flex flex-col space-y-6 ">
       <StatsHalf />
 
-      {home.length !== 0 && away.length !== 0 && (
+      {bothTeams && (
         <PosessionRow
           homeStat={`${posession.home}`}
           stat={"Possession"}

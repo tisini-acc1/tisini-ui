@@ -171,4 +171,21 @@ export const teamImages: { [key: string]: string } = {
     "/src/assets/football/0078-Photoroom.png-Photoroom.png",
     import.meta.url
   ).href,
+  "533": new URL("/src/assets/rugby/Impala.png", import.meta.url).href,
+  "532": new URL("/src/assets/rugby/Impala.png", import.meta.url).href,
+  "465": new URL("/src/assets/rugby/Homeboyz.png", import.meta.url).href,
+  "475": new URL("/src/assets/rugby/Catholic Monks Logo.png", import.meta.url)
+    .href,
+  "420": new URL("/src/assets/rugby/Nakuru RFC.png", import.meta.url).href,
+  "464": new URL(
+    "/src/assets/rugby/Kisumu_Rugby_Football_Club_Logo.jpg",
+    import.meta.url
+  ).href,
+  "408": new URL("/src/assets/rugby/Strathmore Leos.png", import.meta.url).href,
+  "481": new URL("/src/assets/rugby/blak blad.png", import.meta.url).href,
+  "474": new URL("/src/assets/rugby/Mwamba RFC.png", import.meta.url).href,
+  "468": new URL("/src/assets/rugby/Oilers.png", import.meta.url).href,
+  "558": new URL("/src/assets/rugby/UoE Trojans.png", import.meta.url).href,
+  "472": new URL("/src/assets/rugby/Quins.png", import.meta.url).href,
+  // "": new URL("/", import.meta.url).href,
 };

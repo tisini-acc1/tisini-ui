@@ -5,7 +5,7 @@ import AwayPlayer from "@/components/scores/lineups/AwayPlayer";
 import HomePlayer from "@/components/scores/lineups/HomePlayer";
 
 type LineUpsProps = {
-  teams: [FixtureDetails];
+  teams: FixtureDetails;
   squads: Lineup[];
 };
 
@@ -46,8 +46,8 @@ const RugbyLineups = ({ teams, squads }: LineUpsProps) => {
       return teamPlayer;
     };
 
-    const homeId = teams[0].team1_id;
-    const awayId = teams[0].team2_id;
+    const homeId = teams?.team1_id;
+    const awayId = teams?.team2_id;
 
     const lineups = groupPlayersByTeam(squads, homeId, awayId);
 

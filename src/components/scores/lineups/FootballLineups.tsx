@@ -6,7 +6,7 @@ import HomePlayer from "@/components/scores/lineups/HomePlayer";
 import AwayPlayer from "@/components/scores/lineups/AwayPlayer";
 
 type LineupsProps = {
-  teams: [FixtureDetails];
+  teams: FixtureDetails;
   squads: Lineup[];
 };
 
@@ -48,8 +48,8 @@ const FootballLineups = ({ teams, squads }: LineupsProps) => {
       return teamPlayer;
     };
 
-    const homeId = teams[0].team1_id;
-    const awayId = teams[0].team2_id;
+    const homeId = teams.team1_id;
+    const awayId = teams.team2_id;
 
     const lineups = groupPlayersByTeam(squads, homeId, awayId);
 
@@ -186,8 +186,12 @@ export const PlayerTile = ({ player }: { player: Lineup }) => {
           {player?.Jersey_No}
         </div>
       </div>
-      <p className="font-bold whitespace-nowrap text-xs text-ellipsis">
-        {name.length > 1 ? `${name[0][0]}. ${name[1]}` : ""}
+      <p className="font-bold whitespace-nowrap text-xs text-ellipsis capitalize">
+        {name.length > 1
+          ? name[1] === ""
+            ? `${name[0][0]}. ${name[2]}`
+            : `${name[0][0]}. ${name[1]}`
+          : ""}
       </p>
     </div>
   );
