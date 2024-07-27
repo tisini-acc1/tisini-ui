@@ -2,20 +2,29 @@ import homeImg from "@/assets/homeLogo.png";
 import awayImg from "@/assets/awayLogo.png";
 import { FixtureDetails, Scores } from "@/lib/types/scores";
 import { teamImages } from "@/lib/constants/site_images";
+import Spinner from "@/components/spinner/Spinner";
 
 type HeaderProps = {
-  teamDetails: FixtureDetails[];
+  teamDetails: FixtureDetails;
   scores: Scores;
 };
 
 const FixtureHeader = ({ teamDetails, scores }: HeaderProps) => {
-  const teams = teamDetails[0];
+  const teams = teamDetails;
 
-  const homeLogo = teamImages[teams.team1_id] ?? homeImg;
-  const awayLogo = teamImages[teams.team2_id] ?? awayImg;
+  const homeLogo = teamImages[teams?.team1_id] ?? homeImg;
+  const awayLogo = teamImages[teams?.team2_id] ?? awayImg;
 
   const homeWin = scores.Home > scores.Away;
   const awayWin = scores.Away > scores.Home;
+
+  if (!teamDetails || !scores) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col justify-between">

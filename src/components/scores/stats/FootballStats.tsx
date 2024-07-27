@@ -1,43 +1,44 @@
+import AccuracyRow from "../singleFixture/AccuracyRow";
 import { Cards, Fouls, Stats } from "@/lib/types/scores";
+import PosessionRow from "../singleFixture/PosessionRow";
 import StatsRow from "@/components/scores/singleFixture/StatsRow";
 import StatsHalf from "@/components/scores/singleFixture/StatsHalf";
-import { calcPosession, getStat } from "@/lib/scores/calculations";
-import PosessionRow from "../singleFixture/PosessionRow";
-import AccuracyRow from "../singleFixture/AccuracyRow";
+import { calcBallPosession, getStat } from "@/lib/scores/calculations";
 
 type StatsProps = {
-  home: Stats[];
-  away: Stats[];
+  home: Stats;
+  away: Stats;
   cards: Cards;
   fouls: Fouls;
 };
 
 const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
-  const posession = calcPosession(home, away);
+  const posession = calcBallPosession(home, away);
 
-  const homeOnly = home.length > 1 && away.length == 0;
-  const awayOnly = away.length > 1 && home.length == 0;
-  const bothTeams = away.length > 1 && home.length > 1;
+  const homePass = home["Pass"].total;
+  const awayPass = away["Pass"].total;
 
-  const homePasses = getStat(home, "Pass") + getStat(home, "Incomplete Pass");
-  const awayPasses = getStat(away, "Pass") + getStat(away, "Incomplete Pass");
+  const homeOnly = parseInt(awayPass) <= 0;
+  const awayOnly = parseInt(homePass) <= 0;
+  const bothTeams = parseInt(awayPass) > 0 && parseInt(homePass) > 0;
 
-  // console.log(homePasses);
-  // console.log(awayPasses);
+  const homePasses =
+    parseInt(home["Pass"].total) + parseInt(home["Incomplete Pass"].total);
+  const awayPasses =
+    parseInt(away["Pass"].total) + parseInt(away["Incomplete Pass"].total);
 
-  if (home.length < 1 && away.length < 1) {
-    return (
-      <div className="flex justify-center items-center text-xl font-bold h-96">
-        No Data!
-      </div>
-    );
-  }
+  const homeTarget = home["Shot"]["sub-event"].filter(
+    (item) => item.subeventname === "On Target"
+  );
+  const awayTarget = away["Shot"]["sub-event"].filter(
+    (item) => item.subeventname === "On Target"
+  );
 
   return (
     <div className="flex flex-col space-y-4 ">
       <StatsHalf />
 
-      {home.length !== 0 && away.length !== 0 && (
+      {bothTeams && (
         <PosessionRow
           homeStat={`${posession.home}`}
           stat={"Possession"}
@@ -45,10 +46,12 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
         />
       )}
 
-      <StatsRow
-        homeStat={getStat(home, "Shot")}
-        stat={"Attempts"}
-        awayStat={getStat(away, "Shot")}
+      <AccuracyRow
+        hComp={parseInt(homeTarget[0].totalsubevent)}
+        aComp={parseInt(awayTarget[0].totalsubevent)}
+        hTotal={getStat(home, "Shot")}
+        aTotal={getStat(away, "Shot")}
+        stat={"Attempts on Target"}
         homeOnly={homeOnly}
         awayOnly={awayOnly}
         bothTeams={bothTeams}
