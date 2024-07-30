@@ -19,6 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <PersistGate persistor={persistor}>
           <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
+        {/* <DraftHeader/> */}
         </QueryClientProvider>
       </PersistGate>
     </ReduxProvider>

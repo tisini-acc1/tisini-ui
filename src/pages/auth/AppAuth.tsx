@@ -6,12 +6,11 @@ type Tabs = "login" | "register";
 const AppAuth = () => {
   const [tabs, setTabs] = React.useState<Tabs>("login");
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-  const [activeTab, setActiveTab] = React.useState<Tabs>("login");
+  const [_, setActiveTab] = React.useState<Tabs>("login");
   //   const params = Object.fromEntries(useSearchParams().entries)//("tab") as Tabs;
   const [SearchParams,setSearchParams] = useSearchParams();
   const tab = SearchParams.get("tab") as Tabs;
-  console.log(tab);
-  console.log(activeTab);
+
   React.useEffect(() => {
     if (tab) {
       setTabs(tab);
