@@ -312,3 +312,32 @@ export type ReducerFunction<StateType, ActionsType> = (
 export type ActionMapper<T extends { [key in any]: any }> = {
   [key in keyof T]: T extends { [Key in keyof T]: infer U } ? U : never;
 };
+
+export type CategoriesWithPostType = {
+  id: number;
+  article_category: string;
+  articles: {
+    id: number;
+    article_title: string;
+    slug: string;
+    featured_image_url: string;
+    thumbnail: string;
+    excerpt: string;
+    article_body: string;
+    is_featured: boolean;
+    is_sponsored: boolean;
+    is_editors_pick: boolean;
+    publish: string;
+    author: {
+      id: number;
+      first_name: string;
+      last_name: string;
+      author_email: string;
+      author_description: null;
+      linkedin_url: null;
+      facebook_url: null;
+      twitter_url: null;
+    };
+    tags: string[];
+  }[]
+};
