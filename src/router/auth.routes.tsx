@@ -33,7 +33,7 @@ const authRoutes = {
           <ProfilePage />
         </ProtectedLayout>
       ),
-    },
+    }
   ],
 } satisfies RouteObject;
 
