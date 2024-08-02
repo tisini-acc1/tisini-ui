@@ -25,7 +25,10 @@ function ProfilePage() {
   );
 
   const hidden = (str: string, from: number, to: number) => {
-    return str.split("").map((it, idx) => (idx < from || idx > to ? it : "*"));
+    return (str || "")
+      .split("")
+      .map((it, idx) => (idx <= from || idx >= to ? it : "*"))
+      .join("");
   };
 
   const fetchUserProfile = React.useCallback(async () => {
@@ -72,7 +75,7 @@ function ProfilePage() {
           <div>{joinNonNull(profile.first_name, profile.last_name)}</div>
           <div className="flex items-center gap-2">
             <FluentEmojiHighContrastTelephone scale={3} />
-            <span>{hidden(profile.phone_number,4,7)}</span>
+            <span>{hidden(profile.phone_number, 3, 8)}</span>
           </div>
         </div>
       </div>
