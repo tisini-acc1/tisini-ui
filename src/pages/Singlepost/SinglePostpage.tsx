@@ -31,17 +31,18 @@ export default function SinglePostpage() {
   return (
     <div className="min-h-[50vh]">
       {loading && <Loader isLoading={loading} />}
-      <MaxWidthWrapper className=" py-2 flex flex-col gap-2 px-2">
+      <MaxWidthWrapper className=" py-2 flex flex-col gap-2 px-2 max-w-6xl">
+        
+        <img
+          src={post?.featured_image_url ?? ""}
+          alt="logo"
+          className="rounded max-h-96 mx-auto"
+        />
         <div className="text-left">
           <h1 className="text-2xl font-bold
            mx-auto text-gray-800
           ">{post?.article_title}</h1>
         </div>
-        <img
-          src={post?.featured_image_url ?? ""}
-          alt="logo"
-          className="rounded max-h-96"
-        />
         <div>
           <div className="flex items-center gap-4 py-2 border-b px-2 my-1">
             <span className="text-primary truncate text-lg">
