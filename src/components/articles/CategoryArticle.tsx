@@ -1,5 +1,6 @@
 import { cn } from "@/lib/cn";
 import { CategoriesWithPostType } from "@/lib/types";
+import moment from "moment";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
@@ -9,7 +10,7 @@ type ComponentProps = {
 
 export default function CategoryArticle({ posts }: ComponentProps) {
   return (
-    <div className="flex flex-col gap-8  p-4 mx-auto ">
+    <div className="flex flex-col gap-8  mx-auto ">
       {posts
         .filter((p) => p.articles.length > 0)
         .map((category, index) => (
@@ -24,12 +25,12 @@ export default function CategoryArticle({ posts }: ComponentProps) {
                   {category.article_category}
                 </h1>
               </div>
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-2 mx-auto">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-2">
                 {category.articles.map((article) => (
                   <NavLink
                     to={`/articles/${article.slug}/single-read`}
                     key={article.article_title}
-                    className="text-lg font-semibold text-primary  max-w-[32rem] w-full"
+                    className="text-lg border p-2 bg-white font-semibold text-primary  max-w-[32rem] w-full"
                   >
                     <div className="h-80">
                       <img
@@ -40,6 +41,11 @@ export default function CategoryArticle({ posts }: ComponentProps) {
                     </div>
                     <div className="p-4">
                       <h1 className="font-semibold">{article.article_title}</h1>
+                    </div>
+                    <div className="flex text-black justify-end text-sm italic">
+                      <span>
+                        {moment(article.publish).format('LL')}
+                      </span>
                     </div>
                   </NavLink>
                 ))}
