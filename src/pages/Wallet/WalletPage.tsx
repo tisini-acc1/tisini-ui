@@ -81,7 +81,7 @@ export default function WalletPage() {
                 <div className="min-h-[60vh] bg-white py-10 px-4 flex flex-col gap-8 shadow-sm rounded bg-opacity-50">
                   <h2 className="text-4xl">
                     KSh.{" "}
-                    <span className="text-7xl mt-4">{(330).toFixed(2)}</span>
+                    <span className="text-7xl mt-4">{(0).toFixed(2)}</span>
                   </h2>
                   <div className="py-4 space-x-4">
                     <button
