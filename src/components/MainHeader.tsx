@@ -64,7 +64,7 @@ export default function MainHeader() {
       name: "Wallet",
       Icon: Wallet,
       type: "link",
-      href: "wallet",
+      href: "/wallet",
     },
     {
       name: "Logout",

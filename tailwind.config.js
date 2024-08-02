@@ -4,6 +4,7 @@ export default {
   theme: {
     fontFamily: {
       catamaran: ["Catamaran", "Inter", "sans-serif"],
+      'noto-serif': ["Noto Serif", 'serif'],
     },
     extend: {
       colors: {

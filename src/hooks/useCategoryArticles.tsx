@@ -1,16 +1,13 @@
 import { tisiniAxios } from "@/lib/api";
-import {
-  CategoriesWithPostType,
-  PaginatedResponse,
-} from "@/lib/types";
+import { CategoriesWithPostType, PaginatedResponse } from "@/lib/types";
 import { AxiosError } from "axios";
 import React, { useState } from "react";
 
 export default function useCategoryArticles() {
   const [isLoading, setIsLoading] = useState(false);
-  const [err,] = useState("");
+  const [err] = useState("");
   const [data, setData] = useState<CategoriesWithPostType[]>([]);
-  const fetchArticles = async () => {
+  const fetchArticles = React.useCallback(async () => {
     setIsLoading(true);
     try {
       const response =
@@ -18,7 +15,7 @@ export default function useCategoryArticles() {
         (
           await tisiniAxios.get("/blogs/category_articles")
         ).data) as PaginatedResponse<CategoriesWithPostType>;
-        setData(response.results)
+      setData(response.results);
     } catch (err) {
       // console.log(err);
       if (err instanceof AxiosError) {
@@ -27,17 +24,14 @@ export default function useCategoryArticles() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
   const refreshData = async () => {
     await fetchArticles();
   };
 
   React.useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    Promise.all([fetchArticles()]).then(() => {
-      console.log("Done");
-    });
-  },[]);
+    fetchArticles();
+  }, []);
   return {
     data,
     isLoading,
