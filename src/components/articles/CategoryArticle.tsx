@@ -9,7 +9,7 @@ type ComponentProps = {
 
 export default function CategoryArticle({ posts }: ComponentProps) {
   return (
-    <div className="flex flex-col gap-8  p-4">
+    <div className="flex flex-col gap-8  p-4 mx-auto ">
       {posts
         .filter((p) => p.articles.length > 0)
         .map((category, index) => (
@@ -20,21 +20,22 @@ export default function CategoryArticle({ posts }: ComponentProps) {
           >
             <div className={cn("flex flex-col gap-4 mx-auto max-w-7xl p-8")}>
               <div>
-                <h1 className="text-4xl  italic font-bold underline">
+                <h1 className="text-4xl   font-bold underline">
                   {category.article_category}
                 </h1>
               </div>
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-2">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-2 mx-auto">
                 {category.articles.map((article) => (
                   <NavLink
                     to={`/articles/${article.slug}/single-read`}
-                    className="text-lg font-semibold text-primary  max-w-[32rem]"
+                    key={article.article_title}
+                    className="text-lg font-semibold text-primary  max-w-[32rem] w-full"
                   >
                     <div className="h-80">
                       <img
                         src={article.featured_image_url}
                         alt=""
-                        className="h-full w-full"
+                        className="h-full w-full object-cover"
                       />
                     </div>
                     <div className="p-4">
