@@ -47,7 +47,9 @@ const HighlightsCard = ({
   const homeId = teams.team1_id;
 
   const icon =
-    highlight.event_name === "Card"
+    highlight.subeventName === "Red"
+      ? "🟥"
+      : highlight.event_name === "Card"
       ? "🟨"
       : highlight.event_name === "Goal"
       ? "⚽"
@@ -55,7 +57,7 @@ const HighlightsCard = ({
       ? "↔️"
       : highlight.event_name === "Score"
       ? "🏉"
-      : "🟥";
+      : "";
 
   return (
     <div className="p-2 ">

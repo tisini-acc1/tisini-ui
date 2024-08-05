@@ -45,14 +45,8 @@ export const teamImages: { [key: string]: string } = {
     .href,
   "798": new URL("/src/assets/rugby/Meanmachinerfclogo.png", import.meta.url)
     .href,
-  "458": new URL(
-    "/src/assets/rugby/Nondies__1_-removebg-preview.png",
-    import.meta.url
-  ).href,
-  "675": new URL(
-    "/src/assets/rugby/Nondies__1_-removebg-preview.png",
-    import.meta.url
-  ).href,
+  "458": new URL("/src/assets/rugby/Nondescripts.png", import.meta.url).href,
+  "675": new URL("/src/assets/rugby/Nondescripts.png", import.meta.url).href,
   "616": new URL("/src/assets/rugby/Oilers.png", import.meta.url).href,
   "703": new URL("/src/assets/rugby/Oilers.png", import.meta.url).href,
   "869": new URL("/src/assets/rugby/Oilers.png", import.meta.url).href,
@@ -187,5 +181,11 @@ export const teamImages: { [key: string]: string } = {
   "468": new URL("/src/assets/rugby/Oilers.png", import.meta.url).href,
   "558": new URL("/src/assets/rugby/UoE Trojans.png", import.meta.url).href,
   "472": new URL("/src/assets/rugby/Quins.png", import.meta.url).href,
+  "762": new URL("/src/assets/rugby/Kabete Stallions.png", import.meta.url)
+    .href,
+  "1159": new URL("/src/assets/rugby/Kabete Stallions.png", import.meta.url)
+    .href,
+  "1257": new URL("/src/assets/rugby/Kabete Stallions.png", import.meta.url)
+    .href,
   // "": new URL("/", import.meta.url).href,
 };
