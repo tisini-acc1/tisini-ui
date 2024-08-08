@@ -1,4 +1,5 @@
 import { FixtureDetails, GameHighlights } from "@/lib/types/scores";
+import { MdOutlineSportsSoccer } from "react-icons/md";
 
 type OverviewProps = {
   teams: FixtureDetails;
@@ -6,6 +7,10 @@ type OverviewProps = {
 };
 
 const FixtureOverview = ({ teams, highlights }: OverviewProps) => {
+  const penalties = highlights.filter(
+    (highlight) => highlight.event_name === "PM Penalties"
+  );
+
   return (
     <div className="space-y-2">
       <div className="flex justify-center items-center bg-gray-300 h-10 text-base md:text-2xl font-bold">
@@ -26,11 +31,24 @@ const FixtureOverview = ({ teams, highlights }: OverviewProps) => {
       {highlights.map((highlight, index) => (
         <div key={index}>
           {highlight.game_moment === "secondhalf" &&
-            highlight.event_name !== "Goal Conceded" && (
+            highlight.event_name !== "Goal Conceded" &&
+            highlight.event_name !== "PM Penalties" && (
               <HighlightsCard highlight={highlight} teams={teams} />
             )}
         </div>
       ))}
+
+      {penalties.length > 0 && (
+        <>
+          <div className="flex justify-center items-center bg-gray-300 h-10 text-base md:text-2xl font-bold">
+            {"Penalties"}
+          </div>
+
+          {penalties.map((penalty, index) => (
+            <HighlightsCard highlight={penalty} teams={teams} key={index} />
+          ))}
+        </>
+      )}
     </div>
   );
 };
@@ -51,7 +69,8 @@ const HighlightsCard = ({
       ? "🟥"
       : highlight.event_name === "Card"
       ? "🟨"
-      : highlight.event_name === "Goal"
+      : highlight.event_name === "Goal" ||
+        highlight.event_name === "PM Penalties"
       ? "⚽"
       : highlight.event_name === "Conversion"
       ? "↔️"
@@ -60,7 +79,7 @@ const HighlightsCard = ({
       : "";
 
   return (
-    <div className="p-2 ">
+    <div className="p-2 font-semibold">
       {highlight.team === homeId ? (
         highlight.event_name === "Substitute" ? (
           <div className="flex items-center gap-1">
@@ -73,6 +92,16 @@ const HighlightsCard = ({
                 {"⬆️"} {highlight.subplayer_name}
               </div>
             </div>
+          </div>
+        ) : highlight.event_name === "PM Penalties" ? (
+          <div
+            className={`${
+              highlight.subeventName === "Scored"
+                ? "text-green-600"
+                : "text-red-500"
+            } capitalize flex items-center gap-1`}
+          >
+            {highlight.game_minute}' <MdOutlineSportsSoccer /> {highlight.pname}
           </div>
         ) : (
           <div className="capitalize">
@@ -90,6 +119,16 @@ const HighlightsCard = ({
             </div>
           </div>
           {highlight.game_minute}'
+        </div>
+      ) : highlight.event_name === "PM Penalties" ? (
+        <div
+          className={`${
+            highlight.subeventName === "Scored"
+              ? "text-green-600"
+              : "text-red-500"
+          } capitalize flex items-center gap-1`}
+        >
+          {highlight.game_minute}' <MdOutlineSportsSoccer /> {highlight.pname}
         </div>
       ) : (
         <div className="flex justify-end capitalize">
