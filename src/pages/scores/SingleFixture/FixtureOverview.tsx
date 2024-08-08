@@ -126,9 +126,9 @@ const HighlightsCard = ({
             highlight.subeventName === "Scored"
               ? "text-green-600"
               : "text-red-500"
-          } capitalize flex items-center gap-1`}
+          } capitalize flex items-center justify-end gap-1`}
         >
-          {highlight.game_minute}' <MdOutlineSportsSoccer /> {highlight.pname}
+          {highlight.pname} <MdOutlineSportsSoccer /> {highlight.game_minute}'
         </div>
       ) : (
         <div className="flex justify-end capitalize">
