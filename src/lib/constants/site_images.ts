@@ -133,10 +133,10 @@ export const teamImages: { [key: string]: string } = {
     "/src/assets/football/tusker-fc-logo-2788AE204B-seeklogo.com.png",
     import.meta.url
   ).href,
-  "595": new URL(
-    "/src/assets/football/tusker-fc-logo-2788AE204B-seeklogo.com.png",
-    import.meta.url
-  ).href,
+  //"595": new URL(
+   // "/src/assets/football/tusker-fc-logo-2788AE204B-seeklogo.com.png",
+    //import.meta.url
+  //).href,
   "6": new URL("/src/assets/football/kcb football logo.png", import.meta.url)
     .href,
   "36": new URL(
