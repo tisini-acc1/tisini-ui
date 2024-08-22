@@ -4,7 +4,6 @@ import articlesRoutes from "./articles.routes";
 import authRoutes from "./auth.routes";
 import baseRoutes from "./base.routes";
 import { createBrowserRouter, Outlet } from "react-router-dom";
-// import organizationRoutes from "./org.routes";
 import BaseErrorPage from "@/components/errors/BaseErrorPage";
 import scoresRoutes from "./scores.routes";
 import tournamentRoutes from "./tournaments";
@@ -20,7 +19,6 @@ const routes = [
     children: [
       ...baseRoutes,
       authRoutes,
-      // organizationRoutes,
       articlesRoutes,
       quizRoutes,
       tanoboraRoutes,

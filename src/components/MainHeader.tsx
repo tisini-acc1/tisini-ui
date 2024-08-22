@@ -57,7 +57,7 @@ export default function MainHeader() {
     {
       name: "Profile",
       Icon: User,
-      href: "auth/profile",
+      href: "/auth/profile",
       type: "link",
     },
     {

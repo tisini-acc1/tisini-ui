@@ -13,6 +13,14 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 
+type CreditScoreType = {
+  id: number;
+  quiz_player: number;
+  credit_rating_weighted_sum: number;
+  credit_amount_weighted_sum: string;
+  recommendations: string[];
+  last_updated: string;
+};
 export default function WalletPage() {
   const walletOpts = [
     "Account",
@@ -26,10 +34,17 @@ export default function WalletPage() {
   const [, setBalance] = useState(0);
 
   const [isWithDrawOpen, setIsWithdrawOpen] = useState(false);
+  const [creditRate, setCreditRate] = useState<CreditScoreType>(
+    {} as CreditScoreType
+  );
   const [isDepositOpen, setIsDepositOpen] = useState(false);
   const fetchBalance = React.useCallback(async () => {
     const feedback = await privateAxios.get("/users/account_balance/");
     setBalance(feedback.data);
+  }, []);
+  const fetchCredit = React.useCallback(async () => {
+    const feedback = await privateAxios.get("/users/credit_rate/");
+    setCreditRate(feedback.data.results[0]);
   }, []);
   const [userTransactions, setUserTransactions] = React.useState<Transaction[]>(
     []
@@ -39,9 +54,11 @@ export default function WalletPage() {
     setUserTransactions(trans.data as Transaction[]);
   }, []);
 
+  // const flatten =
   React.useEffect(() => {
     fetchBalance();
     fetchTransactions();
+    fetchCredit();
   }, []);
   return (
     <div
@@ -64,6 +81,7 @@ export default function WalletPage() {
             <div className="flex gap-4 p-4">
               {walletOpts.map((opt) => (
                 <button
+                key={opt}
                   onClick={() => setActiveTab(opt)}
                   className={cn(
                     "border-b border-primary p-4 rounded-xl transition-all ease-linear duration-300",
@@ -80,9 +98,9 @@ export default function WalletPage() {
               {selectedTab === "Account" && (
                 <div className="min-h-[60vh] bg-white py-10 px-4 flex flex-col gap-8 shadow-sm rounded bg-opacity-50">
                   <h2 className="text-4xl">
-                    KSh.{" "}
-                    <span className="text-7xl mt-4">{(0).toFixed(2)}</span>
+                    KSh. <span className="text-7xl mt-4">{(0).toFixed(2)}</span>
                   </h2>
+
                   <div className="py-4 space-x-4">
                     <button
                       onClick={() => setIsDepositOpen(true)}
@@ -97,6 +115,44 @@ export default function WalletPage() {
                       Withdraw
                     </button>
                   </div>
+                  {Object.keys(creditRate).length > 0 && (
+                    <div className="py-4 border p-4">
+                      <h1 className="text-xl font-bold  uppercase mb-4">
+                        Tano bora Credit Rating
+                      </h1>
+                      <div className="grid max-w-xl gap-2 lg:gap-4 grid-cols-1 md:grid-cols-2">
+                      <div className="p-4 bg-white border rounded">
+                          <h2 className="">Credit rate</h2>
+
+                          <strong className="text-xl font-bold">
+                            {creditRate.credit_rating_weighted_sum}
+                          </strong>
+                        </div>
+                        <div className="p-4 bg-white border rounded">
+                          <h2 className="">Credit amount</h2>
+                          <strong className="font-bold text-xl">
+                            {" "}
+                            {creditRate.credit_amount_weighted_sum}
+                          </strong>
+                        </div>
+                        
+                      </div>
+                      {Array.isArray(creditRate.recommendations) && (
+                        <div>
+                          <h2 className="text-xl font-bold underline uppercase my-2">
+                            Recommendations
+                          </h2>
+                          <ol className="list-disc px-4"
+                          
+                          >
+                            {creditRate.recommendations.map((recom) => (
+                              <li key={recom}>{recom}</li>
+                            ))}
+                          </ol>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
 
