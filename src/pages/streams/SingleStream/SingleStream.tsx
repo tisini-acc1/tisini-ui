@@ -157,6 +157,46 @@ const SingleStream = () => {
           </div>
         </div>
       </div>
+      <div className="flex justify-center items-center text-white font-bold bg-sky-900">
+        <div className="">
+          <img src={kawowo} alt="kawowo" height={150} width={150} />
+        </div>
+        <div className="w-4/5 mx-auto flex">
+          <div className="w-2/6 flex justify-evenly items-center">
+            <div>RAM</div>
+            <div className="flex gap-0.5">
+              <div className="p-2 bg-blue-500">45</div>
+              <div className="p-2 bg-blue-500">35</div>
+            </div>
+            <div>EAG</div>
+          </div>
+          <div className="flex items-center w-2/3">
+            <div className="p-2 bg-slate-50 text-black">HT</div>
+            <div className=" flex w-full justify-around">
+              <div className="flex gap-4">
+                <div>Visit in 22</div>
+                <div>6|7</div>
+              </div>
+
+              <div className="text-red-500 font-bold">|</div>
+
+              <div className=" flex gap-4">
+                <div>Tries</div>
+                <div>4|5</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="">
+          <img
+            src={tisini}
+            alt="Tisini"
+            height={120}
+            width={100}
+            className=""
+          />
+        </div>
+      </div>
     </main>
   );
 };

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import homeImg from "@/assets/homeLogo.png";
 import awayImg from "@/assets/awayLogo.png";
@@ -6,12 +6,6 @@ import { Fixture } from "@/lib/types/scores";
 import { teamImages } from "@/lib/constants/site_images";
 
 const StreamFixture = ({ fixture }: { fixture: Fixture }) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(`/streams/${fixture.id}`);
-  };
-
   const homeWin = fixture.home_score > fixture.away_score;
   const awayWin = fixture.away_score > fixture.home_score;
 
@@ -19,11 +13,8 @@ const StreamFixture = ({ fixture }: { fixture: Fixture }) => {
   const awayLogo = teamImages[fixture.team2_id] ?? awayImg;
 
   return (
-    <div
-      onClick={handleClick}
-      className="m-1 bg-slate-100 border-b border-gray-300 rounded-md py-3 hover:bg-gray-300 cursor-pointer text-primary"
-    >
-      <div className="grid grid-cols-12 gap-2 text-sm font-semibold">
+    <div className="m-1 bg-slate-100 border-b border-gray-300 rounded-md py-3 hover:bg-gray-300 cursor-pointer text-primary flex">
+      <div className="grid grid-cols-12 gap-2 text-sm font-semibold w-4/5">
         <div className="col-span-5 flex gap-1 lg:flex-col flex-row-reverse lg:justify-center items-center">
           <img className="w-10 h-10 " src={homeLogo} alt="" />
           <div className=" text-gray-450 text-right">{fixture.team1_name}</div>
@@ -68,6 +59,21 @@ const StreamFixture = ({ fixture }: { fixture: Fixture }) => {
           <img className="w-10 h-10" src={awayLogo} alt="" />
           <div>{fixture.team2_name}</div>
         </div>
+      </div>
+
+      <div className="flex gap-4">
+        <Link
+          to={`/streams/${fixture.id}/stats`}
+          className="text-md px-4 text-center bg-red-400 hover:bg-red-500 text-light py-2 rounded-md w-full"
+        >
+          Stats
+        </Link>
+        <Link
+          to={`/streams/${fixture.id}/lowerthird`}
+          className="text-md px-4 text-center bg-red-400 hover:bg-red-500 text-light py-2 rounded-md w-full"
+        >
+          Lower 3rd
+        </Link>
       </div>
     </div>
   );
