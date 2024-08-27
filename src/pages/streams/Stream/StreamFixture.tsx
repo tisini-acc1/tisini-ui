@@ -63,13 +63,13 @@ const StreamFixture = ({ fixture }: { fixture: Fixture }) => {
 
       <div className="flex gap-4">
         <Link
-          to={`/streams/${fixture.id}/stats`}
+          to={`/streams/stats/${fixture.id}`}
           className="text-md px-4 text-center bg-red-400 hover:bg-red-500 text-light py-2 rounded-md w-full"
         >
           Stats
         </Link>
         <Link
-          to={`/streams/${fixture.id}/lowerthird`}
+          to={`/streams/lowerthird/${fixture.id}`}
           className="text-md px-4 text-center bg-red-400 hover:bg-red-500 text-light py-2 rounded-md w-full"
         >
           Lower 3rd

@@ -56,7 +56,11 @@ const SingleStream = () => {
 
       <div className="w-[590px] mx-auto relative">
         <h1 className="text-sm font-bold text-center uppercase m-8">
-          full time
+          {details?.game_status === "ended"
+            ? "Full Time"
+            : details?.minute == "45" && details?.game_moment == "secondhalf"
+            ? "Half Time"
+            : details?.minute}
         </h1>
 
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90px] flex justify-center items-center border rounded-lg bg-blue-400">
@@ -107,9 +111,19 @@ const SingleStream = () => {
         />
 
         <StatRow
-          hStat={getStat(home, "Penalties conceded")}
+          hStat={
+            getStat(home, "Lost ball in carry") +
+            getStat(home, "Knock ons") +
+            getStat(home, "Forward passes") +
+            getStat(home, "Incomplete Pass")
+          }
           title="handling errors"
-          aStat={getStat(away, "Penalties conceded")}
+          aStat={
+            getStat(away, "Lost ball in carry") +
+            getStat(away, "Knock ons") +
+            getStat(away, "Forward passes") +
+            getStat(away, "Incomplete Pass")
+          }
         />
 
         <StatRow
@@ -155,46 +169,6 @@ const SingleStream = () => {
               />
             </div>
           </div>
-        </div>
-      </div>
-      <div className="flex justify-center items-center text-white font-bold bg-sky-900">
-        <div className="">
-          <img src={kawowo} alt="kawowo" height={150} width={150} />
-        </div>
-        <div className="w-4/5 mx-auto flex">
-          <div className="w-2/6 flex justify-evenly items-center">
-            <div>RAM</div>
-            <div className="flex gap-0.5">
-              <div className="p-2 bg-blue-500">45</div>
-              <div className="p-2 bg-blue-500">35</div>
-            </div>
-            <div>EAG</div>
-          </div>
-          <div className="flex items-center w-2/3">
-            <div className="p-2 bg-slate-50 text-black">HT</div>
-            <div className=" flex w-full justify-around">
-              <div className="flex gap-4">
-                <div>Visit in 22</div>
-                <div>6|7</div>
-              </div>
-
-              <div className="text-red-500 font-bold">|</div>
-
-              <div className=" flex gap-4">
-                <div>Tries</div>
-                <div>4|5</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="">
-          <img
-            src={tisini}
-            alt="Tisini"
-            height={120}
-            width={100}
-            className=""
-          />
         </div>
       </div>
     </main>

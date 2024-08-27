@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -9,7 +10,6 @@ import kawowo from "@/assets/img/kawowo.jpg";
 import tisini from "@/assets/img/tisini.png";
 // import league from "@/assets/img/nile-special.png";
 import { getStat } from "@/lib/scores/calculations";
-import { useEffect, useState } from "react";
 
 export const LowerThird = () => {
   const { fixtureId } = useParams();
@@ -26,24 +26,7 @@ export const LowerThird = () => {
 
   if (isLoading) return <Spinner />;
 
-  //   const hTackles = getStat(home, "Tackles") + getStat(home, "Missed tackles");
-  //   const aTackles = getStat(away, "Tackles") + getStat(away, "Missed tackles");
-
-  const hLineoutsWon = home["Lineouts"]["sub-event"].filter(
-    (item) => item.subeventname === "Won"
-  );
-
-  //   const aLineoutsWon = away["Lineouts"]["sub-event"].filter(
-  //     (item) => item.subeventname === "Won"
-  //   );
-
-  const hScrumsWon = home["Scrums"]["sub-event"].filter(
-    (item) => item.subeventname === "Won"
-  );
-
-  const aScrumsWon = away["Scrums"]["sub-event"].filter(
-    (item) => item.subeventname === "Won"
-  );
+  // console.log(details?.game_status);
 
   const stats = [
     {
@@ -53,8 +36,12 @@ export const LowerThird = () => {
     },
     {
       stat: "Tries",
-      home: getStat(home, "Visit in own 22"),
-      away: getStat(away, "Visit in own 22"),
+      home: home["Score"]["sub-event"].filter(
+        (item) => item.subeventname === "Try"
+      )[0].totalsubevent,
+      away: away["Score"]["sub-event"].filter(
+        (item) => item.subeventname === "Try"
+      )[0].totalsubevent,
     },
     {
       stat: "Passes",
@@ -73,23 +60,31 @@ export const LowerThird = () => {
     },
     {
       stat: "Line Breaks",
-      home: getStat(home, "Visit in own 22"),
-      away: getStat(away, "Visit in own 22"),
+      home: getStat(home, "Linebreak"),
+      away: getStat(away, "Linebreak"),
     },
     {
       stat: "Offloads",
-      home: getStat(home, "Visit in own 22"),
-      away: getStat(away, "Visit in own 22"),
+      home: getStat(home, "Offloads"),
+      away: getStat(away, "Offloads"),
     },
     {
       stat: "Kicks",
-      home: getStat(home, "Visit in own 22"),
-      away: getStat(away, "Visit in own 22"),
+      home: getStat(home, "Kick for territory"),
+      away: getStat(away, "Kick for territory"),
     },
     {
       stat: "Handling Errors",
-      home: getStat(home, "Visit in own 22"),
-      away: getStat(away, "Visit in own 22"),
+      home:
+        getStat(home, "Lost ball in carry") +
+        getStat(home, "Knock ons") +
+        getStat(home, "Forward passes") +
+        getStat(home, "Incomplete Pass"),
+      away:
+        getStat(away, "Lost ball in carry") +
+        getStat(away, "Knock ons") +
+        getStat(away, "Forward passes") +
+        getStat(away, "Incomplete Pass"),
     },
     {
       stat: "Penalties",
@@ -98,44 +93,65 @@ export const LowerThird = () => {
     },
     {
       stat: "Tackles",
-      home: getStat(home, "Visit in own 22"),
-      away: getStat(away, "Visit in own 22"),
+      home: getStat(home, "Tackles"),
+      away: getStat(away, "Tackles"),
     },
     {
       stat: "Missed Tackles",
-      home: getStat(home, "Visit in own 22"),
-      away: getStat(away, "Visit in own 22"),
+      home: getStat(home, "Missed tackles"),
+      away: getStat(away, "Missed tackles"),
     },
     {
       stat: "Lineouts Won",
-      home: `${hLineoutsWon[0].totalsubevent} / ${getStat(home, "Lineouts")}`,
-      away: `${hLineoutsWon[0].totalsubevent} / ${getStat(away, "Lineouts")}`,
+      home: home["Lineouts"]["sub-event"].filter(
+        (item) => item.subeventname === "Won"
+      )[0].totalsubevent,
+      away: away["Lineouts"]["sub-event"].filter(
+        (item) => item.subeventname === "Won"
+      )[0].totalsubevent,
     },
     {
       stat: "Lineouts Lost",
-      home: getStat(home, "Visit in own 22"),
-      away: getStat(away, "Visit in own 22"),
+      home: home["Lineouts"]["sub-event"].filter(
+        (item) => item.subeventname === "Lost"
+      )[0].totalsubevent,
+      away: home["Lineouts"]["sub-event"].filter(
+        (item) => item.subeventname === "Lost"
+      )[0].totalsubevent,
     },
     {
       stat: "Scrums Won",
-      home: `${hScrumsWon[0].totalsubevent} / ${getStat(home, "Scrums")}`,
-      away: `${aScrumsWon[0].totalsubevent} / ${getStat(away, "Scrums")}`,
+      home: home["Scrums"]["sub-event"].filter(
+        (item) => item.subeventname === "Won"
+      )[0].totalsubevent,
+      away: away["Scrums"]["sub-event"].filter(
+        (item) => item.subeventname === "Won"
+      )[0].totalsubevent,
     },
     {
       stat: "Scrums Lost",
-      home: getStat(home, "Visit in own 22"),
-      away: getStat(away, "Visit in own 22"),
+      home: home["Scrums"]["sub-event"].filter(
+        (item) => item.subeventname === "Lost"
+      )[0].totalsubevent,
+      away: away["Scrums"]["sub-event"].filter(
+        (item) => item.subeventname === "Lost"
+      )[0].totalsubevent,
     },
   ];
 
   const [currentStats, setCurrentStats] = useState([stats[0], stats[1]]);
   const [index, setIndex] = useState(0);
+  const [fade, setFade] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const nextIndex = (index + 2) % stats.length;
-      setCurrentStats([stats[nextIndex], stats[nextIndex + 1]]);
-      setIndex(nextIndex);
+      setFade(true); // Start fade-out
+      setTimeout(() => {
+        const nextIndex = (index + 2) % stats.length;
+        setCurrentStats([stats[nextIndex], stats[nextIndex + 1]]);
+        setIndex(nextIndex);
+        setFade(false); // Start fade-in
+      }, 300); // Delay content change until fade-out is done
     }, 3000); // Update every 3 seconds
 
     return () => clearInterval(interval); // Cleanup interval on unmount
@@ -151,36 +167,41 @@ export const LowerThird = () => {
           <div className="w-2/6 flex justify-evenly items-center">
             <div>{details?.team1_name}</div>
             <div className="flex gap-0.5">
-              <div className="p-2 bg-blue-500">{scores?.Home}</div>
-              <div className="p-2 bg-blue-500">{scores?.Away}</div>
+              <div className="p-2 bg-blue-500 w-8">{scores?.Home}</div>
+              <div className="p-2 bg-blue-500 w-8">{scores?.Away}</div>
             </div>
             <div>{details?.team2_name}</div>
           </div>
           <div className="flex items-center w-2/3">
-            <div className="p-2 bg-slate-50 text-black">HT</div>
-            <div className=" flex w-full justify-around">
-              <div className="flex gap-4">
-                <div>{currentStats[0].stat}</div>
-                <div>{`${currentStats[0].home} | ${currentStats[0].away}`}</div>
-              </div>
-
-              <div className="text-red-500 font-bold">|</div>
-
-              <div className=" flex gap-4">
-                <div>{currentStats[1].stat}</div>
-                <div>{`${currentStats[1].home} | ${currentStats[1].away}`}</div>
+            <div className="p-2 bg-slate-50 text-black">
+              {details?.game_status === "ended"
+                ? "FT"
+                : details?.minute == "45" &&
+                  details?.game_moment == "secondhalf"
+                ? "HT"
+                : details?.minute}
+            </div>
+            <div
+              className={`flex items-center w-2/3 transition-opacity duration-300 ease-in-out ${
+                fade ? "opacity-0" : "opacity-100"
+              }`}
+            >
+              <div className="flex w-full justify-around">
+                <div className="flex gap-4">
+                  <div>{currentStats[0].stat}</div>
+                  <div>{`${currentStats[0].home} | ${currentStats[0].away}`}</div>
+                </div>
+                <div className="text-red-500 font-bold">|</div>
+                <div className="flex gap-4">
+                  <div>{currentStats[1].stat}</div>
+                  <div>{`${currentStats[1].home} | ${currentStats[1].away}`}</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className="">
-          <img
-            src={tisini}
-            alt="Tisini"
-            height={120}
-            width={100}
-            className=""
-          />
+          <img src={tisini} alt="Tisini" height={80} width={80} className="" />
         </div>
       </div>
     </main>

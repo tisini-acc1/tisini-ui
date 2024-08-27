@@ -15,11 +15,11 @@ const streamRoutes = {
       element: <Stream />,
     },
     {
-      path: "/streams/:fixtureId/stats",
+      path: "/streams/stats/:fixtureId",
       element: <SingleStream />,
     },
     {
-      path: "/streams/:fixtureId/lowerthird",
+      path: "/streams/lowerthird/:fixtureId",
       element: <LowerThird />,
     },
     {
