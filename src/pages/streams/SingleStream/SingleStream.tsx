@@ -32,6 +32,12 @@ const SingleStream = () => {
   const hTackles = getStat(home, "Tackles") + getStat(home, "Missed tackles");
   const aTackles = getStat(away, "Tackles") + getStat(away, "Missed tackles");
 
+  const hPasses = getStat(home, "Pass") + getStat(home, "Carries");
+  const aPasses = getStat(away, "Pass") + getStat(away, "Carries");
+  const totalPasses = hPasses + aPasses;
+  const hPosseession = Math.round((hPasses / totalPasses) * 100);
+  const aPosseession = Math.round((aPasses / totalPasses) * 100);
+
   const hLineoutsWon = home["Lineouts"]["sub-event"].filter(
     (item) => item.subeventname === "Won"
   );
@@ -85,6 +91,12 @@ const SingleStream = () => {
         <h1 className="text-xl font-bold text-center uppercase m-3">
           Match Statistics
         </h1>
+
+        <StatRow
+          hStat={hPosseession}
+          title="possesion (%)"
+          aStat={aPosseession}
+        />
 
         <StatRow
           hStat={getStat(home, "Pass")}

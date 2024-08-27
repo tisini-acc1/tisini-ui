@@ -167,8 +167,12 @@ export const LowerThird = () => {
           <div className="w-2/6 flex justify-evenly items-center">
             <div>{details?.team1_name}</div>
             <div className="flex gap-0.5">
-              <div className="p-2 bg-blue-500 w-8">{scores?.Home}</div>
-              <div className="p-2 bg-blue-500 w-8">{scores?.Away}</div>
+              <div className="p-2 bg-blue-500 w-8 text-center">
+                {scores?.Home}
+              </div>
+              <div className="p-2 bg-blue-500 w-8 text-center">
+                {scores?.Away}
+              </div>
             </div>
             <div>{details?.team2_name}</div>
           </div>
