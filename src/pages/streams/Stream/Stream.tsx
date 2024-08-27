@@ -28,7 +28,7 @@ const Stream = () => {
     <main>
       <MainHeader />
 
-      <section>
+      <section className="max-w-5xl mx-auto">
         {fixtures!.map((fixture) => (
           <div key={fixture.id}>
             <StreamFixture fixture={fixture} />

@@ -4,6 +4,7 @@ import Stream from "@/pages/streams/Stream/Stream";
 import { StreamsLayout } from "@/layouts/StreamsLayout";
 import Notfound404 from "@/pages/Notfoud404/Notfound404";
 import SingleStream from "@/pages/streams/SingleStream/SingleStream";
+import { LowerThird } from "@/pages/streams/SingleStream/LowerThird";
 
 const streamRoutes = {
   path: "/streams",
@@ -14,8 +15,12 @@ const streamRoutes = {
       element: <Stream />,
     },
     {
-      path: "/streams/:fixtureId",
+      path: "/streams/stats/:fixtureId",
       element: <SingleStream />,
+    },
+    {
+      path: "/streams/lowerthird/:fixtureId",
+      element: <LowerThird />,
     },
     {
       path: "*",

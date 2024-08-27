@@ -32,6 +32,12 @@ const SingleStream = () => {
   const hTackles = getStat(home, "Tackles") + getStat(home, "Missed tackles");
   const aTackles = getStat(away, "Tackles") + getStat(away, "Missed tackles");
 
+  const hPasses = getStat(home, "Pass") + getStat(home, "Carries");
+  const aPasses = getStat(away, "Pass") + getStat(away, "Carries");
+  const totalPasses = hPasses + aPasses;
+  const hPosseession = Math.round((hPasses / totalPasses) * 100);
+  const aPosseession = Math.round((aPasses / totalPasses) * 100);
+
   const hLineoutsWon = home["Lineouts"]["sub-event"].filter(
     (item) => item.subeventname === "Won"
   );
@@ -56,7 +62,11 @@ const SingleStream = () => {
 
       <div className="w-[590px] mx-auto relative">
         <h1 className="text-sm font-bold text-center uppercase m-8">
-          full time
+          {details?.game_status === "ended"
+            ? "Full Time"
+            : details?.minute == "45" && details?.game_moment == "secondhalf"
+            ? "Half Time"
+            : details?.minute}
         </h1>
 
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90px] flex justify-center items-center border rounded-lg bg-blue-400">
@@ -83,6 +93,12 @@ const SingleStream = () => {
         </h1>
 
         <StatRow
+          hStat={hPosseession}
+          title="possesion (%)"
+          aStat={aPosseession}
+        />
+
+        <StatRow
           hStat={getStat(home, "Pass")}
           title="passes"
           aStat={getStat(away, "Pass")}
@@ -107,9 +123,19 @@ const SingleStream = () => {
         />
 
         <StatRow
-          hStat={getStat(home, "Penalties conceded")}
+          hStat={
+            getStat(home, "Lost ball in carry") +
+            getStat(home, "Knock ons") +
+            getStat(home, "Forward passes") +
+            getStat(home, "Incomplete Pass")
+          }
           title="handling errors"
-          aStat={getStat(away, "Penalties conceded")}
+          aStat={
+            getStat(away, "Lost ball in carry") +
+            getStat(away, "Knock ons") +
+            getStat(away, "Forward passes") +
+            getStat(away, "Incomplete Pass")
+          }
         />
 
         <StatRow
