@@ -111,9 +111,9 @@ const SingleStream = () => {
         />
 
         <StatRow
-          hStat={getStat(home, "Visit in own 22")}
+          hStat={getStat(home, "Visit in opponents 22")}
           title="visit in 22"
-          aStat={getStat(away, "Visit in own 22")}
+          aStat={getStat(away, "Visit in opponents 22")}
         />
 
         <StatRow
@@ -140,7 +140,7 @@ const SingleStream = () => {
 
         <StatRow
           hStat={`${getStat(home, "Tackles")} / ${hTackles}`}
-          title="tackles made/missed"
+          title="tackles made"
           aStat={`${getStat(away, "Tackles")} / ${aTackles}`}
         />
 
@@ -155,7 +155,7 @@ const SingleStream = () => {
             home,
             "Lineouts"
           )}`}
-          title="lineouts won/lost"
+          title="lineouts won"
           aStat={`${aLineoutsWon[0].totalsubevent} / ${getStat(
             away,
             "Lineouts"
@@ -164,7 +164,7 @@ const SingleStream = () => {
 
         <StatRow
           hStat={`${hScrumsWon[0].totalsubevent} / ${getStat(home, "Scrums")}`}
-          title="scrums won/lost"
+          title="scrums won"
           aStat={`${aScrumsWon[0].totalsubevent} / ${getStat(away, "Scrums")}`}
         />
 
