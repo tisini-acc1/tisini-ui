@@ -30,9 +30,9 @@ export const LowerThird = () => {
 
   const stats = [
     {
-      stat: "Visit in own 22",
-      home: getStat(home, "Visit in own 22"),
-      away: getStat(away, "Visit in own 22"),
+      stat: "Visit in opponents 22",
+      home: getStat(home, "Visit in opponents 22"),
+      away: getStat(away, "Visit in opponents 22"),
     },
     {
       stat: "Tries",
