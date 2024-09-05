@@ -11,6 +11,14 @@ import tisini from "@/assets/img/tisini.png";
 // import league from "@/assets/img/nile-special.png";
 import { getStat } from "@/lib/scores/calculations";
 
+interface Stat {
+  stat: string;
+  home: string | number;
+  away: string | number;
+}
+
+type StatsArray = Stat[];
+
 export const LowerThird = () => {
   const { fixtureId } = useParams();
 
@@ -23,23 +31,26 @@ export const LowerThird = () => {
     }
   );
 
+  const [currentStats, setCurrentStats] = useState<StatsArray>([
+    { stat: "Tries", home: "-", away: "-" },
+    { stat: "Passes", home: "-", away: "-" },
+  ]);
+  const [index, setIndex] = useState(0);
+  const [fade, setFade] = useState(false);
+
   useEffect(() => {
     if (data?.fixture[0].game_status === "ended") {
       refetch({ cancelRefetch: true });
     }
   }, [data, refetch]);
 
-  const details = data?.fixture[0];
-  const home = data?.home as Stats;
-  const away = data?.away as Stats;
-  const scores = data?.scores;
+  const stats = useMemo(() => {
+    if (!data?.home || !data?.away) return [];
 
-  if (isLoading) return <Spinner />;
+    const home = data.home as Stats;
+    const away = data.away as Stats;
 
-  // console.log(details?.game_status);
-
-  const stats = useMemo(
-    () => [
+    return [
       {
         stat: "Visit in opponents 22",
         home: getStat(home, "Visit in opponents 22"),
@@ -47,12 +58,14 @@ export const LowerThird = () => {
       },
       {
         stat: "Tries",
-        home: home["Score"]["sub-event"].filter(
-          (item) => item.subeventname === "Try"
-        )[0].totalsubevent,
-        away: away["Score"]["sub-event"].filter(
-          (item) => item.subeventname === "Try"
-        )[0].totalsubevent,
+        home:
+          home["Score"]["sub-event"].filter(
+            (item) => item.subeventname === "Try"
+          )[0]?.totalsubevent || 0,
+        away:
+          away["Score"]["sub-event"].filter(
+            (item) => item.subeventname === "Try"
+          )[0]?.totalsubevent || 0,
       },
       {
         stat: "Passes",
@@ -114,47 +127,50 @@ export const LowerThird = () => {
       },
       {
         stat: "Lineouts Won",
-        home: home["Lineouts"]["sub-event"].filter(
-          (item) => item.subeventname === "Won"
-        )[0].totalsubevent,
-        away: away["Lineouts"]["sub-event"].filter(
-          (item) => item.subeventname === "Won"
-        )[0].totalsubevent,
+        home:
+          home["Lineouts"]["sub-event"].filter(
+            (item) => item.subeventname === "Won"
+          )[0]?.totalsubevent || 0,
+        away:
+          away["Lineouts"]["sub-event"].filter(
+            (item) => item.subeventname === "Won"
+          )[0]?.totalsubevent || 0,
       },
       {
         stat: "Lineouts Lost",
-        home: home["Lineouts"]["sub-event"].filter(
-          (item) => item.subeventname === "Lost"
-        )[0].totalsubevent,
-        away: home["Lineouts"]["sub-event"].filter(
-          (item) => item.subeventname === "Lost"
-        )[0].totalsubevent,
+        home:
+          home["Lineouts"]["sub-event"].filter(
+            (item) => item.subeventname === "Lost"
+          )[0]?.totalsubevent || 0,
+        away:
+          home["Lineouts"]["sub-event"].filter(
+            (item) => item.subeventname === "Lost"
+          )[0]?.totalsubevent || 0,
       },
       {
         stat: "Scrums Won",
-        home: home["Scrums"]["sub-event"].filter(
-          (item) => item.subeventname === "Won"
-        )[0].totalsubevent,
-        away: away["Scrums"]["sub-event"].filter(
-          (item) => item.subeventname === "Won"
-        )[0].totalsubevent,
+        home:
+          home["Scrums"]["sub-event"].filter(
+            (item) => item.subeventname === "Won"
+          )[0]?.totalsubevent || 0,
+        away:
+          away["Scrums"]["sub-event"].filter(
+            (item) => item.subeventname === "Won"
+          )[0]?.totalsubevent || 0,
       },
       {
         stat: "Scrums Lost",
-        home: home["Scrums"]["sub-event"].filter(
-          (item) => item.subeventname === "Lost"
-        )[0].totalsubevent,
-        away: away["Scrums"]["sub-event"].filter(
-          (item) => item.subeventname === "Lost"
-        )[0].totalsubevent,
+        home:
+          home["Scrums"]["sub-event"].filter(
+            (item) => item.subeventname === "Lost"
+          )[0]?.totalsubevent || 0,
+        away:
+          away["Scrums"]["sub-event"].filter(
+            (item) => item.subeventname === "Lost"
+          )[0]?.totalsubevent || 0,
       },
-    ],
-    [home, away]
-  );
-
-  const [currentStats, setCurrentStats] = useState([stats[0], stats[1]]);
-  const [index, setIndex] = useState(0);
-  const [fade, setFade] = useState(false);
+    ];
+  }, [data]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -169,6 +185,11 @@ export const LowerThird = () => {
 
     return () => clearInterval(interval); // Cleanup interval on unmount
   }, [index, stats]);
+
+  if (isLoading) return <Spinner />;
+
+  const details = data?.fixture[0];
+  const scores = data?.scores;
 
   return (
     <main className="pt-16 relative h-screen">
