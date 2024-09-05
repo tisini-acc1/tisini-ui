@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -13,10 +14,20 @@ import { getStat } from "@/lib/scores/calculations";
 const SingleStream = () => {
   const { fixtureId } = useParams();
 
-  const { data, isLoading } = useQuery<SingleFixtureStats, Error>(
-    ["footballById"],
-    () => FetchFixtureById(fixtureId!)
+  const { data, isLoading, refetch } = useQuery<SingleFixtureStats, Error>(
+    ["footballById", fixtureId],
+    () => FetchFixtureById(fixtureId!),
+    {
+      refetchInterval: 10000,
+      refetchOnWindowFocus: true,
+    }
   );
+
+  useEffect(() => {
+    if (data?.fixture[0].game_status === "ended") {
+      refetch({ cancelRefetch: true });
+    }
+  }, [data, refetch]);
 
   const details = data?.fixture[0];
   const home = data?.home as Stats;
@@ -64,7 +75,8 @@ const SingleStream = () => {
         <h1 className="text-sm font-bold text-center uppercase m-8">
           {details?.game_status === "ended"
             ? "Full Time"
-            : details?.minute == "45" && details?.game_moment == "secondhalf"
+            : (details?.minute == "45" || details?.minute == "7") &&
+              details?.game_moment == "secondhalf"
             ? "Half Time"
             : details?.minute}
         </h1>

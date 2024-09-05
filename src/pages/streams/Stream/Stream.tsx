@@ -11,7 +11,8 @@ import MainFooter from "@/components/MainFooter";
 const Stream = () => {
   const { isLoading, data } = useQuery<Fixture[], Error>(
     ["rugbyFixtures"],
-    FetchRugbyFixtures
+    FetchRugbyFixtures,
+    { refetchInterval: 10000 }
   );
 
   const [fixtures, setFixtures] = useState<Fixture[]>([]);

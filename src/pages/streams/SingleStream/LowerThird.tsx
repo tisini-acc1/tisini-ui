@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -14,10 +14,20 @@ import { getStat } from "@/lib/scores/calculations";
 export const LowerThird = () => {
   const { fixtureId } = useParams();
 
-  const { data, isLoading } = useQuery<SingleFixtureStats, Error>(
+  const { data, isLoading, refetch } = useQuery<SingleFixtureStats, Error>(
     ["footballById"],
-    () => FetchFixtureById(fixtureId!)
+    () => FetchFixtureById(fixtureId!),
+    {
+      refetchInterval: 10000,
+      refetchOnWindowFocus: true,
+    }
   );
+
+  useEffect(() => {
+    if (data?.fixture[0].game_status === "ended") {
+      refetch({ cancelRefetch: true });
+    }
+  }, [data, refetch]);
 
   const details = data?.fixture[0];
   const home = data?.home as Stats;
@@ -28,116 +38,119 @@ export const LowerThird = () => {
 
   // console.log(details?.game_status);
 
-  const stats = [
-    {
-      stat: "Visit in opponents 22",
-      home: getStat(home, "Visit in opponents 22"),
-      away: getStat(away, "Visit in opponents 22"),
-    },
-    {
-      stat: "Tries",
-      home: home["Score"]["sub-event"].filter(
-        (item) => item.subeventname === "Try"
-      )[0].totalsubevent,
-      away: away["Score"]["sub-event"].filter(
-        (item) => item.subeventname === "Try"
-      )[0].totalsubevent,
-    },
-    {
-      stat: "Passes",
-      home: getStat(home, "Pass"),
-      away: getStat(away, "Pass"),
-    },
-    {
-      stat: "Carries",
-      home: getStat(home, "Carries"),
-      away: getStat(away, "Carries"),
-    },
-    {
-      stat: "Turnovers Won",
-      home: getStat(home, "Turn overs"),
-      away: getStat(away, "Turn overs"),
-    },
-    {
-      stat: "Line Breaks",
-      home: getStat(home, "Linebreak"),
-      away: getStat(away, "Linebreak"),
-    },
-    {
-      stat: "Offloads",
-      home: getStat(home, "Offloads"),
-      away: getStat(away, "Offloads"),
-    },
-    {
-      stat: "Kicks",
-      home: getStat(home, "Kick for territory"),
-      away: getStat(away, "Kick for territory"),
-    },
-    {
-      stat: "Handling Errors",
-      home:
-        getStat(home, "Lost ball in carry") +
-        getStat(home, "Knock ons") +
-        getStat(home, "Forward passes") +
-        getStat(home, "Incomplete Pass"),
-      away:
-        getStat(away, "Lost ball in carry") +
-        getStat(away, "Knock ons") +
-        getStat(away, "Forward passes") +
-        getStat(away, "Incomplete Pass"),
-    },
-    {
-      stat: "Penalties",
-      home: getStat(home, "Penalties conceded"),
-      away: getStat(away, "Penalties conceded"),
-    },
-    {
-      stat: "Tackles",
-      home: getStat(home, "Tackles"),
-      away: getStat(away, "Tackles"),
-    },
-    {
-      stat: "Missed Tackles",
-      home: getStat(home, "Missed tackles"),
-      away: getStat(away, "Missed tackles"),
-    },
-    {
-      stat: "Lineouts Won",
-      home: home["Lineouts"]["sub-event"].filter(
-        (item) => item.subeventname === "Won"
-      )[0].totalsubevent,
-      away: away["Lineouts"]["sub-event"].filter(
-        (item) => item.subeventname === "Won"
-      )[0].totalsubevent,
-    },
-    {
-      stat: "Lineouts Lost",
-      home: home["Lineouts"]["sub-event"].filter(
-        (item) => item.subeventname === "Lost"
-      )[0].totalsubevent,
-      away: home["Lineouts"]["sub-event"].filter(
-        (item) => item.subeventname === "Lost"
-      )[0].totalsubevent,
-    },
-    {
-      stat: "Scrums Won",
-      home: home["Scrums"]["sub-event"].filter(
-        (item) => item.subeventname === "Won"
-      )[0].totalsubevent,
-      away: away["Scrums"]["sub-event"].filter(
-        (item) => item.subeventname === "Won"
-      )[0].totalsubevent,
-    },
-    {
-      stat: "Scrums Lost",
-      home: home["Scrums"]["sub-event"].filter(
-        (item) => item.subeventname === "Lost"
-      )[0].totalsubevent,
-      away: away["Scrums"]["sub-event"].filter(
-        (item) => item.subeventname === "Lost"
-      )[0].totalsubevent,
-    },
-  ];
+  const stats = useMemo(
+    () => [
+      {
+        stat: "Visit in opponents 22",
+        home: getStat(home, "Visit in opponents 22"),
+        away: getStat(away, "Visit in opponents 22"),
+      },
+      {
+        stat: "Tries",
+        home: home["Score"]["sub-event"].filter(
+          (item) => item.subeventname === "Try"
+        )[0].totalsubevent,
+        away: away["Score"]["sub-event"].filter(
+          (item) => item.subeventname === "Try"
+        )[0].totalsubevent,
+      },
+      {
+        stat: "Passes",
+        home: getStat(home, "Pass"),
+        away: getStat(away, "Pass"),
+      },
+      {
+        stat: "Carries",
+        home: getStat(home, "Carries"),
+        away: getStat(away, "Carries"),
+      },
+      {
+        stat: "Turnovers Won",
+        home: getStat(home, "Turn overs"),
+        away: getStat(away, "Turn overs"),
+      },
+      {
+        stat: "Line Breaks",
+        home: getStat(home, "Linebreak"),
+        away: getStat(away, "Linebreak"),
+      },
+      {
+        stat: "Offloads",
+        home: getStat(home, "Offloads"),
+        away: getStat(away, "Offloads"),
+      },
+      {
+        stat: "Kicks",
+        home: getStat(home, "Kick for territory"),
+        away: getStat(away, "Kick for territory"),
+      },
+      {
+        stat: "Handling Errors",
+        home:
+          getStat(home, "Lost ball in carry") +
+          getStat(home, "Knock ons") +
+          getStat(home, "Forward passes") +
+          getStat(home, "Incomplete Pass"),
+        away:
+          getStat(away, "Lost ball in carry") +
+          getStat(away, "Knock ons") +
+          getStat(away, "Forward passes") +
+          getStat(away, "Incomplete Pass"),
+      },
+      {
+        stat: "Penalties",
+        home: getStat(home, "Penalties conceded"),
+        away: getStat(away, "Penalties conceded"),
+      },
+      {
+        stat: "Tackles",
+        home: getStat(home, "Tackles"),
+        away: getStat(away, "Tackles"),
+      },
+      {
+        stat: "Missed Tackles",
+        home: getStat(home, "Missed tackles"),
+        away: getStat(away, "Missed tackles"),
+      },
+      {
+        stat: "Lineouts Won",
+        home: home["Lineouts"]["sub-event"].filter(
+          (item) => item.subeventname === "Won"
+        )[0].totalsubevent,
+        away: away["Lineouts"]["sub-event"].filter(
+          (item) => item.subeventname === "Won"
+        )[0].totalsubevent,
+      },
+      {
+        stat: "Lineouts Lost",
+        home: home["Lineouts"]["sub-event"].filter(
+          (item) => item.subeventname === "Lost"
+        )[0].totalsubevent,
+        away: home["Lineouts"]["sub-event"].filter(
+          (item) => item.subeventname === "Lost"
+        )[0].totalsubevent,
+      },
+      {
+        stat: "Scrums Won",
+        home: home["Scrums"]["sub-event"].filter(
+          (item) => item.subeventname === "Won"
+        )[0].totalsubevent,
+        away: away["Scrums"]["sub-event"].filter(
+          (item) => item.subeventname === "Won"
+        )[0].totalsubevent,
+      },
+      {
+        stat: "Scrums Lost",
+        home: home["Scrums"]["sub-event"].filter(
+          (item) => item.subeventname === "Lost"
+        )[0].totalsubevent,
+        away: away["Scrums"]["sub-event"].filter(
+          (item) => item.subeventname === "Lost"
+        )[0].totalsubevent,
+      },
+    ],
+    [home, away]
+  );
 
   const [currentStats, setCurrentStats] = useState([stats[0], stats[1]]);
   const [index, setIndex] = useState(0);
@@ -168,10 +181,10 @@ export const LowerThird = () => {
             <div>{details?.team1_name}</div>
             <div className="flex gap-0.5">
               <div className="p-2 bg-blue-500 w-8 text-center">
-                {scores?.Home}
+                {scores?.Home ?? ""}
               </div>
               <div className="p-2 bg-blue-500 w-8 text-center">
-                {scores?.Away}
+                {scores?.Away ?? ""}
               </div>
             </div>
             <div>{details?.team2_name}</div>
@@ -180,7 +193,7 @@ export const LowerThird = () => {
             <div className="p-2 bg-slate-50 text-black">
               {details?.game_status === "ended"
                 ? "FT"
-                : details?.minute == "45" &&
+                : (details?.minute == "45" || details?.minute == "7") &&
                   details?.game_moment == "secondhalf"
                 ? "HT"
                 : details?.minute}
