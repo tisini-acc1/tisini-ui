@@ -6,13 +6,14 @@ import Spinner from "@/components/spinner/Spinner";
 import FetchFixtureById from "@/lib/scores/FetchFixtureById";
 import { SingleFixtureStats, Stats } from "@/lib/types/scores";
 
-import kawowo from "@/assets/img/kawowo.jpg";
-import tisini from "@/assets/img/tisini.png";
+// import kawowo from "@/assets/img/kawowo.jpg";
+import driftwood from "@/assets/tournaments/Dirftwood.png";
+import tisini from "@/assets/img/tisini-logo.png";
 import league from "@/assets/img/nile-special.png";
 import { getStat } from "@/lib/scores/calculations";
 
 const SingleStream = () => {
-  const { fixtureId } = useParams();
+  const { fixtureId, streamName } = useParams();
 
   const { data, isLoading, refetch } = useQuery<SingleFixtureStats, Error>(
     ["footballById", fixtureId],
@@ -68,11 +69,11 @@ const SingleStream = () => {
   return (
     <main className="pt-16 relative">
       <div className="absolute right-8 top-8">
-        <img src={kawowo} alt="kawowo" height={150} width={150} />
+        {/* <img src={kawowo} alt="kawowo" height={150} width={150} /> */}
       </div>
 
       <div className="w-[590px] mx-auto relative">
-        <h1 className="text-sm font-bold text-center uppercase m-8">
+        <h1 className="text-sm font-bold text-center uppercase m-12">
           {details?.game_status === "ended"
             ? "Full Time"
             : (details?.minute == "45" || details?.minute == "7") &&
@@ -82,16 +83,25 @@ const SingleStream = () => {
         </h1>
 
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90px] flex justify-center items-center border rounded-lg bg-blue-400">
-          <img src={league} alt="nile" height={60} width={60} />
+          {streamName === "kawowo" ? (
+            <img src={league} alt="nile" height={60} width={60} />
+          ) : (
+            <img src={driftwood} alt="nile" height={150} width={150} />
+          )}
         </div>
 
         <div className="flex border rounded-full bg-red-500">
           <div className="w-[60px] flex items-center justify-center text-white font-bold text-2xl">
             {scores?.Home}
           </div>
-          <div className="bg-white w-[470px] p-4 flex justify-between font-bold text-blue-800 text-xl uppercase">
-            <div>{details?.team1_name}</div>
-            <div>{details?.team2_name}</div>
+          <div className="bg-white w-[470px] p-2 flex font-bold text-blue-800 text-lg uppercase">
+            <div className="w-1/2  text-ellipsis whitespace-nowrap">
+              {details?.team1_name}
+            </div>
+            <div className="w-1/4"></div>
+            <div className="w-1/2 text-right text-ellipsis whitespace-nowrap">
+              {details?.team2_name}
+            </div>
           </div>
           <div className="w-[60px] flex items-center justify-center text-white font-bold text-2xl">
             {scores?.Away}

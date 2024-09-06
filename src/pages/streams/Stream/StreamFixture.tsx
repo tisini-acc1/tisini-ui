@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import homeImg from "@/assets/homeLogo.png";
 import awayImg from "@/assets/awayLogo.png";
@@ -6,6 +6,8 @@ import { Fixture } from "@/lib/types/scores";
 import { teamImages } from "@/lib/constants/site_images";
 
 const StreamFixture = ({ fixture }: { fixture: Fixture }) => {
+  const { streamName } = useParams();
+
   const homeWin = fixture.home_score > fixture.away_score;
   const awayWin = fixture.away_score > fixture.home_score;
 
@@ -63,13 +65,13 @@ const StreamFixture = ({ fixture }: { fixture: Fixture }) => {
 
       <div className="flex gap-4">
         <Link
-          to={`/streams/stats/${fixture.id}`}
+          to={`/streams/${streamName}/stats/${fixture.id}`}
           className="text-md px-4 text-center bg-red-400 hover:bg-red-500 text-light py-2 rounded-md w-full"
         >
           Stats
         </Link>
         <Link
-          to={`/streams/lowerthird/${fixture.id}`}
+          to={`/streams/${streamName}/lowerthird/${fixture.id}`}
           className="text-md px-4 text-center bg-red-400 hover:bg-red-500 text-light py-2 rounded-md w-full"
         >
           Lower 3rd

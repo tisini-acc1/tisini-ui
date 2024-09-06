@@ -1,13 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useMemo, useState } from "react";
 
 import Spinner from "@/components/spinner/Spinner";
 import FetchFixtureById from "@/lib/scores/FetchFixtureById";
 import { SingleFixtureStats, Stats } from "@/lib/types/scores";
 
-import kawowo from "@/assets/img/kawowo.jpg";
-import tisini from "@/assets/img/tisini.png";
+// import kawowo from "@/assets/img/kawowo.jpg";
+import tisini from "@/assets/img/tisini-logo.png";
 // import league from "@/assets/img/nile-special.png";
 import { getStat } from "@/lib/scores/calculations";
 
@@ -195,7 +195,7 @@ export const LowerThird = () => {
     <main className="pt-16 relative h-screen">
       <div className="flex justify-center items-center text-white font-bold bg-sky-900 absolute bottom-0 w-full">
         <div className="">
-          <img src={kawowo} alt="kawowo" height={150} width={150} />
+          {/* <img src={kawowo} alt="kawowo" height={150} width={150} /> */}
         </div>
         <div className="w-4/5 mx-auto flex">
           <div className="w-2/6 flex justify-evenly items-center">
