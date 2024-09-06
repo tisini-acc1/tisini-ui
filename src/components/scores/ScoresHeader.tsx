@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 import MaxWidthWrapper from "../max-width-wrapper";
 import { logoutUser } from "@/store/slices/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import tisini from "@/assets/img/TISINI-transparent-Logo.png";
+import tisini from "@/assets/img/tisini-logo.png";
 
 export default function ScoresHeader() {
   const authLinks = {

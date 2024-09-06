@@ -7,19 +7,34 @@ import FetchRugbyFixtures from "@/lib/scores/FetchRugbyFixtures";
 import { useEffect, useState } from "react";
 import StreamFixture from "./StreamFixture";
 import MainFooter from "@/components/MainFooter";
+import { useParams } from "react-router-dom";
 
 const Stream = () => {
+  const { streamName } = useParams();
+
   const { isLoading, data } = useQuery<Fixture[], Error>(
     ["rugbyFixtures"],
     FetchRugbyFixtures,
     { refetchInterval: 10000 }
   );
 
+  const league =
+    streamName === "kawowo"
+      ? "Nile Special 7s"
+      : "Sportpesa National 7s circuit";
+
   const [fixtures, setFixtures] = useState<Fixture[]>([]);
 
   useEffect(() => {
     if (data) {
-      setFixtures(data.slice(0, 6));
+      const fixs = data.filter(
+        (fix) =>
+          fix.league === league &&
+          (fix.game_date === "2024-09-07" || fix.game_date === "2024-09-08")
+      );
+
+      setFixtures(fixs);
+      // setFixtures(data);
     }
   }, [data]);
 
@@ -30,11 +45,17 @@ const Stream = () => {
       <MainHeader />
 
       <section className="max-w-5xl mx-auto">
-        {fixtures!.map((fixture) => (
-          <div key={fixture.id}>
-            <StreamFixture fixture={fixture} />
+        {fixtures.length === 0 ? (
+          <div className="h-screen flex items-center justify-center text-3xl">
+            No data!
           </div>
-        ))}
+        ) : (
+          fixtures!.map((fixture) => (
+            <div key={fixture.id}>
+              <StreamFixture fixture={fixture} />
+            </div>
+          ))
+        )}
       </section>
 
       <MainFooter />

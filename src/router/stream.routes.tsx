@@ -5,6 +5,7 @@ import { StreamsLayout } from "@/layouts/StreamsLayout";
 import Notfound404 from "@/pages/Notfoud404/Notfound404";
 import SingleStream from "@/pages/streams/SingleStream/SingleStream";
 import { LowerThird } from "@/pages/streams/SingleStream/LowerThird";
+import { SelectStream } from "@/pages/streams/Stream/SelectStream";
 
 const streamRoutes = {
   path: "/streams",
@@ -12,14 +13,18 @@ const streamRoutes = {
   children: [
     {
       path: "/streams",
+      element: <SelectStream />,
+    },
+    {
+      path: "/streams/:streamName",
       element: <Stream />,
     },
     {
-      path: "/streams/stats/:fixtureId",
+      path: "/streams/:streamName/stats/:fixtureId",
       element: <SingleStream />,
     },
     {
-      path: "/streams/lowerthird/:fixtureId",
+      path: "/streams/:streamName/lowerthird/:fixtureId",
       element: <LowerThird />,
     },
     {
