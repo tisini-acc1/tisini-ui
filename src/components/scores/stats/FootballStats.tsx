@@ -3,7 +3,11 @@ import { Cards, Fouls, Stats } from "@/lib/types/scores";
 import PosessionRow from "../singleFixture/PosessionRow";
 import StatsRow from "@/components/scores/singleFixture/StatsRow";
 import StatsHalf from "@/components/scores/singleFixture/StatsHalf";
-import { calcBallPosession, getStat } from "@/lib/scores/calculations";
+import {
+  calcBallPosession,
+  getStat,
+  getSubEvent,
+} from "@/lib/scores/calculations";
 
 type StatsProps = {
   home: Stats;
@@ -27,12 +31,12 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
   const awayPasses =
     parseInt(away["Pass"].total) + parseInt(away["Incomplete Pass"].total);
 
-  const homeTarget = home["Shot"]["sub-event"].filter(
-    (item) => item.subeventname === "On Target"
-  );
-  const awayTarget = away["Shot"]["sub-event"].filter(
-    (item) => item.subeventname === "On Target"
-  );
+  const homeTarget =
+    getSubEvent(home, "Shot In-box", "On Target") +
+    getSubEvent(home, "Shot Out-box", "On Target");
+  const awayTarget =
+    getSubEvent(away, "Shot Out-box", "On Target") +
+    getSubEvent(away, "Shot In-box", "On Target");
 
   return (
     <div className="flex flex-col space-y-4 ">
@@ -47,10 +51,10 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
       )}
 
       <AccuracyRow
-        hComp={parseInt(homeTarget[0].totalsubevent)}
-        aComp={parseInt(awayTarget[0].totalsubevent)}
-        hTotal={getStat(home, "Shot")}
-        aTotal={getStat(away, "Shot")}
+        hComp={homeTarget}
+        aComp={awayTarget}
+        hTotal={getStat(home, "Shot In-box") + getStat(home, "Shot Out-box")}
+        aTotal={getStat(away, "Shot In-box") + getStat(away, "Shot Out-box")}
         stat={"Attempts on Target"}
         homeOnly={homeOnly}
         awayOnly={awayOnly}
