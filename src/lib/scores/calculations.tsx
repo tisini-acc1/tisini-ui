@@ -5,6 +5,14 @@ export const getStat = (arry: Stats, name: string) => {
   return value && !isNaN(parseInt(value)) ? parseInt(value) : 0;
 };
 
+export const getSubEvent = (array: Stats, event: string, subEvent: string) => {
+  const stat = array[event]["sub-event"].filter(
+    (item) => item.subeventname === subEvent
+  );
+
+  return parseInt(stat[0].totalsubevent);
+};
+
 export const calcBallPosession = (homeArry: Stats, awayArry: Stats) => {
   const homePasses =
     getStat(homeArry, "Pass") +
