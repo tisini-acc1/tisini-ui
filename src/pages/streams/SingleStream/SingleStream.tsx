@@ -7,7 +7,7 @@ import FetchFixtureById from "@/lib/scores/FetchFixtureById";
 import { SingleFixtureStats, Stats } from "@/lib/types/scores";
 
 // import kawowo from "@/assets/img/kawowo.jpg";
-import driftwood from "@/assets/tournaments/Dirftwood.png";
+import driftwood from "@/assets/tournaments/IMG-20240914-WA0001.jpg";
 import tisini from "@/assets/img/tisini-logo.png";
 import league from "@/assets/img/nile-special.png";
 import { getStat } from "@/lib/scores/calculations";
