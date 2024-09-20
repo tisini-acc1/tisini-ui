@@ -38,7 +38,7 @@ const Dates: React.FC<DatesProps> = ({ date, onClick, isSelected }) => {
     <div
       className={cn(
         "cursor-pointer",
-        isSelected ? "font-bold bg-slate-500" : ""
+        isSelected ? "font-bold bg-slate-500 rounded-md" : ""
       )}
       onClick={() => onClick(date)}
     >
