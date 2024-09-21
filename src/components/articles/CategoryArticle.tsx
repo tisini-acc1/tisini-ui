@@ -43,9 +43,7 @@ export default function CategoryArticle({ posts }: ComponentProps) {
                       <h1 className="font-semibold">{article.article_title}</h1>
                     </div>
                     <div className="flex text-black justify-end text-sm italic">
-                      <span>
-                        {moment(article.publish).format('LL')}
-                      </span>
+                      <span>{moment(article.publish).format("LL")}</span>
                     </div>
                   </NavLink>
                 ))}

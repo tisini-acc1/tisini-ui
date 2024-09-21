@@ -56,9 +56,9 @@ const Football = () => {
   // if (isError) return <h2>{error.message}</h2>;
 
   return (
-    <div className="flex ">
+    <div className="flex">
       <div className="w-full ">
-        <div className="flex justify-evenly bg-black-lighter ">
+        <div className="flex justify-evenly bg-black-lighter rounded-md">
           {dates.map((date, key) => (
             <div key={key}>
               <Dates

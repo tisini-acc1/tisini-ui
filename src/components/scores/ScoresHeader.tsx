@@ -48,7 +48,7 @@ export default function ScoresHeader() {
   const { auth } = useAppSelector((state) => state.persist);
   // const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const dispatch = useAppDispatch();
-  // const defaultAvatar =
+  // const ppic =
   //   "https://gravatar.com/avatar/cc8cbfcbd5bc4908182252d212020d52?d=mp";
 
   return (

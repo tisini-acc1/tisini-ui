@@ -83,7 +83,8 @@ const FixtureHeader = ({ teamDetails, scores }: HeaderProps) => {
               </div>
 
               <div className="font-semibold text-sm md:text-base text-center">
-                {teams["game_status"] === "ended"
+                {teams["game_status"] === "ended" ||
+                teams["game_status"] === "FT"
                   ? "FT"
                   : teams["minute"] == "45" &&
                     teams["game_moment"] == "secondhalf"
