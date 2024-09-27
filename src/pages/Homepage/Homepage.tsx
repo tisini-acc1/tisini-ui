@@ -11,17 +11,17 @@ import useCategoryArticles from "@/hooks/useCategoryArticles";
 import HomePageLoadingComponent from "./HomePageLoadingComponent";
 
 export default function Homepage() {
-  const d1 = useCategoryArticles()
- 
+  const d1 = useCategoryArticles();
+
   return (
     <main className="">
       <MainHeader />
       <ToastContainer />
-      <CategoryArticle posts={d1.data}/>
-      {d1.isLoading &&  <HomePageLoadingComponent />}
+      <CategoryArticle posts={d1.data} />
+      {d1.isLoading && <HomePageLoadingComponent />}
       {/* {articlesLength > 0 ? (
         <div className="">
-          
+
           <HomeBannerArticles
             featured_article={featuredArticle}
             headline_articles={random4Articles}

@@ -9,7 +9,7 @@ import { SingleFixtureStats, Stats } from "@/lib/types/scores";
 // import kawowo from "@/assets/img/kawowo.jpg";
 import tisini from "@/assets/img/tisini-logo.png";
 // import league from "@/assets/img/nile-special.png";
-import { getStat } from "@/lib/scores/calculations";
+import { getStat, getSubEvent } from "@/lib/scores/calculations";
 
 interface Stat {
   stat: string;
@@ -33,7 +33,6 @@ export const LowerThird = () => {
 
   const [currentStats, setCurrentStats] = useState<StatsArray>([
     { stat: "Tries", home: "-", away: "-" },
-    { stat: "Passes", home: "-", away: "-" },
   ]);
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(false);
@@ -49,53 +48,39 @@ export const LowerThird = () => {
 
     const home = data.home as Stats;
     const away = data.away as Stats;
+    const cards = data.cards;
 
-    return [
+    const hLineoutsWon =
+      getSubEvent(home, "Lineout throw", "Front won") +
+      getSubEvent(home, "Lineout throw", "Middle won") +
+      getSubEvent(home, "Lineout throw", "Back won") +
+      getSubEvent(home, "Lineout throw", "Overthrow Won");
+    const aLineoutsWon =
+      getSubEvent(away, "Lineout throw", "Front won") +
+      getSubEvent(away, "Lineout throw", "Middle won") +
+      getSubEvent(away, "Lineout throw", "Back won") +
+      getSubEvent(away, "Lineout throw", "Overthrow Won");
+
+    const statsList = [
+      {
+        stat: "Tries scored",
+        home: getSubEvent(home, "Score", "Try"),
+        away: getSubEvent(away, "Score", "Try"),
+      },
+      {
+        stat: "successful conversions",
+        home: getSubEvent(home, "Score", "Successful Conversion"),
+        away: getSubEvent(away, "Score", "Successful Conversion"),
+      },
       {
         stat: "Visit in opponents 22",
         home: getStat(home, "Visit in opponents 22"),
         away: getStat(away, "Visit in opponents 22"),
       },
       {
-        stat: "Tries",
-        home:
-          home["Score"]["sub-event"].filter(
-            (item) => item.subeventname === "Try"
-          )[0]?.totalsubevent || 0,
-        away:
-          away["Score"]["sub-event"].filter(
-            (item) => item.subeventname === "Try"
-          )[0]?.totalsubevent || 0,
-      },
-      {
-        stat: "Passes",
-        home: getStat(home, "Pass"),
-        away: getStat(away, "Pass"),
-      },
-      {
-        stat: "Carries",
-        home: getStat(home, "Carries"),
-        away: getStat(away, "Carries"),
-      },
-      {
-        stat: "Turnovers Won",
-        home: getStat(home, "Turn overs"),
-        away: getStat(away, "Turn overs"),
-      },
-      {
-        stat: "Line Breaks",
-        home: getStat(home, "Linebreak"),
-        away: getStat(away, "Linebreak"),
-      },
-      {
-        stat: "Offloads",
-        home: getStat(home, "Offloads"),
-        away: getStat(away, "Offloads"),
-      },
-      {
-        stat: "Kicks",
-        home: getStat(home, "Kick for territory"),
-        away: getStat(away, "Kick for territory"),
+        stat: "Penalties conceded",
+        home: getStat(home, "Penalties conceded"),
+        away: getStat(away, "Penalties conceded"),
       },
       {
         stat: "Handling Errors",
@@ -111,73 +96,77 @@ export const LowerThird = () => {
           getStat(away, "Incomplete Pass"),
       },
       {
-        stat: "Penalties",
-        home: getStat(home, "Penalties conceded"),
-        away: getStat(away, "Penalties conceded"),
+        stat: "scrums won / fed",
+        home: `${getSubEvent(home, "Scrums", "Won")} / ${getStat(
+          home,
+          "Scrums"
+        )}`,
+        away: `${getSubEvent(away, "Scrums", "Won")} / ${getStat(
+          away,
+          "Scrums"
+        )}`,
       },
       {
-        stat: "Tackles",
-        home: getStat(home, "Tackles"),
-        away: getStat(away, "Tackles"),
+        stat: "lineouts won / thrown",
+        home: `${hLineoutsWon} / ${getStat(home, "Lineout throw")}`,
+        away: `${aLineoutsWon} / ${getStat(away, "Lineout throw")}`,
       },
       {
-        stat: "Missed Tackles",
-        home: getStat(home, "Missed tackles"),
-        away: getStat(away, "Missed tackles"),
+        stat: "Turnovers Won",
+        home: getStat(home, "Turn overs"),
+        away: getStat(away, "Turn overs"),
       },
-      {
-        stat: "Lineouts Won",
-        home:
-          home["Lineouts"]["sub-event"].filter(
-            (item) => item.subeventname === "Won"
-          )[0]?.totalsubevent || 0,
-        away:
-          away["Lineouts"]["sub-event"].filter(
-            (item) => item.subeventname === "Won"
-          )[0]?.totalsubevent || 0,
-      },
-      {
-        stat: "Lineouts Lost",
-        home:
-          home["Lineouts"]["sub-event"].filter(
-            (item) => item.subeventname === "Lost"
-          )[0]?.totalsubevent || 0,
-        away:
-          home["Lineouts"]["sub-event"].filter(
-            (item) => item.subeventname === "Lost"
-          )[0]?.totalsubevent || 0,
-      },
-      {
-        stat: "Scrums Won",
-        home:
-          home["Scrums"]["sub-event"].filter(
-            (item) => item.subeventname === "Won"
-          )[0]?.totalsubevent || 0,
-        away:
-          away["Scrums"]["sub-event"].filter(
-            (item) => item.subeventname === "Won"
-          )[0]?.totalsubevent || 0,
-      },
-      {
-        stat: "Scrums Lost",
-        home:
-          home["Scrums"]["sub-event"].filter(
-            (item) => item.subeventname === "Lost"
-          )[0]?.totalsubevent || 0,
-        away:
-          away["Scrums"]["sub-event"].filter(
-            (item) => item.subeventname === "Lost"
-          )[0]?.totalsubevent || 0,
-      },
+
+      // {
+      //   stat: "Passes",
+      //   home: getStat(home, "Pass"),
+      //   away: getStat(away, "Pass"),
+      // },
+      // {
+      //   stat: "Carries",
+      //   home: getStat(home, "Carries"),
+      //   away: getStat(away, "Carries"),
+      // },
+      // {
+      //   stat: "Line Breaks",
+      //   home: getStat(home, "Linebreak"),
+      //   away: getStat(away, "Linebreak"),
+      // },
+      // {
+      //   stat: "Offloads",
+      //   home: getStat(home, "Offloads"),
+      //   away: getStat(away, "Offloads"),
+      // },
+      // {
+      //   stat: "Kicks",
+      //   home: getStat(home, "Kick for territory"),
+      //   away: getStat(away, "Kick for territory"),
+      // },
     ];
+
+    (cards.Homeyellow >= 1 || cards.Awayyellow >= 1) &&
+      statsList.push({
+        stat: "Yellow cards",
+        home: `${cards.Homeyellow}`,
+        away: `${cards.Awayyellow}`,
+      });
+
+    (cards.Homered >= 1 || cards.Awayred >= 1) &&
+      statsList.push({
+        stat: "red cards",
+        home: `${cards.Homered}`,
+        away: `${cards.Awayred}`,
+      });
+
+    return statsList;
   }, [data]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setFade(true); // Start fade-out
       setTimeout(() => {
-        const nextIndex = (index + 2) % stats.length;
-        setCurrentStats([stats[nextIndex], stats[nextIndex + 1]]);
+        const nextIndex = (index + 1) % stats.length;
+        setCurrentStats([stats[nextIndex]]);
         setIndex(nextIndex);
         setFade(false); // Start fade-in
       }, 300); // Delay content change until fade-out is done
@@ -189,57 +178,42 @@ export const LowerThird = () => {
   if (isLoading) return <Spinner />;
 
   const details = data?.fixture[0];
-  const scores = data?.scores;
+  // const scores = data?.scores;
 
   return (
     <main className="pt-16 relative h-screen">
-      <div className="flex justify-center items-center text-white font-bold bg-sky-900 absolute bottom-0 w-full">
-        <div className="">
-          {/* <img src={kawowo} alt="kawowo" height={150} width={150} /> */}
-        </div>
-        <div className="w-4/5 mx-auto flex">
-          <div className="w-2/6 flex justify-evenly items-center">
-            <div>{details?.team1_name}</div>
-            <div className="flex gap-0.5">
-              <div className="p-2 bg-blue-500 w-8 text-center">
-                {scores?.Home ?? ""}
-              </div>
-              <div className="p-2 bg-blue-500 w-8 text-center">
-                {scores?.Away ?? ""}
-              </div>
-            </div>
-            <div>{details?.team2_name}</div>
-          </div>
-          <div className="flex items-center w-2/3">
-            <div className="p-2 bg-slate-50 text-black">
-              {details?.game_status === "ended"
-                ? "FT"
-                : (details?.minute == "45" || details?.minute == "7") &&
-                  details?.game_moment == "secondhalf"
-                ? "HT"
-                : details?.minute}
+      <div className="absolute bottom-0 w-full mb-1">
+        <div className="container h-12 mx-auto flex items-center bg-[#023270] ">
+          {/* <div className="bg-black h-full w-12 flex items-center justify-center">
+          <span className="text-white text-xl font-bold">HT</span>
+        </div> */}
+          <div className="flex gap-1 w-4/5 mx-auto">
+            <div className="flex items-center w-1/4 justify-center rounded-sm text-white font-bold bg-red-500">
+              {details?.team1_name}
             </div>
             <div
-              className={`flex items-center w-2/3 transition-opacity duration-300 ease-in-out ${
+              className={`flex h-8 w-2/3 mx-auto transition-opacity duration-300 ease-in-out ${
                 fade ? "opacity-0" : "opacity-100"
               }`}
             >
-              <div className="flex w-full justify-around">
-                <div className="flex gap-4">
-                  <div>{currentStats[0].stat}</div>
-                  <div>{`${currentStats[0].home} | ${currentStats[0].away}`}</div>
-                </div>
-                <div className="text-red-500 font-bold">|</div>
-                <div className="flex gap-4">
-                  <div>{currentStats[1].stat}</div>
-                  <div>{`${currentStats[1].home} | ${currentStats[1].away}`}</div>
-                </div>
+              <div className="w-1/4 border flex items-center justify-center font-semibold text-blue-800 bg-white rounded-sm">
+                {`${currentStats[0].home}`}
+              </div>
+              <div className="w-1/2 mx-1 flex justify-center items-center text-nowrap text-xs text-white font-bold uppercase rounded-sm bg-primary">
+                {`${currentStats[0].stat}`}
+              </div>
+              <div className="w-1/4 border flex items-center justify-center font-semibold text-blue-800 bg-white rounded-sm">
+                {`${currentStats[0].away}`}
               </div>
             </div>
+            <div className="flex items-center w-1/4 justify-center rounded-sm font-bold bg-yellow-500">
+              {details?.team2_name}
+            </div>
           </div>
-        </div>
-        <div className="">
-          <img src={tisini} alt="Tisini" height={80} width={80} className="" />
+
+          <div className="w-20 h-10">
+            <img src={tisini} alt="Tisini" className="w-full h-full" />
+          </div>
         </div>
       </div>
     </main>
