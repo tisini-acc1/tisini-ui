@@ -133,10 +133,8 @@ export const teamImages: { [key: string]: string } = {
     "/src/assets/football/tusker-fc-logo-2788AE204B-seeklogo.com.png",
     import.meta.url
   ).href,
-  //"595": new URL(
-   // "/src/assets/football/tusker-fc-logo-2788AE204B-seeklogo.com.png",
-    //import.meta.url
-  //).href,
+  "595": new URL("/src/assets/football/Shabana_FC_(logo).png", import.meta.url)
+    .href,
   "6": new URL("/src/assets/football/kcb football logo.png", import.meta.url)
     .href,
   "36": new URL(
@@ -187,5 +185,29 @@ export const teamImages: { [key: string]: string } = {
     .href,
   "1257": new URL("/src/assets/rugby/Kabete Stallions.png", import.meta.url)
     .href,
+  "112": new URL(
+    "/src/assets/football/F.C._Talanta_logo-Photoroom.png-Photoroom.png",
+    import.meta.url
+  ).href,
+  "1648": new URL("/src/assets/uganda/Buffaloes.png", import.meta.url).href,
+  "1653": new URL("/src/assets/uganda/Elgon Wolves 7s.png", import.meta.url)
+    .href,
+  "1656": new URL("/src/assets/uganda/Heathens 7s.png", import.meta.url).href,
+  "1657": new URL("/src/assets/uganda/Hippos 7s.png", import.meta.url).href,
+  "1655": new URL("/src/assets/uganda/Impis 7s.png", import.meta.url).href,
+  "1652": new URL("/src/assets/uganda/Kobs.png", import.meta.url).href,
+  "1651": new URL("/src/assets/uganda/Mongers.png", import.meta.url).href,
+  "1660": new URL("/src/assets/uganda/Pirates Rugby.png", import.meta.url).href,
+  "1661": new URL("/src/assets/uganda/Rams 7s.png", import.meta.url).href,
+  "1647": new URL("/src/assets/uganda/Rhinos 7s.png", import.meta.url).href,
+  "1688": new URL("/src/assets/uganda/Titans 7s.png", import.meta.url).href,
+  "1715": new URL("/src/assets/uganda/Titans 7s.png", import.meta.url).href,
+  "1659": new URL("/src/assets/uganda/Walukuba.png", import.meta.url).href,
+  "1649": new URL("/src/assets/uganda/Warriors 7s.png", import.meta.url).href,
+  "1713": new URL("/src/assets/uganda/Mustangs.png", import.meta.url).href,
+  "1711": new URL("/src/assets/uganda/Silverbacks 7s.png", import.meta.url)
+    .href,
+  "1712": new URL("/src/assets/uganda/Buddu 7s.png", import.meta.url).href,
+  // "": new URL("/", import.meta.url).href,
   // "": new URL("/", import.meta.url).href,
 };

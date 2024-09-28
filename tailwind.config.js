@@ -6,6 +6,13 @@ export default {
       catamaran: ["Catamaran", "Inter", "sans-serif"],
       'noto-serif': ["Noto Serif", 'serif'],
     },
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
         primary: {
@@ -44,5 +51,7 @@ export default {
       }
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [
+    require("@tailwindcss/forms"),
+  ],
 };

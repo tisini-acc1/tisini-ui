@@ -1,5 +1,6 @@
 import BaseLayout from "@/layouts/BaseLayout";
 import ProtectedLayout from "@/layouts/ProtectedLayout";
+// import { BlogPage } from "@/pages/Blog/BlogPage";
 import Homepage from "@/pages/Homepage/Homepage";
 // import HomepageDataLoader from "@/pages/Homepage/HomepageDataLoader";
 import HomepageError from "@/pages/Homepage/HomepageError";
