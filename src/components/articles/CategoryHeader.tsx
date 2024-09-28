@@ -1,4 +1,5 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import { FaArrowCircleRight } from "react-icons/fa";
 
 type HeaderProps = {
@@ -6,6 +7,8 @@ type HeaderProps = {
 };
 
 const CategoryHeader = ({ category }: HeaderProps) => {
+  const navigate = useNavigate();
+
   return (
     <div className="border-t-2 border-primary">
       <div className="flex items-center justify-between px-0 py-3">
@@ -13,7 +16,10 @@ const CategoryHeader = ({ category }: HeaderProps) => {
           {category}
         </span>
 
-        <div className="flex items-center gap-1 text-primary-lightest hover:text-primary cursor-pointer">
+        <div
+          onClick={() => navigate(`/articles/${category}`)}
+          className="flex items-center gap-1 text-primary-lightest hover:text-primary cursor-pointer"
+        >
           <span className="">View All</span>
           <FaArrowCircleRight />
         </div>

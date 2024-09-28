@@ -7,6 +7,6 @@ type Props = {
 };
 export default function MaxWidthWrapper({ children, className }: Props) {
   return (
-    <div className={cn("max-w-7xl mx-auto w-full", className)}>{children}</div>
+    <div className={cn("container mx-auto w-full", className)}>{children}</div>
   );
 }

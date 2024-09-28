@@ -21,6 +21,10 @@ const Stream = () => {
   const league =
     streamName === "kawowo"
       ? "Nile Special 7s"
+      : streamName === "varsity"
+      ? "Varsity Cup"
+      : streamName === "legends"
+      ? "Legends Cup"
       : "Sportpesa National 7s circuit";
 
   const [fixtures, setFixtures] = useState<Fixture[]>([]);
@@ -30,7 +34,7 @@ const Stream = () => {
       const fixs = data.filter(
         (fix) =>
           fix.league === league &&
-          (fix.game_date === "2024-09-14" || fix.game_date === "2024-09-15")
+          (fix.game_date === "2024-09-28" || fix.game_date === "2024-09-29")
       );
 
       setFixtures(fixs);

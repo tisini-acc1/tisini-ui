@@ -12,7 +12,7 @@ import logo from "@/assets/img/tisini-logo.png";
 function MainFooter() {
   return (
     <div className="bg-primary min-h-[20rem] p-4 py-8">
-      <footer className="text-white max-w-7xl mx-auto w-full">
+      <footer className="text-white container mx-auto w-full">
         <div className="flex items-center flex-col md:flex-row justify-around gap-4 border-b-[1px] border-light-darker py-4 mt-5">
           {/* Logo */}
           <div className="flex flex-col justify-center items-center gap2">

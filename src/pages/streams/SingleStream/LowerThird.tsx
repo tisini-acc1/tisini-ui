@@ -183,7 +183,7 @@ export const LowerThird = () => {
   return (
     <main className="pt-16 relative h-screen">
       <div className="absolute bottom-0 w-full mb-1">
-        <div className="container h-12 mx-auto flex items-center bg-[#023270] ">
+        <div className="max-w-7xl h-12 mx-auto flex items-center bg-[#023270] ">
           {/* <div className="bg-black h-full w-12 flex items-center justify-center">
           <span className="text-white text-xl font-bold">HT</span>
         </div> */}

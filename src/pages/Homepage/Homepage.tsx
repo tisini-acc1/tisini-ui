@@ -12,7 +12,7 @@ import HomePageLoadingComponent from "./HomePageLoadingComponent";
 
 export default function Homepage() {
   const d1 = useCategoryArticles();
-
+  console.log(d1);
   return (
     <main className="">
       <MainHeader />

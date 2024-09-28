@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaFacebook } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaX, FaYoutube } from "react-icons/fa6";
 
 const SocialsWidget = () => {
   return (
@@ -10,14 +10,30 @@ const SocialsWidget = () => {
         </h2>
 
         <div className="grid grid-cols-2 gap-2 px-4 pb-4">
-          <SocialButton title="Facebook" />
-          <SocialButton title="Instagram" />
-          <SocialButton title="Youtube" />
-          <SocialButton title="x" />
+          <a href="http://" target="_blank" rel="noopener noreferrer">
+            <button className="flex items-center justify-between w-full h-10 py-2 px-4 text-base font-semibold border bg-primary rounded-md">
+              <FaFacebook /> {"Facebook"}
+            </button>
+          </a>
+          <a href="http://" target="_blank" rel="noopener noreferrer">
+            <button className="flex items-center justify-between w-full h-10 py-2 px-4 text-base font-semibold border bg-green-500 text-white rounded-md">
+              <FaInstagram /> {"Instagram"}
+            </button>
+          </a>
+          <a href="http://" target="_blank" rel="noopener noreferrer">
+            <button className="flex items-center justify-between w-full h-10 py-2 px-4 text-base font-semibold border bg-red-500 text-white rounded-md">
+              <FaYoutube /> {"Youtube"}
+            </button>
+          </a>
+          <a href="http://" target="_blank" rel="noopener noreferrer">
+            <button className="flex items-center justify-between w-full h-10 py-2 px-4 text-base font-semibold border bg-amber-500 rounded-md">
+              <FaX /> {"x"}
+            </button>
+          </a>
         </div>
       </div>
 
-      <div className="py-7 px-4 bg-gray-100 text-center">
+      <div className="py-7 px-4 bg-gray-50 text-center">
         <Link to={""}>
           <img
             src="src/assets/tournaments/about.jpeg"
@@ -27,20 +43,6 @@ const SocialsWidget = () => {
         </Link>
       </div>
     </div>
-  );
-};
-
-type ButtonProps = {
-  title: string;
-};
-
-const SocialButton = ({ title }: ButtonProps) => {
-  return (
-    <a href="http://" target="_blank" rel="noopener noreferrer">
-      <button className="flex items-center justify-between w-full h-10 py-2 px-4 text-base font-semibold border">
-        <FaFacebook /> {title}
-      </button>
-    </a>
   );
 };
 
