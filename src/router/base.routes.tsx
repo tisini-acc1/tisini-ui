@@ -1,17 +1,20 @@
-import BaseLayout from "@/layouts/BaseLayout";
-import ProtectedLayout from "@/layouts/ProtectedLayout";
-// import { BlogPage } from "@/pages/Blog/BlogPage";
-import Homepage from "@/pages/Homepage/Homepage";
-// import HomepageDataLoader from "@/pages/Homepage/HomepageDataLoader";
-import HomepageError from "@/pages/Homepage/HomepageError";
-import PrivacyPolicyPage from "@/pages/PrivacyPolicy/PrivacyPolicyPage";
-import WalletPage from "@/pages/Wallet/WalletPage";
 import type { RouteObject } from "react-router-dom";
+
+import BaseLayout from "@/layouts/BaseLayout";
+import { BlogPage } from "@/pages/Blog/BlogPage";
+import WalletPage from "@/pages/Wallet/WalletPage";
+// import Homepage from "@/pages/Homepage/Homepage";
+// import { BlogPage } from "@/pages/Blog/BlogPage";
+import ProtectedLayout from "@/layouts/ProtectedLayout";
+import HomepageError from "@/pages/Homepage/HomepageError";
+// import HomepageDataLoader from "@/pages/Homepage/HomepageDataLoader";
+import PrivacyPolicyPage from "@/pages/PrivacyPolicy/PrivacyPolicyPage";
 
 const baseRoutes = [
   {
     path: "/",
-    element: <Homepage />,
+    element: <BlogPage />,
+    // element: <Homepage />,
     // loader: HomepageDataLoader,
     errorElement: <HomepageError />,
   },

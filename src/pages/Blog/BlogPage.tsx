@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
-// import MainHeader from "@/components/MainHeader";
+import MainHeader from "@/components/MainHeader";
 
 import { ArticleInterface } from "@/lib/types";
 import FeaturedSection from "./FeaturedSection";
-// import MainFooter from "@/components/MainFooter";
+import MainFooter from "@/components/MainFooter";
 import useAllArticles from "@/hooks/useAllArticles";
 import useFeaturedArticle from "@/hooks/useFeaturedArticle";
 import useCategoryArticles from "@/hooks/useCategoryArticles";
@@ -74,6 +74,7 @@ export const BlogPage = () => {
 
   return (
     <main className="container mx-auto">
+      <MainHeader />
       <ToastContainer />
 
       {/* Hero Section */}
@@ -130,6 +131,8 @@ export const BlogPage = () => {
           </div>
         </div>
       </section>
+
+      <MainFooter />
     </main>
   );
 };
