@@ -4,7 +4,7 @@ import { FaFacebook, FaInstagram, FaX, FaYoutube } from "react-icons/fa6";
 const SocialsWidget = () => {
   return (
     <div className="flex flex-col gap-4">
-      <div className="border-t-2 border-primary py-4">
+      <div className="hidden md:flex flex-col border-t-2 border-primary py-4">
         <h2 className="text-primary text-base font-bold uppercase mb-3">
           Stay Connected
         </h2>

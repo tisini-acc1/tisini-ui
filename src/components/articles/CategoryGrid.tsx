@@ -1,71 +1,78 @@
 import { Link } from "react-router-dom";
 
 import CategoryHeader from "./CategoryHeader";
+import { ArticleInterface } from "@/lib/types";
+import { formatDate } from "@/lib/scores/formatDate";
 
-const CategoryGrid = () => {
+type GridProps = {
+  articles: ArticleInterface[];
+  category: string;
+};
+
+const CategoryGrid = ({ articles, category }: GridProps) => {
   return (
     <div className="w-full">
-      <CategoryHeader category="Football" />
+      <CategoryHeader category={category} />
 
       <div className="mb-5 w-full h-48 overflow-hidden relative">
-        <img
-          src="src/assets/tournaments/hero.jpg"
-          alt=""
-          className="w-full object-cover cursor-pointer hover:scale-110 transition"
-        />
+        <Link to={`/articles/${articles[0].slug}/single-read`}>
+          <img
+            src={articles[0].featured_image_url!}
+            alt={articles[0].excerpt}
+            className="w-full object-cover cursor-pointer hover:scale-110 transition"
+          />
 
-        <div className="absolute bottom-0 left-0 flex flex-col bg-black-lighter/40 pt-1 h-[4.8rem]">
-          <ul className="flex items-center gap-3 text-white text-xs font-semibold ml-4 hover:text-primary cursor-pointer">
-            <li>John Doe</li>
-            <li>26 September 2023</li>
-          </ul>
-          <h3 className="px-4 py-2 text-white text-xs font-semibold transition-all hover:text-primary cursor-pointer overflow-hidden text-ellipsis line-clamp-3">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius autem
-            aut quo ad velit reiciendis asperiores nihil quam rerum nam, placeat
-            mollitia dolorum, aperiam officia?
-          </h3>
-        </div>
+          <div className="absolute bottom-0 left-0 flex flex-col bg-black-lighter/40 pt-1 h-[4.0rem] md:h-[4.8rem]">
+            <ul className="hidden md:flex items-center gap-3 text-white text-xs font-semibold ml-4 hover:text-primary cursor-pointer">
+              <li>{`${articles[0].author.first_name} ${articles[0].author.last_name}`}</li>
+              <li>{formatDate(articles[0].publish)}</li>
+            </ul>
+            <h3 className="px-4 py-2 text-white text-xs font-semibold transition-all hover:text-primary cursor-pointer overflow-hidden text-ellipsis line-clamp-3">
+              {articles[0].article_title}
+            </h3>
+          </div>
+        </Link>
       </div>
 
-      <Link to={""}>
+      <div>
         <div className="flex items-center gap-4 pt-5 border-t border-primary-lightest mt-5">
-          <ArticleGrid img={"public/p2.jpg"} />
-          <ArticleGrid img={"public/player.jpg"} />
+          <ArticleGrid article={articles[1]} />
+          <ArticleGrid article={articles[2]} />
         </div>
 
         <div className="flex items-center gap-4 pt-5 border-t border-primary-lightest mt-5">
-          <ArticleGrid img={"src/assets/tournaments/faqs.jpg"} />
-          <ArticleGrid
-            img={"src/assets/tournaments/Partially removed BG.png"}
-          />
+          <ArticleGrid article={articles[3]} />
+          <ArticleGrid article={articles[4]} />
         </div>
-      </Link>
+      </div>
     </div>
   );
 };
 
-type GridProps = {
-  img: string;
+type ArticleProps = {
+  article: ArticleInterface;
 };
 
-const ArticleGrid = ({ img }: GridProps) => {
+const ArticleGrid = ({ article }: ArticleProps) => {
   return (
     <div className="flex flex-col w-1/2">
-      <Link to={""} className="w-full space-y-2">
+      <Link
+        to={`/articles/${article.slug}/single-read`}
+        className="w-full space-y-2"
+      >
         <img
-          src={img}
-          alt=""
+          src={article.featured_image_url!}
+          alt={article.excerpt}
           className="w-full h-32 object-cover hover:scale-110 transition"
         />
 
-        <ul className="flex items-center justify-between text-gray-400 text-xs font-semibold  hover:text-primary cursor-pointer mb-2">
-          <li>John Doe</li>
-          <li>26 September 2023</li>
+        <ul className="hidden md:flex items-center justify-between text-gray-400 text-xs font-semibold  hover:text-primary cursor-pointer mb-2">
+          <li>{`${article.author.first_name} ${article.author.last_name}`}</li>
+          <li>{formatDate(article.publish)}</li>
         </ul>
 
         <h3 className="text-gray-600 text-xs font-semibold transition-all hover:text-primary cursor-pointer overflow-hidden text-ellipsis line-clamp-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius autem
-          aut quo ad velit
+          {article.article_title}
         </h3>
       </Link>
     </div>

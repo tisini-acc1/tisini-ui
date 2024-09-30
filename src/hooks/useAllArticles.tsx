@@ -1,10 +1,9 @@
+import { tisiniAxios } from "@/lib/api";
+import { ArticleInterface, PaginatedResponse } from "@/lib/types";
 import { AxiosError } from "axios";
 import React, { useState } from "react";
 
-import { tisiniAxios } from "@/lib/api";
-import { ArticleInterface } from "@/lib/types";
-
-export default function useEditorArticles() {
+export default function useAllArticles() {
   const [isLoading, setIsLoading] = useState(false);
   const [err] = useState("");
   const [data, setData] = useState<ArticleInterface[]>([]);
@@ -12,11 +11,10 @@ export default function useEditorArticles() {
   const fetchArticles = React.useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await tisiniAxios.get("/blogs/article_editor_pick/");
-      //   const response = (await tisiniAxios.get("/blogs/article_editor_pick/"))
-      //     .data as PaginatedResponse<CategoriesWithPostType>;
+      const response = (await tisiniAxios.get("/blogs/articles/"))
+        .data as PaginatedResponse<ArticleInterface>;
 
-      setData(response.data);
+      setData(response.results);
     } catch (err) {
       // console.log(err);
       if (err instanceof AxiosError) {
