@@ -1,14 +1,14 @@
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 
+import React from "react";
 import { ToastContainer } from "react-toastify";
 
 import MainFooter from "@/components/MainFooter";
 import MainHeader from "@/components/MainHeader";
-import React from "react";
-import CategoryArticle from "@/components/articles/CategoryArticle";
 import useCategoryArticles from "@/hooks/useCategoryArticles";
 import HomePageLoadingComponent from "./HomePageLoadingComponent";
+import CategoryArticle from "@/components/articles/CategoryArticle";
 
 export default function Homepage() {
   const d1 = useCategoryArticles();
