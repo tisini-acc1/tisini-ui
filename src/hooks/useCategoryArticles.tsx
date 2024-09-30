@@ -7,6 +7,7 @@ export default function useCategoryArticles() {
   const [isLoading, setIsLoading] = useState(false);
   const [err] = useState("");
   const [data, setData] = useState<CategoriesWithPostType[]>([]);
+
   const fetchArticles = React.useCallback(async () => {
     setIsLoading(true);
     try {
@@ -15,6 +16,7 @@ export default function useCategoryArticles() {
         (
           await tisiniAxios.get("/blogs/category_articles")
         ).data) as PaginatedResponse<CategoriesWithPostType>;
+
       setData(response.results);
     } catch (err) {
       // console.log(err);

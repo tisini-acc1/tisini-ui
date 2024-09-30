@@ -3,7 +3,7 @@ import { ArticleInterface } from "@/lib/types";
 import { AxiosError } from "axios";
 import React, { useState } from "react";
 
-export default function useFetchArticle(url: string) {
+export default function useFeaturedArticle() {
   const [isLoading, setIsLoading] = useState(false);
   const [err] = useState("");
   const [data, setData] = React.useState<ArticleInterface | null>(null);
@@ -11,7 +11,7 @@ export default function useFetchArticle(url: string) {
   const fetchArticles = React.useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = (await tisiniAxios.get(url)).data;
+      const response = (await tisiniAxios.get("/blogs/article_featured/")).data;
 
       setData(response[0]);
     } catch (err) {
