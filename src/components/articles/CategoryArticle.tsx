@@ -34,7 +34,7 @@ export default function CategoryArticle({ posts }: ComponentProps) {
                   >
                     <div className="h-80">
                       <img
-                        src={article.featured_image_url}
+                        src={article.featured_image_url ?? ""}
                         alt=""
                         className="h-full w-full object-cover"
                       />
