@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { MdFlashOn } from "react-icons/md";
 import { ArticleInterface } from "@/lib/types";
-import { formatDate } from "@/lib/scores/formatDate";
+import { formatDate } from "@/lib/data/formatDate";
 
 type FeaturedProps = {
   article: ArticleInterface;
@@ -44,7 +44,7 @@ const FeaturedArticle = ({ article }: { article: ArticleInterface }) => {
   return (
     <div className="flex-1 flex flex-col gap-2 overflow-hidden">
       <Link
-        to={`/articles/${article.slug}/single-read`}
+        to={`/articles/${article.slug}`}
         className="relative flex-1 flex gap-2"
       >
         <img
@@ -77,7 +77,7 @@ const FeaturedArticle = ({ article }: { article: ArticleInterface }) => {
 const Article = ({ article }: { article: ArticleInterface }) => {
   return (
     <Link
-      to={`/articles/${article.slug}/single-read`}
+      to={`/articles/${article.slug}`}
       className="relative flex-1 flex gap-2"
     >
       <img

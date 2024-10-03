@@ -7,7 +7,7 @@ import {
   calcBallPosession,
   getStat,
   getSubEvent,
-} from "@/lib/scores/calculations";
+} from "@/lib/data/calculations";
 
 type StatsProps = {
   home: Stats;

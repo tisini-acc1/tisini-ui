@@ -1,44 +1,42 @@
-import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import MainHeader from "@/components/MainHeader";
 
-import { ArticleInterface } from "@/lib/types";
+import { ArticleInterface, CategoriesWithPostType } from "@/lib/types";
 import FeaturedSection from "./FeaturedSection";
 import MainFooter from "@/components/MainFooter";
-import useAllArticles from "@/hooks/useAllArticles";
-import useFeaturedArticle from "@/hooks/useFeaturedArticle";
-import useCategoryArticles from "@/hooks/useCategoryArticles";
 import CategoryGrid from "@/components/articles/CategoryGrid";
 import SocialsWidget from "@/components/articles/SocialCategory";
 import CategoryColumn from "@/components/articles/CategoryColumn";
 import HomePageLoadingComponent from "../Homepage/HomePageLoadingComponent";
+import { useQuery } from "@tanstack/react-query";
+import FetchAllArticles from "@/lib/data/articles/FetchAllArticles";
+import FetchFeaturedArticle from "@/lib/data/articles/FetchFeaturedArticle";
+import FetchCategoryArticles from "@/lib/data/articles/FetchCategoryArticles";
+import { Link } from "react-router-dom";
 
 export const BlogPage = () => {
-  const {
-    data: categoryData,
-    isLoading: categoryLoading,
-    refreshData: refreshCategoryData,
-  } = useCategoryArticles();
-  const {
-    data: articlesData,
-    isLoading: articlesLoading,
-    refreshData: refreshArticlesData,
-  } = useAllArticles();
-  const {
-    data: featuredData,
-    isLoading: featuredLoading,
-    refreshData: refreshFeaturedData,
-  } = useFeaturedArticle();
+  const { data: articlesData, isLoading: articlesLoading } = useQuery<
+    ArticleInterface[],
+    Error
+  >(["All Articles"], FetchAllArticles);
 
-  // Fetch all data on component mount
-  useEffect(() => {
-    refreshCategoryData(); // Fetch category articles
-    refreshArticlesData(); // Fetch all articles
-    refreshFeaturedData(); // Fetch featured articles
-  }, []);
+  const { data: featuredData, isLoading: featuredLoading } =
+    useQuery<ArticleInterface>(["Featured Article"], FetchFeaturedArticle);
+
+  const { data: categoryData, isLoading: categoryLoading } = useQuery<
+    CategoriesWithPostType[]
+  >(["Category Articles"], FetchCategoryArticles);
 
   // Combine loading states
   const isLoading = categoryLoading || articlesLoading || featuredLoading;
+
+  if (isLoading) {
+    return <HomePageLoadingComponent />;
+  }
+
+  if (!articlesData || !categoryData || !featuredData) {
+    return <div>"No football articles"</div>;
+  }
 
   const recentArticles = articlesData.filter(
     (category) => category.is_featured === false
@@ -64,14 +62,6 @@ export const BlogPage = () => {
     (category) => category.article_category === "Features"
   );
 
-  if (isLoading) {
-    return <HomePageLoadingComponent />;
-  }
-
-  if (!footballCategory[0]) {
-    return <div>"No football articles"</div>;
-  }
-
   return (
     <main className="container mx-auto">
       <MainHeader />
@@ -82,6 +72,10 @@ export const BlogPage = () => {
         article={featuredData as ArticleInterface}
         recentPosts={recentArticles}
       />
+
+      {/* <div className="mx-auto my-3 md:hidden">
+        <img src="https://i.postimg.cc/GhzxYdYq/tanobora.jpg" alt="" />
+      </div> */}
 
       {/* Articles Section with adverts */}
       <section className="p-7 bg-gray-100">
@@ -105,6 +99,10 @@ export const BlogPage = () => {
           </div>
         </div>
       </section>
+
+      <Link className="w-4/5 mx-auto mt-6 hidden md:flex" to={"/tanobora"}>
+        <img src="https://i.postimg.cc/GhzxYdYq/tanobora.jpg" alt="" />
+      </Link>
 
       {/* Second Articles Section */}
       <section className="p-7 ">

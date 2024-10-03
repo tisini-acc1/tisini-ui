@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Fixture } from "@/lib/types/scores";
 import MainHeader from "@/components/MainHeader";
 import Spinner from "@/components/spinner/Spinner";
-import FetchRugbyFixtures from "@/lib/scores/FetchRugbyFixtures";
+import FetchRugbyFixtures from "@/lib/data/FetchRugbyFixtures";
 import { useEffect, useState } from "react";
 import StreamFixture from "./StreamFixture";
 import MainFooter from "@/components/MainFooter";

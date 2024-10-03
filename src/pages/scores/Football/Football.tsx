@@ -5,8 +5,8 @@ import Dates from "./Dates";
 import SingleResult from "./SingleResult";
 import Spinner from "@/components/spinner/Spinner";
 import { Fixture, FixturesArray } from "@/lib/types/scores";
-import GroupBallFixtures from "../../../lib/scores/GroupBallFixtures";
-import fetchFootballFixtures from "../../../lib/scores/FetchFootballFixtures";
+import GroupBallFixtures from "../../../lib/data/GroupBallFixtures";
+import fetchFootballFixtures from "../../../lib/data/FetchFootballFixtures";
 
 const Football = () => {
   const { data, isLoading } = useQuery<Fixture[], Error>(

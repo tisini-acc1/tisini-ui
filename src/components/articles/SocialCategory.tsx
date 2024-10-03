@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { FaFacebook, FaInstagram, FaX, FaYoutube } from "react-icons/fa6";
 
 const SocialsWidget = () => {
@@ -33,14 +32,18 @@ const SocialsWidget = () => {
         </div>
       </div>
 
-      <div className="py-7 px-4 bg-gray-50 text-center">
-        <Link to={""}>
+      <div className="py-7 px-4 bg-white text-center">
+        <a
+          href="https://play.google.com/store/apps/details?id=com.tisini.app"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <img
-            src="src/assets/tournaments/about.jpeg"
-            alt=""
+            src="https://i.postimg.cc/7YHmZGt2/tisini-App.gif"
+            alt="livescores"
             className="w-full h-72 cursor-pointer"
           />
-        </Link>
+        </a>
       </div>
     </div>
   );

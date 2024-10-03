@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import Spinner from "@/components/spinner/Spinner";
-import FetchFixtureById from "@/lib/scores/FetchFixtureById";
+import FetchFixtureById from "@/lib/data/FetchFixtureById";
 import { SingleFixtureStats, Stats } from "@/lib/types/scores";
 
 // import kawowo from "@/assets/img/kawowo.jpg";
@@ -12,7 +12,7 @@ import varsity from "@/assets/img/varsity.png";
 import legends from "@/assets/img/sportpesa.jpeg";
 import tisini from "@/assets/img/tisini-logo.png";
 import driftwood from "@/assets/tournaments/Dirftwood.png";
-import { getStat, getSubEvent } from "@/lib/scores/calculations";
+import { getStat, getSubEvent } from "@/lib/data/calculations";
 
 const SingleStream = () => {
   const { fixtureId, streamName } = useParams();

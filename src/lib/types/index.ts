@@ -27,7 +27,7 @@ export interface LoginUserResponseInterface extends UserInterface {
 export interface RegisterUserResponseInterface
   extends Pick<
     SignupUserInterface,
-    "nickname" | 'password' | 'phone_number' | 'is_quiz_admin' | 'is_author'
+    "nickname" | "password" | "phone_number" | "is_quiz_admin" | "is_author"
   > {
   id: number; // ID
   is_quiz_admin: boolean; // Is quiz admin flag
@@ -48,6 +48,16 @@ export interface ArticleInterface {
   author: ArticleAuthorInterface; // ArticleAuthor object
   tags: string[]; // Array of tags with min length of 1
   thumbnail?: string | null; // Optional Thumbnail
+  recommended_articles: RecommendedArticleInterface[];
+}
+
+export interface RecommendedArticleInterface {
+  id: number;
+  article_title: string;
+  slug: string;
+  thumbnail: string;
+  excerpt: string;
+  article_category: number;
 }
 
 export interface ArticleCategoryInterface {
@@ -65,6 +75,12 @@ export interface ArticleAuthorInterface {
   facebook_url?: string | null; // Optional Facebook url with a max length of 300
   twitter_url?: string | null; // Optional Twitter url with a max length of 300
 }
+
+export type CategoriesWithPostType = {
+  id: number;
+  article_category: string;
+  articles: ArticleInterface[];
+};
 
 export interface AnswerInterface {
   is_correct: any;
@@ -311,33 +327,4 @@ export type ReducerFunction<StateType, ActionsType> = (
 
 export type ActionMapper<T extends { [key in any]: any }> = {
   [key in keyof T]: T extends { [Key in keyof T]: infer U } ? U : never;
-};
-
-export type CategoriesWithPostType = {
-  id: number;
-  article_category: string;
-  articles: {
-    id: number;
-    article_title: string;
-    slug: string;
-    featured_image_url: string;
-    thumbnail: string;
-    excerpt: string;
-    article_body: string;
-    is_featured: boolean;
-    is_sponsored: boolean;
-    is_editors_pick: boolean;
-    publish: string;
-    author: {
-      id: number;
-      first_name: string;
-      last_name: string;
-      author_email: string;
-      author_description: null;
-      linkedin_url: null;
-      facebook_url: null;
-      twitter_url: null;
-    };
-    tags: string[];
-  }[]
 };

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import CategoryHeader from "./CategoryHeader";
 import { ArticleInterface } from "@/lib/types";
-import { formatDate } from "@/lib/scores/formatDate";
+import { formatDate } from "@/lib/data/formatDate";
 
 type GridProps = {
   articles: ArticleInterface[];
@@ -15,7 +15,7 @@ const CategoryGrid = ({ articles, category }: GridProps) => {
       <CategoryHeader category={category} />
 
       <div className="mb-5 w-full h-48 overflow-hidden relative">
-        <Link to={`/articles/${articles[0].slug}/single-read`}>
+        <Link to={`/articles/${articles[0].slug}`}>
           <img
             src={articles[0].featured_image_url!}
             alt={articles[0].excerpt}
@@ -56,10 +56,7 @@ type ArticleProps = {
 const ArticleGrid = ({ article }: ArticleProps) => {
   return (
     <div className="flex flex-col w-1/2">
-      <Link
-        to={`/articles/${article.slug}/single-read`}
-        className="w-full space-y-2"
-      >
+      <Link to={`/articles/${article.slug}`} className="w-full space-y-2">
         <img
           src={article.featured_image_url!}
           alt={article.excerpt}
