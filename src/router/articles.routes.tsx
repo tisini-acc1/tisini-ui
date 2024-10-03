@@ -19,12 +19,12 @@ const articlesRoutes = {
       element: <BlogPage />,
     },
     {
-      path: "/articles/:slug/single-read",
+      path: "/articles/:slug",
       id: "article",
       element: <SinglePostpage />,
     },
     {
-      path: "/articles/:category",
+      path: "/articles/categories/:category",
       id: "category",
       element: <BlogCategory />,
     },

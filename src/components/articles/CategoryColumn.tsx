@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import CategoryHeader from "./CategoryHeader";
 import { ArticleInterface } from "@/lib/types";
-import { formatDate } from "@/lib/scores/formatDate";
+import { formatDate } from "@/lib/data/formatDate";
 
 type ColumnProps = {
   articles: ArticleInterface[];
@@ -22,7 +22,7 @@ const CategoryColumn = ({ articles, category }: ColumnProps) => {
         />
 
         <Link
-          to={`/articles/${articles[0].slug}/single-read`}
+          to={`/articles/${articles[0].slug}`}
           className="absolute h-[3.9rem] md:h-[4.8rem] bottom-0 left-0 flex flex-col bg-black-lighter/40 pt-1"
         >
           <ul className="hidden md:flex items-center gap-3 text-white text-xs font-semibold ml-4 hover:text-primary cursor-pointer">
@@ -52,7 +52,7 @@ type GridProps = {
 const ArticleRow = ({ article }: GridProps) => {
   return (
     <Link
-      to={`/articles/${article.slug}/single-read`}
+      to={`/articles/${article.slug}`}
       className="w-full flex items-center justify-between gap-5 mt-4 pt-4 border-t border-primary-lightest"
     >
       <div className="w-1/2">

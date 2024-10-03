@@ -3,13 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 
 import Spinner from "@/components/spinner/Spinner";
-import FetchFixtureById from "@/lib/scores/FetchFixtureById";
+import FetchFixtureById from "@/lib/data/FetchFixtureById";
 import { SingleFixtureStats, Stats } from "@/lib/types/scores";
 
 // import kawowo from "@/assets/img/kawowo.jpg";
 import tisini from "@/assets/img/tisini-logo.png";
 // import league from "@/assets/img/nile-special.png";
-import { getStat, getSubEvent } from "@/lib/scores/calculations";
+import { getStat, getSubEvent } from "@/lib/data/calculations";
 
 interface Stat {
   stat: string;

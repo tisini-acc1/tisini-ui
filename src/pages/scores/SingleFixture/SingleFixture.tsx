@@ -7,7 +7,7 @@ import FixtureHeader from "./FixtureHeader";
 import FixtureLineups from "./FixtureLineups";
 import FixtureOverview from "./FixtureOverview";
 import Spinner from "@/components/spinner/Spinner";
-import FetchFixtureById from "@/lib/scores/FetchFixtureById";
+import FetchFixtureById from "@/lib/data/FetchFixtureById";
 import {
   Cards,
   FixtureDetails,

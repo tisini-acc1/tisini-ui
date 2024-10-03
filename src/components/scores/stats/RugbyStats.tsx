@@ -2,7 +2,7 @@ import { Cards, Stats } from "@/lib/types/scores";
 import AccuracyRow from "../singleFixture/AccuracyRow";
 import PosessionRow from "../singleFixture/PosessionRow";
 import StatsRow from "@/components/scores/singleFixture/StatsRow";
-import { calcRugbyPosession, getStat } from "@/lib/scores/calculations";
+import { calcRugbyPosession, getStat } from "@/lib/data/calculations";
 import StatsHalf from "@/components/scores/singleFixture/StatsHalf";
 
 type StatsProps = {

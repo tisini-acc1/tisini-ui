@@ -3,7 +3,7 @@ import HtmlDecoder from "@/components/HtmlDecode";
 import Loader from "@/components/Loader/Loader";
 import React from "react";
 import { tisiniAxios } from "@/lib/api";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./style.css";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 
@@ -25,10 +25,12 @@ export default function SinglePostpage() {
       setLoading(false);
     }
   };
+
   React.useEffect(() => {
     Promise.allSettled([fetchPost()]).catch((error) => console.log(error));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
+
   return (
     <div className="min-h-[50vh]">
       {loading && <Loader isLoading={loading} />}
@@ -61,6 +63,36 @@ export default function SinglePostpage() {
             {HtmlDecoder({ html: post?.article_body ?? "", exerpt: false })}
           </div>
         </div>
+
+        {post && post?.recommended_articles.length > 0 && (
+          <div className="space-y-4">
+            <div>
+              <h1 className="text-2xl md:text-4xl font-bold underline">
+                Read More
+              </h1>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-1">
+              {post?.recommended_articles.map((article) => (
+                <div key={article.id} className="">
+                  <Link
+                    to={`/articles/${article.slug}`}
+                    className="w-full space-y-2"
+                  >
+                    <img
+                      src={`https://system.tisini.co.ke/${article.thumbnail}`}
+                      alt={article.excerpt}
+                      className="w-full h-32 object-cover hover:scale-110 transition"
+                    />
+
+                    <h3 className="text-gray-600 text-xs font-semibold transition-all hover:text-primary cursor-pointer overflow-hidden text-ellipsis line-clamp-3">
+                      {article.article_title}
+                    </h3>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </MaxWidthWrapper>
     </div>
   );
