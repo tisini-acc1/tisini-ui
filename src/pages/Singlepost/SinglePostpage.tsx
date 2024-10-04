@@ -25,6 +25,7 @@ export default function SinglePostpage() {
       setLoading(false);
     }
   };
+  console.log(post)
 
   React.useEffect(() => {
     Promise.allSettled([fetchPost()]).catch((error) => console.log(error));
@@ -66,12 +67,12 @@ export default function SinglePostpage() {
 
         {post && post?.recommended_articles.length > 0 && (
           <div className="space-y-4">
-            <div>
-              <h1 className="text-2xl md:text-4xl font-bold underline">
-                Read More
-              </h1>
+            <div className="mt-5">
+              <h3 className="text-2xl md:text-4xl font-bold underline">
+                Related articles
+              </h3>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-1">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-1">
               {post?.recommended_articles.map((article) => (
                 <div key={article.id} className="">
                   <Link
@@ -79,7 +80,8 @@ export default function SinglePostpage() {
                     className="w-full space-y-2"
                   >
                     <img
-                      src={`https://system.tisini.co.ke/${article.thumbnail}`}
+                      // src={`https://system.tisini.co.ke/${article.thumbnail}`}
+                      src={article.featured_image_url}
                       alt={article.excerpt}
                       className="w-full h-32 object-cover hover:scale-110 transition"
                     />
