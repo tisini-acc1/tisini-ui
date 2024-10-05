@@ -8,7 +8,7 @@ import { SingleFixtureStats, Stats } from "@/lib/types/scores";
 
 // import kawowo from "@/assets/img/kawowo.jpg";
 import nile from "@/assets/img/nile 7s.png";
-import varsity from "@/assets/img/varsity.png";
+import varsity from "@/assets/rugby/JKUAT.png";
 import legends from "@/assets/img/sportpesa.jpeg";
 import tisini from "@/assets/img/tisini-logo.png";
 import driftwood from "@/assets/tournaments/Dirftwood.png";
