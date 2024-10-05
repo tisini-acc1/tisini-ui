@@ -48,7 +48,7 @@ const Stream = () => {
     <main>
       <MainHeader />
 
-      <section className="max-w-5xl mx-auto">
+      <section className="max-w-5xl mx-auto h-screen">
         {fixtures.length === 0 ? (
           <div className="h-screen flex items-center justify-center text-3xl">
             No data!
