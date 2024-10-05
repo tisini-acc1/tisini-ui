@@ -55,7 +55,7 @@ export interface RecommendedArticleInterface {
   id: number;
   article_title: string;
   slug: string;
-  thumbnail: string;
+  featured_image_url: string;
   excerpt: string;
   article_category: number;
 }
