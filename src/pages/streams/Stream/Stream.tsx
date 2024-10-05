@@ -34,7 +34,7 @@ const Stream = () => {
       const fixs = data.filter(
         (fix) =>
           fix.league === league &&
-          (fix.game_date === "2024-09-28" || fix.game_date === "2024-09-29")
+          (fix.game_date === "2024-10-05" || fix.game_date === "2024-10-06")
       );
 
       setFixtures(fixs);
