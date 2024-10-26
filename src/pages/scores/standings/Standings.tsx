@@ -1,6 +1,9 @@
 import { useState } from "react";
 
 import homeImg from "@/assets/homeLogo.png";
+import { useQuery } from "@tanstack/react-query";
+import FetchStandings from "@/lib/data/FetchStandings";
+// import { TableStandings } from "@/lib/types/scores";
 
 export const Standings = () => {
   const [activeLeague, setActiveLeague] = useState(0);
@@ -8,6 +11,10 @@ export const Standings = () => {
 
   const leagues = ["FKF PL", "FKF WPL", "Kenya Cup"];
   const tabs = ["Overal", "Top Scorers"];
+
+  const { data } = useQuery(["standings"], FetchStandings);
+
+  console.log(data);
 
   return (
     <div className="text-gray-500 w-full bg-slate-200">

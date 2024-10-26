@@ -25,7 +25,7 @@ const Stream = () => {
       ? "Varsity Cup"
       : streamName === "legends"
       ? "Legends Cup"
-      : "Sportpesa National 7s circuit";
+      : "2024 Impala Floodlit";
 
   const [fixtures, setFixtures] = useState<Fixture[]>([]);
 
@@ -34,7 +34,7 @@ const Stream = () => {
       const fixs = data.filter(
         (fix) =>
           fix.league === league &&
-          (fix.game_date === "2024-10-05" || fix.game_date === "2024-10-06")
+          (fix.game_date === "2024-10-26" || fix.game_date === "2024-10-27")
       );
 
       setFixtures(fixs);

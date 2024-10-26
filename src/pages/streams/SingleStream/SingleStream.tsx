@@ -49,7 +49,7 @@ const SingleStream = () => {
   const cards = data?.cards;
   // const fouls = data?.fouls;
   // const highlights = data?.gamedetails;
-
+  console.log(data);
   if (isLoading) return <Spinner />;
 
   // const hTackles = getStat(home, "Tackles") + getStat(home, "Missed tackles");

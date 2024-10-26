@@ -24,8 +24,6 @@ import ScoresHeader from "@/components/scores/ScoresHeader";
 //   );
 // };
 
-// export default ScoresLayout;
-
 const ScoresLayout = () => {
   return (
     <main className="bg-white ">
