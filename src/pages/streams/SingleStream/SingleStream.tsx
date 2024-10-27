@@ -72,8 +72,8 @@ const SingleStream = () => {
     getSubEvent(away, "Lineout throw", "Back won") +
     getSubEvent(away, "Lineout throw", "Overthrow Won");
 
-  const hScrumsWon = getSubEvent(home, "Scrums", "Won");
-  const aScrumsWon = getSubEvent(away, "Scrums", "Won");
+  const hScrumsWon = getSubEvent(home, "Scrum", "Won");
+  const aScrumsWon = getSubEvent(away, "Scrum", "Won");
 
   return (
     <main className="pt-16 relative">
@@ -83,7 +83,7 @@ const SingleStream = () => {
 
       <div className="w-[590px] mx-auto relative">
         <h1 className="text-sm font-extrabold text-center uppercase mb-14">
-          {details?.game_status === "ended"
+          {details?.game_status === "ended" || details?.game_status === "FT"
             ? "Full Time"
             : (details?.minute == "45" || details?.minute == "7") &&
               details?.game_moment == "secondhalf"
