@@ -97,11 +97,11 @@ export const LowerThird = () => {
       },
       {
         stat: "scrums won / fed",
-        home: `${getSubEvent(home, "Scrums", "Won")} / ${getStat(
+        home: `${getSubEvent(home, "Scrum", "Won")} / ${getStat(
           home,
           "Scrums"
         )}`,
-        away: `${getSubEvent(away, "Scrums", "Won")} / ${getStat(
+        away: `${getSubEvent(away, "Scrum", "Won")} / ${getStat(
           away,
           "Scrums"
         )}`,
