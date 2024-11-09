@@ -6,16 +6,13 @@ import Spinner from "@/components/spinner/Spinner";
 import FetchFixtureById from "@/lib/data/FetchFixtureById";
 import { SingleFixtureStats, Stats } from "@/lib/types/scores";
 
-// import kawowo from "@/assets/img/kawowo.jpg";
-import nile from "@/assets/img/nile 7s.png";
-import elgon from "@/assets/tournaments/elgon.png";
-import legends from "@/assets/img/sportpesa.jpeg";
 import tisini from "@/assets/img/tisini-logo.png";
-import driftwood from "@/assets/tournaments/Dirftwood.png";
+import leagueLogo from "@/assets/tournaments/rugby.jpeg";
+import { leagues } from "@/lib/constants/site_images";
 import { getStat, getSubEvent } from "@/lib/data/calculations";
 
 const SingleStream = () => {
-  const { fixtureId, streamName } = useParams();
+  const { fixtureId } = useParams();
 
   const { data, isLoading, refetch } = useQuery<SingleFixtureStats, Error>(
     ["footballById", fixtureId],
@@ -25,15 +22,6 @@ const SingleStream = () => {
       refetchOnWindowFocus: true,
     }
   );
-
-  const img =
-    streamName === "kawowo"
-      ? nile
-      : streamName === "elgon"
-      ? elgon
-      : streamName === "legends"
-      ? legends
-      : driftwood;
 
   useEffect(() => {
     if (data?.fixture[0].game_status === "ended") {
@@ -49,6 +37,8 @@ const SingleStream = () => {
   const cards = data?.cards;
   // const fouls = data?.fouls;
   // const highlights = data?.gamedetails;
+
+  const img = leagues[details?.leagueid as string] ?? leagueLogo;
 
   if (isLoading) return <Spinner />;
 

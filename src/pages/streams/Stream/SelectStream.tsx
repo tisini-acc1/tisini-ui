@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
+
 import MainFooter from "@/components/MainFooter";
 import MainHeader from "@/components/MainHeader";
-import { Link } from "react-router-dom";
 
 export const SelectStream = () => {
   return (
@@ -8,9 +9,9 @@ export const SelectStream = () => {
       <MainHeader />
 
       <div className="h-screen p-36 flex flex-col space-y-8 font-bold text-4xl">
-        {/* <button className="bg-blue-600 rounded-lg hover:bg-green-600 p-4">
+        <button className="bg-blue-600 rounded-lg hover:bg-green-600 p-4">
           <Link to={"/streams/live"}>Live</Link>
-        </button> */}
+        </button>
 
         <button className="bg-blue-600 rounded-lg hover:bg-green-600 p-4">
           <Link to={"/streams/elgon"}>Elgon Cup</Link>
