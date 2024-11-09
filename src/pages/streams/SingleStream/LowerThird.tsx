@@ -61,6 +61,11 @@ export const LowerThird = () => {
       getSubEvent(away, "Lineout throw", "Back won") +
       getSubEvent(away, "Lineout throw", "Overthrow Won");
 
+    const hScrumsFed =
+      getSubEvent(home, "Scrum", "Won") + getSubEvent(home, "Scrum", "Lost");
+    const aScrumsFed =
+      getSubEvent(away, "Scrum", "Won") + getSubEvent(away, "Scrum", "Lost");
+
     const statsList = [
       {
         stat: "Tries scored",
@@ -97,14 +102,8 @@ export const LowerThird = () => {
       },
       {
         stat: "scrums won / fed",
-        home: `${getSubEvent(home, "Scrum", "Won")} / ${getStat(
-          home,
-          "Scrums"
-        )}`,
-        away: `${getSubEvent(away, "Scrum", "Won")} / ${getStat(
-          away,
-          "Scrums"
-        )}`,
+        home: `${getSubEvent(home, "Scrum", "Won")} / ${hScrumsFed}`,
+        away: `${getSubEvent(away, "Scrum", "Won")} / ${aScrumsFed}`,
       },
       {
         stat: "lineouts won / thrown",

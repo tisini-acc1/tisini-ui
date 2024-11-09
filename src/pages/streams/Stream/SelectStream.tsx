@@ -8,8 +8,12 @@ export const SelectStream = () => {
       <MainHeader />
 
       <div className="h-screen p-36 flex flex-col space-y-8 font-bold text-4xl">
+        {/* <button className="bg-blue-600 rounded-lg hover:bg-green-600 p-4">
+          <Link to={"/streams/live"}>Live</Link>
+        </button> */}
+
         <button className="bg-blue-600 rounded-lg hover:bg-green-600 p-4">
-          <Link to={"/streams/varsity"}>Varsity Cup</Link>
+          <Link to={"/streams/elgon"}>Elgon Cup</Link>
         </button>
 
         <button className="bg-blue-600 rounded-lg hover:bg-green-600 p-4">

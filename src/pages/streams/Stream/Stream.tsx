@@ -21,8 +21,8 @@ const Stream = () => {
   const league =
     streamName === "kawowo"
       ? "Nile Special 7s"
-      : streamName === "varsity"
-      ? "Varsity Cup"
+      : streamName === "elgon"
+      ? "Elgon Cup"
       : streamName === "legends"
       ? "Legends Cup"
       : "2024 Impala Floodlit";
@@ -30,17 +30,21 @@ const Stream = () => {
   const [fixtures, setFixtures] = useState<Fixture[]>([]);
 
   useEffect(() => {
-    if (data) {
-      const fixs = data.filter(
+    if (data && league) {
+      const filteredFixtures = data.filter(
         (fix) =>
           fix.league === league &&
-          (fix.game_date === "2024-10-26" || fix.game_date === "2024-10-27")
+          ["2024-11-09", "2024-11-10", "2024-11-16", "2024-11-17"].includes(
+            fix.game_date
+          )
       );
 
-      setFixtures(fixs);
-      // setFixtures(data);
+      setFixtures(filteredFixtures);
     }
-  }, [data]);
+  }, [data, league]);
+
+  // console.log(fixtures);
+  // console.log(data);
 
   if (isLoading) return <Spinner />;
 

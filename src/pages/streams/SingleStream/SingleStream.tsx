@@ -8,7 +8,7 @@ import { SingleFixtureStats, Stats } from "@/lib/types/scores";
 
 // import kawowo from "@/assets/img/kawowo.jpg";
 import nile from "@/assets/img/nile 7s.png";
-import varsity from "@/assets/rugby/JKUAT.png";
+import elgon from "@/assets/tournaments/elgon.png";
 import legends from "@/assets/img/sportpesa.jpeg";
 import tisini from "@/assets/img/tisini-logo.png";
 import driftwood from "@/assets/tournaments/Dirftwood.png";
@@ -29,8 +29,8 @@ const SingleStream = () => {
   const img =
     streamName === "kawowo"
       ? nile
-      : streamName === "varsity"
-      ? varsity
+      : streamName === "elgon"
+      ? elgon
       : streamName === "legends"
       ? legends
       : driftwood;
@@ -74,6 +74,11 @@ const SingleStream = () => {
 
   const hScrumsWon = getSubEvent(home, "Scrum", "Won");
   const aScrumsWon = getSubEvent(away, "Scrum", "Won");
+
+  const hScrumsFed =
+    getSubEvent(home, "Scrum", "Won") + getSubEvent(home, "Scrum", "Lost");
+  const aScrumsFed =
+    getSubEvent(away, "Scrum", "Won") + getSubEvent(away, "Scrum", "Lost");
 
   return (
     <main className="pt-16 relative">
@@ -168,9 +173,9 @@ const SingleStream = () => {
         />
 
         <StatRow
-          hStat={`${hScrumsWon} / ${getStat(home, "Scrums")}`}
+          hStat={`${hScrumsWon} / ${hScrumsFed}`}
           title="scrums won / fed"
-          aStat={`${aScrumsWon} / ${getStat(away, "Scrums")}`}
+          aStat={`${aScrumsWon} / ${aScrumsFed}`}
         />
 
         <StatRow
