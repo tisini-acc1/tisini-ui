@@ -14,7 +14,7 @@ export const leagues: { [key: string]: string } = {
   "100": new URL("/src/assets/leagues/Kenya_Cup_logo.png", import.meta.url)
     .href,
   "90": new URL("/src/assets/leagues/Kenya_Cup_logo.png", import.meta.url).href,
-  "31": new URL("/src/assets/leagues/Kenya_Cup_logo.png", import.meta.url).href,
+  "83": new URL("/src/assets/tournaments/elgon.png", import.meta.url).href,
 };
 
 export const teamImages: { [key: string]: string } = {

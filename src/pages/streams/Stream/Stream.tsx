@@ -30,7 +30,10 @@ const Stream = () => {
   const [fixtures, setFixtures] = useState<Fixture[]>([]);
 
   useEffect(() => {
-    if (data && league) {
+    if (streamName === "live") {
+      const fix = (data?.slice(0, 30) || []) as Fixture[];
+      setFixtures(fix);
+    } else if (data && league) {
       const filteredFixtures = data.filter(
         (fix) =>
           fix.league === league &&
@@ -41,7 +44,7 @@ const Stream = () => {
 
       setFixtures(filteredFixtures);
     }
-  }, [data, league]);
+  }, [data, league, streamName]);
 
   // console.log(fixtures);
   // console.log(data);
@@ -52,7 +55,7 @@ const Stream = () => {
     <main>
       <MainHeader />
 
-      <section className="max-w-5xl mx-auto h-screen">
+      <section className="max-w-5xl mx-auto min-h-screen">
         {fixtures.length === 0 ? (
           <div className="h-screen flex items-center justify-center text-3xl">
             No data!
