@@ -4,6 +4,7 @@ import Loader from "@/components/Loader/Loader";
 import React from "react";
 import { tisiniAxios } from "@/lib/api";
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import "./style.css";
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 
@@ -35,6 +36,18 @@ export default function SinglePostpage() {
   return (
     <div className="min-h-[50vh]">
       {loading && <Loader isLoading={loading} />}
+
+      {post && (
+        <Helmet>
+          <title>{post?.article_title}</title>
+          <meta property="og:title" content={post?.article_title?? ""} />
+          <meta property="og:description" content={post?.excerpt?? ""} />
+          <meta property="og:image" content={post?.featured_image_url?? ""} />
+          <meta property="og:url" content={`${window.location.origin}/articles/${post.slug}`} />
+          <meta property="og:site_name" content="Tisini" />
+        </Helmet>
+      )}
+
       <MaxWidthWrapper className=" py-2 flex flex-col gap-2 px-2 max-w-6xl">
         <img
           src={post?.featured_image_url ?? ""}

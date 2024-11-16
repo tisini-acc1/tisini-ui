@@ -54,8 +54,8 @@ export const BlogPage = () => {
     (category) => category.article_category === "Match Recap"
   );
 
-  const lowdown = categoryData.filter(
-    (category) => category.article_category === "Lowdown"
+  const statsRecap = categoryData.filter(
+    (category) => category.article_category === "Stats Recap"
   );
 
   const features = categoryData.filter(
@@ -123,8 +123,8 @@ export const BlogPage = () => {
 
           <div className="flex-1 w-full">
             <CategoryColumn
-              category="Lowdown"
-              articles={lowdown[0].articles as ArticleInterface[]}
+              category="Stats Recap"
+              articles={statsRecap[0].articles as ArticleInterface[]}
             />
           </div>
         </div>
