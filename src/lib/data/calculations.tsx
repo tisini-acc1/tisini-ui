@@ -5,9 +5,25 @@ export const getStat = (arry: Stats, name: string) => {
   return value && !isNaN(parseInt(value)) ? parseInt(value) : 0;
 };
 
-export const getSubEvent = (array: Stats, event: string, subEvent: string) => {
-  const stat = array[event]["sub-event"].filter(
-    (item) => item.subeventname === subEvent
+export const getEvent = (arry: Stats, eventId: string) => {
+  const value = Object.values(arry).filter(
+    (event) => event.event_id === eventId
+  );
+
+  return parseInt(value[0].total);
+};
+
+export const getSubEvent = (
+  array: Stats,
+  eventId: string,
+  subEventId: string
+) => {
+  const event = Object.values(array).filter(
+    (item) => item.event_id === eventId
+  );
+
+  const stat = event[0]["sub-event"].filter(
+    (item) => item.subeventid === subEventId
   );
 
   return parseInt(stat[0].totalsubevent);

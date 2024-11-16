@@ -208,6 +208,9 @@ export const teamImages: { [key: string]: string } = {
   "1711": new URL("/src/assets/uganda/Silverbacks 7s.png", import.meta.url)
     .href,
   "1712": new URL("/src/assets/uganda/Buddu 7s.png", import.meta.url).href,
+  "334": new URL("/src/assets/country/kenya.png", import.meta.url).href,
+  "1803": new URL("/src/assets/country/uganda.png", import.meta.url).href,
+  "1796": new URL("/src/assets/country/uganda.png", import.meta.url).href,
   "1778": new URL("/src/assets/football/IMG-20241020-WA0006.jpg", import.meta.url).href,
   // "": new URL("/", import.meta.url).href,
 };
