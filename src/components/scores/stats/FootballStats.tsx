@@ -5,7 +5,7 @@ import StatsRow from "@/components/scores/singleFixture/StatsRow";
 import StatsHalf from "@/components/scores/singleFixture/StatsHalf";
 import {
   calcBallPosession,
-  getStat,
+  getEvent,
   getSubEvent,
 } from "@/lib/data/calculations";
 
@@ -32,11 +32,9 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
     parseInt(away["Pass"].total) + parseInt(away["Incomplete Pass"].total);
 
   const homeTarget =
-    getSubEvent(home, "Shot In-box", "On Target") +
-    getSubEvent(home, "Shot Out-box", "On Target");
+    getSubEvent(home, "165", "422") + getSubEvent(home, "156", "405");
   const awayTarget =
-    getSubEvent(away, "Shot Out-box", "On Target") +
-    getSubEvent(away, "Shot In-box", "On Target");
+    getSubEvent(away, "156", "405") + getSubEvent(away, "165", "422");
 
   return (
     <div className="flex flex-col space-y-4 ">
@@ -53,8 +51,8 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
       <AccuracyRow
         hComp={homeTarget}
         aComp={awayTarget}
-        hTotal={getStat(home, "Shot In-box") + getStat(home, "Shot Out-box")}
-        aTotal={getStat(away, "Shot In-box") + getStat(away, "Shot Out-box")}
+        hTotal={getEvent(home, "165") + getEvent(home, "156")}
+        aTotal={getEvent(away, "165") + getEvent(away, "156")}
         stat={"Attempts on Target"}
         homeOnly={homeOnly}
         awayOnly={awayOnly}
@@ -62,8 +60,8 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
       />
 
       <AccuracyRow
-        hComp={getStat(home, "Pass")}
-        aComp={getStat(away, "Pass")}
+        hComp={getEvent(home, "7")}
+        aComp={getEvent(away, "7")}
         hTotal={homePasses}
         aTotal={awayPasses}
         stat={"Complete passes"}
@@ -73,18 +71,18 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
       />
 
       <StatsRow
-        homeStat={getStat(home, "Corner")}
+        homeStat={getEvent(home, "3")}
         stat={"Corner kicks"}
-        awayStat={getStat(away, "Corner")}
+        awayStat={getEvent(away, "3")}
         homeOnly={homeOnly}
         awayOnly={awayOnly}
         bothTeams={bothTeams}
       />
 
       <StatsRow
-        homeStat={getStat(home, "Offside")}
+        homeStat={getEvent(home, "10")}
         stat={"Offsides"}
-        awayStat={getStat(away, "Offside")}
+        awayStat={getEvent(away, "10")}
         homeOnly={homeOnly}
         awayOnly={awayOnly}
         bothTeams={bothTeams}

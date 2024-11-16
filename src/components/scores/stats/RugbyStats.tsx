@@ -2,8 +2,8 @@ import { Cards, Stats } from "@/lib/types/scores";
 import AccuracyRow from "../singleFixture/AccuracyRow";
 import PosessionRow from "../singleFixture/PosessionRow";
 import StatsRow from "@/components/scores/singleFixture/StatsRow";
-import { calcRugbyPosession, getStat } from "@/lib/data/calculations";
 import StatsHalf from "@/components/scores/singleFixture/StatsHalf";
+import { calcRugbyPosession, getEvent, getStat } from "@/lib/data/calculations";
 
 type StatsProps = {
   home: Stats;
@@ -29,9 +29,7 @@ const RugbyStats = ({ home, away, cards }: StatsProps) => {
     getStat(away, "Pass") +
     getStat(away, "Incomplete Pass") +
     getStat(away, "Forward pass");
-  console.log(home["Pass"].total);
-  console.log(getStat(home, "Forward pass"));
-  console.log(away["Pass"].total);
+
   return (
     <div className="flex flex-col space-y-6 ">
       <StatsHalf />
@@ -45,17 +43,17 @@ const RugbyStats = ({ home, away, cards }: StatsProps) => {
       )}
 
       <StatsRow
-        homeStat={getStat(home, "Carries")}
+        homeStat={getEvent(home, "44")}
         stat={"Carries"}
-        awayStat={getStat(away, "Carries")}
+        awayStat={getEvent(away, "44")}
         homeOnly={homeOnly}
         awayOnly={awayOnly}
         bothTeams={bothTeams}
       />
 
       <AccuracyRow
-        hComp={getStat(home, "Pass")}
-        aComp={getStat(away, "Pass")}
+        hComp={getEvent(home, "91")}
+        aComp={getEvent(away, "91")}
         hTotal={homePasses}
         aTotal={awayPasses}
         stat={"Complete passes"}
@@ -65,10 +63,10 @@ const RugbyStats = ({ home, away, cards }: StatsProps) => {
       />
 
       <AccuracyRow
-        hComp={getStat(home, "Tackles")}
-        aComp={getStat(away, "Tackles")}
-        hTotal={getStat(home, "Missed tackles") + getStat(home, "Tackles")}
-        aTotal={getStat(away, "Missed tackles") + getStat(away, "Tackles")}
+        hComp={getEvent(home, "42")}
+        aComp={getEvent(away, "42")}
+        hTotal={getEvent(home, "43") + getEvent(home, "42")}
+        aTotal={getEvent(away, "43") + getEvent(away, "42")}
         stat={"Successful tackles"}
         homeOnly={homeOnly}
         awayOnly={awayOnly}
@@ -76,9 +74,9 @@ const RugbyStats = ({ home, away, cards }: StatsProps) => {
       />
 
       <StatsRow
-        homeStat={getStat(home, "Penalties conceded")}
+        homeStat={getEvent(home, "46")}
         stat={"Penalties conceded"}
-        awayStat={getStat(away, "Penalties conceded")}
+        awayStat={getEvent(away, "46")}
         homeOnly={homeOnly}
         awayOnly={awayOnly}
         bothTeams={bothTeams}
