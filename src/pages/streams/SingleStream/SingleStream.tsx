@@ -65,7 +65,7 @@ const SingleStream = () => {
   const hScrumsWon = getSubEvent(home, "51", "38");
   const aScrumsWon = getSubEvent(away, "51", "38");
 
-  // scrum won + lost
+  // scrum fed = won + lost
   const hScrumsFed = hScrumsWon + getSubEvent(home, "51", "39");
   const aScrumsFed = aScrumsWon + getSubEvent(away, "51", "39");
 
