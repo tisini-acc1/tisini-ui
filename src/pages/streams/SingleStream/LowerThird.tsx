@@ -9,7 +9,7 @@ import { SingleFixtureStats, Stats } from "@/lib/types/scores";
 // import kawowo from "@/assets/img/kawowo.jpg";
 import tisini from "@/assets/img/tisini-logo.png";
 // import league from "@/assets/img/nile-special.png";
-import { getStat, getSubEvent } from "@/lib/data/calculations";
+import { getEvent, getStat, getSubEvent } from "@/lib/data/calculations";
 
 interface Stat {
   stat: string;
@@ -51,69 +51,72 @@ export const LowerThird = () => {
     const cards = data.cards;
 
     const hLineoutsWon =
-      getSubEvent(home, "Lineout throw", "Front won") +
-      getSubEvent(home, "Lineout throw", "Middle won") +
-      getSubEvent(home, "Lineout throw", "Back won") +
-      getSubEvent(home, "Lineout throw", "Overthrow Won");
+      getSubEvent(home, "151", "377") +
+      getSubEvent(home, "151", "378") +
+      getSubEvent(home, "151", "379") +
+      getSubEvent(home, "151", "391");
     const aLineoutsWon =
-      getSubEvent(away, "Lineout throw", "Front won") +
-      getSubEvent(away, "Lineout throw", "Middle won") +
-      getSubEvent(away, "Lineout throw", "Back won") +
-      getSubEvent(away, "Lineout throw", "Overthrow Won");
+      getSubEvent(away, "151", "377") +
+      getSubEvent(away, "151", "378") +
+      getSubEvent(away, "151", "379") +
+      getSubEvent(away, "151", "391");
 
+    // scrum won + lost
     const hScrumsFed =
-      getSubEvent(home, "Scrum", "Won") + getSubEvent(home, "Scrum", "Lost");
+      getSubEvent(home, "51", "38") + getSubEvent(home, "51", "39");
     const aScrumsFed =
-      getSubEvent(away, "Scrum", "Won") + getSubEvent(away, "Scrum", "Lost");
+      getSubEvent(away, "51", "38") + getSubEvent(away, "51", "39");
 
     const statsList = [
       {
         stat: "Tries scored",
-        home: getSubEvent(home, "Score", "Try"),
-        away: getSubEvent(away, "Score", "Try"),
+        home: getSubEvent(home, "49", "66"),
+        away: getSubEvent(away, "49", "66"),
       },
       {
         stat: "successful conversions",
-        home: getSubEvent(home, "Score", "Successful Conversion"),
-        away: getSubEvent(away, "Score", "Successful Conversion"),
+        home: getSubEvent(home, "49", "60"),
+        away: getSubEvent(away, "49", "60"),
       },
       {
         stat: "Visit in opponents 22",
-        home: getStat(home, "Visit in opponents 22"),
-        away: getStat(away, "Visit in opponents 22"),
+        home: getEvent(home, "104"),
+        away: getEvent(away, "104"),
       },
       {
         stat: "Penalties conceded",
-        home: getStat(home, "Penalties conceded"),
-        away: getStat(away, "Penalties conceded"),
+        home: getEvent(home, "46"),
+        away: getEvent(away, "46"),
       },
       {
         stat: "Handling Errors",
         home:
-          getStat(home, "Lost ball in carry") +
+          getEvent(home, "103") +
           getStat(home, "Knock ons") +
-          getStat(home, "Forward passes") +
-          getStat(home, "Incomplete Pass"),
+          getEvent(home, "41") +
+          getEvent(home, "40") +
+          getEvent(home, "87"),
         away:
-          getStat(away, "Lost ball in carry") +
+          getEvent(away, "103") +
           getStat(away, "Knock ons") +
-          getStat(away, "Forward passes") +
-          getStat(away, "Incomplete Pass"),
+          getEvent(away, "41") +
+          getEvent(away, "40") +
+          getEvent(away, "87"),
       },
       {
         stat: "scrums won / fed",
-        home: `${getSubEvent(home, "Scrum", "Won")} / ${hScrumsFed}`,
-        away: `${getSubEvent(away, "Scrum", "Won")} / ${aScrumsFed}`,
+        home: `${getSubEvent(home, "51", "38")} / ${hScrumsFed}`,
+        away: `${getSubEvent(away, "51", "38")} / ${aScrumsFed}`,
       },
       {
         stat: "lineouts won / thrown",
-        home: `${hLineoutsWon} / ${getStat(home, "Lineout throw")}`,
-        away: `${aLineoutsWon} / ${getStat(away, "Lineout throw")}`,
+        home: `${hLineoutsWon} / ${getEvent(home, "151")}`,
+        away: `${aLineoutsWon} / ${getEvent(away, "151")}`,
       },
       {
         stat: "Turnovers Won",
-        home: getStat(home, "Turn overs"),
-        away: getStat(away, "Turn overs"),
+        home: getEvent(home, "45"),
+        away: getEvent(away, "45"),
       },
 
       // {

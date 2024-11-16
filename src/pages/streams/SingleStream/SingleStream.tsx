@@ -9,7 +9,7 @@ import { SingleFixtureStats, Stats } from "@/lib/types/scores";
 import tisini from "@/assets/img/tisini-logo.png";
 import leagueLogo from "@/assets/tournaments/rugby.jpeg";
 import { leagues } from "@/lib/constants/site_images";
-import { getStat, getSubEvent } from "@/lib/data/calculations";
+import { getEvent, getStat, getSubEvent } from "@/lib/data/calculations";
 
 const SingleStream = () => {
   const { fixtureId } = useParams();
@@ -52,23 +52,22 @@ const SingleStream = () => {
   // const aPosseession = Math.round((aPasses / totalPasses) * 100);
 
   const hLineoutsWon =
-    getSubEvent(home, "Lineout throw", "Front won") +
-    getSubEvent(home, "Lineout throw", "Middle won") +
-    getSubEvent(home, "Lineout throw", "Back won") +
-    getSubEvent(home, "Lineout throw", "Overthrow Won");
+    getSubEvent(home, "151", "377") +
+    getSubEvent(home, "151", "378") +
+    getSubEvent(home, "151", "379") +
+    getSubEvent(home, "151", "391");
   const aLineoutsWon =
-    getSubEvent(away, "Lineout throw", "Front won") +
-    getSubEvent(away, "Lineout throw", "Middle won") +
-    getSubEvent(away, "Lineout throw", "Back won") +
-    getSubEvent(away, "Lineout throw", "Overthrow Won");
+    getSubEvent(away, "151", "377") +
+    getSubEvent(away, "151", "378") +
+    getSubEvent(away, "151", "379") +
+    getSubEvent(away, "151", "391");
 
-  const hScrumsWon = getSubEvent(home, "Scrum", "Won");
-  const aScrumsWon = getSubEvent(away, "Scrum", "Won");
+  const hScrumsWon = getSubEvent(home, "51", "38");
+  const aScrumsWon = getSubEvent(away, "51", "38");
 
-  const hScrumsFed =
-    getSubEvent(home, "Scrum", "Won") + getSubEvent(home, "Scrum", "Lost");
-  const aScrumsFed =
-    getSubEvent(away, "Scrum", "Won") + getSubEvent(away, "Scrum", "Lost");
+  // scrum won + lost
+  const hScrumsFed = hScrumsWon + getSubEvent(home, "51", "39");
+  const aScrumsFed = aScrumsWon + getSubEvent(away, "51", "39");
 
   return (
     <main className="pt-16 relative">
@@ -121,44 +120,44 @@ const SingleStream = () => {
         /> */}
 
         <StatRow
-          hStat={getSubEvent(home, "Score", "Try")}
+          hStat={getSubEvent(home, "49", "66")}
           title="Tries scored"
-          aStat={getSubEvent(away, "Score", "Try")}
+          aStat={getSubEvent(away, "49", "66")}
         />
 
         <StatRow
-          hStat={getSubEvent(home, "Score", "Successful Conversion")}
+          hStat={getSubEvent(home, "49", "60")}
           title="successful conversions"
-          aStat={getSubEvent(away, "Score", "Successful Conversion")}
+          aStat={getSubEvent(away, "49", "60")}
         />
 
         <StatRow
-          hStat={getStat(home, "Visit in opponents 22")}
+          hStat={getEvent(home, "104")}
           title="visit in opponents 22"
-          aStat={getStat(away, "Visit in opponents 22")}
+          aStat={getEvent(away, "104")}
         />
 
         <StatRow
-          hStat={getStat(home, "Penalties conceded")}
+          hStat={getEvent(home, "46")}
           title="penalties conceded"
-          aStat={getStat(away, "Penalties conceded")}
+          aStat={getEvent(away, "46")}
         />
 
         <StatRow
           hStat={
-            getStat(home, "Lost ball in carry") +
+            getEvent(home, "103") +
             getStat(home, "Knock ons") +
-            getStat(home, "Knock on") +
-            getStat(home, "Forward passes") +
-            getStat(home, "Incomplete Pass")
+            getEvent(home, "41") +
+            getEvent(home, "40") +
+            getEvent(home, "87")
           }
           title="handling errors"
           aStat={
-            getStat(away, "Lost ball in carry") +
+            getEvent(away, "103") +
             getStat(away, "Knock ons") +
-            getStat(away, "Knock on") +
-            getStat(away, "Forward passes") +
-            getStat(away, "Incomplete Pass")
+            getEvent(away, "41") +
+            getEvent(away, "40") +
+            getEvent(away, "87")
           }
         />
 
@@ -169,15 +168,15 @@ const SingleStream = () => {
         />
 
         <StatRow
-          hStat={`${hLineoutsWon} / ${getStat(home, "Lineout throw")}`}
+          hStat={`${hLineoutsWon} / ${getEvent(home, "151")}`}
           title="lineouts won / thrown"
-          aStat={`${aLineoutsWon} / ${getStat(away, "Lineout throw")}`}
+          aStat={`${aLineoutsWon} / ${getEvent(away, "151")}`}
         />
 
         <StatRow
-          hStat={getStat(home, "Turn overs")}
+          hStat={getEvent(home, "45")}
           title="turnovers won"
-          aStat={getStat(away, "Turn overs")}
+          aStat={getEvent(away, "45")}
         />
 
         {cards && (cards.Homeyellow >= 1 || cards.Awayyellow >= 1) && (
