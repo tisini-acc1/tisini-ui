@@ -1,21 +1,14 @@
-import { ToastContainer } from "react-toastify";
-
 import { cn } from "@/lib/cn";
+import React, { useState } from "react";
 import { privateAxios } from "@/lib/api";
 import { useAppSelector } from "@/store/hooks";
+import { ToastContainer } from "react-toastify";
 import MainFooter from "@/components/MainFooter";
 import MainHeader from "@/components/MainHeader";
-import React, { Fragment, useState } from "react";
 import { Transaction } from "../Profile/ProfilePage";
-import {
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  Transition,
-  TransitionChild,
-} from "@headlessui/react";
-import WithdrawForm from "./WithdrawForm";
-import DepositForm from "./DepositForm";
+
+import DepositDialog from "./DepositDialog";
+import WithdrawDialog from "./WithdrawDialog";
 
 type CreditScoreType = {
   id: number;
@@ -220,94 +213,17 @@ export default function WalletPage() {
               )}
             </div>
           </div>
-          <Transition appear show={isWithDrawOpen} as={Fragment}>
-            <Dialog
-              as="div"
-              className="relative z-[600000]"
-              onClose={() => setIsWithdrawOpen(false)}
-            >
-              <TransitionChild
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm" />
-              </TransitionChild>
 
-              <div className="fixed inset-0 overflow-y-auto">
-                <div className="flex items-center justify-center min-h-full p-4 text-center">
-                  <TransitionChild
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                  >
-                    <DialogPanel className="w-full min-h-[20rem] max-w-xl p-4 md:p-10 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                      <DialogTitle
-                        as="h3"
-                        className="text-lg font-medium leading-6 text-gray-900"
-                      >
-                        Withdraw amount
-                      </DialogTitle>
-                      <WithdrawForm setIsWithdrawOpen={setIsWithdrawOpen} />
-                    </DialogPanel>
-                  </TransitionChild>
-                </div>
-              </div>
-            </Dialog>
-          </Transition>
+          <WithdrawDialog
+            isWithDrawOpen={isWithDrawOpen}
+            setIsWithdrawOpen={setIsWithdrawOpen}
+          />
 
-          <Transition appear show={isDepositOpen} as={Fragment}>
-            <Dialog
-              as="div"
-              className="relative z-[600000]"
-              onClose={() => setIsDepositOpen(false)}
-            >
-              <TransitionChild
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm" />
-              </TransitionChild>
-
-              <div className="fixed inset-0 overflow-y-auto">
-                <div className="flex items-center justify-center min-h-full p-4 text-center">
-                  <TransitionChild
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                  >
-                    <DialogPanel className="w-full min-h-[20rem] max-w-xl p-4 md:p-10 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                      <DialogTitle
-                        as="h3"
-                        className="text-lg font-medium leading-6 text-gray-900"
-                      >
-                        Deposit
-                      </DialogTitle>
-
-                      <DepositForm setIsDepositOpen={setIsDepositOpen} />
-                    </DialogPanel>
-                  </TransitionChild>
-                </div>
-              </div>
-            </Dialog>
-          </Transition>
+          <DepositDialog
+            isDepositOpen={isDepositOpen}
+            setIsDepositOpen={setIsDepositOpen}
+            amnt={0}
+          />
         </div>
       </div>
       <MainFooter />
