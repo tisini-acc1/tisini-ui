@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
@@ -17,9 +17,9 @@ import TisiniValidator from "@/lib/validators/tisini";
 
 type Props = {
   isDepositOpen: boolean;
-  setIsDepositOpen: (x: boolean) => void;
-  amnt: number;
+  amnt?: number;
   phn?: string;
+  setIsDepositOpen: (x: boolean) => void;
 };
 
 const schema = yup
@@ -54,10 +54,18 @@ const DepositDialog = ({
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      phone: phn ? phn : "",
-      amount: amnt ? String(amnt) : "",
+      phone: phn || "",
+      amount: amnt ? amnt.toString() : "0",
     },
   });
+
+  useEffect(() => {
+    // Reset the form whenever `amnt` or `phn` changes
+    reset({
+      phone: phn || "",
+      amount: amnt ? amnt.toString() : "0", // Convert to string if it's a number
+    });
+  }, [amnt, phn, reset]); // Dependencies: amnt and phn
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -69,8 +77,9 @@ const DepositDialog = ({
       ).data;
 
       if (response.detail === "Deposit successful") {
-        toast.success("Enter your mpesa pin when prompted on your phone");
         reset({ amount: "", phone: "" });
+        setIsDepositOpen(false);
+        toast.success("Enter your mpesa pin when prompted on your phone");
       } else {
         toast.error(response.detail);
       }
@@ -79,9 +88,6 @@ const DepositDialog = ({
         // eslint-disable-next-line no-unsafe-optional-chaining, @typescript-eslint/no-unsafe-member-access
         toast.error((error.response?.data).detail);
       }
-    } finally {
-      // setIsLoading(false);
-      setIsDepositOpen(false);
     }
   });
 
