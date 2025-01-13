@@ -6,14 +6,13 @@ import { LucideChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export interface Transaction {
-  BusinessShortCode: string;
-  FirstName: string;
-  MSISDN: string;
-  TimeStamp: string;
-  TransAmount: string;
-  TransID: string;
-  TransactionType: string;
-  used: string;
+  id: string;
+  date_created: string;
+  description: string;
+  debit_amount: string;
+  credit_amount: string;
+  payment_date: string;
+  name: string;
 }
 
 function ProfilePage() {
