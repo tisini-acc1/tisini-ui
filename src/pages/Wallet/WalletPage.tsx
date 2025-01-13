@@ -168,40 +168,40 @@ export default function WalletPage() {
                         <thead className="whitespace-nowrap">
                           <tr>
                             {/* <th className="px-4 py-2 border-b">Business Short Code</th> */}
-                            <th className="px-4 py-2 border-b">First Name</th>
-                            <th className="px-4 py-2 border-b">MSISDN</th>
-                            <th className="px-4 py-2 border-b">TimeStamp</th>
-                            <th className="px-4 py-2 border-b">Trans Amount</th>
                             <th className="px-4 py-2 border-b">Trans ID</th>
+                            <th className="px-4 py-2 border-b">Date Created</th>
+                            <th className="px-4 py-2 border-b">Description</th>
+                            <th className="px-4 py-2 border-b">Debit Amount</th>
+                            <th className="px-4 py-2 border-b">Credit Amount</th>
                             {/* <th className="px-4 py-2 border-b">Transaction Type</th> */}
-                            <th className="px-4 py-2 border-b">Used</th>
+                            <th className="px-4 py-2 border-b">Transaction Name</th>
                           </tr>
                         </thead>
                         <tbody>
                           {userTransactions.map((transaction) => (
                             <tr
-                              key={transaction.TransID}
+                              key={transaction.id}
                               className="hover:bg-gray-100 "
                             >
                               {/* <td className="px-4 py-2 border-b">{transaction.BusinessShortCode}</td> */}
                               <td className="px-4 py-2 border-b whitespace-nowrap">
-                                {transaction.FirstName}
+                                {transaction.date_created}
                               </td>
                               <td className="px-4 py-2 border-b whitespace-nowrap">
-                                {transaction.MSISDN}
+                                {transaction.description}
                               </td>
                               <td className="px-4 py-2 border-b whitespace-nowrap">
-                                {transaction.TimeStamp}
+                                {transaction.debit_amount}
                               </td>
                               <td className="px-4 py-2 border-b whitespace-nowrap">
-                                {transaction.TransAmount}
+                                {transaction.credit_amount}
                               </td>
                               <td className="px-4 py-2 border-b whitespace-nowrap">
-                                {transaction.TransID}
+                                {transaction.payment_date}
                               </td>
                               {/* <td className="px-4 py-2 border-b whitespace-nowrap">{transaction.TransactionType}</td> */}
                               <td className="px-4 py-2 border-b whitespace-nowrap">
-                                {transaction.used}
+                                {transaction.name}
                               </td>
                             </tr>
                           ))}
