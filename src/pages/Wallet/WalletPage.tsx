@@ -173,7 +173,7 @@ export default function WalletPage() {
                             <th className="px-4 py-2 border-b">Description</th>
                             <th className="px-4 py-2 border-b">Debit Amount</th>
                             <th className="px-4 py-2 border-b">Credit Amount</th>
-                            {/* <th className="px-4 py-2 border-b">Transaction Type</th> */}
+                            <th className="px-4 py-2 border-b">Payment Date</th>
                             <th className="px-4 py-2 border-b">Transaction Name</th>
                           </tr>
                         </thead>
@@ -183,7 +183,7 @@ export default function WalletPage() {
                               key={transaction.id}
                               className="hover:bg-gray-100 "
                             >
-                              {/* <td className="px-4 py-2 border-b">{transaction.BusinessShortCode}</td> */}
+                              <td className="px-4 py-2 border-b whitespace-nowrap">{transaction.id}</td>
                               <td className="px-4 py-2 border-b whitespace-nowrap">
                                 {transaction.date_created}
                               </td>
