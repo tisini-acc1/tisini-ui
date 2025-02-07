@@ -55,7 +55,11 @@ const FixtureHeader = ({ teamDetails, scores }: HeaderProps) => {
         <div className="flex flex-col items-center space-y-1 w-2/5">
           <div className="flex items-center justify-center">
             <div className="flex items-center justify-center h-14 w-14 p-1 bg-gray-200 rounded-full">
-              <img src={homeLogo} alt="" height="50em" width="50em" />
+              <img
+                className="w-full h-full object-contain"
+                src={homeLogo}
+                alt="home logo"
+              />
             </div>
           </div>
 
@@ -99,7 +103,11 @@ const FixtureHeader = ({ teamDetails, scores }: HeaderProps) => {
         <div className="flex flex-col items-center space-y-1 w-2/5">
           <div className="flex items-center justify-center">
             <div className="flex items-center justify-center h-14 w-14 p-1 bg-gray-200 rounded-full">
-              <img src={awayLogo} alt="" height="50em" width="50em" />
+              <img
+                className="w-full h-full object-contain"
+                src={awayLogo}
+                alt="away logo"
+              />
             </div>
           </div>
 

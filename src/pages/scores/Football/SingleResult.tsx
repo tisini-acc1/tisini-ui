@@ -29,7 +29,11 @@ const SingleResult = ({ fixture }: { fixture: Fixture }) => {
     >
       <div className="grid grid-cols-12 gap-2 text-sm font-semibold">
         <div className="col-span-5 flex gap-1 lg:flex-col flex-row-reverse lg:justify-center items-center">
-          <img className="w-10 h-10 " src={homeLogo} alt="" />
+          <img
+            className="max-w-10 max-h-10 w-auto h-auto"
+            src={homeLogo}
+            alt=""
+          />
           <div className=" text-gray-450 text-right">{fixture.team1_name}</div>
         </div>
 
@@ -69,7 +73,11 @@ const SingleResult = ({ fixture }: { fixture: Fixture }) => {
         </div>
 
         <div className="col-span-5 flex gap-1 lg:flex-col flex-row lg:justify-center items-center">
-          <img className="w-10 h-10" src={awayLogo} alt="" />
+          <img
+            className="max-w-10 max-h-10 w-auto h-auto"
+            src={awayLogo}
+            alt=""
+          />
           <div>{fixture.team2_name}</div>
         </div>
       </div>
