@@ -216,10 +216,10 @@ export const teamImages: { [key: string]: string } = {
     "/src/assets/football/IMG-20250201-WA0002.jpg",
     import.meta.url
   ).href,
-  "72": new URL("/src/assets/football/IMG-20241020-WA0006.jpg", import.meta.url)
+  "72": new URL("/src/assets/football/IMG-20250201-WA0002.jpg", import.meta.url)
     .href,
   "1778": new URL(
-    "/src/assets/football/IMG-20241020-WA0006.jpg",
+    "/src/assets/football/IMG-20250201-WA0002.jpg",
     import.meta.url
   ).href,
   "1879": new URL("/src/assets/football/Us Acli.jpeg", import.meta.url).href,
