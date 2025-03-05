@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 
 import Dates from "../Football/Dates";
-import Spinner from "@/components/spinner/Spinner";
+import FixtureLoader from "../FixtureLoader";
 import SingleResult from "../Football/SingleResult";
 import { Fixture, FixturesArray } from "@/lib/types/scores";
 import GroupBallFixtures from "@/lib/data/GroupBallFixtures";
@@ -40,7 +40,7 @@ const BasketBall = () => {
     }
   }, [basketballFixs, filterDate]);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <FixtureLoader />;
 
   return (
     <div className="flex ">

@@ -5,8 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import FixtureStats from "./FixtureStats";
 import FixtureHeader from "./FixtureHeader";
 import FixtureLineups from "./FixtureLineups";
+import FixStatsLoader from "../FixStatsLoader";
 import FixtureOverview from "./FixtureOverview";
-import Spinner from "@/components/spinner/Spinner";
 import FetchFixtureById from "@/lib/data/FetchFixtureById";
 import {
   Cards,
@@ -61,7 +61,7 @@ const SingleFixture = () => {
   ];
 
   if (isLoading) {
-    return <Spinner />;
+    return <FixStatsLoader />;
   }
 
   return (

@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import Dates from "./Dates";
 import SingleResult from "./SingleResult";
-import Spinner from "@/components/spinner/Spinner";
+import FixtureLoader from "../FixtureLoader";
 import { Fixture, FixturesArray } from "@/lib/types/scores";
 import GroupBallFixtures from "../../../lib/data/GroupBallFixtures";
 import fetchFootballFixtures from "../../../lib/data/FetchFootballFixtures";
@@ -51,7 +51,7 @@ const Football = () => {
     fetchDayFixtures();
   }, [filterDate, ballFixtures]);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <FixtureLoader />;
 
   // if (isError) return <h2>{error.message}</h2>;
 
