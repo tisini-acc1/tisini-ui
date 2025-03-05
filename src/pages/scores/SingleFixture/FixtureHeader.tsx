@@ -32,7 +32,8 @@ const FixtureHeader = ({ teamDetails, scores }: HeaderProps) => {
       <div className="flex justify-between gap-2 border-b border-black p-1">
         <div className="flex items-center rounded-md bg-gray-300 w">
           <div className="text-gray-800 font-bold text-xs py-1 px-2 md:text-lg whitespace-nowrap text-ellipsis">
-            {teams.fixture_type === "football"
+            {teams.fixture_type === "football" ||
+            teams.fixture_type === "basketball"
               ? `Round: ${teams["matchday"]}`
               : `${teams.matchday}`}
           </div>

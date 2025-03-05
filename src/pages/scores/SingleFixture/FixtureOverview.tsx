@@ -1,5 +1,6 @@
-import { FixtureDetails, GameHighlights } from "@/lib/types/scores";
 import { MdOutlineSportsSoccer } from "react-icons/md";
+
+import { FixtureDetails, GameHighlights } from "@/lib/types/scores";
 
 type OverviewProps = {
   teams: FixtureDetails;
@@ -7,7 +8,15 @@ type OverviewProps = {
 };
 
 const FixtureOverview = ({ teams, highlights }: OverviewProps) => {
-  const penalties = highlights.filter(
+  if (highlights === null) {
+    return (
+      <div className="h-[400px] flex items-center justify-center text-2xl">
+        No Data!
+      </div>
+    );
+  }
+
+  const penalties = highlights?.filter(
     (highlight) => highlight.event_name === "PM Penalties"
   );
 
