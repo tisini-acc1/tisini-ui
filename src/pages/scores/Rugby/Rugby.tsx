@@ -4,9 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import Dates from "../Football/Dates";
 import Spinner from "@/components/spinner/Spinner";
 import SingleResult from "../Football/SingleResult";
+import GroupFixtures from "@/lib/data/GroupRugbyFixtures";
 import { Fixture, FixturesArray } from "@/lib/types/scores";
 import FetchRugbyFixtures from "@/lib/data/FetchRugbyFixtures";
-import GroupRubgyFixtures from "@/lib/data/GroupRugbyFixtures";
 
 const Rugby = () => {
   const { isLoading, data } = useQuery<Fixture[], Error>(
@@ -17,7 +17,7 @@ const Rugby = () => {
   const rugbyFixtures = useMemo(() => {
     if (!data) return {};
 
-    const fixtures = GroupRubgyFixtures(data);
+    const fixtures = GroupFixtures(data);
     return data ? fixtures : {};
   }, [data]);
 
