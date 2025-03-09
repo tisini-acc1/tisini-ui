@@ -226,6 +226,6 @@ export const teamImages: { [key: string]: string } = {
   "939": new URL("/src/assets/football/crown.jpeg", import.meta.url).href,
   "91": new URL("/src/assets/football/imara.png", import.meta.url).href,
   "1917": new URL("/src/assets/football/lifestyle.png", import.meta.url).href,
-  // "": new URL("/", import.meta.url).href,
+  "1929": new URL("/src/assests/pelicojam.png", import.meta.url).href,
   // "": new URL("/", import.meta.url).href,
 };
