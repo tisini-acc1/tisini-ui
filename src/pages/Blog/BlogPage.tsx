@@ -19,7 +19,7 @@ export const BlogPage = () => {
     ArticleInterface[],
     Error
   >(["All Articles"], FetchAllArticles);
-
+  
   const { data: featuredData, isLoading: featuredLoading } =
     useQuery<ArticleInterface>(["Featured Article"], FetchFeaturedArticle);
 

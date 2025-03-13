@@ -6,8 +6,7 @@ const FetchAllArticles = async () => {
   //    await axios.get<ArticleInterface[]>(
   //     `https://apis.tisini.co.ke/apiagent7.php?event=${fixtureId}`
   //   );
-
-  return res.data.results;
+  return res.data;
 };
 
 export default FetchAllArticles;
