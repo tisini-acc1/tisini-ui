@@ -47,6 +47,10 @@ export const BlogPage = () => {
     return <HomePageLoadingComponent />;
   }
 
+  if (!data) {
+    return <div>No Data found!</div>;
+  }
+
   if (isError) {
     return <BaseErrorPage />;
   }
