@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
 
 import CategoryHeader from "./CategoryHeader";
-import { ArticleInterface } from "@/lib/types";
+import { ArticleInterface, CategoryArticle } from "@/lib/types";
 import { formatDate } from "@/lib/data/formatDate";
 
 type GridProps = {
-  articles: ArticleInterface[];
-  category: string;
+  categoryArticles: CategoryArticle;
 };
 
-const CategoryGrid = ({ articles, category }: GridProps) => {
+const CategoryGrid = ({ categoryArticles }: GridProps) => {
+  const articles = categoryArticles.articles;
+
   return (
     <div className="w-full">
-      <CategoryHeader category={category} />
+      <CategoryHeader category={categoryArticles.category} />
 
       <div className="mb-5 w-full h-48 overflow-hidden relative">
         <Link to={`/articles/${articles[0].slug}`}>

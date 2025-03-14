@@ -82,6 +82,17 @@ export type CategoriesWithPostType = {
   articles: ArticleInterface[];
 };
 
+export interface CategoryArticle {
+  category: string;
+  articles: ArticleInterface[];
+}
+
+export interface OverviewArticles {
+  category_articles: CategoryArticle[];
+  featured_article: ArticleInterface;
+  recent_articles: ArticleInterface[];
+}
+
 export interface AnswerInterface {
   is_correct: any;
   uid: string; //UID

@@ -1,66 +1,59 @@
+import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import MainHeader from "@/components/MainHeader";
+import { useQuery } from "@tanstack/react-query";
 
-import { ArticleInterface, CategoriesWithPostType } from "@/lib/types";
 import FeaturedSection from "./FeaturedSection";
 import MainFooter from "@/components/MainFooter";
+import MainHeader from "@/components/MainHeader";
 import CategoryGrid from "@/components/articles/CategoryGrid";
 import SocialsWidget from "@/components/articles/SocialCategory";
 import CategoryColumn from "@/components/articles/CategoryColumn";
 import HomePageLoadingComponent from "../Homepage/HomePageLoadingComponent";
-import { useQuery } from "@tanstack/react-query";
-import FetchAllArticles from "@/lib/data/articles/FetchAllArticles";
-import FetchFeaturedArticle from "@/lib/data/articles/FetchFeaturedArticle";
-import FetchCategoryArticles from "@/lib/data/articles/FetchCategoryArticles";
-import { Link } from "react-router-dom";
+import FetchOverviewArticles from "@/lib/data/articles/FetchOverviewArticles";
+import {
+  ArticleInterface,
+  CategoryArticle,
+  OverviewArticles,
+} from "@/lib/types";
+import BaseErrorPage from "@/components/errors/BaseErrorPage";
 
 export const BlogPage = () => {
-  const { data: articlesData, isLoading: articlesLoading } = useQuery<
-    ArticleInterface[],
-    Error
-  >(["All Articles"], FetchAllArticles);
-  
-  const { data: featuredData, isLoading: featuredLoading } =
-    useQuery<ArticleInterface>(["Featured Article"], FetchFeaturedArticle);
+  const { data, isLoading, isError } = useQuery<OverviewArticles, Error>(
+    ["overview articles"],
+    FetchOverviewArticles
+  );
 
-  const { data: categoryData, isLoading: categoryLoading } = useQuery<
-    CategoriesWithPostType[]
-  >(["Category Articles"], FetchCategoryArticles);
+  const footballCategory = data?.category_articles.filter(
+    (category) => category.category === "Football"
+  )[0];
 
-  // Combine loading states
-  const isLoading = categoryLoading || articlesLoading || featuredLoading;
+  const rugbyCategory = data?.category_articles.filter(
+    (category) => category.category === "Rugby"
+  )[0];
+
+  const matchRecaps = data?.category_articles.filter(
+    (category) => category.category === "Match Recap"
+  )[0];
+
+  const statsRecap = data?.category_articles.filter(
+    (category) => category.category === "Stats Recap"
+  )[0];
+
+  const features = data?.category_articles.filter(
+    (category) => category.category === "Features"
+  )[0];
 
   if (isLoading) {
     return <HomePageLoadingComponent />;
   }
 
-  if (!articlesData || !categoryData || !featuredData) {
-    return <div>"No football articles"</div>;
+  if (!data) {
+    return <div>No Data found!</div>;
   }
 
-  const recentArticles = articlesData.filter(
-    (category) => category.is_featured === false
-  );
-
-  const footballCategory = categoryData.filter(
-    (category) => category.article_category === "Football"
-  );
-
-  const rugbyCategory = categoryData.filter(
-    (category) => category.article_category === "Rugby"
-  );
-
-  const matchRecaps = categoryData.filter(
-    (category) => category.article_category === "Match Recap"
-  );
-
-  const statsRecap = categoryData.filter(
-    (category) => category.article_category === "Stats Recap"
-  );
-
-  const features = categoryData.filter(
-    (category) => category.article_category === "Features"
-  );
+  if (isError) {
+    return <BaseErrorPage />;
+  }
 
   return (
     <main className="container mx-auto">
@@ -69,8 +62,8 @@ export const BlogPage = () => {
 
       {/* Hero Section */}
       <FeaturedSection
-        article={featuredData as ArticleInterface}
-        recentPosts={recentArticles}
+        article={data?.featured_article as ArticleInterface}
+        recentPosts={data?.recent_articles as ArticleInterface[]}
       />
 
       {/* <div className="mx-auto my-3 md:hidden">
@@ -82,15 +75,13 @@ export const BlogPage = () => {
         <div className="flex flex-col md:flex-row gap-6">
           <div className="flex-[4] w-full">
             <CategoryGrid
-              category="Football"
-              articles={footballCategory[0].articles as ArticleInterface[]}
+              categoryArticles={footballCategory as CategoryArticle}
             />
           </div>
 
           <div className="flex-[4] w-full">
             <CategoryColumn
-              category="Rugby"
-              articles={rugbyCategory[0].articles as ArticleInterface[]}
+              categoryArticles={rugbyCategory as CategoryArticle}
             />
           </div>
 
@@ -108,24 +99,15 @@ export const BlogPage = () => {
       <section className="p-7 ">
         <div className="flex flex-col md:flex-row gap-6">
           <div className="flex-1 w-full">
-            <CategoryColumn
-              category="Match Recap"
-              articles={matchRecaps[0].articles as ArticleInterface[]}
-            />
+            <CategoryColumn categoryArticles={matchRecaps as CategoryArticle} />
           </div>
 
           <div className="flex-1 w-full">
-            <CategoryGrid
-              category="Features"
-              articles={features[0].articles as ArticleInterface[]}
-            />
+            <CategoryGrid categoryArticles={features as CategoryArticle} />
           </div>
 
           <div className="flex-1 w-full">
-            <CategoryColumn
-              category="Stats Recap"
-              articles={statsRecap[0].articles as ArticleInterface[]}
-            />
+            <CategoryColumn categoryArticles={statsRecap as CategoryArticle} />
           </div>
         </div>
       </section>

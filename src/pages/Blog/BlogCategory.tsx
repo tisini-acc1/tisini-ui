@@ -1,15 +1,17 @@
-import FetchCategoryArticles from "@/lib/data/articles/FetchCategoryArticles";
-import { CategoriesWithPostType } from "@/lib/types";
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import HomePageLoadingComponent from "../Homepage/HomePageLoadingComponent";
+import { useQuery } from "@tanstack/react-query";
 import { NavLink, useParams } from "react-router-dom";
+
 import { formatDate } from "@/lib/data/formatDate";
+import { CategoriesWithPostType } from "@/lib/types";
+import BaseErrorPage from "@/components/errors/BaseErrorPage";
+import HomePageLoadingComponent from "../Homepage/HomePageLoadingComponent";
+import FetchCategoryArticles from "@/lib/data/articles/FetchCategoryArticles";
 
 const BlogCategory = () => {
   const { category } = useParams();
 
-  const { data, isLoading } = useQuery<CategoriesWithPostType[]>(
+  const { data, isLoading, isError } = useQuery<CategoriesWithPostType[]>(
     ["Category Articles"],
     FetchCategoryArticles
   );
@@ -20,6 +22,10 @@ const BlogCategory = () => {
 
   if (!data) {
     return <div>No Data found!</div>;
+  }
+
+  if (isError) {
+    return <BaseErrorPage />;
   }
 
   const categoryData = data.filter(
