@@ -8,6 +8,7 @@ import { SingleFixtureStats, Stats } from "@/lib/types/scores";
 
 import tisini from "@/assets/img/tisini-logo.png";
 import leagueLogo from "@/assets/tournaments/rugby.jpeg";
+
 import { leagues } from "@/lib/constants/site_images";
 import { getEvent, getStat, getSubEvent } from "@/lib/data/calculations";
 
