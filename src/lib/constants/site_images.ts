@@ -5,7 +5,7 @@ export const leagues: { [key: string]: string } = {
   ).href,
   "34": new URL("/src/assets/leagues/Enterprise-Cup (1).png", import.meta.url)
     .href,
-  "109": new URL("/src/assets/leagues/Enterprise-Cup (1).png", import.meta.url)
+  "109": new URL("/src/assets/tournaments/Enterprise-Cup.png", import.meta.url)
     .href,
   "111": new URL("/src/assets/leagues/Rugby Super Series.png", import.meta.url)
     .href,
@@ -15,6 +15,7 @@ export const leagues: { [key: string]: string } = {
     .href,
   "90": new URL("/src/assets/leagues/Kenya_Cup_logo.png", import.meta.url).href,
   "83": new URL("/src/assets/tournaments/elgon.png", import.meta.url).href,
+  // "83": new URL("/src/assets/tournaments/elgon.png", import.meta.url).href,
 };
 
 export const teamImages: { [key: string]: string } = {
