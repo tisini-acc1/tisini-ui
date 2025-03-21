@@ -76,7 +76,7 @@ const SingleStream = () => {
         {/* <img src={kawowo} alt="kawowo" height={150} width={150} /> */}
       </div>
 
-      <div className="w-[590px] mx-auto relative">
+      <div className="w-[650px] mx-auto relative">
         <h1 className="text-sm font-extrabold text-center uppercase mb-14">
           {details?.game_status === "ended" || details?.game_status === "FT"
             ? "Full Time"
@@ -94,7 +94,7 @@ const SingleStream = () => {
           <div className="w-[60px] flex items-center justify-center text-white font-bold text-2xl">
             {scores?.Home}
           </div>
-          <div className="bg-white w-[470px] p-2 flex font-bold text-blue-800 text-lg uppercase">
+          <div className="bg-white w-[600px] p-2 flex font-bold text-blue-800 text-lg uppercase">
             <div className="w-1/2  text-ellipsis whitespace-nowrap">
               {details?.team1_name}
             </div>
