@@ -31,6 +31,8 @@ export const LowerThird = () => {
     }
   );
 
+  // console.log(data);
+
   const [currentStats, setCurrentStats] = useState<StatsArray>([
     { stat: "Tries", home: "-", away: "-" },
   ]);
@@ -180,10 +182,26 @@ export const LowerThird = () => {
   if (isLoading) return <Spinner />;
 
   const details = data?.fixture[0];
-  // const scores = data?.scores;
+  const scores = data?.scores;
 
   return (
-    <main className="pt-16 relative h-screen">
+    <main className="pt-10 relative h-screen">
+      {details?.game_status !== "notstarted" && (
+        <div className="pl-10 font-bold ">
+          <div className="flex gap-3 items-center bg-[#023270] w-fit rounded-md">
+            <div className="bg-red-500 p-2 rounded-md">
+              {details?.team1_id === "1956" ? "KCB" : "Home"}
+            </div>
+            <div className="font-catamaran text-2xl text-white">
+              {scores?.Home} - {scores?.Away}
+            </div>
+            <div className="bg-yellow-500 p-2 rounded-md text-white">
+              {details?.team2_id === "1954" ? "OIL" : "Away"}
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="absolute bottom-0 w-full mb-1">
         <div className="max-w-7xl h-12 mx-auto flex items-center bg-[#023270] ">
           {/* <div className="bg-black h-full w-12 flex items-center justify-center">
