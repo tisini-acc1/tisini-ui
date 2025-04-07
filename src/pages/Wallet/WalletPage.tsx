@@ -46,7 +46,7 @@ export default function WalletPage() {
     const feedback = await privateAxios.get<{ results: CreditScoreType[] }>(
       "/users/credit_rate/"
     );
-    setCreditRate(feedback.data.results[0]);
+    setCreditRate(feedback.data.results?.[0] || {} as CreditScoreType);
   }, []);
   const [userTransactions, setUserTransactions] = React.useState<Transaction[]>(
     []
