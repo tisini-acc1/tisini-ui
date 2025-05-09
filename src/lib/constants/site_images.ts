@@ -231,7 +231,13 @@ export const teamImages: { [key: string]: string } = {
   "1917": new URL("/src/assets/football/lifestyle.png", import.meta.url).href,
   "1929": new URL("/src/assets/football/pelicojam.png", import.meta.url).href,
   "1937": new URL("/src/assets/football/impalaclub.png", import.meta.url).href,
-  "1971": new URL("/src/assets/football/gardensportiff.png", import.meta.url).href,
+  "1971": new URL("/src/assets/football/gardensportiff.png", import.meta.url)
+    .href,
+  "2063": new URL("/src/assets/football/ayala-athletic-fc.png", import.meta.url)
+    .href,
+  // "": new URL("/", import.meta.url).href,
+  // "": new URL("/", import.meta.url).href,
+  // "": new URL("/", import.meta.url).href,
   // "": new URL("/", import.meta.url).href,
   // "": new URL("/", import.meta.url).href,
 };
