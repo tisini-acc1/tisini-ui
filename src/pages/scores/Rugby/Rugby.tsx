@@ -2,24 +2,48 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 
 import Dates from "../Football/Dates";
+import FixtureLoader from "../FixtureLoader";
 import SingleResult from "../Football/SingleResult";
 import GroupFixtures from "@/lib/data/GroupRugbyFixtures";
 import { Fixture, FixturesArray } from "@/lib/types/scores";
-import FetchRugbyFixtures from "@/lib/data/FetchRugbyFixtures";
-import FixtureLoader from "../FixtureLoader";
+import {
+  FetchRugby10,
+  FetchRugby15,
+  FetchRugby7,
+} from "@/lib/data/FetchRugbyFixtures";
 
 const Rugby = () => {
   const { isLoading, data } = useQuery<Fixture[], Error>(
-    ["rugbyFixtures"],
-    FetchRugbyFixtures
+    ["rugbyFixtures7"],
+    FetchRugby7
   );
 
-  const rugbyFixtures = useMemo(() => {
-    if (!data) return {};
+  const { data: rugby10, isLoading: tenLoading } = useQuery<Fixture[], Error>(
+    ["rugbyFixtures10"],
+    FetchRugby10
+  );
 
-    const fixtures = GroupFixtures(data);
-    return data ? fixtures : {};
-  }, [data]);
+  const { data: rugby15, isLoading: fifteenLoading } = useQuery<
+    Fixture[],
+    Error
+  >(["rugbyFixtures15"], FetchRugby15);
+
+  const rugbyFixs = useMemo(
+    () =>
+      [
+        ...(data?.slice(0, 100) || []),
+        ...(rugby10?.slice(0, 100) || []),
+        ...(rugby15?.slice(0, 100) || []),
+      ].sort((a, b) => Number(b.id) - Number(a.id)),
+    [data, rugby10, rugby15]
+  ); // Only recomputes when dependencies change
+
+  const rugbyFixtures = useMemo(() => {
+    if (!rugbyFixs) return {};
+
+    const fixtures = GroupFixtures(rugbyFixs);
+    return rugbyFixs ? fixtures : {};
+  }, [rugbyFixs]);
 
   const [dates, setDates] = useState<string[]>([]);
   const [filterDate, setFilterDate] = useState<string>(dates[dates.length - 1]);
@@ -40,7 +64,7 @@ const Rugby = () => {
     }
   }, [rugbyFixtures, filterDate]);
 
-  if (isLoading) return <FixtureLoader />;
+  if (isLoading || tenLoading || fifteenLoading) return <FixtureLoader />;
 
   return (
     <div className="flex ">
