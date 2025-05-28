@@ -46,23 +46,23 @@ const Rugby = () => {
   }, [rugbyFixs]);
 
   const [dates, setDates] = useState<string[]>([]);
-  const [filterDate, setFilterDate] = useState<string>(dates[dates.length - 1]);
+  const [filterDate, setFilterDate] = useState<string>("");
   const [fixtures, setFixtures] = useState<FixturesArray[]>([]);
 
   useEffect(() => {
-    const dates = Object.keys(rugbyFixtures).slice(0, 7).reverse();
-    setDates(dates);
+    const newDates = Object.keys(rugbyFixtures).slice(0, 7).reverse();
+    setDates(newDates);
 
-    // Set default filterDate if it's not already set
-    if (!filterDate && dates.length > 0) {
-      setFilterDate(dates[dates.length - 1]);
+    if (newDates.length > 0) {
+      setFilterDate(newDates[newDates.length - 1]);
     }
+  }, [rugbyFixtures]);
 
-    // Update fixtures based on filterDate
+  useEffect(() => {
     if (filterDate && rugbyFixtures[filterDate]) {
       setFixtures(Object.entries(rugbyFixtures[filterDate]));
     }
-  }, [rugbyFixtures, filterDate]);
+  }, [filterDate, rugbyFixtures]);
 
   if (isLoading || tenLoading || fifteenLoading) return <FixtureLoader />;
 
