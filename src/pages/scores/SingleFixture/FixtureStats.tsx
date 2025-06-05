@@ -29,6 +29,7 @@ const FixtureStats = ({ home, away, cards, fouls, fixType }: StatsProps) => {
       home={home as Stats}
       away={away as Stats}
       cards={cards as Cards}
+      fixType={fixType as string}
     />
   );
 };

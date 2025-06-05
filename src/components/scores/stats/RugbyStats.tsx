@@ -9,9 +9,10 @@ type StatsProps = {
   home: Stats;
   away: Stats;
   cards: Cards;
+  fixType: string;
 };
 
-const RugbyStats = ({ home, away, cards }: StatsProps) => {
+const RugbyStats = ({ home, away, cards, fixType }: StatsProps) => {
   const posession = calcRugbyPosession(home, away);
 
   const homePass = home["Pass"].total;
@@ -31,75 +32,149 @@ const RugbyStats = ({ home, away, cards }: StatsProps) => {
     getStat(away, "Forward pass");
 
   return (
-    <div className="flex flex-col space-y-6 ">
-      <StatsHalf />
+    <>
+      {fixType === "rugby7" ? (
+        <div className="flex flex-col space-y-6 ">
+          <StatsHalf />
 
-      {bothTeams && (
-        <PosessionRow
-          homeStat={`${posession.home}`}
-          stat={"Possession"}
-          awayStat={`${posession.away}`}
-        />
+          {bothTeams && (
+            <PosessionRow
+              homeStat={`${posession.home}`}
+              stat={"Possession"}
+              awayStat={`${posession.away}`}
+            />
+          )}
+
+          <StatsRow
+            homeStat={getEvent(home, "58")}
+            stat={"Carries"}
+            awayStat={getEvent(away, "58")}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <AccuracyRow
+            hComp={getEvent(home, "82")}
+            aComp={getEvent(away, "82")}
+            hTotal={homePasses}
+            aTotal={awayPasses}
+            stat={"Complete passes"}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <AccuracyRow
+            hComp={getEvent(home, "56")}
+            aComp={getEvent(away, "56")}
+            hTotal={getEvent(home, "57") + getEvent(home, "56")}
+            aTotal={getEvent(away, "57") + getEvent(away, "56")}
+            stat={"Successful tackles"}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <StatsRow
+            homeStat={getEvent(home, "60")}
+            stat={"Penalties conceded"}
+            awayStat={getEvent(away, "60")}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <StatsRow
+            homeStat={cards.Homeyellow}
+            stat={"Yellow cards"}
+            awayStat={cards.Awayyellow}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <StatsRow
+            homeStat={cards.Homered}
+            stat={"Red cards"}
+            awayStat={cards.Awayred}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+        </div>
+      ) : (
+        <div className="flex flex-col space-y-6 ">
+          <StatsHalf />
+
+          {bothTeams && (
+            <PosessionRow
+              homeStat={`${posession.home}`}
+              stat={"Possession"}
+              awayStat={`${posession.away}`}
+            />
+          )}
+
+          <StatsRow
+            homeStat={getEvent(home, "44")}
+            stat={"Carries"}
+            awayStat={getEvent(away, "44")}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <AccuracyRow
+            hComp={getEvent(home, "91")}
+            aComp={getEvent(away, "91")}
+            hTotal={homePasses}
+            aTotal={awayPasses}
+            stat={"Complete passes"}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <AccuracyRow
+            hComp={getEvent(home, "42")}
+            aComp={getEvent(away, "42")}
+            hTotal={getEvent(home, "43") + getEvent(home, "42")}
+            aTotal={getEvent(away, "43") + getEvent(away, "42")}
+            stat={"Successful tackles"}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <StatsRow
+            homeStat={getEvent(home, "46")}
+            stat={"Penalties conceded"}
+            awayStat={getEvent(away, "46")}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <StatsRow
+            homeStat={cards.Homeyellow}
+            stat={"Yellow cards"}
+            awayStat={cards.Awayyellow}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <StatsRow
+            homeStat={cards.Homered}
+            stat={"Red cards"}
+            awayStat={cards.Awayred}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+        </div>
       )}
-
-      <StatsRow
-        homeStat={getEvent(home, "44")}
-        stat={"Carries"}
-        awayStat={getEvent(away, "44")}
-        homeOnly={homeOnly}
-        awayOnly={awayOnly}
-        bothTeams={bothTeams}
-      />
-
-      <AccuracyRow
-        hComp={getEvent(home, "91")}
-        aComp={getEvent(away, "91")}
-        hTotal={homePasses}
-        aTotal={awayPasses}
-        stat={"Complete passes"}
-        homeOnly={homeOnly}
-        awayOnly={awayOnly}
-        bothTeams={bothTeams}
-      />
-
-      <AccuracyRow
-        hComp={getEvent(home, "42")}
-        aComp={getEvent(away, "42")}
-        hTotal={getEvent(home, "43") + getEvent(home, "42")}
-        aTotal={getEvent(away, "43") + getEvent(away, "42")}
-        stat={"Successful tackles"}
-        homeOnly={homeOnly}
-        awayOnly={awayOnly}
-        bothTeams={bothTeams}
-      />
-
-      <StatsRow
-        homeStat={getEvent(home, "46")}
-        stat={"Penalties conceded"}
-        awayStat={getEvent(away, "46")}
-        homeOnly={homeOnly}
-        awayOnly={awayOnly}
-        bothTeams={bothTeams}
-      />
-
-      <StatsRow
-        homeStat={cards.Homeyellow}
-        stat={"Yellow cards"}
-        awayStat={cards.Awayyellow}
-        homeOnly={homeOnly}
-        awayOnly={awayOnly}
-        bothTeams={bothTeams}
-      />
-
-      <StatsRow
-        homeStat={cards.Homered}
-        stat={"Red cards"}
-        awayStat={cards.Awayred}
-        homeOnly={homeOnly}
-        awayOnly={awayOnly}
-        bothTeams={bothTeams}
-      />
-    </div>
+    </>
   );
 };
 
