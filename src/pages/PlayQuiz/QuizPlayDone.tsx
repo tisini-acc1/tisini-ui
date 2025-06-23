@@ -89,7 +89,7 @@ export default function QuizPlayDone({ count }: { count: number }) {
     }
   };
 
-  console.log(summary.points_earned);
+  // console.log(summary.points_earned);
 
   return (
     <div>
@@ -107,7 +107,7 @@ export default function QuizPlayDone({ count }: { count: number }) {
                   <p>
                     Total Questions: {totalQuestions} <br />
                   </p>
-                  <p>Total Points scored: {count}</p>
+                  <p className="hidden">Total Points scored: {count}</p>
                   <p>
                     Average time:{" "}
                     {(summary.time_used! / totalQuestions).toFixed(2)} seconds
