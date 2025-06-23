@@ -52,7 +52,7 @@ export default function SingleQuizQuestion({
   const selectedAnswer = React.useMemo(() => {
     return currentAnswers.find((ans) => ans.uid === answer);
   }, [answer, currentAnswers]);
-  console.log(selectedAnswer?.is_answer);
+
   return (
     <form onSubmit={handleSubmit}>
       {!currentQuestion?.is_answered && (
