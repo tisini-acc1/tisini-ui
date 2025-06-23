@@ -119,7 +119,7 @@ export default function PlayQuiz() {
 
         {!allAnswered ? (
           <div className="max-w-7xl mx-auto p-4 w-full">
-            {questionType === "text" ? (
+            {questionType === "single" ? (
               <SingleQuizQuestion
                 clearTimer={clearTimer}
                 timeLeft={timeLeft}
@@ -128,7 +128,7 @@ export default function PlayQuiz() {
                 setCount={setCount}
               />
             ) : (
-              <div>Unknown</div>
+              <div>Unknown me</div>
             )}
           </div>
         ) : (
