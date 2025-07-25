@@ -11,6 +11,7 @@ import {
   FetchRugby15,
   FetchRugby7,
 } from "@/lib/data/FetchRugbyFixtures";
+import { useNavigate } from "react-router-dom";
 
 const Rugby = () => {
   const { isLoading, data } = useQuery<Fixture[], Error>(
@@ -49,6 +50,8 @@ const Rugby = () => {
   const [filterDate, setFilterDate] = useState<string>("");
   const [fixtures, setFixtures] = useState<FixturesArray[]>([]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const newDates = Object.keys(rugbyFixtures).slice(0, 7).reverse();
     setDates(newDates);
@@ -83,7 +86,10 @@ const Rugby = () => {
 
         {fixtures.map((league, key) => (
           <div className="shadow-lg mb-4 p-2" key={key}>
-            <div className="flex bg-black p-2">
+            <div
+              className="flex bg-black p-2"
+              onClick={() => navigate(`/scores/leagues/sportpesa-7s`)}
+            >
               <div className="font-semibold text-sm">
                 <div className="">Kenya: {league[0]}</div>
               </div>
