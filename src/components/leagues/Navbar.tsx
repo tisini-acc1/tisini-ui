@@ -27,7 +27,7 @@ const Navbar = () => {
             <div className="flex items-center space-x-2 bg-orange-500 px-4 py-2 rounded-full">
               <Zap className="w-4 h-4" />
               <NavLink
-                to={"/scorers"}
+                to={"/scores/leagues/sportpesa-7s/scorers"}
                 className="font-semibold text-sm sm:text-xs"
               >
                 Top Scorers
