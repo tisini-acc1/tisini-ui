@@ -30,23 +30,23 @@ const FixtureCard = ({ fixture }: { fixture: Fixture }) => {
       >
         {/* Date and Time - New left column */}
         <div className="col-span-2 flex flex-col items-start justify-center">
-          <p className="text-xs">
+          <div className="text-xs">
             {new Date(fixture.game_date).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
             })}
-          </p>
+          </div>
 
           {fixture.game_status === "notstarted" ? (
-            <p className="text-xs font-semibold">{fixture.matchtime}</p>
+            <div className="text-xs font-semibold">{fixture.matchtime}</div>
           ) : fixture.game_status === "FT" ? (
-            <p className="text-xs text-muted-foreground capitalize">
+            <div className="text-xs text-muted-foreground capitalize">
               {"ended"}
-            </p>
+            </div>
           ) : (
-            <p className="text-xs text-primary capitalize">
+            <div className="text-xs text-primary capitalize">
               live <span className="animate-caret-blink">{fixture.minute}</span>
-            </p>
+            </div>
           )}
         </div>
 
