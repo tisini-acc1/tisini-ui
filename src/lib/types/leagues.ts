@@ -48,3 +48,18 @@ export type RefData = {
   status: string;
   created_by: string;
 };
+
+export type TopScorer = {
+  playerid: string;
+  seasonid: string;
+  eventid: string;
+  subeventid: string;
+  teamid: string;
+  trys: string;
+  conversion: number;
+  penalty: number;
+  dropgoal: number;
+  totalpoints: string;
+  playername: string;
+  teamname: string;
+};

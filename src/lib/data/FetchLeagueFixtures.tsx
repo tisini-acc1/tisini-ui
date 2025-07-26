@@ -8,10 +8,13 @@ const fetchSeasonFixtures = async () => {
   try {
     const res = await axios.post<Fixture[]>(`${url}?gettoken=${token}`, {
       action: "fixtures",
-      seasonid: 87,
+      seasonid: 103,
     });
 
-    console.log(res);
+    // console.log(res);
+    if (!Array.isArray(res.data)) {
+      throw new Error("Invalid response format: expected an array");
+    }
     return res.data;
   } catch (error: any) {
     throw new Error(`Failed to fetch leagues, ${error.message}`);

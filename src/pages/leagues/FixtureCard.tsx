@@ -65,7 +65,7 @@ const FixtureCard = ({ fixture }: { fixture: Fixture }) => {
         </div>
 
         {/* Match status */}
-        <div className="col-span-2 flex flex-col items-center justify-center">
+        <div className="col-span-2 flex flex-col items-center justify-center pt-5">
           {fixture.matchplay_status === "3" ? (
             <p className="text-sm font-semibold text-muted-foreground">
               Postponed

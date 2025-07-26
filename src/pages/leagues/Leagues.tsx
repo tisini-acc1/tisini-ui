@@ -1,25 +1,27 @@
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
+
+import FixtureCard from "./FixtureCard";
+import { Fixture } from "@/lib/types/leagues";
 import Spinner from "@/components/spinner/Spinner";
 import fetchSeasonFixtures from "@/lib/data/FetchLeagueFixtures";
-import { Fixture } from "@/lib/types/leagues";
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import FixtureCard from "./FixtureCard";
 
 const LeaguesPage = () => {
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading, isError, error } = useQuery(
     ["season-fixtures"],
     fetchSeasonFixtures
   );
-
-  const matches = groupFixtures(data as Fixture[]);
 
   if (isLoading) {
     return <Spinner />;
   }
 
   if (isError) {
+    console.log(error);
     return <div>Error</div>;
   }
+
+  const matches = groupFixtures(data as Fixture[]);
 
   return (
     <main className="my-4 space-y-4">
