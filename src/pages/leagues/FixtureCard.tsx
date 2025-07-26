@@ -2,23 +2,27 @@
 
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Diamond, Goal } from "lucide-react";
+
+import homeImg from "@/assets/homeLogo.png";
+import awayImg from "@/assets/awayLogo.png";
 import { Fixture, RefData } from "@/lib/types/leagues";
-// import { useRouter } from "next/navigation";
+import { teamImages } from "@/lib/constants/site_images";
 
 const FixtureCard = ({ fixture }: { fixture: Fixture }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const hasRefData = fixture.refdata && fixture.refdata.length > 0;
-  // const router = useRouter();
 
-  const hLogo = fixture.team1_logo === "" ? null : fixture.team1_logo;
-  const aLogo = fixture.team2_logo === "" ? null : fixture.team2_logo;
+  const homeLogo = teamImages[fixture.team1_id] ?? homeImg;
+  const awayLogo = teamImages[fixture.team2_id] ?? awayImg;
+  //   const hLogo = fixture.team1_logo === "" ? null : fixture.team1_logo;
+  //   const aLogo = fixture.team2_logo === "" ? null : fixture.team2_logo;
 
-  // console.log(fixture);
+  //   console.log(fixture);
 
   return (
     <>
       <div
-        className={`grid grid-cols-12 py-3 px-2 font-mono text-xs items-center hover:bg-green-900 transition-colors cursor-pointer`}
+        className={`grid grid-cols-12 py-3 px-2 font-mono text-xs items-center hover:bg-blue-200 transition-colors cursor-pointer`}
         onClick={(e) => {
           e.stopPropagation();
           setIsExpanded(!isExpanded);
@@ -51,7 +55,7 @@ const FixtureCard = ({ fixture }: { fixture: Fixture }) => {
           <div className="text-end text-xs">{fixture.team1_name}</div>
           <div className="w-8 h-8 relative shrink-0">
             <img
-              src={hLogo ?? "/homeLogo.png"}
+              src={homeLogo}
               alt={fixture.team1_name}
               height={32}
               width={32}
@@ -88,7 +92,7 @@ const FixtureCard = ({ fixture }: { fixture: Fixture }) => {
         <div className="col-span-4 flex items-center gap-2">
           <div className="w-8 h-8 relative shrink-0">
             <img
-              src={aLogo ?? "/awayLogo.png"}
+              src={awayLogo}
               alt={fixture.team2_name}
               height={32}
               width={32}

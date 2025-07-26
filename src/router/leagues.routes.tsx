@@ -1,7 +1,8 @@
-import LeaguesLayout from "@/layouts/LeaguesLayout";
-import LeaguesPage from "@/pages/leagues/Leagues";
-import TopScorersPage from "@/pages/leagues/TopScorers";
 import { Outlet, RouteObject } from "react-router-dom";
+
+import LeaguesPage from "@/pages/leagues/Leagues";
+import LeaguesLayout from "@/layouts/LeaguesLayout";
+import TopScorersPage from "@/pages/leagues/TopScorers";
 
 const LeagueRoutes = {
   path: "/scores/leagues",
