@@ -2,8 +2,10 @@ import axios from "axios";
 import { Fixture } from "../types/leagues";
 
 const fetchSeasonFixtures = async () => {
-  const url = import.meta.env.VITE_API_SCORES_URL;
-  const token = import.meta.env.VITE_API_TOKEN;
+  // const url = import.meta.env.VITE_API_SCORES_URL ;
+  // const token = import.meta.env.VITE_API_TOKEN;
+  const url = "https://apis.tisini.co.ke/api48.php";
+  const token = "22855bc4eb3066caa6ebd0d332ea5426a7";
 
   try {
     const res = await axios.post<Fixture[]>(`${url}?gettoken=${token}`, {
