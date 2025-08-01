@@ -13,14 +13,8 @@ import {
   FetchRugby7,
 } from "@/lib/data/FetchRugbyFixtures";
 
-const Stream = () => {
+const RugbyStream = () => {
   const { streamName } = useParams();
-
-  // const { isLoading, data } = useQuery<Fixture[], Error>(
-  //   ["rugbyFixtures"],
-  //   FetchRugbyFixtures,
-  //   { refetchInterval: 10000 }
-  // );
 
   const { isLoading, data } = useQuery<Fixture[], Error>(
     ["rugbyFixtures7"],
@@ -105,4 +99,4 @@ const Stream = () => {
   );
 };
 
-export default Stream;
+export default RugbyStream;
