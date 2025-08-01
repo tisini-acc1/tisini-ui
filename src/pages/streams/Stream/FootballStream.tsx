@@ -13,7 +13,7 @@ const FootballStream = () => {
 
   const { streamName } = useParams();
 
-  console.log(streamName);
+  // console.log(streamName);
 
   const { isLoading, data } = useQuery<Fixture[], Error>(
     ["rugbyFixtures"],

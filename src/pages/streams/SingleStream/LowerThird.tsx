@@ -3,13 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 
 import Spinner from "@/components/spinner/Spinner";
+import { SingleFixtureStats } from "@/lib/types/scores";
 import FetchFixtureById from "@/lib/data/FetchFixtureById";
-import { SingleFixtureStats, Stats } from "@/lib/types/scores";
+import { footballStats, rugbyStats } from "./LowerThirdStats";
 
 // import kawowo from "@/assets/img/kawowo.jpg";
 import tisini from "@/assets/img/tisini-logo.png";
 // import league from "@/assets/img/nile-special.png";
-import { getEvent, getStat, getSubEvent } from "@/lib/data/calculations";
 
 interface Stat {
   stat: string;
@@ -31,7 +31,7 @@ export const LowerThird = () => {
     }
   );
 
-  // console.log(data);
+  const fixType = data?.fixture[0].fixture_type;
 
   const [currentStats, setCurrentStats] = useState<StatsArray>([
     { stat: "Tries", home: "-", away: "-" },
@@ -46,124 +46,15 @@ export const LowerThird = () => {
   }, [data, refetch]);
 
   const stats = useMemo(() => {
-    if (!data?.home || !data?.away) return [];
+    if (data) {
+      const statsList =
+        fixType === "football" ? footballStats(data) : rugbyStats(data);
 
-    const home = data.home as Stats;
-    const away = data.away as Stats;
-    const cards = data.cards;
+      return statsList;
+    }
 
-    const hLineoutsWon =
-      getSubEvent(home, "151", "377") +
-      getSubEvent(home, "151", "378") +
-      getSubEvent(home, "151", "379") +
-      getSubEvent(home, "151", "391");
-    const aLineoutsWon =
-      getSubEvent(away, "151", "377") +
-      getSubEvent(away, "151", "378") +
-      getSubEvent(away, "151", "379") +
-      getSubEvent(away, "151", "391");
-
-    // scrum won + lost
-    const hScrumsFed =
-      getSubEvent(home, "51", "38") + getSubEvent(home, "51", "39");
-    const aScrumsFed =
-      getSubEvent(away, "51", "38") + getSubEvent(away, "51", "39");
-
-    const statsList = [
-      {
-        stat: "Tries scored",
-        home: getSubEvent(home, "49", "66"),
-        away: getSubEvent(away, "49", "66"),
-      },
-      {
-        stat: "successful conversions",
-        home: getSubEvent(home, "49", "60"),
-        away: getSubEvent(away, "49", "60"),
-      },
-      {
-        stat: "Visit in opponents 22",
-        home: getEvent(home, "104"),
-        away: getEvent(away, "104"),
-      },
-      {
-        stat: "Penalties conceded",
-        home: getEvent(home, "46"),
-        away: getEvent(away, "46"),
-      },
-      {
-        stat: "Handling Errors",
-        home:
-          getEvent(home, "103") +
-          getStat(home, "Knock ons") +
-          getEvent(home, "41") +
-          getEvent(home, "40") +
-          getEvent(home, "87"),
-        away:
-          getEvent(away, "103") +
-          getStat(away, "Knock ons") +
-          getEvent(away, "41") +
-          getEvent(away, "40") +
-          getEvent(away, "87"),
-      },
-      {
-        stat: "scrums won / fed",
-        home: `${getSubEvent(home, "51", "38")} / ${hScrumsFed}`,
-        away: `${getSubEvent(away, "51", "38")} / ${aScrumsFed}`,
-      },
-      {
-        stat: "lineouts won / thrown",
-        home: `${hLineoutsWon} / ${getEvent(home, "151")}`,
-        away: `${aLineoutsWon} / ${getEvent(away, "151")}`,
-      },
-      {
-        stat: "Turnovers Won",
-        home: getEvent(home, "45"),
-        away: getEvent(away, "45"),
-      },
-
-      // {
-      //   stat: "Passes",
-      //   home: getStat(home, "Pass"),
-      //   away: getStat(away, "Pass"),
-      // },
-      // {
-      //   stat: "Carries",
-      //   home: getStat(home, "Carries"),
-      //   away: getStat(away, "Carries"),
-      // },
-      // {
-      //   stat: "Line Breaks",
-      //   home: getStat(home, "Linebreak"),
-      //   away: getStat(away, "Linebreak"),
-      // },
-      // {
-      //   stat: "Offloads",
-      //   home: getStat(home, "Offloads"),
-      //   away: getStat(away, "Offloads"),
-      // },
-      // {
-      //   stat: "Kicks",
-      //   home: getStat(home, "Kick for territory"),
-      //   away: getStat(away, "Kick for territory"),
-      // },
-    ];
-
-    (cards.Homeyellow >= 1 || cards.Awayyellow >= 1) &&
-      statsList.push({
-        stat: "Yellow cards",
-        home: `${cards.Homeyellow}`,
-        away: `${cards.Awayyellow}`,
-      });
-
-    (cards.Homered >= 1 || cards.Awayred >= 1) &&
-      statsList.push({
-        stat: "red cards",
-        home: `${cards.Homered}`,
-        away: `${cards.Awayred}`,
-      });
-
-    return statsList;
-  }, [data]);
+    return [];
+  }, [fixType, data]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -182,11 +73,11 @@ export const LowerThird = () => {
   if (isLoading) return <Spinner />;
 
   const details = data?.fixture[0];
-  const scores = data?.scores;
+  // const scores = data?.scores;
 
   return (
     <main className="pt-10 relative h-screen">
-      {details?.game_status !== "notstarted" && (
+      {/* {details?.game_status !== "notstarted" && (
         <div className="pl-10 font-bold ">
           <div className="flex gap-3 items-center bg-[#023270] w-fit rounded-md">
             <div className="bg-red-500 p-2 rounded-md">
@@ -200,7 +91,7 @@ export const LowerThird = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       <div className="absolute bottom-0 w-full mb-1">
         <div className="max-w-7xl h-12 mx-auto flex items-center bg-[#023270] ">
@@ -208,7 +99,7 @@ export const LowerThird = () => {
           <span className="text-white text-xl font-bold">HT</span>
         </div> */}
           <div className="flex gap-1 w-4/5 mx-auto">
-            <div className="flex items-center w-1/4 justify-center rounded-sm text-white font-bold bg-red-500">
+            <div className="flex items-center w-1/4 justify-center rounded-sm text-white font-bold bg-red-500 text-ellipsis whitespace-nowrap">
               {details?.team1_name}
             </div>
             <div
@@ -226,7 +117,7 @@ export const LowerThird = () => {
                 {`${currentStats[0].away}`}
               </div>
             </div>
-            <div className="flex items-center w-1/4 justify-center rounded-sm font-bold bg-yellow-500">
+            <div className="flex items-center w-1/4 justify-center rounded-sm font-bold bg-yellow-500 text-ellipsis whitespace-nowrap">
               {details?.team2_name}
             </div>
           </div>
