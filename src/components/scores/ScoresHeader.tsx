@@ -4,10 +4,10 @@ import { Menu } from "@headlessui/react";
 import { LucideMenu } from "lucide-react";
 
 import { cn } from "@/lib/cn";
+import tisini from "@/assets/img/tisini-logo.png";
 import MaxWidthWrapper from "../max-width-wrapper";
 import { logoutUser } from "@/store/slices/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import tisini from "@/assets/img/tisini-logo.png";
 
 export default function ScoresHeader() {
   const authLinks = {
@@ -195,7 +195,7 @@ export default function ScoresHeader() {
             <Link to="/scores/basketball">🏀 Basketball</Link>
           </button>
           <button className="p-2 px-4 ">
-            <Link to="/scores/leagues/sportpesa-7s">🏆 Driftwood 7s</Link>
+            <Link to="/scores/leagues/sportpesa-7s">🏆 Sportpesa 7s</Link>
           </button>
         </div>
 
