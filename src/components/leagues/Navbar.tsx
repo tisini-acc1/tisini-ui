@@ -2,7 +2,7 @@ import { Zap } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import driftwood from "@/assets/tournaments/Dirftwood.png";
+import sportpesa7s from "@/assets/tournaments/Sportpesa7s.png";
 import { useLeague } from "@/context/LeagueContext";
 
 const navData: { [key: string]: { circuit: string; id: string }[] } = {
@@ -49,7 +49,7 @@ const Navbar = () => {
             <div className="flex items-center justify-center md:justify-start space-x-3">
               <div className="bg-blue-600 p-2 rounded-full shadow-md border border-blue-400">
                 <img
-                  src={driftwood}
+                  src={sportpesa7s}
                   alt="Sportpesa 7s Logo"
                   className="w-10 h-10 object-contain"
                 />
