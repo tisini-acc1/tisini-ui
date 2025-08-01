@@ -1,12 +1,15 @@
 import Spinner from "@/components/spinner/Spinner";
+import { useLeague } from "@/context/LeagueContext";
 import fetchSeasonScorers from "@/lib/data/FetchLeagueScorers";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const TopScorersPage = () => {
+  const { season } = useLeague();
+
   const { data, isError, isLoading } = useQuery(
-    ["season-scorers"],
-    fetchSeasonScorers
+    ["season-scorers", season],
+    () => fetchSeasonScorers(season)
   );
 
   if (isLoading) {

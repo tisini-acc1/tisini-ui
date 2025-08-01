@@ -1,7 +1,7 @@
 import axios from "axios";
 import { TopScorer } from "../types/leagues";
 
-const fetchSeasonScorers = async () => {
+const fetchSeasonScorers = async (season: string) => {
   // const url = import.meta.env.VITE_API_SCORES_URL;
   // const token = import.meta.env.VITE_API_TOKEN;
   const url = "https://apis.tisini.co.ke/api48.php";
@@ -11,7 +11,7 @@ const fetchSeasonScorers = async () => {
     const res = await axios.post<TopScorer[]>(`${url}?gettoken=${token}`, {
       action: "topPointRefData",
       fixturetype: "rugby7",
-      seriesid: 103,
+      seriesid: season,
     });
 
     // console.log(res);
