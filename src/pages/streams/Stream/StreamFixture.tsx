@@ -107,6 +107,13 @@ const StreamFixture = ({ fixture }: { fixture: Fixture }) => {
         >
           Lower 3rd
         </Link>
+
+        <Link
+          to={`/streams/${streamName}/insights/${fixture.id}`}
+          className="text-sm px-3 text-center bg-red-500/90 hover:bg-red-600 text-white py-2 rounded-md transition-colors duration-200"
+        >
+          Insights
+        </Link>
       </div>
     </div>
   );

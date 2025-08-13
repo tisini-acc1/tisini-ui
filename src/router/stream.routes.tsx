@@ -7,6 +7,7 @@ import { LowerThird } from "@/pages/streams/SingleStream/LowerThird";
 import { SelectStream } from "@/pages/streams/Stream/SelectStream";
 import FootballStream from "@/pages/streams/Stream/FootballStream";
 import RugbyStream from "@/pages/streams/Stream/RugbyStream";
+import MatchInsights from "@/pages/streams/SingleStream/MatchInsights";
 
 const streamRoutes = {
   path: "/streams",
@@ -31,6 +32,10 @@ const streamRoutes = {
     {
       path: "/streams/:streamName/lowerthird/:fixtureId",
       element: <LowerThird />,
+    },
+    {
+      path: "/streams/:streamName/insights/:fixtureId",
+      element: <MatchInsights />,
     },
     {
       path: "*",
