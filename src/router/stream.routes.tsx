@@ -9,6 +9,7 @@ import FootballStream from "@/pages/streams/Stream/FootballStream";
 import RugbyStream from "@/pages/streams/Stream/RugbyStream";
 import MatchInsights from "@/pages/streams/SingleStream/MatchInsights";
 import TournamentHistory from "@/pages/streams/SingleStream/TournamentHistory";
+import TopStats from "@/pages/streams/SingleStream/TopStats";
 
 const streamRoutes = {
   path: "/streams",
@@ -41,6 +42,10 @@ const streamRoutes = {
     {
       path: "/streams/:streamName/history/:fixtureId",
       element: <TournamentHistory />,
+    },
+    {
+      path: "/streams/:streamName/top-stats/:fixtureId",
+      element: <TopStats />,
     },
     {
       path: "*",

@@ -124,6 +124,13 @@ const StreamFixture = ({ fixture }: { fixture: Fixture }) => {
           >
             History
           </Link>
+
+          <Link
+            to={`/streams/${streamName}/top-stats/${fixture.id}`}
+            className="text-sm px-3 text-center bg-red-500/90 hover:bg-red-500 text-white py-2 rounded-md transition-colors duration-200"
+          >
+            Top
+          </Link>
         </div>
       </div>
     </div>
