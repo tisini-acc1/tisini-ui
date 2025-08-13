@@ -145,11 +145,11 @@ const RugbyStats = ({ data }: { data: SingleFixtureStats }) => {
 
           <StatRow
             hStat={`${getSubEvent(home, "63", "47")} / ${
-              getSubEvent(home, "63", "47") + getSubEvent(home, "63", "67")
+              getSubEvent(home, "63", "47") + getSubEvent(home, "63", "48")
             }`}
             title="scrums won / fed"
             aStat={`${getSubEvent(away, "63", "47")} / ${
-              getSubEvent(away, "63", "47") + getSubEvent(away, "63", "67")
+              getSubEvent(away, "63", "47") + getSubEvent(away, "63", "48")
             }`}
           />
 

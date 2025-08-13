@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import Spinner from "@/components/spinner/Spinner";
 import { SingleFixtureStats } from "@/lib/types/scores";
 import FetchFixtureById from "@/lib/data/FetchFixtureById";
-import { footballStats, rugbyStats } from "./LowerThirdStats";
+import { footballStats, rugbyStats, rugbyStats7s } from "./LowerThirdStats";
 
 // import kawowo from "@/assets/img/kawowo.jpg";
 import tisini from "@/assets/img/tisini-logo.png";
@@ -48,7 +48,11 @@ export const LowerThird = () => {
   const stats = useMemo(() => {
     if (data) {
       const statsList =
-        fixType === "football" ? footballStats(data) : rugbyStats(data);
+        fixType === "football"
+          ? footballStats(data)
+          : fixType === "rugby7"
+          ? rugbyStats7s(data)
+          : rugbyStats(data);
 
       return statsList;
     }

@@ -121,6 +121,100 @@ export const rugbyStats = (data: SingleFixtureStats) => {
   return statsList;
 };
 
+export const rugbyStats7s = (data: SingleFixtureStats) => {
+  if (!data?.home || !data?.away) return [];
+
+  const home = data.home as Stats;
+  const away = data.away as Stats;
+  const cards = data.cards;
+
+  const hLineoutsWon =
+    getSubEvent(home, "150", "371") +
+    getSubEvent(home, "150", "372") +
+    getSubEvent(home, "150", "373") +
+    getSubEvent(home, "150", "389");
+  const aLineoutsWon =
+    getSubEvent(away, "150", "371") +
+    getSubEvent(away, "150", "372") +
+    getSubEvent(away, "150", "373") +
+    getSubEvent(away, "150", "389");
+
+  // scrum won + lost
+  const hScrumsFed =
+    getSubEvent(home, "63", "47") + getSubEvent(home, "63", "48");
+  const aScrumsFed =
+    getSubEvent(away, "63", "47") + getSubEvent(away, "63", "48");
+
+  const statsList = [
+    {
+      home: getSubEvent(home, "33", "51"),
+      stat: "Tries scored",
+      away: getSubEvent(away, "33", "51"),
+    },
+    {
+      home: getSubEvent(home, "33", "52"),
+      stat: "successful conversions",
+      away: getSubEvent(away, "33", "52"),
+    },
+    {
+      home: getEvent(home, "122"),
+      stat: "visit in opponents 22",
+      away: getEvent(away, "122"),
+    },
+    {
+      home: getEvent(home, "60"),
+      stat: "penalties conceded",
+      away: getEvent(away, "60"),
+    },
+    {
+      stat: "Handling Errors",
+      home:
+        getEvent(home, "149") +
+        getStat(home, "Knock ons") +
+        getEvent(home, "35") +
+        getEvent(home, "36") +
+        getEvent(home, "86"),
+      away:
+        getEvent(away, "149") +
+        getStat(away, "Knock ons") +
+        getEvent(away, "35") +
+        getEvent(away, "36") +
+        getEvent(away, "86"),
+    },
+    {
+      stat: "scrums won / fed",
+      home: `${getSubEvent(home, "63", "47")} / ${hScrumsFed}`,
+      away: `${getSubEvent(away, "63", "47")} / ${aScrumsFed}`,
+    },
+    {
+      home: `${hLineoutsWon} / ${getEvent(home, "150")}`,
+      stat: "lineouts won / thrown",
+      away: `${aLineoutsWon} / ${getEvent(away, "150")}`,
+    },
+    {
+      home: getEvent(home, "59"),
+      stat: "turnovers won",
+      away: getEvent(away, "59"),
+    },
+  ];
+
+  (cards.Homeyellow >= 1 || cards.Awayyellow >= 1) &&
+    statsList.push({
+      stat: "Yellow cards",
+      home: `${cards.Homeyellow}`,
+      away: `${cards.Awayyellow}`,
+    });
+
+  (cards.Homered >= 1 || cards.Awayred >= 1) &&
+    statsList.push({
+      stat: "red cards",
+      home: `${cards.Homered}`,
+      away: `${cards.Awayred}`,
+    });
+
+  return statsList;
+};
+
 export const footballStats = (data: SingleFixtureStats) => {
   if (!data?.home || !data?.away) return [];
 
