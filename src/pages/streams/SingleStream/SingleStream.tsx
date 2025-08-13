@@ -64,7 +64,7 @@ const SingleStream = () => {
         </h1>
 
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90px] h-20 p-1 flex justify-center items-center border rounded-lg bg-white">
-          <img src={img} alt="nile" className="w-full h-full object-cover" />
+          <img src={img} alt="league" className="w-full h-full object-cover" />
         </div>
 
         <div className="flex border rounded-full bg-red-500">

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import tisiniLogo from "@/assets/img/tisini-logo.png";
-import sportpesa7s from "@/assets/tournaments/Sportpesa7s.png";
-import { SingleFixtureStats, Stats } from "@/lib/types/scores";
-import { useQuery } from "@tanstack/react-query";
-import FetchFixtureById from "@/lib/data/FetchFixtureById";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
+
 import Spinner from "@/components/spinner/Spinner";
 import { getEvent } from "@/lib/data/calculations";
+import tisiniLogo from "@/assets/img/tisini-logo.png";
+import FetchFixtureById from "@/lib/data/FetchFixtureById";
+import sportpesa7s from "@/assets/tournaments/Sportpesa7s.png";
+import { SingleFixtureStats, Stats } from "@/lib/types/scores";
 
 const MatchInsights = () => {
   const { fixtureId } = useParams();
