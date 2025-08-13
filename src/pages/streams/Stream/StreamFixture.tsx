@@ -94,26 +94,37 @@ const StreamFixture = ({ fixture }: { fixture: Fixture }) => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center gap-2 ml-auto px-2 h-10">
-        <Link
-          to={`/streams/${streamName}/stats/${fixture.id}`}
-          className="text-sm px-3 text-center bg-red-500/90 hover:bg-red-600 text-white py-2 rounded-md transition-colors duration-200"
-        >
-          Stats
-        </Link>
-        <Link
-          to={`/streams/${streamName}/lowerthird/${fixture.id}`}
-          className="text-sm px-3 text-center bg-red-500/90 hover:bg-red-600 text-white py-2 rounded-md transition-colors duration-200"
-        >
-          Lower 3rd
-        </Link>
+      <div className="flex flex-col text-xs justify-center items-center gap-2 ml-auto px-2 h-10">
+        <div className="flex gap-2">
+          <Link
+            to={`/streams/${streamName}/stats/${fixture.id}`}
+            className="text-sm px-3 text-center bg-red-500/90 hover:bg-red-600 text-white py-2 rounded-md transition-colors duration-200"
+          >
+            Stats
+          </Link>
+          <Link
+            to={`/streams/${streamName}/lowerthird/${fixture.id}`}
+            className="text-sm px-3 text-center bg-red-500/90 hover:bg-red-600 text-white py-2 rounded-md transition-colors duration-200"
+          >
+            Lower 3rd
+          </Link>
+        </div>
 
-        <Link
-          to={`/streams/${streamName}/insights/${fixture.id}`}
-          className="text-sm px-3 text-center bg-red-500/90 hover:bg-red-600 text-white py-2 rounded-md transition-colors duration-200"
-        >
-          Insights
-        </Link>
+        <div className="flex gap-2">
+          <Link
+            to={`/streams/${streamName}/insights/${fixture.id}`}
+            className="text-sm px-3 text-center bg-red-500/90 hover:bg-red-500 text-white py-2 rounded-md transition-colors duration-200"
+          >
+            Insights
+          </Link>
+
+          <Link
+            to={`/streams/${streamName}/history/${fixture.id}`}
+            className="text-sm px-3 text-center bg-red-500/90 hover:bg-red-500 text-white py-2 rounded-md transition-colors duration-200"
+          >
+            History
+          </Link>
+        </div>
       </div>
     </div>
   );

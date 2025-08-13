@@ -8,6 +8,7 @@ import { SelectStream } from "@/pages/streams/Stream/SelectStream";
 import FootballStream from "@/pages/streams/Stream/FootballStream";
 import RugbyStream from "@/pages/streams/Stream/RugbyStream";
 import MatchInsights from "@/pages/streams/SingleStream/MatchInsights";
+import TournamentHistory from "@/pages/streams/SingleStream/TournamentHistory";
 
 const streamRoutes = {
   path: "/streams",
@@ -36,6 +37,10 @@ const streamRoutes = {
     {
       path: "/streams/:streamName/insights/:fixtureId",
       element: <MatchInsights />,
+    },
+    {
+      path: "/streams/:streamName/history/:fixtureId",
+      element: <TournamentHistory />,
     },
     {
       path: "*",
