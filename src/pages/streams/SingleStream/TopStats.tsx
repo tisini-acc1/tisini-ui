@@ -1,22 +1,65 @@
-import React from "react";
-import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
+import { useQueries } from "@tanstack/react-query";
 
 import Spinner from "@/components/spinner/Spinner";
 import tisiniLogo from "@/assets/img/tisini-logo.png";
 import fetchSeasonScorers from "@/lib/data/FetchLeagueScorers";
 
 const TopStats = () => {
-  const { data, isLoading } = useQuery(
-    ["rugbyScorers"],
-    () => fetchSeasonScorers("104"),
-    { refetchInterval: 10000, refetchOnWindowFocus: true }
+  const [currentIdx, setCurrentIdx] = useState(0);
+
+  const queries = useQueries({
+    queries: [
+      {
+        queryKey: ["rugbyScorers", "103"],
+        queryFn: () => fetchSeasonScorers("103"),
+        refetchInterval: 10000,
+        refetchOnWindowFocus: true,
+      },
+      {
+        queryKey: ["rugbyScorers", "104"],
+        queryFn: () => fetchSeasonScorers("104"),
+        refetchInterval: 10000,
+        refetchOnWindowFocus: true,
+      },
+      {
+        queryKey: ["rugbyScorers", "111"],
+        queryFn: () => fetchSeasonScorers("111"),
+        refetchInterval: 10000,
+        refetchOnWindowFocus: true,
+      },
+    ],
+  });
+
+  const isLoading = queries.some((query) => query.isLoading);
+
+  const driftWood = queries[0].data?.sort(
+    (a, b) => parseInt(b.totalpoints) - parseInt(a.totalpoints)
   );
+  const prinsloo = queries[1].data?.sort(
+    (a, b) => parseInt(b.totalpoints) - parseInt(a.totalpoints)
+  );
+  const christie = queries[2].data?.sort(
+    (a, b) => parseInt(b.totalpoints) - parseInt(a.totalpoints)
+  );
+
+  const data = [
+    { name: "driftwood", players: driftWood },
+    { name: "prinsloo", players: prinsloo },
+    { name: "christie", players: christie },
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIdx((prev) => (prev + 1) % data.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [data]);
 
   if (isLoading) return <Spinner />;
 
-  const topScorers = data?.sort(
-    (a, b) => parseInt(b.totalpoints) - parseInt(a.totalpoints)
-  );
+  const currentData = data[currentIdx];
 
   return (
     <main className="p-10 relative h-screen">
@@ -24,10 +67,13 @@ const TopStats = () => {
         <div className="bg-blue-800 p-2 border border-black text-white flex gap-2 items-center ">
           <img src={tisiniLogo} alt="tisini" className="w-13 h-7" />
 
-          <h4 className="font-bold capitalize">Top point scorers</h4>
+          <div className="font-bold capitalize">
+            <h3>{currentData.name}</h3>
+            <h4 className="text-xs">Top point scorers</h4>
+          </div>
         </div>
 
-        {topScorers?.slice(0, 5).map((player, idx) => (
+        {currentData.players?.slice(0, 7).map((player, idx) => (
           <div
             key={player.playerid}
             className="grid grid-cols-12 border-b-2 border-black bg-gray-100 font-semibold text-xs p-1"
