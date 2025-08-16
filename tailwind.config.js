@@ -4,7 +4,7 @@ export default {
   theme: {
     fontFamily: {
       catamaran: ["Catamaran", "Inter", "sans-serif"],
-      'noto-serif': ["Noto Serif", 'serif'],
+      "noto-serif": ["Noto Serif", "serif"],
     },
     container: {
       center: true,
@@ -36,6 +36,9 @@ export default {
           lighter: "#1C1C1C",
           DEFAULT: "#121212",
         },
+        christie: {
+          DEFAULT: "#75bce2",
+        },
       },
       backgroundImage: {
         homeLg: "url('/src/assets/img/home-pitch-lg.png')",
@@ -43,14 +46,12 @@ export default {
         awayLg: "url('/src/assets/img/away-pitch-lg.png')",
         awaySm: "url('/src/assets/img/away-pitch.png')",
         heroT: "url('src/assets/img/footballer-min.jpg')",
-        heroS: "url('src/assets/tournaments/hero.jpg')"
+        heroS: "url('src/assets/tournaments/hero.jpg')",
       },
       animation: {
-        'spin-slow': 'spin 3s linear infinite',
-      }
+        "spin-slow": "spin 3s linear infinite",
+      },
     },
   },
-  plugins: [
-    require("@tailwindcss/forms"),
-  ],
+  plugins: [require("@tailwindcss/forms")],
 };

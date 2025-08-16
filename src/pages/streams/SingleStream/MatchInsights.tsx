@@ -151,10 +151,12 @@ const RowStat = ({
   stat: string;
 }) => {
   return (
-    <div className="w-60 grid grid-cols-8 text-xs text-center text-white font-semibold bg-slate-300 border-b-2 border-black">
-      <div className="col-span-2 p-1 bg-blue-800 ">{home}</div>
-      <div className="bg-red-600 col-span-4 capitalize p-1">{stat}</div>
-      <div className="col-span-2 p-1 bg-blue-800 ">{away}</div>
+    <div className="w-60 grid grid-cols-8 text-xs text-center font-semibold bg-slate-300 border-b-2 border-black">
+      <div className="col-span-2 p-1 bg-christie">{home}</div>
+      <div className="bg-[#4d3f59] col-span-4 capitalize p-1 text-white">
+        {stat}
+      </div>
+      <div className="col-span-2 p-1 bg-christie">{away}</div>
     </div>
   );
 };
