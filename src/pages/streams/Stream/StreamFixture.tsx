@@ -118,12 +118,12 @@ const StreamFixture = ({ fixture }: { fixture: Fixture }) => {
             Insights
           </Link>
 
-          <Link
+          {/* <Link
             to={`/streams/${streamName}/history/${fixture.id}`}
             className="text-sm px-3 text-center bg-red-500/90 hover:bg-red-500 text-white py-2 rounded-md transition-colors duration-200"
           >
             History
-          </Link>
+          </Link> */}
 
           <Link
             to={`/streams/${streamName}/top-stats/${fixture.id}`}
