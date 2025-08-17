@@ -9,9 +9,10 @@ import { SingleFixtureStats } from "@/lib/types/scores";
 import FetchFixtureById from "@/lib/data/FetchFixtureById";
 
 import tisini from "@/assets/img/tisini-logo.png";
-import { leagues } from "@/lib/constants/site_images";
+// import { leagues } from "@/lib/constants/site_images";
 import ballLogo from "@/assets/tournaments/t-logo.png";
 import rugbyBall from "@/assets/tournaments/rugby.jpeg";
+import christie from "@/assets/tournaments/christie.webp";
 
 const SingleStream = () => {
   const { fixtureId } = useParams();
@@ -35,15 +36,17 @@ const SingleStream = () => {
   const details = data?.fixture[0];
   const fixType = data?.fixture[0].fixture_type;
 
-  const logo = leagues[details?.leagueid as string];
+  // const logo = leagues[details?.leagueid as string];
   const defaultLogo =
-    fixType === "football"
+    fixType === "rugby7"
+      ? christie
+      : fixType === "football"
       ? ballLogo
-      : fixType === "rugby7" || fixType === "rugby15" || fixType === "rugby10"
+      : fixType === "rugby15" || fixType === "rugby10"
       ? rugbyBall
       : tisini;
 
-  const img = logo ?? defaultLogo;
+  // const img = logo ?? defaultLogo;
 
   if (isLoading) return <Spinner />;
 
@@ -64,7 +67,11 @@ const SingleStream = () => {
         </h1>
 
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90px] h-20 p-1 flex justify-center items-center border rounded-lg bg-white">
-          <img src={img} alt="league" className="w-full h-full object-cover" />
+          <img
+            src={defaultLogo}
+            alt="league"
+            className="w-full h-full object-cover"
+          />
         </div>
 
         <div className="flex border rounded-full bg-red-500">
