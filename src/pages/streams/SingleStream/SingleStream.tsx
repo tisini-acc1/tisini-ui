@@ -12,7 +12,7 @@ import tisini from "@/assets/img/tisini-logo.png";
 // import { leagues } from "@/lib/constants/site_images";
 import ballLogo from "@/assets/tournaments/t-logo.png";
 import rugbyBall from "@/assets/tournaments/rugby.jpeg";
-import christie from "@/assets/tournaments/christie.webp";
+import christie from "@/assets/tournaments/Christie.png";
 
 const SingleStream = () => {
   const { fixtureId } = useParams();
