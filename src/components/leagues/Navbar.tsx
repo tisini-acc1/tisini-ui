@@ -7,6 +7,7 @@ import { useLeague } from "@/context/LeagueContext";
 
 const navData: { [key: string]: { circuit: string; id: string }[] } = {
   men: [
+    { circuit: "Embu 7s", id: "117" },
     { circuit: "Christie 7s", id: "111" },
     { circuit: "Prinsloo 7s", id: "104" },
     { circuit: "Driftwood 7s", id: "103" },
