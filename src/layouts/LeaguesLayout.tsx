@@ -1,8 +1,13 @@
-import Navbar from "@/components/leagues/Navbar";
-import { LeagueProvider } from "@/context/LeagueContext";
 import React, { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
+import Navbar from "@/components/leagues/Navbar";
+
+import quizImage from "@/assets/img/quiz.jpeg";
+import { LeagueProvider } from "@/context/LeagueContext";
 
 const LeaguesLayout = ({ children }: { children: ReactNode }) => {
+  const navigate = useNavigate();
+
   return (
     <LeagueProvider>
       <div className="min-h-screen bg-background">
@@ -29,11 +34,14 @@ const LeaguesLayout = ({ children }: { children: ReactNode }) => {
             {/* Top Ad (now properly sticky) */}
             <div className="sticky top-0 z-10 w-full bg-background py-2 shadow-sm">
               <div className="mx-auto w-full px-4">
-                <div className="rounded-lg border bg-card text-center">
+                <div
+                  className="rounded-lg border bg-card text-center cursor-pointer"
+                  onClick={() => navigate("/quiz/GN88FDHhWw7n")}
+                >
                   {/* <div>Top Ad Banner (728x90 or similar)</div> */}
                   {/* <img src="https://i.postimg.cc/GhzxYdYq/tanobora.jpg" alt="" /> */}
                   <img
-                    src="/tanobora.jpg"
+                    src={quizImage}
                     alt="tanobora"
                     height={100}
                     width={500}
