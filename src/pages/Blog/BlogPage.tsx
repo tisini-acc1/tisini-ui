@@ -16,6 +16,7 @@ import {
   OverviewArticles,
 } from "@/lib/types";
 import BaseErrorPage from "@/components/errors/BaseErrorPage";
+import quizImage from "@/assets/img/quiz.jpeg";
 
 export const BlogPage = () => {
   const { data, isLoading, isError } = useQuery<OverviewArticles, Error>(
@@ -66,9 +67,12 @@ export const BlogPage = () => {
         recentPosts={data?.recent_articles as ArticleInterface[]}
       />
 
-      {/* <div className="mx-auto my-3 md:hidden">
-        <img src="https://i.postimg.cc/GhzxYdYq/tanobora.jpg" alt="" />
-      </div> */}
+      <Link
+        className="w-4/5 mx-auto mt-6 hidden md:flex cursor-pointer"
+        to={"/quiz/GN88FDHhWw7n"}
+      >
+        <img src={quizImage} alt="" />
+      </Link>
 
       {/* Articles Section with adverts */}
       <section className="p-7 bg-gray-100">
