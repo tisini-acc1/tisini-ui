@@ -8,7 +8,9 @@ import { useLeague } from "@/context/LeagueContext";
 import fetchSeasonFixtures from "@/lib/data/FetchLeagueFixtures";
 
 const LeaguesPage = () => {
-  const { season } = useLeague();
+  const { league } = useLeague();
+
+  const season = league.seasons[0].id;
 
   const { data, isLoading, isError, error } = useQuery(
     ["season-fixtures", season],

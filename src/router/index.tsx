@@ -11,12 +11,17 @@ import quizRoutes from "./quiz.routes";
 import tanoboraRoutes from "./tanobora.routes";
 import streamRoutes from "./stream.routes";
 import LeagueRoutes from "./leagues.routes";
+import { LeagueProvider } from "@/context/LeagueContext";
 
 const routes = [
   {
     path: "/",
     errorElement: <BaseErrorPage />,
-    element: <Outlet />,
+    element: (
+      <LeagueProvider>
+        <Outlet />
+      </LeagueProvider>
+    ),
     children: [
       ...baseRoutes,
       authRoutes,
