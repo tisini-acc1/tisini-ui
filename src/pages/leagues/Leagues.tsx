@@ -4,17 +4,24 @@ import { useQuery } from "@tanstack/react-query";
 import FixtureCard from "./FixtureCard";
 import { Fixture } from "@/lib/types/leagues";
 import Spinner from "@/components/spinner/Spinner";
-import { useLeague } from "@/context/LeagueContext";
 import fetchSeasonFixtures from "@/lib/data/FetchLeagueFixtures";
+import { leagues } from "@/components/scores/LeaguesMenu";
+import { useParams } from "react-router-dom";
 
 const LeaguesPage = () => {
-  const { league } = useLeague();
+  const { leagueId } = useParams<{ leagueId: string }>();
 
-  const season = league.seasons[0].id;
+  const id = leagueId?.split("-").pop();
+  const sport = leagueId?.split("-")[0] || "";
+
+  const league = leagues[sport]?.find((l) => l.id === id);
+
+  const season = league?.seasons[0]?.id;
 
   const { data, isLoading, isError, error } = useQuery(
     ["season-fixtures", season],
-    () => fetchSeasonFixtures(season)
+    () => fetchSeasonFixtures(season as string),
+    { enabled: !!season }
   );
 
   if (isLoading) {

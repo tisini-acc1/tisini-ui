@@ -29,7 +29,7 @@ const LeaguesMenu = () => {
                     key={value.id}
                     className="text-primary font-semibold bg-gray-200 hover:bg-gray-300 p-2 cursor-pointer m-2 rounded-md"
                     onClick={() => {
-                      navigate(`/scores/leagues/${url}`);
+                      navigate(`/scores/leagues/${key}-${url}-${value.id}`);
                       setLeague(value);
                     }}
                   >
@@ -47,14 +47,26 @@ const LeaguesMenu = () => {
 
 export default LeaguesMenu;
 
-const leagues = {
+type Season = { id: string; season: string; series: string[] };
+type League = {
+  id: string;
+  name: string;
+  series: boolean;
+  seasons: Season[];
+};
+
+type LeagueMenu = {
+  [sport: string]: League[];
+};
+
+export const leagues: LeagueMenu = {
   rugby: [
-    {
-      id: "1",
-      name: "Sportpesa 7s",
-      series: true,
-      seasons: [{ id: "", season: "2025", series: [] }],
-    },
+    // {
+    //   id: "1",
+    //   name: "Sportpesa 7s",
+    //   series: true,
+    //   seasons: [{ id: "", season: "2025", series: [] }],
+    // },
     {
       id: "246",
       name: "Kenya u18 Trials",
