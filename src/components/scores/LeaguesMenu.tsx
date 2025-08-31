@@ -1,10 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useLeague } from "@/context/LeagueContext";
-
 const LeaguesMenu = () => {
-  const { setLeague } = useLeague();
   const navigate = useNavigate();
 
   return (
@@ -30,7 +27,6 @@ const LeaguesMenu = () => {
                     className="text-primary font-semibold bg-gray-200 hover:bg-gray-300 p-2 cursor-pointer m-2 rounded-md"
                     onClick={() => {
                       navigate(`/scores/leagues/${key}-${url}-${value.id}`);
-                      setLeague(value);
                     }}
                   >
                     {value.name}
@@ -47,26 +43,37 @@ const LeaguesMenu = () => {
 
 export default LeaguesMenu;
 
-type Season = { id: string; season: string; series: string[] };
-type League = {
+export type SeriesMenu = { serie: string; id: string };
+export type SeasonMenu = { id: string; season: string; series: SeriesMenu[] };
+export type LeagueMenu = {
   id: string;
   name: string;
   series: boolean;
-  seasons: Season[];
+  seasons: SeasonMenu[];
+};
+export type LeagueData = {
+  [sport: string]: LeagueMenu[];
 };
 
-type LeagueMenu = {
-  [sport: string]: League[];
-};
-
-export const leagues: LeagueMenu = {
+export const leagues: LeagueData = {
   rugby: [
-    // {
-    //   id: "1",
-    //   name: "Sportpesa 7s",
-    //   series: true,
-    //   seasons: [{ id: "", season: "2025", series: [] }],
-    // },
+    {
+      id: "238",
+      name: "Sportpesa 7s",
+      series: true,
+      seasons: [
+        {
+          id: "",
+          season: "2025",
+          series: [
+            { serie: "Embu 7s", id: "117" },
+            { serie: "Christie 7s", id: "111" },
+            { serie: "Prinsloo 7s", id: "104" },
+            { serie: "Driftwood 7s", id: "103" },
+          ],
+        },
+      ],
+    },
     {
       id: "246",
       name: "Kenya u18 Trials",
