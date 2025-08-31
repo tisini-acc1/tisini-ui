@@ -21,18 +21,22 @@ const LeaguesMenu = () => {
                 {key}
               </div>
 
-              {sports.map((value) => (
-                <div
-                  key={value.id}
-                  className="text-primary font-semibold bg-gray-200 hover:bg-gray-300 p-2 cursor-pointer m-2 rounded-md"
-                  onClick={() => {
-                    navigate(`/scores/leagues/${value.name}`);
-                    setLeague(value);
-                  }}
-                >
-                  {value.name}
-                </div>
-              ))}
+              {sports.map((value) => {
+                const url = value.name.split(" ").join("-").toLowerCase();
+
+                return (
+                  <div
+                    key={value.id}
+                    className="text-primary font-semibold bg-gray-200 hover:bg-gray-300 p-2 cursor-pointer m-2 rounded-md"
+                    onClick={() => {
+                      navigate(`/scores/leagues/${url}`);
+                      setLeague(value);
+                    }}
+                  >
+                    {value.name}
+                  </div>
+                );
+              })}
             </div>
           );
         })}
