@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import sportpesa7s from "@/assets/tournaments/Sportpesa7s.png";
-import { useLeague } from "@/context/LeagueContext";
+// import { useLeague } from "@/context/LeagueContext";
 
 const navData: { [key: string]: { circuit: string; id: string }[] } = {
   men: [
@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-  const { season, setSeason } = useLeague();
+  // const { season, setSeason } = useLeague();
 
   useEffect(() => {
     if (gender) {
@@ -32,15 +32,15 @@ const Navbar = () => {
     }
   }, [gender, navData]);
 
-  useEffect(() => {
-    if (!leagues || leagues.length === 0) return;
+  // useEffect(() => {
+  //   if (!leagues || leagues.length === 0) return;
 
-    const seasonExists = leagues.some((l) => l.id === season);
+  //   const seasonExists = leagues.some((l) => l.id === season);
 
-    if (!seasonExists) {
-      setSeason(leagues[0].id);
-    }
-  }, [leagues, season]);
+  //   if (!seasonExists) {
+  //     setSeason(leagues[0].id);
+  //   }
+  // }, [leagues, season]);
 
   return (
     <nav className="sticky top-0">
@@ -102,12 +102,12 @@ const Navbar = () => {
             {leagues.map((league) => (
               <div
                 key={league.circuit}
-                onClick={() => setSeason(league.id)}
-                className={`transition-colors p-1.5 px-3 rounded-md whitespace-nowrap text-sm font-medium cursor-pointer shadow-sm ${
-                  season === league.id
-                    ? "bg-blue-900 text-yellow-300 font-bold"
-                    : "bg-blue-750 hover:bg-blue-400 text-blue-100"
-                }`}
+                // onClick={() => setSeason(league.id)}
+                // className={`transition-colors p-1.5 px-3 rounded-md whitespace-nowrap text-sm font-medium cursor-pointer shadow-sm ${
+                //   season === league.id
+                //     ? "bg-blue-900 text-yellow-300 font-bold"
+                //     : "bg-blue-750 hover:bg-blue-400 text-blue-100"
+                // }`}
               >
                 {league.circuit}
               </div>

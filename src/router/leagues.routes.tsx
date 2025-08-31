@@ -13,7 +13,7 @@ const LeagueRoutes = {
   ),
   children: [
     {
-      path: "/scores/leagues/sportpesa-7s",
+      path: "/scores/leagues/:leagueId",
       element: <LeaguesPage />,
     },
     {
