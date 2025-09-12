@@ -194,9 +194,6 @@ export default function ScoresHeader() {
           <button className="p-2 px-4 ">
             <Link to="/scores/basketball">🏀 Basketball</Link>
           </button>
-          <button className="p-2 px-4 ">
-            <Link to="/scores/leagues/sportpesa-7s">🏆 Sportpesa 7s</Link>
-          </button>
         </div>
 
         <div>

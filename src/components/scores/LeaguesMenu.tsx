@@ -66,6 +66,7 @@ export const leagues: LeagueData = {
           id: "",
           season: "2025",
           series: [
+            { serie: "Dala 7s", id: "122" },
             { serie: "Kabeberi 7s", id: "121" },
             { serie: "Embu 7s", id: "117" },
             { serie: "Christie 7s", id: "111" },
