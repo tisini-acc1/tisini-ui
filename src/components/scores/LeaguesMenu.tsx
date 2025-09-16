@@ -83,6 +83,13 @@ export const leagues: LeagueData = {
       seasons: [{ id: "118", season: "2025", series: [] }],
     },
   ],
-  //   football: [],
+  football: [
+    {
+      id: "205",
+      name: "FKF Premier League",
+      series: false,
+      seasons: [{ id: "123", season: "25/26", series: [] }],
+    },
+  ],
   //   basketball: [],
 };
