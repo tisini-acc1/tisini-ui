@@ -3,9 +3,9 @@ import type { RouteObject } from "react-router-dom";
 import Rugby from "@/pages/scores/Rugby/Rugby";
 import ScoresLayout from "@/layouts/ScoresLayout";
 import Football from "@/pages/scores/Football/Football";
+import BasketBall from "@/pages/scores/Basketball/BasketBall";
 import ThemeProviderWrapper from "@/theme/ThemeProviderWrapper";
 import SingleFixture from "@/pages/scores/SingleFixture/SingleFixture";
-import BasketBall from "@/pages/scores/Basketball/BasketBall";
 
 const scoresRoutes = {
   path: "/scores",

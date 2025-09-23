@@ -29,6 +29,14 @@ const ScorersTab = ({ season }: { season: string }) => {
     (a, b) => parseInt(b.totalpoints) - parseInt(a.totalpoints)
   );
 
+  if (players?.length <= 0) {
+    return (
+      <div className="p-8 text-center text-muted-foreground">
+        No scorers available
+      </div>
+    );
+  }
+
   return (
     <div className="w-full p-4 max-w-6xl mx-auto">
       <div className="rounded-xl border shadow-sm overflow-hidden">
@@ -97,12 +105,6 @@ const ScorersTab = ({ season }: { season: string }) => {
             </tbody>
           </table>
         </div>
-
-        {players?.length === 0 && (
-          <div className="p-8 text-center text-muted-foreground">
-            No player data available
-          </div>
-        )}
       </div>
     </div>
   );

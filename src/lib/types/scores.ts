@@ -132,27 +132,43 @@ export type SingleFixtureStats = {
   gamedetails: GameHighlights[];
 };
 
-export type TableStandings = {
+export type Standing = {
   team: string;
-  mp: number;
-  w: number;
-  d: number;
-  l: number;
-  gf: number;
-  ga: number;
-  gd: number;
-  pts: number;
-  // position: number;
-  // team_name: string;
-  // year: string;
-  // round1: string;
-  // round2: string;
-  // round3: string;
-  // round4: string;
-  // round5: string;
-  // round6: string;
-  // totalpts: string;
-  // league: string;
+  D: number;
+  GA: number;
+  GD: number;
+  GF: number;
+  L: number;
+  P: number;
+  Pts: number;
+  W: number;
+};
+
+export type SerieStanding = {
+  created_by: string;
+  date_created: string;
+  date_from: string;
+  date_updated: string;
+  id: string;
+  name: string;
+  ranker: string;
+  status: string;
+  tournament: string;
+  standings: Standing[];
+};
+
+export type TournamentStanding = {
+  date_created: string;
+  date_updated: string;
+  fixture_type: string;
+  fixturetype: string;
+  is_competitive: string;
+  leaguelogo: string;
+  position: string;
+  status: string;
+  tournament: string;
+  tournament_id: string;
+  series: SerieStanding[];
 };
 
 export type GroupByDate = {
