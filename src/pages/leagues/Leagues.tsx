@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 
 import ResultsTab from "./ResultsTab";
 import ScorersTab from "./ScorersTab";
-import { leagues, SeriesMenu } from "@/components/scores/LeaguesMenu";
 import { Standings } from "../scores/standings/Standings";
+import { leagues, SeriesMenu } from "@/components/scores/LeaguesMenu";
 
 const LeaguesPage = () => {
   const { leagueId } = useParams<{ leagueId: string }>();
@@ -135,7 +135,7 @@ const LeaguesPage = () => {
       <section className="p-2">
         {activeTab === "1" && <ResultsTab season={season} />}
 
-        {activeTab === "2" && <ScorersTab season={season} />}
+        {activeTab === "2" && <ScorersTab season={season} type={league.type} />}
 
         {activeTab === "3" && <Standings />}
       </section>

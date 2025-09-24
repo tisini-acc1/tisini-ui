@@ -48,6 +48,7 @@ export type SeasonMenu = { id: string; season: string; series: SeriesMenu[] };
 export type LeagueMenu = {
   id: string;
   name: string;
+  type: string;
   series: boolean;
   seasons: SeasonMenu[];
 };
@@ -60,6 +61,7 @@ export const leagues: LeagueData = {
     {
       id: "238",
       name: "Sportpesa 7s",
+      type: "rugby7",
       series: true,
       seasons: [
         {
@@ -79,6 +81,7 @@ export const leagues: LeagueData = {
     {
       id: "246",
       name: "Kenya u18 Trials",
+      type: "rugby15",
       series: false,
       seasons: [{ id: "118", season: "2025", series: [] }],
     },
@@ -86,7 +89,8 @@ export const leagues: LeagueData = {
   football: [
     {
       id: "205",
-      name: "Sportpesa League",
+      name: "SportPesa League",
+      type: "football",
       series: false,
       seasons: [{ id: "123", season: "25/26", series: [] }],
     },

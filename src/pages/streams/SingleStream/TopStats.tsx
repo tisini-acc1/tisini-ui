@@ -3,7 +3,7 @@ import { useQueries } from "@tanstack/react-query";
 
 import Spinner from "@/components/spinner/Spinner";
 import tisiniLogo from "@/assets/img/tisini-logo.png";
-import fetchSeasonScorers from "@/lib/data/FetchLeagueScorers";
+import { fetchScorers } from "@/lib/data/FetchLeagueScorers";
 
 const TopStats = () => {
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -12,19 +12,19 @@ const TopStats = () => {
     queries: [
       {
         queryKey: ["rugbyScorers", "103"],
-        queryFn: () => fetchSeasonScorers("103"),
+        queryFn: () => fetchScorers("103"),
         refetchInterval: 10000,
         refetchOnWindowFocus: true,
       },
       {
         queryKey: ["rugbyScorers", "104"],
-        queryFn: () => fetchSeasonScorers("104"),
+        queryFn: () => fetchScorers("104"),
         refetchInterval: 10000,
         refetchOnWindowFocus: true,
       },
       {
         queryKey: ["rugbyScorers", "111"],
-        queryFn: () => fetchSeasonScorers("111"),
+        queryFn: () => fetchScorers("111"),
         refetchInterval: 10000,
         refetchOnWindowFocus: true,
       },

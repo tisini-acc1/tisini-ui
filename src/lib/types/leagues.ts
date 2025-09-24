@@ -63,3 +63,15 @@ export type TopScorer = {
   playername: string;
   teamname: string;
 };
+
+export type BallScorer = {
+  playerid: string;
+  seasonid: string;
+  eventid: string;
+  subeventid: string;
+  teamid: string;
+  teamname: string;
+  assist: null | string;
+  goal: string;
+  playername: string;
+};
