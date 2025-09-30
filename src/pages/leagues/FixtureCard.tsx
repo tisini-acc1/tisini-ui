@@ -17,7 +17,7 @@ const FixtureCard = ({ fixture }: { fixture: Fixture }) => {
   //   const hLogo = fixture.team1_logo === "" ? null : fixture.team1_logo;
   //   const aLogo = fixture.team2_logo === "" ? null : fixture.team2_logo;
 
-  //   console.log(fixture);
+  // console.log(fixture);
 
   return (
     <>
@@ -124,25 +124,45 @@ const FixtureCard = ({ fixture }: { fixture: Fixture }) => {
       {isExpanded && hasRefData && (
         <div className="bg-background/90 p-4 animate-accordion-down">
           {/* Tries Section */}
-          <EventSection
-            title="Tries"
-            icon={<Goal className="h-4 w-4" />}
-            eventType="Score"
-            subEventType="Try"
-            fixture={fixture}
-            eventClassName="text-primary"
-            badgeClassName="bg-primary/10 text-primary"
-          />
+          {fixture.fixture_type === "rugby7" ||
+            (fixture.fixture_type === "rugby15" && (
+              <EventSection
+                title="Tries"
+                icon={<Goal className="h-4 w-4" />}
+                eventType="Score"
+                subEventType="Try"
+                fixture={fixture}
+                eventClassName="text-primary"
+                badgeClassName="bg-primary/10 text-primary"
+              />
+            ))}
+
           {/* Conversions Section */}
-          <EventSection
-            title="Conversions"
-            icon={<Diamond className="h-4 w-4" />}
-            eventType="Score"
-            subEventType="Successful Conversion"
-            fixture={fixture}
-            eventClassName="text-accent"
-            badgeClassName="bg-accent/10 text-accent"
-          />
+          {fixture.fixture_type === "rugby7" ||
+            (fixture.fixture_type === "rugby15" && (
+              <EventSection
+                title="Conversions"
+                icon={<Diamond className="h-4 w-4" />}
+                eventType="Score"
+                subEventType="Successful Conversion"
+                fixture={fixture}
+                eventClassName="text-accent"
+                badgeClassName="bg-accent/10 text-accent"
+              />
+            ))}
+
+          {/* Goals */}
+          {fixture.fixture_type === "football" && (
+            <EventSection
+              title="Goals"
+              icon={<Goal className="h-4 w-4" />}
+              eventType="Goal"
+              subEventType=""
+              fixture={fixture}
+              eventClassName="text-primary"
+              badgeClassName="bg-primary/10 text-primary"
+            />
+          )}
 
           {/* Cards Section */}
           {/* <EventSection
@@ -190,67 +210,87 @@ const EventSection = ({
   eventClassName,
   badgeClassName,
   renderBadge,
-}: EventSectionProps) => (
-  <div className={title === "Tries" ? "mb-6" : ""}>
-    <h4
-      className={`flex items-center justify-center gap-2 text-sm text-primary font-semibold mb-3 ${eventClassName}`}
-    >
-      {icon}
-      {title}
-    </h4>
-    <div className="grid grid-cols-2 gap-4">
-      {/* Home Team */}
-      <TeamEvents
-        events={fixture.refdata.filter(
+}: EventSectionProps) => {
+  const homeEvents =
+    fixture.fixture_type === "football"
+      ? fixture.refdata.filter(
+          (item) =>
+            item.event_name === eventType && item.team_id === fixture.team1_id
+        )
+      : fixture.refdata.filter(
           (event) =>
             event.event_name === eventType &&
             (Array.isArray(subEventType)
               ? subEventType.includes(event.sub_event_name)
               : event.sub_event_name === subEventType) &&
             event.team_id === fixture.team1_id
-        )}
-        badgeClassName={badgeClassName}
-        renderBadge={renderBadge}
-      />
+        );
 
-      {/* Away Team */}
-      <TeamEvents
-        events={fixture.refdata.filter(
+  const awayEvents =
+    fixture.fixture_type === "football"
+      ? fixture.refdata.filter(
+          (item) =>
+            item.event_name === eventType && item.team_id === fixture.team2_id
+        )
+      : fixture.refdata.filter(
           (event) =>
             event.event_name === eventType &&
             (Array.isArray(subEventType)
               ? subEventType.includes(event.sub_event_name)
               : event.sub_event_name === subEventType) &&
             event.team_id === fixture.team2_id
-        )}
-        badgeClassName={badgeClassName}
-        renderBadge={renderBadge}
-      />
+        );
+
+  return (
+    <div className={title === "Tries" ? "mb-6" : ""}>
+      <h4
+        className={`flex items-center justify-center gap-2 text-sm text-primary font-semibold mb-3 ${eventClassName}`}
+      >
+        {icon}
+        {title}
+      </h4>
+      <div className="grid grid-cols-2 gap-4">
+        {/* Home Team */}
+        <TeamEvents
+          events={homeEvents}
+          badgeClassName={badgeClassName}
+          renderBadge={renderBadge}
+        />
+
+        {/* Away Team */}
+        <TeamEvents
+          events={awayEvents}
+          badgeClassName={badgeClassName}
+          renderBadge={renderBadge}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 interface TeamEventsProps {
   events: RefData[];
   badgeClassName?: string;
-  renderBadge?: (event: RefData) => React.ReactNode; // Add this line
+  renderBadge?: (event: RefData) => React.ReactNode;
 }
 
 const TeamEvents = ({
   events,
   badgeClassName,
-  renderBadge, // Add this to destructuring
+  renderBadge,
 }: TeamEventsProps) => (
   <div className="space-y-2 border p-2 rounded-sm">
     {events.length === 0 ? (
-      <div className="text-sm text-muted-foreground text-center">None</div>
+      <div className="text-sm text-muted-foreground text-center"></div>
     ) : (
       events.map((event, index) => (
         <div key={index} className="flex items-center gap-2 text-sm">
           <span className="font-medium w-6 text-right">
             {event.minute}&apos;
           </span>
-          <span className="flex-1 truncate">{event.player_name.trim()}</span>
+          <span className="flex-1 truncate capitalize">
+            {event.player_name.trim()}
+          </span>
           {event.sub_event_name !== "Try" &&
             (renderBadge ? (
               renderBadge(event)
