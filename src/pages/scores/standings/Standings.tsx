@@ -61,15 +61,15 @@ export const Standings = () => {
             </span>
             <span className="text-sm text-gray-700">CAF Champions League</span>
           </div>
-          <div className="flex items-center space-x-2">
+          {/* <div className="flex items-center space-x-2">
             <span className="w-5 h-5 bg-yellow-500 text-white text-xs flex items-center justify-center rounded font-medium">
               16
             </span>
             <span className="text-sm text-gray-700">Relegation Play-offs</span>
-          </div>
+          </div> */}
           <div className="flex items-center space-x-2">
             <span className="w-5 h-5 bg-red-600 text-white text-xs flex items-center justify-center rounded font-medium">
-              17
+              16
             </span>
             <span className="text-sm text-gray-700">Relegated</span>
           </div>
@@ -93,6 +93,11 @@ const StandingsRow = ({ item, idx }: { item: Standing; idx: number }) => {
     return "hover:bg-gray-50 transition-colors duration-150";
   };
 
+  const isHomeWinOrDraw = (score: string) => {
+    const scores = score.split("-");
+    return scores[0] > scores[1] || scores[0] === scores[1];
+  };
+
   return (
     <div
       className={`grid grid-cols-12 px-4 py-3 items-center ${getRowStyle(idx)}`}
@@ -104,15 +109,33 @@ const StandingsRow = ({ item, idx }: { item: Standing; idx: number }) => {
               ? "bg-green-600 text-white"
               : idx >= 15
               ? "bg-red-600 text-white"
-              : idx >= 13
-              ? "bg-yellow-500 text-white"
               : "bg-gray-200 text-gray-700"
           }`}
         >
           {idx + 1}
         </span>
         <img src={homeImg} alt={item.team} className="w-6 h-6 rounded-full" />
-        <span className="font-medium text-gray-900 truncate">{item.team}</span>
+        <span className="font-medium text-gray-900 truncate flex-1">
+          {item.team}
+        </span>
+
+        {item?.live && (
+          <div className="flex items-center space-x-2">
+            <span
+              className="bg-green-800 w-3 h-3 animate-pulse rounded-full"
+              aria-label="Live match in progress"
+            ></span>
+            <span
+              className={
+                isHomeWinOrDraw(item.live.score)
+                  ? "text-green-800 font-medium text-sm"
+                  : "text-red-800 font-medium text-sm"
+              }
+            >
+              {item.live.score}
+            </span>
+          </div>
+        )}
       </div>
       <div className="col-span-1 text-center text-sm text-gray-600">
         {item.P}
