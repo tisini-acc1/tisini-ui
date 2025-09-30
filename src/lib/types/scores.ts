@@ -132,6 +132,12 @@ export type SingleFixtureStats = {
   gamedetails: GameHighlights[];
 };
 
+export type Live = {
+  opponent: string;
+  score: string;
+  status: string;
+};
+
 export type Standing = {
   team: string;
   D: number;
@@ -142,6 +148,7 @@ export type Standing = {
   P: number;
   Pts: number;
   W: number;
+  live: Live | null;
 };
 
 export type SerieStanding = {

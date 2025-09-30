@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import ResultsTab from "./ResultsTab";
 import ScorersTab from "./ScorersTab";
-// import { Standings } from "../scores/standings/Standings";
+import { Standings } from "../scores/standings/Standings";
 import { leagues, SeriesMenu } from "@/components/scores/LeaguesMenu";
 
 const LeaguesPage = () => {
@@ -20,7 +20,7 @@ const LeaguesPage = () => {
   const tabs = [
     { id: "1", tab: "results" },
     { id: "2", tab: "scores" },
-    // { id: "3", tab: "standings" },
+    { id: "3", tab: "standings" },
   ];
 
   useEffect(() => {
@@ -137,7 +137,7 @@ const LeaguesPage = () => {
 
         {activeTab === "2" && <ScorersTab season={season} type={league.type} />}
 
-        {/* {activeTab === "3" && <Standings />} */}
+        {activeTab === "3" && <Standings />}
       </section>
     </main>
   );
