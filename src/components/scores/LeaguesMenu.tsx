@@ -94,6 +94,13 @@ export const leagues: LeagueData = {
       series: false,
       seasons: [{ id: "123", season: "25/26", series: [] }],
     },
+    {
+      id: "26",
+      name: "FKF Women Premier League",
+      type: "football",
+      series: false,
+      seasons: [{ id: "133", season: "25/26", series: [] }],
+    },
   ],
   //   basketball: [],
 };

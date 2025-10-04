@@ -19,7 +19,7 @@ const LeaguesPage = () => {
 
   const tabs = [
     { id: "1", tab: "results" },
-    { id: "2", tab: "scores" },
+    { id: "2", tab: "top scorers" },
     { id: "3", tab: "standings" },
   ];
 
