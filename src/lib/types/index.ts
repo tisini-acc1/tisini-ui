@@ -339,3 +339,15 @@ export type ReducerFunction<StateType, ActionsType> = (
 export type ActionMapper<T extends { [key in any]: any }> = {
   [key in keyof T]: T extends { [Key in keyof T]: infer U } ? U : never;
 };
+
+export interface QuizLeaderboard {
+  id: number;
+  quiz_player: number;
+  nickname: string;
+  period_start: string;
+  period_end: string;
+  total_points: number;
+  average_time: number;
+  rank: number;
+  rank_change: number;
+}

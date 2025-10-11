@@ -65,10 +65,19 @@ export default function QuestionSetsPage() {
             >
               Back
             </button>
-            <h1 className="text-2xl font-bold">
-              {/* {organization?.organization_name} */}
-            </h1>
+
+            {/* <h1 className="text-2xl font-bold">
+              {organization?.organization_name}
+            </h1> */}
           </div>
+
+          <button
+            onClick={() => navigate(`/quiz/${organizationId}/leaderboard`)}
+            className="bg-primary text-white rounded-md px-4 py-2 text-center"
+          >
+            {/* {new Date().toLocaleString("default", { month: "long" })}{" "} */}
+            Leaderboard
+          </button>
         </div>
         {/* Organization questionsets */}
         <OrganizationQuestionSets
