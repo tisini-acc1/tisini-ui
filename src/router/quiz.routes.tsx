@@ -4,6 +4,7 @@ import Organizationspage from "@/pages/Organizations/Organizationspage";
 import PlayQuiz from "@/pages/PlayQuiz/PlayQuiz";
 import QuestionsetLeaderboard from "@/pages/QuestionSetLeaderboard/QuestionsetLeaderboard";
 import QuestionSetsPage from "@/pages/QuestionSets/QuestionSetsPage";
+import QuizLeaderboard from "@/pages/quiz/QuizLeaderboard";
 import QuizPrePlayPage from "@/pages/QuizPrePlay/QuizPrePlayPage";
 import { Outlet, type RouteObject } from "react-router-dom";
 
@@ -26,6 +27,12 @@ const quizRoutes = {
       // TODO: Add a route for the organization page
       path: "/quiz/:organizationId",
       element: <QuestionSetsPage />,
+      children: [],
+    },
+    {
+      // TODO: Add a route for the organization page
+      path: "/quiz/:organizationId/leaderboard",
+      element: <QuizLeaderboard />,
       children: [],
     },
     {

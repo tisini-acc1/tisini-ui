@@ -147,8 +147,7 @@ export default function QuestionsetLeaderboard() {
   // const cookies = useTisiniCookies();
   const authenticatedUserPlayed = React.useMemo(() => {
     const player =
-      leaderBoardType === "PR" &&
-      predictiveLeaderBoard.length
+      leaderBoardType === "PR" && predictiveLeaderBoard.length
         ? predictiveLeaderBoard.find(
             (p) =>
               p.nickname.toLowerCase() === auth.user?.nickname.toLowerCase()
@@ -186,7 +185,6 @@ export default function QuestionsetLeaderboard() {
       setIsLoading(false);
     }
   };
-  console.log({ leaderBoard });
 
   return (
     <MaxWidthWrapper className="overflow-auto min-h-[50vh] flex flex-col gap-2 py-4">
