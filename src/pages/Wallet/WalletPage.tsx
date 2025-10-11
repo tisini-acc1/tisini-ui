@@ -35,6 +35,9 @@ export default function WalletPage() {
   const [creditRate, setCreditRate] = useState<CreditScoreType>(
     {} as CreditScoreType
   );
+  const [quizCreditRate, setQuizCreditRate] = useState<CreditScoreType>(
+    {} as CreditScoreType
+  );
   const [isDepositOpen, setIsDepositOpen] = useState(false);
   const fetchBalance = React.useCallback(async () => {
     const feedback = await privateAxios.get<{
@@ -42,12 +45,21 @@ export default function WalletPage() {
     }>("/users/account_balance/");
     setBalance(Number(feedback.data?.accountbalance || 0));
   }, []);
+
   const fetchCredit = React.useCallback(async () => {
     const feedback = await privateAxios.get<{ results: CreditScoreType[] }>(
       "/users/credit_rate/"
     );
-    setCreditRate(feedback.data.results?.[0] || {} as CreditScoreType);
+    setCreditRate(feedback.data.results?.[0] || ({} as CreditScoreType));
   }, []);
+
+  const fetchQuizCredit = React.useCallback(async () => {
+    const feedback = await privateAxios.get<{ results: CreditScoreType[] }>(
+      "/users/quiz_credit_rate/"
+    );
+    setQuizCreditRate(feedback.data.results?.[0] || ({} as CreditScoreType));
+  }, []);
+
   const [userTransactions, setUserTransactions] = React.useState<Transaction[]>(
     []
   );
@@ -61,7 +73,9 @@ export default function WalletPage() {
     fetchBalance();
     fetchTransactions();
     fetchCredit();
+    fetchQuizCredit();
   }, []);
+
   return (
     <div
       className="min-h-screen  bg-cover bg-center bg-no-repeat w-screen bg-primary bg-blend-lighten flex flex-col"
@@ -119,41 +133,22 @@ export default function WalletPage() {
                       Withdraw
                     </button>
                   </div>
-                  {Object.keys(creditRate).length > 0 && (
-                    <div className="py-4 border p-4">
-                      <h1 className="text-xl font-bold  uppercase mb-4">
-                        Tano bora Credit Rating
-                      </h1>
-                      <div className="grid max-w-xl gap-2 lg:gap-4 grid-cols-1 md:grid-cols-2">
-                        <div className="p-4 bg-white border rounded">
-                          <h2 className="">Credit rate</h2>
 
-                          <strong className="text-xl font-bold">
-                            {creditRate.credit_rating_weighted_sum}
-                          </strong>
-                        </div>
-                        <div className="p-4 bg-white border rounded">
-                          <h2 className="">Credit amount</h2>
-                          <strong className="font-bold text-xl">
-                            {" "}
-                            {creditRate.credit_amount_weighted_sum}
-                          </strong>
-                        </div>
-                      </div>
-                      {Array.isArray(creditRate.recommendations) && (
-                        <div>
-                          <h2 className="text-xl font-bold underline uppercase my-2">
-                            Recommendations
-                          </h2>
-                          <ol className="list-disc px-4">
-                            {creditRate.recommendations.map((recom) => (
-                              <li key={recom}>{recom}</li>
-                            ))}
-                          </ol>
-                        </div>
-                      )}
-                    </div>
-                  )}
+                  <div className="grid gap-8 md:grid-cols-2">
+                    {Object.keys(creditRate).length > 0 && (
+                      <CreditRateCard
+                        title="Tano bora"
+                        creditRate={creditRate}
+                      />
+                    )}
+
+                    {Object.keys(quizCreditRate).length > 0 && (
+                      <CreditRateCard
+                        title="Quiz"
+                        creditRate={quizCreditRate}
+                      />
+                    )}
+                  </div>
                 </div>
               )}
 
@@ -172,9 +167,13 @@ export default function WalletPage() {
                             <th className="px-4 py-2 border-b">Date Created</th>
                             <th className="px-4 py-2 border-b">Description</th>
                             <th className="px-4 py-2 border-b">Debit Amount</th>
-                            <th className="px-4 py-2 border-b">Credit Amount</th>
+                            <th className="px-4 py-2 border-b">
+                              Credit Amount
+                            </th>
                             <th className="px-4 py-2 border-b">Payment Date</th>
-                            <th className="px-4 py-2 border-b">Transaction Name</th>
+                            <th className="px-4 py-2 border-b">
+                              Transaction Name
+                            </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -183,7 +182,9 @@ export default function WalletPage() {
                               key={transaction.id}
                               className="hover:bg-gray-100 "
                             >
-                              <td className="px-4 py-2 border-b whitespace-nowrap">{transaction.id}</td>
+                              <td className="px-4 py-2 border-b whitespace-nowrap">
+                                {transaction.id}
+                              </td>
                               <td className="px-4 py-2 border-b whitespace-nowrap">
                                 {transaction.date_created}
                               </td>
@@ -230,3 +231,60 @@ export default function WalletPage() {
     </div>
   );
 }
+
+const CreditRateCard = ({
+  title,
+  creditRate,
+}: {
+  title: string;
+  creditRate: CreditScoreType;
+}) => {
+  return (
+    <div className="bg-white shadow-md border rounded-2xl p-6 hover:shadow-lg transition-all duration-300 max-w-2xl mx-auto">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl p-4 mb-6">
+        <h1 className="text-2xl font-semibold uppercase tracking-wide text-center">
+          {title} Credit Rating
+        </h1>
+      </div>
+
+      {/* Stats Section */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="p-4 bg-gray-50 rounded-xl text-center border hover:bg-indigo-50 transition-colors">
+          <h2 className="text-sm font-medium text-gray-600 uppercase">
+            Credit Rate
+          </h2>
+          <p className="text-3xl font-bold text-indigo-600 mt-1">
+            {creditRate.credit_rating_weighted_sum}
+          </p>
+        </div>
+
+        <div className="p-4 bg-gray-50 rounded-xl text-center border hover:bg-indigo-50 transition-colors">
+          <h2 className="text-sm font-medium text-gray-600 uppercase">
+            Credit Amount
+          </h2>
+          <p className="text-3xl font-bold text-green-600 mt-1">
+            {creditRate.credit_amount_weighted_sum}
+          </p>
+        </div>
+      </div>
+
+      {/* Recommendations */}
+      {Array.isArray(creditRate.recommendations) &&
+        creditRate.recommendations.length > 0 && (
+          <div className="mt-6">
+            <h2 className="text-lg font-semibold uppercase text-gray-700 mb-2">
+              Recommendations
+            </h2>
+            <ul className="list-disc pl-5 space-y-1 text-gray-700">
+              {creditRate.recommendations.map((recom) => (
+                <li key={recom} className="leading-relaxed">
+                  {recom}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+    </div>
+  );
+};
