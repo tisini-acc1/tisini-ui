@@ -152,29 +152,36 @@ export type Standing = {
 };
 
 export type SerieStanding = {
-  created_by: string;
-  date_created: string;
-  date_from: string;
-  date_updated: string;
   id: string;
   name: string;
   ranker: string;
-  status: string;
   tournament: string;
+  date_created: string;
+  date_updated: string;
+  created_by: string;
+  date_from: string;
+  date_to: string;
+  status: string;
   standings: Standing[];
 };
 
-export type TournamentStanding = {
+export type Tourn = {
+  id: string;
+  name: string;
   date_created: string;
-  date_updated: string;
   fixture_type: string;
-  fixturetype: string;
-  is_competitive: string;
-  leaguelogo: string;
-  position: string;
+  created_by: string;
+  date_updated: string;
+  date_from: string | null;
+  date_to: string | null;
   status: string;
-  tournament: string;
+  is_competitive: string;
+  leaguelogo: string | null;
+};
+
+export type TournamentStanding = {
   tournament_id: string;
+  tournament: Tourn;
   series: SerieStanding[];
 };
 

@@ -7,17 +7,18 @@ import Spinner from "@/components/spinner/Spinner";
 import FetchStandings from "@/lib/data/FetchStandings";
 
 export const Standings = () => {
-  const { data, isLoading } = useQuery(["standings"], () => FetchStandings());
-
   const { leagueId } = useParams();
-  const tournId = leagueId?.split("-").pop();
+  const tournId = leagueId?.split("-").pop() || "";
+
+  const { data, isLoading } = useQuery(["standings"], () =>
+    FetchStandings(tournId)
+  );
 
   if (isLoading) {
     return <Spinner />;
   }
 
-  const standings = data?.find((t) => t.tournament_id === tournId)?.series[0]
-    .standings;
+  const standings = data?.series[0].standings;
 
   if (!standings) {
     return (
