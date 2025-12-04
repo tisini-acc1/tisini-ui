@@ -39,8 +39,8 @@ export default function QuizPlayDone({ count }: { count: number }) {
         time_used: summary.time_used! / totalQuestions,
       };
 
-      await privateAxios.post(
-        `/${qtype}/quiz_leaderboard/${questionSet?.uid}/leaderboard/`,
+      https: await privateAxios.post(
+        `/${qtype}/organizations/${currentOrganization}/questionsets/${questionSet?.uid}/leaderboard/`,
         dataToSend
       );
       // console.log({ response });
