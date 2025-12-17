@@ -8,9 +8,10 @@ import FetchStandings from "@/lib/data/FetchStandings";
 
 export const Standings = () => {
   const { leagueId } = useParams();
+
   const tournId = leagueId?.split("-").pop() || "";
 
-  const { data, isLoading } = useQuery(["standings"], () =>
+  const { data, isLoading } = useQuery(["standings", tournId], () =>
     FetchStandings(tournId)
   );
 
@@ -49,7 +50,7 @@ export const Standings = () => {
       {/* Table Rows */}
       <div className="divide-y divide-gray-100">
         {standings?.map((item, idx) => (
-          <StandingsRow key={idx} item={item} idx={idx} />
+          <StandingsRow key={idx} item={item} idx={idx} leagueId={tournId} />
         ))}
       </div>
 
@@ -60,7 +61,7 @@ export const Standings = () => {
             <span className="w-5 h-5 bg-green-600 text-white text-xs flex items-center justify-center rounded font-medium">
               1
             </span>
-            <span className="text-sm text-gray-700">CAF Champions League</span>
+            <span className="text-sm text-gray-700">Champions</span>
           </div>
           {/* <div className="flex items-center space-x-2">
             <span className="w-5 h-5 bg-yellow-500 text-white text-xs flex items-center justify-center rounded font-medium">
@@ -70,9 +71,9 @@ export const Standings = () => {
           </div> */}
           <div className="flex items-center space-x-2">
             <span className="w-5 h-5 bg-red-600 text-white text-xs flex items-center justify-center rounded font-medium">
-              16
+              {tournId === "26" ? 10 : tournId === "202" ? 17 : 16}
             </span>
-            <span className="text-sm text-gray-700">Relegated</span>
+            <span className="text-sm text-gray-700">Relegation</span>
           </div>
         </div>
 
@@ -85,12 +86,21 @@ export const Standings = () => {
   );
 };
 
-const StandingsRow = ({ item, idx }: { item: Standing; idx: number }) => {
+type RowProps = { item: Standing; idx: number; leagueId: string };
+
+const StandingsRow = ({ item, idx, leagueId }: RowProps) => {
   // Determine row styling based on position for visual hierarchy
   const getRowStyle = (position: number) => {
-    if (position === 0) return "bg-green-50 border-l-4 border-l-green-500";
-    if (position >= 15) return "bg-red-50 border-l-4 border-l-red-500";
-    if (position >= 13) return "bg-yellow-50 border-l-4 border-l-yellow-500";
+    if (position === 0) {
+      return "border-l-4 bg-green-200 border-l-green-500";
+    } else if (
+      (leagueId === "202" && idx >= 16) ||
+      (leagueId === "205" && idx >= 15) ||
+      (leagueId === "26" && idx >= 9)
+    ) {
+      return "bg-red-100 border-l-4 border-l-red-500";
+    }
+    // if (position >= 13) return "bg-yellow-50 border-l-4 border-l-yellow-500";
     return "hover:bg-gray-50 transition-colors duration-150";
   };
 
@@ -108,7 +118,9 @@ const StandingsRow = ({ item, idx }: { item: Standing; idx: number }) => {
           className={`w-6 h-6 flex items-center justify-center text-sm font-medium rounded-full ${
             idx === 0
               ? "bg-green-600 text-white"
-              : idx >= 15
+              : (leagueId === "202" && idx >= 16) ||
+                (leagueId === "205" && idx >= 15) ||
+                (leagueId === "26" && idx >= 9)
               ? "bg-red-600 text-white"
               : "bg-gray-200 text-gray-700"
           }`}

@@ -2,8 +2,10 @@ import { BallScorer } from "@/lib/types/leagues";
 import React from "react";
 
 const FootballScorers = ({ players }: { players: BallScorer[] }) => {
+  const scorers = players.filter((p) => p.playername !== "Own Goal ");
+
   return (
-    <div className="w-full p-4 max-w-6xl mx-auto">
+    <div className="w-full max-w-5xl mx-auto">
       <div className="rounded-xl border shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -30,7 +32,7 @@ const FootballScorers = ({ players }: { players: BallScorer[] }) => {
               </tr>
             </thead>
             <tbody className="divide-y divide-muted">
-              {players?.map((player) => (
+              {scorers?.map((player) => (
                 <tr
                   key={player.playerid}
                   className="hover:bg-primary/10 transition-colors"
@@ -41,7 +43,7 @@ const FootballScorers = ({ players }: { players: BallScorer[] }) => {
                         {player.playername[0]}
                       </div>
                       <div className="ml-4">
-                        <div className="text-sm font-medium text-foreground capitalize">
+                        <div className="text-sm font-medium text-foreground capitalize text-primary">
                           {player.playername}
                         </div>
                         <div className="text-sm text-gray-500">

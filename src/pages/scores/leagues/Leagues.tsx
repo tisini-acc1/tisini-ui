@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import ResultsTab from "./ResultsTab";
 import ScorersTab from "./ScorersTab";
-import { Standings } from "../scores/standings/Standings";
+import { Standings } from "../standings/Standings";
 import { leagues, SeriesMenu } from "@/components/scores/LeaguesMenu";
 
 const LeaguesPage = () => {
@@ -30,7 +30,7 @@ const LeaguesPage = () => {
     } else {
       setSeason(league?.seasons[0]?.id as string);
     }
-  }, []);
+  }, [league]);
 
   if (league === undefined) {
     return (
@@ -41,7 +41,7 @@ const LeaguesPage = () => {
   }
 
   return (
-    <main>
+    <main className="">
       <nav className="sticky top-0 z-10">
         <header className="bg-gradient-to-r from-blue-700 to-blue-800 text-white shadow-lg">
           <div className="container mx-auto">
