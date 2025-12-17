@@ -29,7 +29,7 @@ const FixtureCard = ({ fixture }: { fixture: Fixture }) => {
         }}
       >
         {/* Date and Time - New left column */}
-        <div className="col-span-2 flex flex-col items-start justify-center">
+        <div className="col-span-2 flex flex-col items-start justify-center text-black-lighter">
           <div className="text-xs">
             {new Date(fixture.game_date).toLocaleDateString("en-US", {
               month: "short",
@@ -44,14 +44,14 @@ const FixtureCard = ({ fixture }: { fixture: Fixture }) => {
               {"ended"}
             </div>
           ) : (
-            <div className="text-xs text-primary capitalize">
+            <div className="text-xs text-green-600 capitalize">
               live <span className="animate-caret-blink">{fixture.minute}</span>
             </div>
           )}
         </div>
 
         {/* Team 1 - Reduced column span */}
-        <div className="col-span-3 flex items-center justify-end gap-2">
+        <div className="col-span-3 flex items-center justify-end gap-2 text-primary">
           <div className="text-end text-xs">{fixture.team1_name}</div>
           <div className="w-8 h-8 relative shrink-0">
             <img
@@ -65,7 +65,7 @@ const FixtureCard = ({ fixture }: { fixture: Fixture }) => {
         </div>
 
         {/* Match status */}
-        <div className="col-span-2 flex flex-col items-center justify-center pt-5">
+        <div className="col-span-2 flex flex-col items-center justify-center pt-5 text-black-lighter">
           {fixture.matchplay_status === "3" ? (
             <p className="text-sm font-semibold text-muted-foreground">
               Postponed
@@ -89,7 +89,7 @@ const FixtureCard = ({ fixture }: { fixture: Fixture }) => {
         </div>
 
         {/* Team 2 - Reduced column span */}
-        <div className="col-span-4 flex items-center gap-2">
+        <div className="col-span-4 flex items-center gap-2 text-primary">
           <div className="w-8 h-8 relative shrink-0">
             <img
               src={awayLogo}
@@ -122,7 +122,7 @@ const FixtureCard = ({ fixture }: { fixture: Fixture }) => {
       </div>
 
       {isExpanded && hasRefData && (
-        <div className="bg-background/90 p-4 animate-accordion-down">
+        <div className="bg-background/90 p-4 animate-accordion-down text-primary">
           {/* Tries Section */}
           {fixture.fixture_type === "rugby7" ||
             (fixture.fixture_type === "rugby15" && (

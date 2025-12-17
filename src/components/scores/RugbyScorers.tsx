@@ -7,7 +7,7 @@ const RugbyScorers = ({ data }: { data: TopScorer[] }) => {
   );
 
   return (
-    <div className="w-full p-4 max-w-6xl mx-auto">
+    <div className="w-full max-w-5xl mx-auto">
       <div className="rounded-xl border shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -33,7 +33,7 @@ const RugbyScorers = ({ data }: { data: TopScorer[] }) => {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-muted">
+            <tbody className="divide-y divide-muted text-gray-500">
               {players?.map((player) => (
                 <tr
                   key={player.playerid}
@@ -45,7 +45,7 @@ const RugbyScorers = ({ data }: { data: TopScorer[] }) => {
                         {player.playername[0]}
                       </div>
                       <div className="ml-4">
-                        <div className="text-sm font-medium text-foreground capitalize">
+                        <div className="text-sm font-medium text-foreground capitalize text-primary">
                           {player.playername}
                         </div>
                         <div className="text-sm text-gray-500">

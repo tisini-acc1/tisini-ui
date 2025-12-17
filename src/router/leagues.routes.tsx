@@ -1,6 +1,6 @@
 import { Outlet, RouteObject } from "react-router-dom";
 
-import LeaguesPage from "@/pages/leagues/Leagues";
+// import LeaguesPage from "@/pages/scores/leagues/Leagues";
 import LeaguesLayout from "@/layouts/LeaguesLayout";
 
 const LeagueRoutes = {
@@ -11,10 +11,10 @@ const LeagueRoutes = {
     </LeaguesLayout>
   ),
   children: [
-    {
-      path: "/scores/leagues/:leagueId",
-      element: <LeaguesPage />,
-    },
+    // {
+    //   path: "/scores/leagues/:leagueId",
+    //   element: <LeaguesPage />,
+    // },
   ],
 } satisfies RouteObject;
 

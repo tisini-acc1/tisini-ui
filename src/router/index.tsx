@@ -10,7 +10,6 @@ import tournamentRoutes from "./tournaments";
 import quizRoutes from "./quiz.routes";
 import tanoboraRoutes from "./tanobora.routes";
 import streamRoutes from "./stream.routes";
-import LeagueRoutes from "./leagues.routes";
 
 const routes = [
   {
@@ -26,7 +25,6 @@ const routes = [
       scoresRoutes,
       tournamentRoutes,
       streamRoutes,
-      LeagueRoutes,
     ],
   },
   {

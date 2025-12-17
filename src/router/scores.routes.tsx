@@ -6,6 +6,7 @@ import Football from "@/pages/scores/Football/Football";
 import BasketBall from "@/pages/scores/Basketball/BasketBall";
 import ThemeProviderWrapper from "@/theme/ThemeProviderWrapper";
 import SingleFixture from "@/pages/scores/SingleFixture/SingleFixture";
+import LeaguesPage from "@/pages/scores/leagues/Leagues";
 
 const scoresRoutes = {
   path: "/scores",
@@ -44,6 +45,10 @@ const scoresRoutes = {
     {
       path: "/scores/basketball/:fixtureId",
       element: <SingleFixture />,
+    },
+    {
+      path: "/scores/leagues/:leagueId",
+      element: <LeaguesPage />,
     },
   ],
 } satisfies RouteObject;
