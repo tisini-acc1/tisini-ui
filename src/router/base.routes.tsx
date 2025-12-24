@@ -9,6 +9,7 @@ import ProtectedLayout from "@/layouts/ProtectedLayout";
 import HomepageError from "@/pages/Homepage/HomepageError";
 // import HomepageDataLoader from "@/pages/Homepage/HomepageDataLoader";
 import PrivacyPolicyPage from "@/pages/PrivacyPolicy/PrivacyPolicyPage";
+import BingoPage from "@/pages/Bingo/BingoPage";
 
 const baseRoutes = [
   {
@@ -33,6 +34,14 @@ const baseRoutes = [
       <ProtectedLayout>
         <WalletPage />
       </ProtectedLayout>
+    ),
+  },
+  {
+    path: "/bingo",
+    element: (
+      <BaseLayout>
+        <BingoPage />
+      </BaseLayout>
     ),
   },
 ] satisfies RouteObject[];

@@ -24,6 +24,7 @@
     "clsx": "^2.1.0",
     "dompurify": "^3.1.6",
     "he": "^1.2.0",
+    "html2canvas": "^1.4.1",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "lucide": "^0.365.0",
