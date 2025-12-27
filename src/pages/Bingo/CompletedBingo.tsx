@@ -157,13 +157,13 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
         </section>
 
         {/* bingo items section */}
-        <div className="grid grid-cols-5 gap-1 sm:gap-1.5 md:gap-2 lg:gap-3 mb-4 sm:mb-6 md:mb-8">
+        <div className="grid grid-cols-5 gap-2 sm:gap-2.5 md:gap-3 lg:gap-4 mb-4 sm:mb-6 md:mb-8">
           {data.map((item, index) => (
             <div
               key={item.id}
-              className="p-1 sm:p-1.5 md:p-2 lg:p-3 rounded-md sm:rounded-lg md:rounded-xl border-2 flex flex-col items-center justify-center relative overflow-hidden"
+              className="p-2 sm:p-2.5 md:p-3 lg:p-4 rounded-md sm:rounded-lg md:rounded-xl border-2 flex flex-col items-center justify-center relative overflow-hidden"
               style={{
-                minHeight: "50px",
+                minHeight: "60px",
                 backgroundColor:
                   index === FREE_SPACE_INDEX
                     ? "rgba(251, 191, 36, 0.15)"
@@ -177,7 +177,7 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
                     ? "rgba(34, 197, 94, 0.8)"
                     : "rgba(34, 197, 94, 0.3)",
                 borderStyle: index === FREE_SPACE_INDEX ? "dashed" : "solid",
-                borderWidth: "1.5px",
+                borderWidth: "2px",
               }}
             >
               {/* Free Space Badge */}
@@ -185,10 +185,10 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
                 <div
                   className="absolute text-white font-bold rounded-full"
                   style={{
-                    top: "4px",
-                    right: "4px",
-                    padding: "2px 6px",
-                    fontSize: "8px",
+                    top: "6px",
+                    right: "6px",
+                    padding: "3px 8px",
+                    fontSize: "9px",
                     background:
                       "linear-gradient(135deg, #f59e0b 0%, #f97316 100%)",
                     boxShadow: "0 1px 3px rgba(0, 0, 0, 0.3)",
@@ -200,9 +200,9 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
 
               {/* Checkmark for Selected Items */}
               {item.selected && index !== FREE_SPACE_INDEX && (
-                <div className="absolute" style={{ top: "4px", left: "4px" }}>
+                <div className="absolute" style={{ top: "6px", left: "6px" }}>
                   <CheckCircle2Icon
-                    className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5"
+                    className="w-5 h-5 sm:w-5.5 sm:h-5.5 md:w-6 md:h-6"
                     style={{
                       color: "#22c55e",
                       filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.5))",
@@ -212,10 +212,11 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
               )}
 
               {/* Item Text */}
-              <div className="text-center" style={{ padding: "2px 1px" }}>
+              <div className="text-center" style={{ padding: "4px 2px" }}>
                 <span
-                  className="font-medium leading-tight block text-[7px] sm:text-[8px] md:text-[9px]"
+                  className="font-medium block text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px]"
                   style={{
+                    lineHeight: "1.3",
                     color:
                       index === FREE_SPACE_INDEX
                         ? "#fef3c7"
@@ -286,8 +287,25 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
               </p>
             </div>
 
-            {/* Right: Date */}
-            <div className="text-center md:text-right order-3">
+            {/* Right: App Download & Date */}
+            <div className="text-center md:text-right order-3 flex flex-col items-center md:items-end gap-2">
+              <a
+                href="https://play.google.com/store/apps/details?id=com.tisini.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 sm:gap-2 bg-white text-gray-800 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg hover:bg-gray-100 transition-all shadow-sm border border-gray-300"
+              >
+                <svg
+                  className="w-4 h-4 sm:w-5 sm:h-5"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                </svg>
+                <span className="text-[10px] sm:text-xs font-medium whitespace-nowrap">
+                  Download on Play Store
+                </span>
+              </a>
               <p className="text-[10px] sm:text-xs md:text-sm text-gray-400">
                 {new Date().toLocaleDateString("en-KE", {
                   day: "numeric",
