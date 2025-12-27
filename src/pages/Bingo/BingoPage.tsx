@@ -1,5 +1,7 @@
+import html2canvas from "html2canvas";
+import { useParams } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { BingoModal } from "./BingoModal";
 import {
   CheckCircle,
   Info,
@@ -8,9 +10,10 @@ import {
   Trophy,
   Loader2,
 } from "lucide-react";
+
+import { BingoModal } from "./BingoModal";
 import { CompletedBingo } from "./CompletedBingo";
-import html2canvas from "html2canvas";
-import toast, { Toaster } from "react-hot-toast";
+import { footballBingo, rugbyBingo } from "./BingoConstants";
 
 export type BingoItem = {
   id: number;
@@ -20,6 +23,10 @@ export type BingoItem = {
 
 const BingoPage = () => {
   const FREE_SPACE_INDEX = 12;
+
+  const { bingoType } = useParams();
+
+  const bingoItems = bingoType === "football" ? footballBingo : rugbyBingo;
 
   const [items, setItems] = useState<BingoItem[]>([]);
   const [completedLines, setCompletedLines] = useState<number>(0);
@@ -41,7 +48,7 @@ const BingoPage = () => {
       }
     }
 
-    const hydrated = footballBingo.map((item, index) => ({
+    const hydrated = bingoItems.map((item, index) => ({
       ...item,
       selected:
         index === FREE_SPACE_INDEX
@@ -51,7 +58,7 @@ const BingoPage = () => {
 
     hydrated[FREE_SPACE_INDEX] = {
       ...hydrated[FREE_SPACE_INDEX],
-      text: "LOVES KENYAN FOOTBALL",
+      text: `LOVES KENYAN ${bingoType === "football" ? "FOOTBALL" : "RUGBY"}`,
       selected: true,
     };
 
@@ -220,7 +227,7 @@ const BingoPage = () => {
                 <Trophy className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-yellow-500 flex-shrink-0" />
                 <div>
                   <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                    Football Fan Bingo
+                    {bingoType === "football" ? "Football" : "Rugby"} Fan Bingo
                   </h1>
                   <p className="text-gray-500 text-xs sm:text-sm md:text-base">
                     Mark your experiences!
@@ -358,7 +365,8 @@ const BingoPage = () => {
             </h3>
             <p className="text-sm sm:text-base text-gray-700 mb-4 sm:mb-5 md:mb-6 px-2">
               Download bingo card and share your score and see who's the
-              ultimate Kenyan football fan!
+              ultimate Kenyan {bingoType === "football" ? "FOOTBALL" : "RUGBY"}{" "}
+              fan!
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-2">
               <button
@@ -397,7 +405,7 @@ const BingoPage = () => {
         />
       )}
 
-      {/* <div
+      <div
         style={{
           position: "absolute",
           left: "-9999px",
@@ -405,14 +413,15 @@ const BingoPage = () => {
           width: "100%",
           visibility: "visible",
         }}
-      > */}
-      <CompletedBingo
-        ref={completedBingoRef}
-        data={items}
-        completedCount={completedCount}
-        bingoLines={completedLines}
-      />
-      {/* </div> */}
+      >
+        <CompletedBingo
+          ref={completedBingoRef}
+          data={items}
+          completedCount={completedCount}
+          bingoLines={completedLines}
+          bingoType={bingoType as string}
+        />
+      </div>
 
       <Toaster position="top-center" />
     </>
@@ -420,131 +429,3 @@ const BingoPage = () => {
 };
 
 export default BingoPage;
-
-export const footballBingo: BingoItem[] = [
-  {
-    id: 1,
-    text: "ATTENDED A SPORTPESA LEAGUE MATCH",
-    selected: false,
-  },
-  {
-    id: 2,
-    text: "SUPPORTED MY TEAM BY BUYING OFFICIAL MERCHANDISE",
-    selected: false,
-  },
-  {
-    id: 3,
-    text: "PARTICIPATED IN A SOCIAL MEDIA FOOTBALL FORUM/SPACE",
-    selected: false,
-  },
-  {
-    id: 4,
-    text: "ATTENDED THE MASHEMEJI DERBY",
-    selected: false,
-  },
-  {
-    id: 5,
-    text: "TOOK A PICTURE WITH A KENYAN FOOTBALL STAR",
-    selected: false,
-  },
-  {
-    id: 6,
-    text: "WATCHED A HIGH SCHOOL FOOTBALL MATCH",
-    selected: false,
-  },
-  {
-    id: 7,
-    text: "ATTENDED A FKF WOMENS PREMIER LEAGUE MATCH",
-    selected: false,
-  },
-  {
-    id: 8,
-    text: "BOUGHT A REPLICA JERSEY OF A KENYAN STAR PLAYER ABROAD",
-    selected: false,
-  },
-  {
-    id: 9,
-    text: "ATTENDED THE CHAN TOURNAMENT IN NAIROBI",
-    selected: false,
-  },
-  {
-    id: 10,
-    text: "ATTENDED A FKF REGIONAL OR COUNTY LEAGUE MATCH",
-    selected: false,
-  },
-  {
-    id: 11,
-    text: "WATCHED THE 2025 AFCON",
-    selected: false,
-  },
-  {
-    id: 12,
-    text: "SUPPORTED A COMMUNITY BASED/YOUTH CLUB",
-    selected: false,
-  },
-  {
-    id: 13,
-    text: "TOOK A FRIEND/FAMILY MEMBER TO A LOCAL FOOTBALL MATCH",
-    selected: false,
-  },
-  {
-    id: 14,
-    text: "ATTENDED A SPORTPESA TUJIAMINI CHEZA DIMBA TOURNAMENT",
-    selected: false,
-  },
-  {
-    id: 15,
-    text: "MY TEAM WON A NATIONAL/ COUNTY/ REGIONAL CHAMPIONSHIP",
-    selected: false,
-  },
-  {
-    id: 16,
-    text: "ATTENDED A NATIONAL SUPER LEAGUE MATCH",
-    selected: false,
-  },
-  {
-    id: 17,
-    text: "BANTERED A KENYAN FOOTBALL TEAM/FANBASE",
-    selected: false,
-  },
-  {
-    id: 18,
-    text: "WATCHED A CAF CHAMPIONS LEAGUE/ CONFEDERATION CUP MATCH",
-    selected: false,
-  },
-  {
-    id: 19,
-    text: "WORE A KENYAN FOOTBALL JERSEY TO WORK/SCHOOL",
-    selected: false,
-  },
-  {
-    id: 20,
-    text: "WATCHED HARAMBEE STARS/STARLETS PLAY ABROAD",
-    selected: false,
-  },
-  {
-    id: 21,
-    text: "PLAYED A FOOTBALL MATCH",
-    selected: false,
-  },
-  {
-    id: 22,
-    text: "ATTENDED A HARAMBEE STARS/STARLETS HOME MATCH",
-    selected: false,
-  },
-  {
-    id: 23,
-    text: "TRAVELED OUT OF TOWN FOR A KENYAN FOOTBALL MATCH",
-    selected: false,
-  },
-  {
-    id: 24,
-    text: "BOUGHT A HARAMBEE STARS/STARLETS OFFICIAL REPLICA JERSEY",
-    selected: false,
-  },
-  {
-    id: 25,
-    text: "WATCHED A SPORTPESA LEAGUE MATCH ON AZAM TV",
-    selected: false,
-  },
-];

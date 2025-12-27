@@ -7,10 +7,11 @@ type CompletedBingoProps = {
   data: BingoItem[];
   completedCount: number;
   bingoLines: number;
+  bingoType: string;
 };
 
 export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
-  ({ data, completedCount, bingoLines }, ref) => {
+  ({ data, completedCount, bingoLines, bingoType }, ref) => {
     const FREE_SPACE_INDEX = 12;
 
     const achievements = {
@@ -19,6 +20,8 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
       hasHalfway: completedCount >= 13,
       hasFirstLine: bingoLines >= 1,
     };
+
+    const bingoTitle = bingoType === "football" ? "Football" : "Rugby";
 
     return (
       <main
@@ -43,7 +46,7 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
           <div className="text-lg md:text-2xl lg:text-3xl text-left font-extrabold text-white leading-tight drop-shadow-sm">
             <h1>2025</h1>
             <h1>Kenyan</h1>
-            <h1>Football</h1>
+            <h1>{bingoTitle}</h1>
           </div>
 
           {/* Center: BINGO Title */}
@@ -74,7 +77,7 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
         {/* scores section */}
         <section>
           <p className="text-center text-white text-sm sm:text-base md:text-lg font-bold px-2 mb-3 sm:mb-4">
-            You are a true Kenyan football fan!
+            You are a true Kenyan {bingoTitle} fan!
           </p>
           <div className="bg-black/30 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 mb-4 sm:mb-6 md:mb-8 border border-green-700/50">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
@@ -241,7 +244,7 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
               <p className="text-xs sm:text-sm md:text-base font-medium text-gray-200">
                 Play at{" "}
                 <span className="font-bold text-yellow-400">
-                  tisini.co.ke/bingo
+                  tisini.co.ke/bingo/{bingoType}
                 </span>
               </p>
             </div>

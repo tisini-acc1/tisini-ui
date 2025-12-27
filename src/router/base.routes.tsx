@@ -37,7 +37,7 @@ const baseRoutes = [
     ),
   },
   {
-    path: "/bingo",
+    path: "/bingo/:bingoType",
     element: (
       <BaseLayout>
         <BingoPage />
