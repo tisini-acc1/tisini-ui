@@ -69,7 +69,7 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
             <img
               src={tisiniLogo}
               alt="TISINI"
-              className="h-14 sm:h-16 md:h-20 lg:h-24 w-auto drop-shadow-lg"
+              className="h-14 sm:h-16 md:h-32 w-auto drop-shadow-lg"
             />
           </div>
         </header>
@@ -165,7 +165,7 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
                 className={`p-1 sm:p-1.5 md:p-2 lg:p-3 border-2 rounded-lg sm:rounded-xl md:rounded-2xl flex items-center justify-center transition-all duration-300 transform active:scale-95 sm:hover:scale-[1.02] cursor-pointer min-h-[60px] sm:min-h-[70px] md:min-h-[80px] relative ${
                   item.selected
                     ? "bg-gradient-to-br from-green-200 to-blue-200 border-green-400 shadow-md"
-                    : "bg-white border-gray-200 active:border-blue-300"
+                    : "bg-primary/10 border-gray-200 active:border-blue-300"
                 } ${
                   index === FREE_SPACE_INDEX
                     ? "border-dashed border-green-400"
@@ -200,7 +200,7 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
                 <div className="h-full flex items-center justify-center px-0.5 sm:px-1">
                   <span
                     className={`text-[8px] sm:text-[9px] md:text-xs lg:text-sm font-medium text-center leading-tight transition-all duration-300 ${
-                      item.selected ? "text-gray-700" : "text-gray-900"
+                      item.selected ? "text-gray-700" : "text-gray-300"
                     }`}
                   >
                     {item.text}
