@@ -405,7 +405,7 @@ const BingoPage = () => {
         />
       )}
 
-      <div
+      {/* <div
         style={{
           position: "absolute",
           left: "-9999px",
@@ -413,15 +413,15 @@ const BingoPage = () => {
           width: "100%",
           visibility: "visible",
         }}
-      >
-        <CompletedBingo
-          ref={completedBingoRef}
-          data={items}
-          completedCount={completedCount}
-          bingoLines={completedLines}
-          bingoType={bingoType as string}
-        />
-      </div>
+      > */}
+      <CompletedBingo
+        ref={completedBingoRef}
+        data={items}
+        completedCount={completedCount}
+        bingoLines={completedLines}
+        bingoType={bingoType as string}
+      />
+      {/* </div> */}
 
       <Toaster position="top-center" />
     </>

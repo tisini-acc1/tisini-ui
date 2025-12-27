@@ -186,7 +186,7 @@ export const rugbyBingo: BingoItem[] = [
   },
   {
     id: 12,
-    text: "HAD MY PHOTO TAKEN BY FANAKA/DK WERE/ROGUE RUGBY",
+    text: "DOWNLOADED THE TISINI APP ON PLAY STORE",
     selected: false,
   },
   {
@@ -226,7 +226,7 @@ export const rugbyBingo: BingoItem[] = [
   },
   {
     id: 20,
-    text: "ATTENDED A KENYA SHUJAA/SIMBAS/LIONESSES MATCH ABROAD",
+    text: "ATTENDED A KENYA SHUJAA/SIMBAS /LIONESSES MATCH ABROAD",
     selected: false,
   },
   {
@@ -246,7 +246,7 @@ export const rugbyBingo: BingoItem[] = [
   },
   {
     id: 24,
-    text: "BOUGHT A KENYA SIMBAS/SHUJAA/LIONESSESS OFFICIAL JERSEY",
+    text: "BOUGHT A KENYA SIMBAS/SHUJAA /LIONESSESS OFFICIAL JERSEY",
     selected: false,
   },
   {
