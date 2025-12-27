@@ -10,3 +10,11 @@ const fetchFootballFixtures = async () => {
 };
 
 export default fetchFootballFixtures;
+
+export const matchDayFixtures = async (fixType: string, matchDay: string) => {
+  const res = await axios.get<Fixture[]>(
+    `https://apis.tisini.co.ke/apiagent11.php?fixture=all&fixtype=${fixType}&gamedate=${matchDay}`
+  );
+
+  return res.data;
+};

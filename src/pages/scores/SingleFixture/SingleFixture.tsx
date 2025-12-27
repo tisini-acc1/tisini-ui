@@ -24,7 +24,7 @@ const SingleFixture = () => {
   const [activeTab, setActiveTab] = useState(1);
 
   const { data, isLoading } = useQuery<SingleFixtureStats, Error>(
-    ["footballById"],
+    ["footballById", fixtureId],
     () => FetchFixtureById(fixtureId!)
   );
 
