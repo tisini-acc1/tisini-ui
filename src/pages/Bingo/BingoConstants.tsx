@@ -221,7 +221,7 @@ export const rugbyBingo: BingoItem[] = [
   },
   {
     id: 19,
-    text: "ATTENDED THE RUGBY AFRICA WOMENS 7S AT NYAYO STADIUM",
+    text: "ATTENDED THE RUGBY AFRICA WOMENS 7S AT RFUEA",
     selected: false,
   },
   {
