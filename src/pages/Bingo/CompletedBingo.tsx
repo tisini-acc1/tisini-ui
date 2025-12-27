@@ -1,7 +1,7 @@
 import { BingoItem } from "./BingoPage";
 import React, { forwardRef } from "react";
 import tisiniLogo from "@/assets/img/tisini.png";
-import { CheckCircle2Icon, TrophyIcon } from "lucide-react";
+import { CheckCircle, TrophyIcon } from "lucide-react";
 
 type CompletedBingoProps = {
   data: BingoItem[];
@@ -157,84 +157,63 @@ export const CompletedBingo = forwardRef<HTMLElement, CompletedBingoProps>(
         </section>
 
         {/* bingo items section */}
-        <div className="grid grid-cols-5 gap-2 sm:gap-2.5 md:gap-3 lg:gap-4 mb-4 sm:mb-6 md:mb-8">
-          {data.map((item, index) => (
-            <div
-              key={item.id}
-              className="p-2 sm:p-2.5 md:p-3 lg:p-4 rounded-md sm:rounded-lg md:rounded-xl border-2 flex flex-col items-center justify-center relative overflow-hidden"
-              style={{
-                minHeight: "60px",
-                backgroundColor:
+        <div className="bg-black/30 rounded-xl sm:rounded-2xl md:rounded-3xl shadow-2xl p-2 sm:p-3 md:p-4 lg:p-6 mb-4 sm:mb-6 md:mb-8 border border-green-700/50">
+          <div className="grid grid-cols-5 gap-1 sm:gap-1.5 md:gap-2 lg:gap-3">
+            {data.map((item, index) => (
+              <div
+                key={index}
+                className={`p-1 sm:p-1.5 md:p-2 lg:p-3 border-2 rounded-lg sm:rounded-xl md:rounded-2xl flex items-center justify-center transition-all duration-300 transform active:scale-95 sm:hover:scale-[1.02] cursor-pointer min-h-[60px] sm:min-h-[70px] md:min-h-[80px] relative ${
+                  item.selected
+                    ? "bg-gradient-to-br from-green-200 to-blue-200 border-green-400 shadow-md"
+                    : "bg-white border-gray-200 active:border-blue-300"
+                } ${
                   index === FREE_SPACE_INDEX
-                    ? "rgba(251, 191, 36, 0.15)"
-                    : item.selected
-                    ? "rgba(34, 197, 94, 0.25)"
-                    : "rgba(0, 0, 0, 0.4)",
-                borderColor:
-                  index === FREE_SPACE_INDEX
-                    ? "rgba(251, 191, 36, 0.6)"
-                    : item.selected
-                    ? "rgba(34, 197, 94, 0.8)"
-                    : "rgba(34, 197, 94, 0.3)",
-                borderStyle: index === FREE_SPACE_INDEX ? "dashed" : "solid",
-                borderWidth: "2px",
-              }}
-            >
-              {/* Free Space Badge */}
-              {index === FREE_SPACE_INDEX && (
+                    ? "border-dashed border-green-400"
+                    : ""
+                }`}
+              >
+                {/* Free Space Special Styling */}
+                {index === FREE_SPACE_INDEX && (
+                  <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 bg-gradient-to-r from-yellow-400 to-orange-400 text-white text-[8px] sm:text-[10px] md:text-xs font-bold px-1 sm:px-1.5 md:px-2 py-0.5 sm:py-1 rounded-full">
+                    FREE
+                  </div>
+                )}
+                {/* Checkmark Icon */}
                 <div
-                  className="absolute text-white font-bold rounded-full"
-                  style={{
-                    top: "6px",
-                    right: "6px",
-                    padding: "3px 8px",
-                    fontSize: "9px",
-                    background:
-                      "linear-gradient(135deg, #f59e0b 0%, #f97316 100%)",
-                    boxShadow: "0 1px 3px rgba(0, 0, 0, 0.3)",
-                  }}
+                  className={`absolute top-1 right-1 sm:top-2 sm:right-2 transition-all duration-300 
+                    ${
+                      item.selected
+                        ? "opacity-100 scale-100"
+                        : "opacity-0 scale-0"
+                    }`}
                 >
-                  FREE
-                </div>
-              )}
-
-              {/* Checkmark for Selected Items */}
-              {item.selected && index !== FREE_SPACE_INDEX && (
-                <div className="absolute" style={{ top: "6px", left: "6px" }}>
-                  <CheckCircle2Icon
-                    className="w-5 h-5 sm:w-5.5 sm:h-5.5 md:w-6 md:h-6"
-                    style={{
-                      color: "#22c55e",
-                      filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.5))",
-                    }}
+                  <CheckCircle
+                    className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ${
+                      index === FREE_SPACE_INDEX
+                        ? "text-yellow-500"
+                        : "text-green-500"
+                    }`}
                   />
                 </div>
-              )}
 
-              {/* Item Text */}
-              <div className="text-center" style={{ padding: "4px 2px" }}>
-                <span
-                  className="font-medium block text-[9px] sm:text-[10px] md:text-[11px] lg:text-[12px]"
-                  style={{
-                    lineHeight: "1.3",
-                    color:
-                      index === FREE_SPACE_INDEX
-                        ? "#fef3c7"
-                        : item.selected
-                        ? "#ffffff"
-                        : "#d1d5db",
-                    textShadow:
-                      item.selected || index === FREE_SPACE_INDEX
-                        ? "0 1px 2px rgba(0, 0, 0, 0.5)"
-                        : "none",
-                    fontWeight: item.selected ? "600" : "500",
-                  }}
-                >
-                  {item.text}
-                </span>
+                {/* Bingo Text */}
+                <div className="h-full flex items-center justify-center px-0.5 sm:px-1">
+                  <span
+                    className={`text-[8px] sm:text-[9px] md:text-xs lg:text-sm font-medium text-center leading-tight transition-all duration-300 ${
+                      item.selected ? "text-gray-700" : "text-gray-900"
+                    }`}
+                  >
+                    {item.text}
+                  </span>
+                </div>
+
+                {/* Active/Touch Effect */}
+                {!item.selected && index !== FREE_SPACE_INDEX && (
+                  <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-br from-green-500/5 to-blue-500/5 opacity-0 active:opacity-100 sm:group-hover:opacity-100 transition-opacity duration-300" />
+                )}
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* footer with social icons */}
