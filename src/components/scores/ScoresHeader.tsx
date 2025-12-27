@@ -186,7 +186,7 @@ export default function ScoresHeader() {
       <div className="flex justify-between p-2 text-base md:text-xl text-primary bg-slate-50">
         <div className="flex items-center space-x-2 font-bold">
           <button className="p-2 px-4 ">
-            <Link to="/scores">⚽ Football</Link>
+            <Link to="/scores/football">⚽ Football</Link>
           </button>
           <button className="p-2 px-4 ">
             <Link to="/scores/rugby">🏉 Rugby</Link>
