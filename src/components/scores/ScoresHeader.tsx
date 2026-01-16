@@ -31,7 +31,7 @@ export default function ScoresHeader() {
     },
     {
       title: "Live scores",
-      href: "/scores",
+      href: "/scores/football",
     },
     {
       title: "Tano Bora",
@@ -119,7 +119,7 @@ export default function ScoresHeader() {
                           className={cn(
                             "text-center",
                             active ? "bg-gray-200" : "",
-                            "text-lg font-semibold text-primary hover:text-primary-lighter transition duration-300 ease-in-out py-2"
+                            "text-lg font-semibold text-primary hover:text-primary-lighter transition duration-300 ease-in-out py-2",
                           )}
                           to={link.href}
                         >
@@ -165,7 +165,7 @@ export default function ScoresHeader() {
 
                                 link.href === "/auth/login"
                                   ? "bg-primary text-light"
-                                  : ""
+                                  : "",
                               )}
                               to={link.href}
                             >
