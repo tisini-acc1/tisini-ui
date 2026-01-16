@@ -3,7 +3,12 @@ import AccuracyRow from "../singleFixture/AccuracyRow";
 import PosessionRow from "../singleFixture/PosessionRow";
 import StatsRow from "@/components/scores/singleFixture/StatsRow";
 import StatsHalf from "@/components/scores/singleFixture/StatsHalf";
-import { calcRugbyPosession, getEvent, getStat } from "@/lib/data/calculations";
+import {
+  calcRugbyPosession,
+  getEvent,
+  getStat,
+  getSubEvent,
+} from "@/lib/data/calculations";
 
 type StatsProps = {
   home: Stats;
@@ -115,16 +120,16 @@ const RugbyStats = ({ home, away, cards, fixType }: StatsProps) => {
             />
           )}
 
-          <StatsRow
+          {/* <StatsRow
             homeStat={getEvent(home, "44")}
             stat={"Carries"}
             awayStat={getEvent(away, "44")}
             homeOnly={homeOnly}
             awayOnly={awayOnly}
             bothTeams={bothTeams}
-          />
+          /> */}
 
-          <AccuracyRow
+          {/* <AccuracyRow
             hComp={getEvent(home, "91")}
             aComp={getEvent(away, "91")}
             hTotal={homePasses}
@@ -133,14 +138,50 @@ const RugbyStats = ({ home, away, cards, fixType }: StatsProps) => {
             homeOnly={homeOnly}
             awayOnly={awayOnly}
             bothTeams={bothTeams}
-          />
+          /> */}
 
-          <AccuracyRow
+          {/* <AccuracyRow
             hComp={getEvent(home, "42")}
             aComp={getEvent(away, "42")}
             hTotal={getEvent(home, "43") + getEvent(home, "42")}
             aTotal={getEvent(away, "43") + getEvent(away, "42")}
             stat={"Successful tackles"}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          /> */}
+
+          <StatsRow
+            homeStat={getEvent(home, "104")}
+            stat={"Visit in Opp 22"}
+            awayStat={getEvent(away, "104")}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <StatsRow
+            homeStat={getSubEvent(home, "49", "66")}
+            stat={"Tries Scored"}
+            awayStat={getSubEvent(away, "49", "66")}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <StatsRow
+            homeStat={getEvent(home, "47")}
+            stat={"Linebreaks"}
+            awayStat={getEvent(away, "47")}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <StatsRow
+            homeStat={getEvent(home, "105")}
+            stat={"Territorial Kicks"}
+            awayStat={getEvent(away, "105")}
             homeOnly={homeOnly}
             awayOnly={awayOnly}
             bothTeams={bothTeams}

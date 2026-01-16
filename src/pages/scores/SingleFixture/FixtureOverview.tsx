@@ -81,10 +81,23 @@ const HighlightsCard = ({
       : highlight.event_name === "Goal" ||
         highlight.event_name === "PM Penalties"
       ? "⚽"
-      : highlight.event_name === "Conversion"
-      ? "↔️"
-      : highlight.event_name === "Score"
+      : highlight.event_name === "Score" &&
+        (highlight.subeventName === "Try" ||
+          highlight.subeventName === "Penalty Try")
       ? "🏉"
+      : highlight.event_name === "Score" &&
+        (highlight.subeventName === "Successful Conversion" ||
+          highlight.subeventName === "Conversion" ||
+          highlight.subeventName === "Missed Conversion")
+      ? "↔️"
+      : highlight.event_name === "Score" &&
+        (highlight.subeventName === "Successful Penalty" ||
+          highlight.subeventName === "Missed Penalty")
+      ? "⚡"
+      : highlight.event_name === "Score" &&
+        (highlight.subeventName === "Successful Drop Goal" ||
+          highlight.subeventName === "Missed Drop Goal")
+      ? "🎯"
       : "";
 
   return (
@@ -112,6 +125,23 @@ const HighlightsCard = ({
           >
             {highlight.game_minute}' <MdOutlineSportsSoccer /> {highlight.pname}
           </div>
+        ) : highlight.event_name === "Score" &&
+          (highlight.subeventName === "Missed Conversion" ||
+            highlight.subeventName === "Missed Penalty" ||
+            highlight.subeventName === "Missed Drop Goal") ? (
+          <div className="capitalize text-red-500">
+            {highlight.game_minute}' {icon} {highlight.pname}
+          </div>
+        ) : highlight.event_name === "Score" &&
+          (highlight.subeventName === "Successful Conversion" ||
+            highlight.subeventName === "Successful Penalty" ||
+            highlight.subeventName === "Successful Drop Goal" ||
+            highlight.subeventName === "Try" ||
+            highlight.subeventName === "Penalty Try" ||
+            highlight.subeventName === "Conversion") ? (
+          <div className="capitalize text-green-600">
+            {highlight.game_minute}' {icon} {highlight.pname}
+          </div>
         ) : (
           <div className="capitalize">
             {highlight.game_minute}' {icon} {highlight.pname}
@@ -138,6 +168,23 @@ const HighlightsCard = ({
           } capitalize flex items-center justify-end gap-1`}
         >
           {highlight.pname} <MdOutlineSportsSoccer /> {highlight.game_minute}'
+        </div>
+      ) : highlight.event_name === "Score" &&
+        (highlight.subeventName === "Missed Conversion" ||
+          highlight.subeventName === "Missed Penalty" ||
+          highlight.subeventName === "Missed Drop Goal") ? (
+        <div className="flex justify-end capitalize text-red-500">
+          {highlight.pname} {icon} {highlight.game_minute}'
+        </div>
+      ) : highlight.event_name === "Score" &&
+        (highlight.subeventName === "Successful Conversion" ||
+          highlight.subeventName === "Successful Penalty" ||
+          highlight.subeventName === "Successful Drop Goal" ||
+          highlight.subeventName === "Try" ||
+          highlight.subeventName === "Penalty Try" ||
+          highlight.subeventName === "Conversion") ? (
+        <div className="flex justify-end capitalize text-green-600">
+          {highlight.pname} {icon} {highlight.game_minute}'
         </div>
       ) : (
         <div className="flex justify-end capitalize">
