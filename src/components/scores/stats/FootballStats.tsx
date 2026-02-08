@@ -32,9 +32,15 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
     parseInt(away["Pass"].total) + parseInt(away["Incomplete Pass"].total);
 
   const homeTarget =
-    getSubEvent(home, "165", "422") + getSubEvent(home, "156", "405");
+    getSubEvent(home, "165", "422") +
+    getSubEvent(home, "156", "405") +
+    getSubEvent(home, "238", "606") +
+    getSubEvent(home, "238", "610");
   const awayTarget =
-    getSubEvent(away, "156", "405") + getSubEvent(away, "165", "422");
+    getSubEvent(away, "156", "405") +
+    getSubEvent(away, "165", "422") +
+    getSubEvent(away, "238", "606") +
+    getSubEvent(away, "238", "610");
 
   return (
     <div className="flex flex-col space-y-4 ">
@@ -51,8 +57,12 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
       <AccuracyRow
         hComp={homeTarget}
         aComp={awayTarget}
-        hTotal={getEvent(home, "165") + getEvent(home, "156")}
-        aTotal={getEvent(away, "165") + getEvent(away, "156")}
+        hTotal={
+          getEvent(home, "165") + getEvent(home, "156") + getEvent(home, "238")
+        }
+        aTotal={
+          getEvent(away, "165") + getEvent(away, "156") + getEvent(away, "238")
+        }
         stat={"Attempts on Target"}
         homeOnly={homeOnly}
         awayOnly={awayOnly}

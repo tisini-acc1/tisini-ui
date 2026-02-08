@@ -1,7 +1,7 @@
 export const leagues: { [key: string]: string } = {
   "32": new URL(
     "/src/assets/leagues/CUP-BLUE-Photoroom.png-Photoroom.png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "34": new URL("/src/assets/leagues/Enterprise-Cup (1).png", import.meta.url)
     .href,
@@ -82,11 +82,11 @@ export const teamImages: { [key: string]: string } = {
     .href,
   "477": new URL(
     "/src/assets/football/Kibarage Sportiff (1).png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "307": new URL(
     "/src/assets/football/Kings Football Academy.png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "1141": new URL("/src/assets/football/KIRIGITI.png", import.meta.url).href,
   "291": new URL("/src/assets/football/KISPED.jpg", import.meta.url).href,
@@ -97,7 +97,7 @@ export const teamImages: { [key: string]: string } = {
   "18": new URL("/src/assets/football/MathareUnited.png", import.meta.url).href,
   "1056": new URL(
     "/src/assets/football/Mombasa olympic Ladies.png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "699": new URL("/src/assets/football/Mombasa Stars.jpg", import.meta.url)
     .href,
@@ -123,19 +123,19 @@ export const teamImages: { [key: string]: string } = {
     .href,
   "77": new URL(
     "/src/assets/football/sofapaka-fc-logo-9B8F6A7B91-seeklogo.com.png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "149": new URL(
     "/src/assets/football/Ulinzi_Stars_FC_logo.png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "198": new URL(
     "/src/assets/football/Znoia_Sugar_F.C._logo-Photoroom.png-Photoroom.png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "5": new URL(
     "/src/assets/football/tusker-fc-logo-2788AE204B-seeklogo.com.png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "595": new URL("/src/assets/football/Shabana_FC_(logo).png", import.meta.url)
     .href,
@@ -143,29 +143,29 @@ export const teamImages: { [key: string]: string } = {
     .href,
   "36": new URL(
     "/src/assets/football/Kakamega_Homeboyz_F.C._logo.png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "10": new URL("/src/assets/football/dIrN6fqG-bBiFBAKT.png", import.meta.url)
     .href,
   "1": new URL("/src/assets/football/Bidco_FC_logo.gif", import.meta.url).href,
   "147": new URL(
     "/src/assets/football/afc-leopards-logo-1FE51F62E5-seeklogo.com.png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "76": new URL(
     "/src/assets/football/3633358601154909bfef9f231a6df682-0-1.png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "84": new URL(
     "/src/assets/football/240982120_259204366207977_7073992088656259999_n-Photoroom.png-Photoroom.png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "85": new URL("/src/assets/football/93869.png", import.meta.url).href,
   "7": new URL("/src/assets/football/61619.png", import.meta.url).href,
   "12": new URL("/src/assets/football/17104.png", import.meta.url).href,
   "557": new URL(
     "/src/assets/football/0078-Photoroom.png-Photoroom.png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "533": new URL("/src/assets/rugby/Impala.png", import.meta.url).href,
   "532": new URL("/src/assets/rugby/Impala.png", import.meta.url).href,
@@ -175,7 +175,7 @@ export const teamImages: { [key: string]: string } = {
   "420": new URL("/src/assets/rugby/Nakuru RFC.png", import.meta.url).href,
   "464": new URL(
     "/src/assets/rugby/Kisumu_Rugby_Football_Club_Logo.jpg",
-    import.meta.url
+    import.meta.url,
   ).href,
   "408": new URL("/src/assets/rugby/Strathmore Leos.png", import.meta.url).href,
   "481": new URL("/src/assets/rugby/blak blad.png", import.meta.url).href,
@@ -191,7 +191,7 @@ export const teamImages: { [key: string]: string } = {
     .href,
   "112": new URL(
     "/src/assets/football/F.C._Talanta_logo-Photoroom.png-Photoroom.png",
-    import.meta.url
+    import.meta.url,
   ).href,
   "1648": new URL("/src/assets/uganda/Buffaloes.png", import.meta.url).href,
   "1653": new URL("/src/assets/uganda/Elgon Wolves 7s.png", import.meta.url)
@@ -218,13 +218,13 @@ export const teamImages: { [key: string]: string } = {
   "248": new URL("/src/assets/football/mara.jpeg", import.meta.url).href,
   "1745": new URL(
     "/src/assets/football/IMG-20250201-WA0002.jpg",
-    import.meta.url
+    import.meta.url,
   ).href,
   "72": new URL("/src/assets/football/IMG-20250201-WA0002.jpg", import.meta.url)
     .href,
   "1778": new URL(
     "/src/assets/football/IMG-20250201-WA0002.jpg",
-    import.meta.url
+    import.meta.url,
   ).href,
   "1879": new URL("/src/assets/football/Us Acli.jpeg", import.meta.url).href,
   "939": new URL("/src/assets/football/crown.jpeg", import.meta.url).href,
@@ -236,8 +236,24 @@ export const teamImages: { [key: string]: string } = {
     .href,
   "2063": new URL("/src/assets/football/ayala-athletic-fc.png", import.meta.url)
     .href,
-  // "": new URL("/", import.meta.url).href,
-  // "": new URL("/", import.meta.url).href,
+  "2511": new URL("/src/assets/football/thika-vitambi.png", import.meta.url)
+    .href,
+  "2522": new URL("/src/assets/football/donholm-seniors.png", import.meta.url)
+    .href,
+  "2523": new URL("/src/assets/football/wazito.png", import.meta.url).href,
+  "2524": new URL("/src/assets/football/panthers.png", import.meta.url).href,
+  "2525": new URL("/src/assets/football/mamba.png", import.meta.url).href,
+  "2526": new URL("/src/assets/football/leysa.png", import.meta.url).href,
+  "2527": new URL("/src/assets/football/hippos.png", import.meta.url).href,
+  "2528": new URL("/src/assets/football/maveto.png", import.meta.url).href,
+  "2529": new URL("/src/assets/football/ndovus.png", import.meta.url).href,
+  "2530": new URL("/src/assets/football/railway.png", import.meta.url).href,
+  "2537": new URL(
+    "/src/assets/football/kulundeng-original.png",
+    import.meta.url,
+  ).href,
+  "2538": new URL("/src/assets/football/ulinzi-legends.png", import.meta.url)
+    .href,
   // "": new URL("/", import.meta.url).href,
   // "": new URL("/", import.meta.url).href,
   // "": new URL("/", import.meta.url).href,
