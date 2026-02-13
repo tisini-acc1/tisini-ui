@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { surveySchema } from "./surveyData";
 import { Question, SurveyAnswer } from "@/lib/types/survey";
+import kruLogo from "@/assets/tournaments/kru.png";
+import tisiniLogo from "@/assets/img/tisini.png";
 
 const SurveyPage: React.FC = () => {
   const [answers, setAnswers] = useState<Record<number, any>>({});
@@ -133,10 +135,12 @@ const SurveyPage: React.FC = () => {
     try {
       // Format answers for submission
       const formattedAnswers: SurveyAnswer[] = Object.entries(answers).map(
-        ([questionId, value]) => ({
-          questionId: parseInt(questionId),
-          value: value,
-        }),
+        ([questionId, value]) => {
+          const id = parseInt(questionId);
+          const questionText =
+            questionsMap.get(id)?.question ?? `Question ${id}`;
+          return { question: questionText, value };
+        },
       );
 
       // Merge "Other" text inputs into the corresponding answer
@@ -144,12 +148,14 @@ const SurveyPage: React.FC = () => {
         const id = parseInt(questionId);
         const answer = answers[id];
         if (Array.isArray(answer) && answer.includes("Other")) {
-          const entry = formattedAnswers.find((a) => a.questionId === id);
+          const questionText =
+            questionsMap.get(id)?.question ?? `Question ${id}`;
+          const entry = formattedAnswers.find((a) => a.question === questionText);
           if (entry) {
             entry.value = { selected: answer, other: value };
           } else {
             formattedAnswers.push({
-              questionId: id,
+              question: questionText,
               value: { selected: answer, other: value },
             });
           }
@@ -428,71 +434,71 @@ const SurveyPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
-        {/* Header (sticky) */}
+      {/* Single wrapper so sticky header has correct scroll context */}
+      <div className="max-w-5xl mx-auto">
         <div className="sticky top-0 z-10 bg-white rounded-t-xl shadow-sm">
-          <div className="px-4 py-3 border-b">
-            {/* KRU | Survey Title | Tisini — single row */}
-            <div className="flex items-center justify-between gap-4">
+          <div className="px-4 sm:px-5 py-4 sm:py-3 border-b">
+            {/* KRU (left) | Tisini (right) — row on desktop, stacked on mobile */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-4">
               {/* Kenya Rugby Union */}
-              <div className="flex items-center space-x-2 shrink-0">
-                <div className="w-9 h-9 bg-red-600 rounded-lg flex items-center justify-center shadow-sm">
-                  <span className="text-white font-bold text-sm">KRU</span>
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center overflow-hidden bg-white border border-gray-100 shadow-sm shrink-0">
+                  <img
+                    src={kruLogo}
+                    alt="Kenya Rugby Union"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
-                <div>
-                  <h2 className="text-sm font-bold text-gray-900">
-                    Kenya Rugby Union
-                  </h2>
-                  <p className="text-xs text-gray-500">Event Feedback System</p>
+                <div className="min-w-0">
+                  <h1 className="text-base sm:text-lg font-bold text-gray-900 leading-tight line-clamp-2">
+                    {surveySchema.metadata.title}
+                  </h1>
+                  <p className="mt-0.5 text-xs text-gray-500 line-clamp-1 hidden sm:block">
+                    {surveySchema.metadata.description}
+                  </p>
                 </div>
-              </div>
-
-              {/* Survey Title — centered between KRU and Tisini */}
-              <div className="flex flex-col items-center justify-center text-center min-w-0 flex-1 px-2">
-                <h1 className="text-lg font-bold text-gray-900 leading-tight">
-                  {surveySchema.metadata.title}
-                </h1>
-                <p className="mt-0.5 text-xs text-gray-600">
-                  {surveySchema.metadata.description}
-                </p>
               </div>
 
               {/* Powered by Tisini */}
-              <div className="flex items-center space-x-2 shrink-0">
+              <div className="flex items-center justify-end sm:justify-center gap-2 shrink-0 self-end sm:self-auto">
                 <span className="text-xs text-gray-400">Powered by</span>
-                <div className="flex items-center bg-gray-50 px-2 py-1 rounded-md">
-                  <span className="font-bold text-sm text-blue-600">Tisini</span>
-                  <span className="ml-1 text-xs text-gray-600">Survey</span>
+                <div className="flex items-center bg-gray-50/90 rounded-lg border border-gray-100 shadow-sm">
+                  <img
+                    src={tisiniLogo}
+                    alt="Tisini"
+                    className="h-10 sm:h-12 w-auto object-contain"
+                  />
                 </div>
               </div>
             </div>
           </div>
 
           {/* Progress + Section Navigation */}
-          <div className="px-4 py-2 border-b space-y-2">
-            <div className="flex justify-between items-center text-xs text-gray-600">
+          <div className="px-4 sm:px-5 py-3 border-b space-y-3">
+            <div className="flex justify-between items-center text-xs sm:text-sm text-gray-600">
               <span className="font-medium">Progress</span>
-              <span className="text-red-600 font-semibold">
+              <span className="text-red-600 font-semibold tabular-nums">
                 {Math.round(progress)}%
               </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-1.5">
+            <div className="w-full bg-gray-200 rounded-full h-2 sm:h-2.5">
               <div
-                className="bg-red-600 h-1.5 rounded-full transition-all duration-300"
-                style={{ width: `${progress}%` }}
+                className="bg-red-600 h-2 sm:h-2.5 rounded-full transition-all duration-300 min-w-[2px]"
+                style={{ width: `${Math.max(progress, 0)}%` }}
               />
             </div>
-            <div className="flex space-x-2 overflow-x-auto pt-1">
+            <div className="flex gap-2 overflow-x-auto pb-0.5 -mx-0.5 px-0.5">
               {surveySchema.sections.map((section, index) => (
                 <button
                   key={section.id}
                   onClick={() => setCurrentSection(index)}
                   className={`
-                    px-3 py-1.5 text-xs font-medium rounded-md whitespace-nowrap transition-colors
+                    px-4 py-2.5 sm:px-3 sm:py-1.5 text-xs sm:text-xs font-medium rounded-lg whitespace-nowrap transition-colors shrink-0
+                    touch-manipulation
                     ${
                       currentSection === index
-                        ? "bg-blue-100 text-blue-700"
-                        : "text-gray-500 hover:bg-gray-100"
+                        ? "bg-blue-600 text-white shadow-sm"
+                        : "text-gray-600 hover:bg-gray-100 bg-gray-50/50"
                     }
                   `}
                 >
@@ -503,8 +509,8 @@ const SurveyPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Current Section */}
-        <div className="bg-white shadow-sm p-6">
+        {/* Form content — same wrapper so sticky header sticks while scrolling */}
+        <div className="bg-white shadow-sm p-4 sm:p-6 rounded-b-xl">
           <h2 className="text-xl font-semibold text-gray-900 mb-6">
             {currentSectionData.title}
           </h2>

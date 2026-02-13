@@ -12,21 +12,6 @@ export interface ConditionalLogic {
   condition: (answer: any) => boolean;
 }
 
-export interface Question {
-  id: number;
-  question: string;
-  type: QuestionType;
-  required: boolean;
-  options?: string[];
-  multiple?: boolean;
-  placeholder?: string;
-  multiline?: boolean;
-  other?: boolean;
-  layout?: "vertical" | "horizontal" | "grid";
-  fields?: ContactField[];
-  conditional?: ConditionalLogic;
-}
-
 export interface SurveySection {
   id: string;
   title: string;
@@ -44,10 +29,27 @@ export interface SurveySchema {
 }
 
 export interface SurveyAnswer {
-  questionId: number;
+  question: string;
   value:
     | string
     | string[]
     | { phone?: string; email?: string }
     | { selected: string[]; other: string };
+}
+
+export interface Question {
+  id: number;
+  question: string;
+  type: QuestionType;
+  required: boolean;
+  options?: string[];
+  multiple?: boolean;
+  maxSelections?: number;
+  placeholder?: string;
+  multiline?: boolean;
+  other?: boolean;
+  layout?: "vertical" | "horizontal" | "grid";
+  fields?: ContactField[];
+  conditional?: ConditionalLogic;
+  helpText?: string;
 }

@@ -1,15 +1,6 @@
-// data/surveyData.ts
-
 import { Question, SurveySchema } from "@/lib/types/survey";
 
 export const surveyQuestions: Question[] = [
-  {
-    id: 1,
-    question: "Age",
-    type: "number",
-    required: true,
-    placeholder: "Enter your age",
-  },
   {
     id: 2,
     question: "Gender",
@@ -42,8 +33,23 @@ export const surveyQuestions: Question[] = [
     options: ["Self-employed", "Employee", "Student", "Unemployed", "Retired"],
     multiple: false,
   },
+  // New Question: How did you purchase your ticket?
   {
     id: 6,
+    question: "How did you purchase your ticket?",
+    type: "choice",
+    required: true,
+    options: [
+      "Saved up to buy",
+      "Paid cash when it was announced",
+      "A friend/company bought for me",
+      "Complimentary ticket",
+    ],
+    multiple: false,
+    helpText: "Please select one option",
+  },
+  {
+    id: 7,
     question: "How satisfied with vendors?",
     type: "choice",
     required: true,
@@ -57,7 +63,7 @@ export const surveyQuestions: Question[] = [
     multiple: false,
   },
   {
-    id: 7,
+    id: 8,
     question: "How satisfied with entry process?",
     type: "choice",
     required: true,
@@ -71,7 +77,7 @@ export const surveyQuestions: Question[] = [
     multiple: false,
   },
   {
-    id: 8,
+    id: 9,
     question: "Was it value for money?",
     type: "choice",
     required: true,
@@ -84,8 +90,59 @@ export const surveyQuestions: Question[] = [
     ],
     multiple: false,
   },
+  // New Question: Is it part of your Valentine treat?
   {
-    id: 9,
+    id: 10,
+    question:
+      "Is this event part of your Valentine's treat for your better half?",
+    type: "choice",
+    required: true,
+    options: ["Yes", "No"],
+    multiple: false,
+  },
+  // New Question: How did you come to HSBC Event?
+  {
+    id: 11,
+    question: "How did you travel to the HSBC Event?",
+    type: "choice",
+    required: true,
+    options: [
+      "Drove but had parking challenges",
+      "Drove and found parking easily",
+      "Came with public vehicle (matatu/bus)",
+      "Hailed a cab (Uber/Bolt/Taxi)",
+      "Walked",
+      "Boda boda",
+    ],
+    multiple: false,
+  },
+  // New Question: Weekend engagement activities (Select 3)
+  {
+    id: 12,
+    question: "What are your preferred weekend engagement activities?",
+    type: "choice",
+    required: true,
+    options: [
+      "Netflix and Chill",
+      "Concert",
+      "Sherehe (Party)",
+      "Family time",
+      "Rugby",
+      "Local football",
+      "EPL football",
+      "Church/Religious activities",
+      "Sports betting",
+      "Gaming",
+      "Shopping",
+      "Eating out",
+    ],
+    multiple: true,
+    maxSelections: 3,
+    layout: "grid",
+    helpText: "Please select up to 3 options",
+  },
+  {
+    id: 13,
     question: "What can be done better?",
     type: "text",
     required: false,
@@ -93,7 +150,7 @@ export const surveyQuestions: Question[] = [
     multiline: true,
   },
   {
-    id: 10,
+    id: 14,
     question: "How did you get to know about the event?",
     type: "choice",
     required: true,
@@ -105,44 +162,36 @@ export const surveyQuestions: Question[] = [
       "Radio",
       "TV",
       "Newspaper",
+      "BillBoards",
       "Other",
     ],
     multiple: true,
     other: true,
   },
   {
-    id: 11,
-    question: "How many rugby events have you attended in the last 1 year?",
-    type: "choice",
-    required: true,
-    options: ["0", "1-2", "3-5", "6-10", "10+"],
-    multiple: false,
-  },
-  {
-    id: 12,
-    question: "Are you a supporter or fan of rugby events?",
-    type: "choice",
-    required: true,
-    options: ["Yes", "No", "Casual fan"],
-    multiple: false,
-  },
-  {
-    id: 13,
-    question: "Which event did you attend?",
+    id: 17,
+    question: "Which rugby events have you attended in the last 1 year?",
     type: "choice",
     required: true,
     options: [
-      "HSBC Sevens",
-      "Local League",
+      "Safari 7s",
+      "Kenya Cup Game",
+      "Driftwood 7s",
+      "Prinsloo 7s",
+      "Embu 7s",
+      "Dala 7s",
+      "Christie 7s",
+      "Kabeberi 7s",
       "International Test Match",
       "School/University",
       "Other",
+      "None",
     ],
     multiple: true,
     other: true,
   },
   {
-    id: 14,
+    id: 18,
     question:
       "If you haven't attended any event, did HSBC meet your expectations?",
     type: "choice",
@@ -155,12 +204,12 @@ export const surveyQuestions: Question[] = [
     ],
     multiple: false,
     conditional: {
-      dependsOn: 11,
-      condition: (answer) => answer === "0",
+      dependsOn: 15,
+      condition: (answer: string) => answer === "0",
     },
   },
   {
-    id: 15,
+    id: 19,
     question: "Do you want to be informed about future events?",
     type: "contact",
     required: false,
@@ -180,7 +229,7 @@ export const surveyQuestions: Question[] = [
     ],
   },
   {
-    id: 16,
+    id: 20,
     question: "Which KRU channels do you follow?",
     type: "choice",
     required: false,
@@ -199,36 +248,41 @@ export const surveyQuestions: Question[] = [
 
 export const surveySchema: SurveySchema = {
   metadata: {
-    title: "Rugby Event Feedback Survey",
-    description: "Help us improve future events",
+    title: "Kenya Rugby Union - HSBC Event Feedback Survey",
+    description: "Help us improve future rugby events in Kenya",
     version: "1.0",
   },
   sections: [
     {
       id: "demographics",
       title: "Demographics",
-      questions: [1, 2, 3, 5],
+      questions: [2, 3, 5],
+    },
+    {
+      id: "ticket_purchase",
+      title: "Ticket & Entry",
+      questions: [4, 6, 8, 10],
     },
     {
       id: "event_experience",
       title: "Event Experience",
-      questions: [4, 6, 7, 8],
+      questions: [7, 9, 11],
     },
-
     {
       id: "engagement",
-      title: "Engagement",
-      questions: [10, 11, 12, 13, 16],
+      title: "Fan Engagement",
+      questions: [12, 14, 17, 20],
     },
     {
       id: "feedback",
       title: "Feedback & Suggestions",
-      questions: [9, 14],
+      questions: [13, 18],
     },
+
     {
       id: "contact",
       title: "Stay Connected",
-      questions: [15],
+      questions: [19],
     },
   ],
   questions: surveyQuestions,
