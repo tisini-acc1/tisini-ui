@@ -5,28 +5,24 @@ export const getStat = (arry: Stats, name: string) => {
   return value && !isNaN(parseInt(value)) ? parseInt(value) : 0;
 };
 
-export const getEvent = (arry: Stats, eventId: string) => {
-  const value = Object.values(arry).filter(
-    (event) => event.event_id === eventId
-  );
+export const getEvent = (array: Stats, eventId: string): number => {
+  const event = Object.values(array).find((item) => item.event_id === eventId);
 
-  return parseInt(value[0].total);
+  return Number(event?.total ?? 0);
 };
 
 export const getSubEvent = (
   array: Stats,
   eventId: string,
-  subEventId: string
-) => {
-  const event = Object.values(array).filter(
-    (item) => item.event_id === eventId
+  subEventId: string,
+): number => {
+  const event = Object.values(array).find((item) => item.event_id === eventId);
+
+  const subEvent = event?.["sub-event"]?.find(
+    (item) => item.subeventid === subEventId,
   );
 
-  const stat = event[0]["sub-event"].filter(
-    (item) => item.subeventid === subEventId
-  );
-
-  return parseInt(stat[0].totalsubevent);
+  return Number(subEvent?.totalsubevent ?? 0);
 };
 
 export const calcBallPosession = (homeArry: Stats, awayArry: Stats) => {

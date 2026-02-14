@@ -51,6 +51,28 @@ const RugbyStats = ({ home, away, cards, fixType }: StatsProps) => {
           )}
 
           <StatsRow
+            homeStat={getEvent(home, "122")}
+            stat={"Visit in Opp 22"}
+            awayStat={getEvent(away, "122")}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <StatsRow
+            homeStat={
+              getSubEvent(home, "33", "51") + getSubEvent(home, "33", "142")
+            }
+            stat={"Tries Scores"}
+            awayStat={
+              getSubEvent(away, "33", "51") + getSubEvent(away, "33", "142")
+            }
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <StatsRow
             homeStat={getEvent(home, "58")}
             stat={"Carries"}
             awayStat={getEvent(away, "58")}
@@ -70,12 +92,40 @@ const RugbyStats = ({ home, away, cards, fixType }: StatsProps) => {
             bothTeams={bothTeams}
           />
 
+          <StatsRow
+            homeStat={
+              getEvent(home, "35") +
+              getEvent(home, "86") +
+              getEvent(home, "36") +
+              getEvent(home, "149")
+            }
+            stat={"Handling Errors"}
+            awayStat={
+              getEvent(away, "35") +
+              getEvent(away, "86") +
+              getEvent(away, "36") +
+              getEvent(away, "149")
+            }
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
           <AccuracyRow
             hComp={getEvent(home, "56")}
             aComp={getEvent(away, "56")}
             hTotal={getEvent(home, "57") + getEvent(home, "56")}
             aTotal={getEvent(away, "57") + getEvent(away, "56")}
             stat={"Successful tackles"}
+            homeOnly={homeOnly}
+            awayOnly={awayOnly}
+            bothTeams={bothTeams}
+          />
+
+          <StatsRow
+            homeStat={getEvent(home, "59")}
+            stat={"Turnovers Won"}
+            awayStat={getEvent(away, "59")}
             homeOnly={homeOnly}
             awayOnly={awayOnly}
             bothTeams={bothTeams}
