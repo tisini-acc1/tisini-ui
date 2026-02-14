@@ -2,6 +2,14 @@ import { Question, SurveySchema } from "@/lib/types/survey";
 
 export const surveyQuestions: Question[] = [
   {
+    id: 1,
+    question: "Referral Code",
+    type: "text",
+    required: false,
+    placeholder: "Leave blank if you didn't receive one",
+    multiline: false,
+  },
+  {
     id: 2,
     question: "Gender",
     type: "choice",
@@ -166,6 +174,7 @@ export const surveyQuestions: Question[] = [
       "Other",
     ],
     multiple: true,
+    layout: "grid",
     other: true,
   },
   {
@@ -189,6 +198,7 @@ export const surveyQuestions: Question[] = [
     ],
     multiple: true,
     other: true,
+    layout: "grid",
   },
   {
     id: 18,

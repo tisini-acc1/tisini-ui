@@ -1,20 +1,49 @@
 // components/SurveyPage.tsx
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { surveySchema } from "./surveyData";
 import { Question, SurveyAnswer } from "@/lib/types/survey";
 import kruLogo from "@/assets/tournaments/kru.png";
 import tisiniLogo from "@/assets/img/tisini.png";
+import { submitSurvey } from "@/lib/data/submitSurvey";
+
+const REFERRAL_QUESTION_ID = 1;
+const REFERRAL_STORAGE_KEY = "tisini_survey_referral_code";
 
 const SurveyPage: React.FC = () => {
-  const [answers, setAnswers] = useState<Record<number, any>>({});
+  const [answers, setAnswers] = useState<Record<number, any>>(() => {
+    if (typeof window === "undefined") return {};
+    const stored = localStorage.getItem(REFERRAL_STORAGE_KEY);
+    return stored ? { [REFERRAL_QUESTION_ID]: stored } : {};
+  });
   const [errors, setErrors] = useState<Record<number, string>>({});
   const [currentSection, setCurrentSection] = useState(0);
   const [progress, setProgress] = useState(0);
   const [otherInputs, setOtherInputs] = useState<Record<number, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [currentQuestionInSection, setCurrentQuestionInSection] = useState(0);
 
+  const [searchParams] = useSearchParams();
   const questionsMap = new Map(surveySchema.questions.map((q) => [q.id, q]));
+
+  // Set referral from URL query param (?referral=CODE or ?ref=CODE); URL overrides localStorage
+  useEffect(() => {
+    const referralFromUrl =
+      searchParams.get("referral")?.trim() ?? searchParams.get("ref")?.trim();
+    if (referralFromUrl) {
+      setAnswers((prev) => ({
+        ...prev,
+        [REFERRAL_QUESTION_ID]: referralFromUrl,
+      }));
+      localStorage.setItem(REFERRAL_STORAGE_KEY, referralFromUrl);
+    }
+  }, [searchParams]);
+
+  // Reset question index when changing section
+  useEffect(() => {
+    setCurrentQuestionInSection(0);
+  }, [currentSection]);
 
   const getQuestionsForSection = (sectionId: string): Question[] => {
     const section = surveySchema.sections.find((s) => s.id === sectionId);
@@ -24,8 +53,23 @@ const SurveyPage: React.FC = () => {
       .filter((q): q is Question => q !== undefined);
   };
 
+  const shouldShowQuestion = (question: Question): boolean => {
+    if (question.conditional) {
+      const dependentAnswer = answers[question.conditional.dependsOn];
+      return question.conditional.condition(dependentAnswer);
+    }
+    return true;
+  };
+
   const currentSectionData = surveySchema.sections[currentSection];
   const currentQuestions = getQuestionsForSection(currentSectionData.id);
+  const visibleQuestions = currentQuestions.filter(
+    (q) => q && shouldShowQuestion(q),
+  );
+  const currentQuestion = visibleQuestions[currentQuestionInSection] ?? null;
+  const isOnLastQuestionOfLastSection =
+    currentSection === surveySchema.sections.length - 1 &&
+    currentQuestionInSection === visibleQuestions.length - 1;
 
   useEffect(() => {
     const totalQuestions = surveySchema.questions.length;
@@ -56,6 +100,27 @@ const SurveyPage: React.FC = () => {
     }));
   };
 
+  const validateContact = (
+    value: string,
+    fieldType: string,
+  ): { valid: boolean; message?: string } => {
+    const trimmed = value?.trim() ?? "";
+    if (trimmed.length === 0) return { valid: true };
+    if (fieldType === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(trimmed)) {
+        return { valid: false, message: "Please enter a valid email address" };
+      }
+    }
+    if (fieldType === "tel" || fieldType === "phone") {
+      const digitsOnly = trimmed.replace(/\D/g, "");
+      if (digitsOnly.length < 9) {
+        return { valid: false, message: "Please enter a valid phone number" };
+      }
+    }
+    return { valid: true };
+  };
+
   const validateQuestion = (question: Question, answer: any): boolean => {
     if (question.required) {
       if (answer === undefined || answer === null || answer === "") {
@@ -74,42 +139,64 @@ const SurveyPage: React.FC = () => {
         return false;
       }
     }
-    return true;
-  };
 
-  const validateSection = (questions: Question[]): boolean => {
-    let isValid = true;
-    questions.forEach((question) => {
-      if (shouldShowQuestion(question)) {
-        const answer = answers[question.id];
-        if (!validateQuestion(question, answer)) {
-          isValid = false;
+    if (question.type === "contact" && answer && question.fields) {
+      for (const field of question.fields) {
+        const value = answer[field.name];
+        if (value === undefined || value === null) continue;
+        const result = validateContact(value, field.type);
+        if (!result.valid) {
+          setErrors((prev) => ({
+            ...prev,
+            [question.id]: result.message ?? "Invalid input",
+          }));
+          return false;
         }
       }
-    });
-    return isValid;
-  };
-
-  const shouldShowQuestion = (question: Question): boolean => {
-    if (question.conditional) {
-      const dependentAnswer = answers[question.conditional.dependsOn];
-      return question.conditional.condition(dependentAnswer);
     }
+
     return true;
   };
 
   const handleNext = () => {
-    if (validateSection(currentQuestions)) {
-      if (currentSection < surveySchema.sections.length - 1) {
-        setCurrentSection(currentSection + 1);
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+    if (!currentQuestion) return;
+    if (!validateQuestion(currentQuestion, answers[currentQuestion.id])) {
+      return;
+    }
+    if (currentQuestionInSection < visibleQuestions.length - 1) {
+      setCurrentQuestionInSection((i) => i + 1);
+    } else if (currentSection < surveySchema.sections.length - 1) {
+      setCurrentSection((s) => s + 1);
+      setCurrentQuestionInSection(0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      handleSubmit();
+    }
+  };
+
+  const handleSkip = () => {
+    if (!currentQuestion || currentQuestion.required) return;
+    if (currentQuestionInSection < visibleQuestions.length - 1) {
+      setCurrentQuestionInSection((i) => i + 1);
+    } else if (currentSection < surveySchema.sections.length - 1) {
+      setCurrentSection((s) => s + 1);
+      setCurrentQuestionInSection(0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      handleSubmit();
     }
   };
 
   const handlePrevious = () => {
-    if (currentSection > 0) {
-      setCurrentSection(currentSection - 1);
+    if (currentQuestionInSection > 0) {
+      setCurrentQuestionInSection((i) => i - 1);
+    } else if (currentSection > 0) {
+      const prevSection = surveySchema.sections[currentSection - 1];
+      const prevVisible = getQuestionsForSection(prevSection.id).filter(
+        (q) => q && shouldShowQuestion(q),
+      );
+      setCurrentSection((s) => s - 1);
+      setCurrentQuestionInSection(prevVisible.length - 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -150,7 +237,9 @@ const SurveyPage: React.FC = () => {
         if (Array.isArray(answer) && answer.includes("Other")) {
           const questionText =
             questionsMap.get(id)?.question ?? `Question ${id}`;
-          const entry = formattedAnswers.find((a) => a.question === questionText);
+          const entry = formattedAnswers.find(
+            (a) => a.question === questionText,
+          );
           if (entry) {
             entry.value = { selected: answer, other: value };
           } else {
@@ -165,9 +254,16 @@ const SurveyPage: React.FC = () => {
       console.log("Submitting answers:", formattedAnswers);
 
       // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const response = await submitSurvey(formattedAnswers);
 
-      setIsSubmitted(true);
+      if (response.error === "0") {
+        setIsSubmitted(true);
+      } else {
+        setErrors((prev) => ({
+          ...prev,
+          submit: response.message,
+        }));
+      }
     } catch (error) {
       console.error("Error submitting survey:", error);
       setErrors((prev) => ({
@@ -238,9 +334,23 @@ const SurveyPage: React.FC = () => {
 
     const handleChoiceChange = (option: string) => {
       if (question.multiple) {
-        const newSelection = selectedValues.includes(option)
+        const isRemoving = selectedValues.includes(option);
+        const newSelection = isRemoving
           ? selectedValues.filter((v: string) => v !== option)
           : [...selectedValues, option];
+
+        // Enforce maxSelections (count options excluding "None")
+        const selectionWithoutNone = newSelection.filter(
+          (v: string) => v !== "None",
+        );
+        const max = question.maxSelections ?? Infinity;
+        if (
+          !isRemoving &&
+          max !== Infinity &&
+          selectionWithoutNone.length > max
+        ) {
+          return; // Don't allow more than maxSelections
+        }
 
         // Handle "None" selection
         if (option === "None" && !selectedValues.includes("None")) {
@@ -266,6 +376,18 @@ const SurveyPage: React.FC = () => {
       }
     };
 
+    const selectionWithoutNone = (
+      question.multiple
+        ? (selectedValues as string[]).filter((v) => v !== "None")
+        : []
+    ) as string[];
+    const atMaxSelections =
+      question.multiple &&
+      question.maxSelections != null &&
+      selectionWithoutNone.length >= question.maxSelections;
+    const isOptionDisabled = (option: string) =>
+      atMaxSelections && !selectedValues.includes(option) && option !== "None";
+
     return (
       <div className="space-y-3">
         <div className={getLayoutClasses()}>
@@ -273,15 +395,21 @@ const SurveyPage: React.FC = () => {
             <label
               key={option}
               className={`
-                flex items-center p-3 border rounded-lg cursor-pointer transition-colors
+                flex items-center p-3 border rounded-lg transition-colors
                 ${
-                  question.multiple
+                  isOptionDisabled(option)
+                    ? "cursor-not-allowed opacity-60 border-gray-200 bg-gray-50"
+                    : "cursor-pointer"
+                }
+                ${
+                  !isOptionDisabled(option) &&
+                  (question.multiple
                     ? selectedValues.includes(option)
                       ? "border-blue-500 bg-blue-50"
                       : "border-gray-200 hover:bg-gray-50"
                     : selectedValues === option
                       ? "border-blue-500 bg-blue-50"
-                      : "border-gray-200 hover:bg-gray-50"
+                      : "border-gray-200 hover:bg-gray-50")
                 }
               `}
             >
@@ -294,6 +422,7 @@ const SurveyPage: React.FC = () => {
                     ? selectedValues.includes(option)
                     : selectedValues === option
                 }
+                disabled={isOptionDisabled(option)}
                 onChange={() => handleChoiceChange(option)}
                 className={`
                   ${question.multiple ? "rounded" : "rounded-full"}
@@ -317,6 +446,10 @@ const SurveyPage: React.FC = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+        )}
+
+        {question.helpText && (
+          <p className="text-sm text-gray-500 mt-1">{question.helpText}</p>
         )}
       </div>
     );
@@ -509,48 +642,58 @@ const SurveyPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Form content — same wrapper so sticky header sticks while scrolling */}
+        {/* Form content — one question at a time */}
         <div className="bg-white shadow-sm p-4 sm:p-6 rounded-b-xl">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">
-            {currentSectionData.title}
-          </h2>
-
-          <div className="space-y-8">
-            {currentQuestions.map(
-              (question) =>
-                question &&
-                shouldShowQuestion(question) && (
-                  <div key={question.id} className="space-y-2">
-                    <div className="flex items-start">
-                      <label className="block text-sm font-medium text-gray-700">
-                        {question.question}
-                        {question.required && (
-                          <span className="ml-1 text-red-500">*</span>
-                        )}
-                      </label>
-                    </div>
-
-                    {renderQuestion(question)}
-
-                    {errors[question.id] && (
-                      <p className="text-sm text-red-600 mt-1">
-                        {errors[question.id]}
-                      </p>
-                    )}
-                  </div>
-                ),
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-semibold text-gray-900">
+              {currentSectionData.title}
+            </h2>
+            {visibleQuestions.length > 1 && (
+              <span className="text-sm text-gray-500">
+                Question {currentQuestionInSection + 1} of{" "}
+                {visibleQuestions.length}
+              </span>
             )}
           </div>
 
+          {currentQuestion ? (
+            <div className="space-y-4">
+              <div className="flex items-start">
+                <label className="block text-sm font-medium text-gray-700">
+                  {currentQuestion.question}
+                  {currentQuestion.required && (
+                    <span className="ml-1 text-red-500">*</span>
+                  )}
+                </label>
+              </div>
+              {currentQuestion.helpText &&
+                currentQuestion.type !== "choice" && (
+                  <p className="text-sm text-gray-500 mb-1">
+                    {currentQuestion.helpText}
+                  </p>
+                )}
+
+              {renderQuestion(currentQuestion)}
+
+              {errors[currentQuestion.id] && (
+                <p className="text-sm text-red-600 mt-1">
+                  {errors[currentQuestion.id]}
+                </p>
+              )}
+            </div>
+          ) : (
+            <p className="text-gray-500">No questions in this section.</p>
+          )}
+
           {/* Navigation Buttons */}
-          <div className="mt-8 flex justify-between">
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
             <button
               onClick={handlePrevious}
-              disabled={currentSection === 0}
+              disabled={currentSection === 0 && currentQuestionInSection === 0}
               className={`
                 px-6 py-2 rounded-lg font-medium transition-colors
                 ${
-                  currentSection === 0
+                  currentSection === 0 && currentQuestionInSection === 0
                     ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }
@@ -559,47 +702,58 @@ const SurveyPage: React.FC = () => {
               Previous
             </button>
 
-            {currentSection === surveySchema.sections.length - 1 ? (
-              <button
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:bg-blue-400 disabled:cursor-not-allowed flex items-center"
-              >
-                {isSubmitting ? (
-                  <>
-                    <svg
-                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      />
-                    </svg>
-                    Submitting...
-                  </>
-                ) : (
-                  "Submit Survey"
-                )}
-              </button>
-            ) : (
-              <button
-                onClick={handleNext}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
-              >
-                Next Section
-              </button>
-            )}
+            <div className="flex items-center gap-2">
+              {currentQuestion && !currentQuestion.required && (
+                <button
+                  type="button"
+                  onClick={handleSkip}
+                  className="px-6 py-2 rounded-lg font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors"
+                >
+                  Skip
+                </button>
+              )}
+              {isOnLastQuestionOfLastSection ? (
+                <button
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:bg-blue-400 disabled:cursor-not-allowed flex items-center"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <svg
+                        className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                      </svg>
+                      Submitting...
+                    </>
+                  ) : (
+                    "Submit Survey"
+                  )}
+                </button>
+              ) : (
+                <button
+                  onClick={handleNext}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                >
+                  Next
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
