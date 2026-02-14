@@ -11,7 +11,6 @@ export const submitSurvey = async (data: SurveyAnswer[]): Promise<any> => {
       input: data,
     });
 
-    console.log(res);
     return res.data;
   } catch (error: any) {
     throw new Error(`Failed to submit survey, ${error.message}`);

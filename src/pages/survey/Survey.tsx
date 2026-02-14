@@ -6,7 +6,7 @@ import { Question, SurveyAnswer } from "@/lib/types/survey";
 import kruLogo from "@/assets/tournaments/kru.png";
 import tisiniLogo from "@/assets/img/tisini.png";
 import { submitSurvey } from "@/lib/data/submitSurvey";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const REFERRAL_QUESTION_ID = 1;
 const REFERRAL_STORAGE_KEY = "tisini_survey_referral_code";
@@ -28,7 +28,7 @@ const SurveyPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const questionsMap = new Map(surveySchema.questions.map((q) => [q.id, q]));
 
-  // Set referral from URL query param (?referral=CODE or ?ref=CODE); URL overrides localStorage
+  // Set referral from URL query param (?referral=CODE or ?ref=CODE); else localStorage; else default "tisini"
   useEffect(() => {
     const referralFromUrl =
       searchParams.get("referral")?.trim() ?? searchParams.get("ref")?.trim();
@@ -38,6 +38,12 @@ const SurveyPage: React.FC = () => {
         [REFERRAL_QUESTION_ID]: referralFromUrl,
       }));
       localStorage.setItem(REFERRAL_STORAGE_KEY, referralFromUrl);
+    } else if (!localStorage.getItem(REFERRAL_STORAGE_KEY)) {
+      setAnswers((prev) => ({
+        ...prev,
+        [REFERRAL_QUESTION_ID]: "tisini",
+      }));
+      localStorage.setItem(REFERRAL_STORAGE_KEY, "tisini");
     }
   }, [searchParams]);
 
@@ -217,6 +223,7 @@ const SurveyPage: React.FC = () => {
 
     if (!isValid) {
       setIsSubmitting(false);
+      toast.error("Please complete all required questions before submitting.");
       return;
     }
 
@@ -570,6 +577,7 @@ const SurveyPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      <ToastContainer position="top-center" theme="light" />
       {/* Single wrapper so sticky header has correct scroll context */}
       <div className="max-w-5xl mx-auto">
         <div className="sticky top-0 z-10 bg-white rounded-t-xl shadow-sm">
