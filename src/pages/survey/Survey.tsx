@@ -6,6 +6,7 @@ import { Question, SurveyAnswer } from "@/lib/types/survey";
 import kruLogo from "@/assets/tournaments/kru.png";
 import tisiniLogo from "@/assets/img/tisini.png";
 import { submitSurvey } from "@/lib/data/submitSurvey";
+import { toast } from "react-toastify";
 
 const REFERRAL_QUESTION_ID = 1;
 const REFERRAL_STORAGE_KEY = "tisini_survey_referral_code";
@@ -258,7 +259,9 @@ const SurveyPage: React.FC = () => {
 
       if (response.error === "0") {
         setIsSubmitted(true);
+        toast.success(response.message);
       } else {
+        toast.error(response.message);
         setErrors((prev) => ({
           ...prev,
           submit: response.message,
