@@ -108,6 +108,13 @@ export const leagues: LeagueData = {
       series: false,
       seasons: [{ id: "131", season: "25/26", series: [] }],
     },
+    {
+      id: "267",
+      name: "Wadau Champions League",
+      type: "football",
+      series: false,
+      seasons: [{ id: "162", season: "2026", series: [] }],
+    },
   ],
   //   basketball: [],
 };
