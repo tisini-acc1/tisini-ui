@@ -113,6 +113,7 @@ export const teamImages: { [key: string]: string } = {
   "1029": new URL("/src/assets/football/Trans Nzoia FC.png", import.meta.url)
     .href,
   "545": new URL("/src/assets/football/UON OLYMPIC.png", import.meta.url).href,
+  "839": new URL("/src/assets/rugby/kcb kobs.jpeg", import.meta.url).href,
   "880": new URL("/src/assets/football/VALEO.png", import.meta.url).href,
   "178": new URL("/src/assets/football/VIHIGA QUEENS (1).png", import.meta.url)
     .href,
@@ -194,9 +195,14 @@ export const teamImages: { [key: string]: string } = {
     import.meta.url,
   ).href,
   "1648": new URL("/src/assets/uganda/Buffaloes.png", import.meta.url).href,
+  "1919": new URL("/src/assets/rugby/buffaloes.jpeg", import.meta.url).href,
+  "1646": new URL("/src/assets/rugby/buffaloes.jpeg", import.meta.url).href,
   "1653": new URL("/src/assets/uganda/Elgon Wolves 7s.png", import.meta.url)
     .href,
   "1656": new URL("/src/assets/uganda/Heathens 7s.png", import.meta.url).href,
+  "844": new URL("/src/assets/uganda/Heathens 7s.png", import.meta.url).href,
+  "1918": new URL("/src/assets/uganda/Heathens 7s.png", import.meta.url).href,
+  "2037": new URL("/src/assets/uganda/Heathens 7s.png", import.meta.url).href,
   "1657": new URL("/src/assets/uganda/Hippos 7s.png", import.meta.url).href,
   "1655": new URL("/src/assets/uganda/Impis 7s.png", import.meta.url).href,
   "1652": new URL("/src/assets/uganda/Kobs.png", import.meta.url).href,
@@ -231,6 +237,8 @@ export const teamImages: { [key: string]: string } = {
   "91": new URL("/src/assets/football/imara.png", import.meta.url).href,
   "1917": new URL("/src/assets/football/lifestyle.png", import.meta.url).href,
   "1929": new URL("/src/assets/football/pelicojam.png", import.meta.url).href,
+  "1924": new URL("/src/assets/rugby/stanbic pirates.jpeg", import.meta.url)
+    .href,
   "1937": new URL("/src/assets/football/impalaclub.png", import.meta.url).href,
   "1971": new URL("/src/assets/football/gardensportiff.png", import.meta.url)
     .href,
