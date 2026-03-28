@@ -17,7 +17,7 @@ const RugbyLineups = ({ teams, squads }: LineUpsProps) => {
     const groupPlayersByTeam = (
       data: Lineup[],
       homeId: string,
-      awayId: string
+      awayId: string,
     ) => {
       const teamPlayer: { [key: string]: Lineup[] } = {};
 
@@ -46,8 +46,8 @@ const RugbyLineups = ({ teams, squads }: LineUpsProps) => {
       return teamPlayer;
     };
 
-    const homeId = teams?.team1_id;
-    const awayId = teams?.team2_id;
+    const homeId = teams?.team1_id.toString();
+    const awayId = teams?.team2_id.toString();
 
     const lineups = groupPlayersByTeam(squads, homeId, awayId);
 
@@ -69,7 +69,10 @@ const RugbyLineups = ({ teams, squads }: LineUpsProps) => {
           {homePlayers.map((player) => (
             <div key={player.player_id}>
               {player.player_type === "first11" && (
-                <HomePlayer name={player.pname} jersey={player.Jersey_No} />
+                <HomePlayer
+                  name={player.pname}
+                  jersey={player.Jersey_No.toString()}
+                />
               )}
             </div>
           ))}
@@ -80,7 +83,10 @@ const RugbyLineups = ({ teams, squads }: LineUpsProps) => {
           {awayPlayers.map((player) => (
             <div key={player.player_id}>
               {player.player_type === "first11" && (
-                <AwayPlayer name={player.pname} jersey={player.Jersey_No} />
+                <AwayPlayer
+                  name={player.pname}
+                  jersey={player.Jersey_No.toString()}
+                />
               )}
             </div>
           ))}
@@ -98,7 +104,10 @@ const RugbyLineups = ({ teams, squads }: LineUpsProps) => {
             {homePlayers.map((player) => (
               <div key={player.player_id}>
                 {player.player_type === "sub" && (
-                  <HomePlayer name={player.pname} jersey={player.Jersey_No} />
+                  <HomePlayer
+                    name={player.pname}
+                    jersey={player.Jersey_No.toString()}
+                  />
                 )}
               </div>
             ))}
@@ -107,7 +116,10 @@ const RugbyLineups = ({ teams, squads }: LineUpsProps) => {
             {awayPlayers.map((player) => (
               <div key={player.player_id}>
                 {player.player_type === "sub" && (
-                  <AwayPlayer name={player.pname} jersey={player.Jersey_No} />
+                  <AwayPlayer
+                    name={player.pname}
+                    jersey={player.Jersey_No.toString()}
+                  />
                 )}
               </div>
             ))}

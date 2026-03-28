@@ -2,7 +2,8 @@ import { Stats } from "../types/scores";
 
 export const getStat = (arry: Stats, name: string) => {
   const value = arry?.[name]?.total;
-  return value && !isNaN(parseInt(value)) ? parseInt(value) : 0;
+
+  return value && !isNaN(value) ? value : 0;
 };
 
 export const getEvent = (array: Stats, eventId: string): number => {

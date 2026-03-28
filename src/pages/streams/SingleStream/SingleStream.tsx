@@ -23,7 +23,7 @@ const SingleStream = () => {
     {
       refetchInterval: 10000,
       refetchOnWindowFocus: true,
-    }
+    },
   );
 
   useEffect(() => {
@@ -41,10 +41,10 @@ const SingleStream = () => {
     fixType === "rugby7"
       ? christie
       : fixType === "football"
-      ? ballLogo
-      : fixType === "rugby15" || fixType === "rugby10"
-      ? rugbyBall
-      : tisini;
+        ? ballLogo
+        : fixType === "rugby15" || fixType === "rugby10"
+          ? rugbyBall
+          : tisini;
 
   // const img = logo ?? defaultLogo;
 
@@ -60,10 +60,10 @@ const SingleStream = () => {
         <h1 className="text-sm font-extrabold text-center uppercase mb-14">
           {details?.game_status === "ended" || details?.game_status === "FT"
             ? "Full Time"
-            : (details?.minute == "45" || details?.minute == "7") &&
-              details?.game_moment == "secondhalf"
-            ? "Half Time"
-            : details?.minute}
+            : (details?.minute == 45 || details?.minute == 7) &&
+                details?.game_moment == "secondhalf"
+              ? "Half Time"
+              : details?.minute}
         </h1>
 
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90px] h-20 p-1 flex justify-center items-center border rounded-lg bg-white">

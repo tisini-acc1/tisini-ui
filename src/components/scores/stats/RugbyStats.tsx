@@ -23,9 +23,9 @@ const RugbyStats = ({ home, away, cards, fixType }: StatsProps) => {
   const homePass = home["Pass"].total;
   const awayPass = away["Pass"].total;
 
-  const homeOnly = parseInt(awayPass) <= 0;
-  const awayOnly = parseInt(homePass) <= 0;
-  const bothTeams = parseInt(awayPass) > 0 && parseInt(homePass) > 0;
+  const homeOnly = awayPass <= 0;
+  const awayOnly = homePass <= 0;
+  const bothTeams = awayPass > 0 && homePass > 0;
 
   const homePasses =
     getStat(home, "Pass") +

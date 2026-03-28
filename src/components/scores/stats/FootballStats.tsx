@@ -22,14 +22,12 @@ const FootballStats = ({ home, away, cards, fouls }: StatsProps) => {
   const homePass = home["Pass"].total;
   const awayPass = away["Pass"].total;
 
-  const homeOnly = parseInt(awayPass) <= 0;
-  const awayOnly = parseInt(homePass) <= 0;
-  const bothTeams = parseInt(awayPass) > 0 && parseInt(homePass) > 0;
+  const homeOnly = awayPass <= 0;
+  const awayOnly = homePass <= 0;
+  const bothTeams = awayPass > 0 && homePass > 0;
 
-  const homePasses =
-    parseInt(home["Pass"].total) + parseInt(home["Incomplete Pass"].total);
-  const awayPasses =
-    parseInt(away["Pass"].total) + parseInt(away["Incomplete Pass"].total);
+  const homePasses = home["Pass"].total + home["Incomplete Pass"].total;
+  const awayPasses = away["Pass"].total + away["Incomplete Pass"].total;
 
   const homeTarget =
     getSubEvent(home, "165", "422") +

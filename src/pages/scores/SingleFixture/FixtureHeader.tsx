@@ -91,10 +91,10 @@ const FixtureHeader = ({ teamDetails, scores }: HeaderProps) => {
                 {teams["game_status"] === "ended" ||
                 teams["game_status"] === "FT"
                   ? "FT"
-                  : teams["minute"] == "45" &&
-                    teams["game_moment"] == "secondhalf"
-                  ? "HT"
-                  : teams["minute"]}
+                  : teams["minute"] == 45 &&
+                      teams["game_moment"] == "secondhalf"
+                    ? "HT"
+                    : teams["minute"]}
               </div>
             </div>
           )}

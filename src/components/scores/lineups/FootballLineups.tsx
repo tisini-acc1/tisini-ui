@@ -18,7 +18,7 @@ const FootballLineups = ({ teams, squads }: LineupsProps) => {
     const groupPlayersByTeam = (
       data: Lineup[],
       homeId: string,
-      awayId: string
+      awayId: string,
     ) => {
       const teamPlayer: { [key: string]: Lineup[] } = {};
 
@@ -48,8 +48,8 @@ const FootballLineups = ({ teams, squads }: LineupsProps) => {
       return teamPlayer;
     };
 
-    const homeId = teams.team1_id;
-    const awayId = teams.team2_id;
+    const homeId = teams.team1_id.toString();
+    const awayId = teams.team2_id.toString();
 
     const lineups = groupPlayersByTeam(squads, homeId, awayId);
 
@@ -153,7 +153,10 @@ const FootballLineups = ({ teams, squads }: LineupsProps) => {
             {homePlayers.map((player) => (
               <div key={player.player_id}>
                 {player.player_type === "sub" && (
-                  <HomePlayer name={player.pname} jersey={player.Jersey_No} />
+                  <HomePlayer
+                    name={player.pname}
+                    jersey={player.Jersey_No.toString()}
+                  />
                 )}
               </div>
             ))}
@@ -162,7 +165,10 @@ const FootballLineups = ({ teams, squads }: LineupsProps) => {
             {awayPlayers.map((player) => (
               <div key={player.player_id}>
                 {player.player_type === "sub" && (
-                  <AwayPlayer name={player.pname} jersey={player.Jersey_No} />
+                  <AwayPlayer
+                    name={player.pname}
+                    jersey={player.Jersey_No.toString()}
+                  />
                 )}
               </div>
             ))}
