@@ -24,38 +24,51 @@ export type Fixture = {
 };
 
 export type FixtureDetails = {
+  away_score: string;
+  category: string;
   fixture_type: string;
   game_date: string;
   game_moment: string;
   game_status: string;
-  id: string;
+  groupid: string;
+  home_score: string;
+  hybrid: number;
+  hybridaway: null;
+  hybridhome: null;
+  id: number;
   league: string;
-  leagueid: string;
+  leagueid: number;
+  lite: number;
   live: string;
+  location_id: number;
   matchday: string;
-  minute: string;
-  second: string;
+  matchtime: string;
+  minute: number;
+  second: number;
   series: string;
-  team1_id: string;
+  start_app: number;
+  team1_id: number;
   team1_name: string;
-  team2_id: string;
+  team2_id: number;
   team2_name: string;
+  tmvplayer: number;
   teamview: string;
+  winner: null;
 };
 
 export type SubEvent = {
-  subeventid: string;
+  subeventid: number;
   subeventname: string;
-  totalsubevent: string;
-  team: string;
+  totalsubevent: number;
+  team: number;
   gameidid: string;
 };
 
 export type Event = {
-  event_id: string;
+  event_id: number;
   name: string;
-  total: string;
-  team: string;
+  total: number;
+  team: number;
   fixtureid: string;
   "sub-event": SubEvent[];
 };
@@ -65,8 +78,8 @@ export type Stats = {
 };
 
 export type Scores = {
-  Away: string;
-  Home: string;
+  Away: number;
+  Home: number;
 };
 
 export type Cards = {
@@ -84,40 +97,44 @@ export type Fouls = {
 };
 
 export type Lineup = {
-  Jersey_No: string;
-  fixture_id: string;
-  id: string;
+  GK: number;
+  Jersey_No: number;
+  date_created: string;
+  fixture_id: number;
+  id: number;
   last_updated: string;
-  player_id: string;
+  lineupposition: number;
+  player_id: number;
   player_type: string;
   pname: string;
+  red: number;
+  system_user_id: number;
   teamId: string;
-  team_player_id: string;
-  lineupposition: string;
-  red: string;
+  team_player_id: number;
+  verify: number;
 };
 
 export type GameHighlights = {
+  Jersey_No: string;
+  event_id: number;
   event_name: string;
-  event_id: string;
-  team: string;
-  gameid: string;
-  narration: string;
-  player_id: string;
-  subevent_id: string;
-  subeventName: string;
-  subplayer_id: string;
-  subplayer_name: string;
   game_minute: string;
-  game_second: string;
   game_moment: string;
-  teamplayer_id: string;
+  game_second: string;
+  gameid: number;
+  narration: string;
+  player_id: number;
   player_type: string;
   pname: string;
-  Jersey_No: string;
+  subeventName: string;
+  subevent_id: string;
+  subplayer_id: string;
+  subplayer_name: string;
   subsubevent_id: string;
-  zone_id: null;
-  tss: null;
+  team: number;
+  teamplayer_id: string;
+  tss: string;
+  zone_id: number;
 };
 
 export type SingleFixtureStats = {

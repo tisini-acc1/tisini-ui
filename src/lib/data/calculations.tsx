@@ -6,7 +6,9 @@ export const getStat = (arry: Stats, name: string) => {
 };
 
 export const getEvent = (array: Stats, eventId: string): number => {
-  const event = Object.values(array).find((item) => item.event_id === eventId);
+  const event = Object.values(array).find(
+    (item) => item.event_id.toString() === eventId,
+  );
 
   return Number(event?.total ?? 0);
 };
@@ -16,10 +18,12 @@ export const getSubEvent = (
   eventId: string,
   subEventId: string,
 ): number => {
-  const event = Object.values(array).find((item) => item.event_id === eventId);
+  const event = Object.values(array).find(
+    (item) => item.event_id.toString() === eventId,
+  );
 
   const subEvent = event?.["sub-event"]?.find(
-    (item) => item.subeventid === subEventId,
+    (item) => item.subeventid.toString() === subEventId,
   );
 
   return Number(subEvent?.totalsubevent ?? 0);
