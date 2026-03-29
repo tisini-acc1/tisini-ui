@@ -34,15 +34,16 @@ const privateAxios = axios.create({
       "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials",
     "Access-Control-Allow-Credentials": "true",
     // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+    // Authorization:
+    //   "JWT " +
+    //   Cookie.getCookieToken("ck_63hsG-sscWPkl")?.["accessToken"] ??
+    //   "",
     Authorization:
       "JWT " +
-      Cookie.getCookieToken("ck_63hsG-sscWPkl")?.["accessToken"] ??
-      "",
+      (Cookie.getCookieToken("ck_63hsG-sscWPkl")?.["accessToken"] ?? ""),
   },
   withCredentials: true,
 });
-
-
 
 // Add a request interceptor to add the JWT token to the authorization header
 privateAxios.interceptors.request.use(
@@ -52,14 +53,13 @@ privateAxios.interceptors.request.use(
     // console.log("token: " + JSON.stringify(token));
 
     if (token) {
-    
       config.headers.Authorization = `JWT ${token.accessToken}`;
     }
     // console.log("config: " + JSON.stringify(config));
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // Add a response interceptor to refresh the JWT token if it's expired
@@ -72,7 +72,11 @@ privateAxios.interceptors.response.use(
     // console.log('Response error: ', error.response);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (error.response && error.response.status === 401 && !originalRequest._retry) {
+    if (
+      error.response &&
+      error.response.status === 401 &&
+      !originalRequest._retry
+    ) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       originalRequest._retry = true;
       const tokenPayload = Cookie.getCookieToken("ck_63hsG-sscWPkl");
@@ -102,26 +106,23 @@ privateAxios.interceptors.response.use(
       });
       // console.log("res: " + JSON.stringify(res));
 
-
       if (res.status === 201 || res.status === 200) {
-        Cookie.setCookieToken('ck_63hsG-sscWPkl', {
+        Cookie.setCookieToken("ck_63hsG-sscWPkl", {
           accessToken: res.data.access_token,
           refreshToken: res.data.refresh_token,
         });
         privateAxios.defaults.headers.common["Authorization"] =
-          "JWT " +
-          Cookie.getCookieToken("ck_63hsG-sscWPkl").accessToken;
+          "JWT " + Cookie.getCookieToken("ck_63hsG-sscWPkl").accessToken;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         originalRequest.headers["Authorization"] =
-          "JWT " +
-          Cookie.getCookieToken("ck_63hsG-sscWPkl").accessToken;
+          "JWT " + Cookie.getCookieToken("ck_63hsG-sscWPkl").accessToken;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         return privateAxios(originalRequest);
       }
     }
     // clearSession();
     return Promise.reject(error);
-  }
+  },
 );
 function getWebSocketAddress(url: string): string {
   // eslint-disable-next-line no-useless-escape
