@@ -11,6 +11,7 @@ import quizRoutes from "./quiz.routes";
 import tanoboraRoutes from "./tanobora.routes";
 import streamRoutes from "./stream.routes";
 import surveyRoutes from "./survey.routes";
+import votingRoutes from "./voting";
 
 const routes = [
   {
@@ -27,6 +28,7 @@ const routes = [
       tournamentRoutes,
       streamRoutes,
       surveyRoutes,
+      votingRoutes,
     ],
   },
   {

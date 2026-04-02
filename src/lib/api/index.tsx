@@ -34,10 +34,6 @@ const privateAxios = axios.create({
       "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials",
     "Access-Control-Allow-Credentials": "true",
     // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-    // Authorization:
-    //   "JWT " +
-    //   Cookie.getCookieToken("ck_63hsG-sscWPkl")?.["accessToken"] ??
-    //   "",
     Authorization:
       "JWT " +
       (Cookie.getCookieToken("ck_63hsG-sscWPkl")?.["accessToken"] ?? ""),
