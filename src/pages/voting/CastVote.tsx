@@ -1,11 +1,16 @@
-import React, { useState } from "react";
-import { ConfirmationModal } from "./modal";
-import { Participant, VotingCause } from "@/lib/types/voting";
-import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { castVote } from "@/lib/data/FetchVoting";
-import { mergeCastVoteResult } from "@/lib/voting/mergeCastVoteResult";
+import React, { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+
 import useStore from "@/store/store";
+import { ConfirmationModal } from "./modal";
+import { castVote } from "@/lib/data/FetchVoting";
+import { getParticipantImageSrc } from "./participants";
+import { Participant, VotingCause } from "@/lib/types/voting";
+import {
+  mergeCastVoteResult,
+  shouldMarkSessionAsVoter,
+} from "@/lib/voting/mergeCastVoteResult";
 
 type CastVoteProps = {
   votingCause: VotingCause;
@@ -43,10 +48,30 @@ export const CastVote = ({
       onSuccess: (data: unknown) => {
         const current = useStore.getState().votingCause;
         if (!current) return;
+
         const next = mergeCastVoteResult(current, data, votingSessionId);
         setVotingCause(next);
-        toast.success("Vote cast successfully!");
-        setHasVoted(true);
+
+        const payload = data as {
+          success?: boolean;
+          message?: string;
+          participantVotes?: unknown;
+        };
+
+        if (payload.success === false) {
+          toast.error(
+            payload.message ?? "Unable to complete your vote request.",
+          );
+          if (
+            shouldMarkSessionAsVoter(payload.message, payload.participantVotes)
+          ) {
+            setHasVoted(true);
+          }
+        } else {
+          toast.success(payload.message?.trim() || "Vote cast successfully!");
+          setHasVoted(true);
+        }
+
         setShowModal(false);
         setSelectedParticipant(null);
       },
@@ -104,63 +129,67 @@ export const CastVote = ({
       </div>
 
       {/* Participants Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-10">
         {votingCause.participants.map((participant) => {
-          const voteCount =
-            votingCause.totalVotes.find((v) => v.id === participant.id)
-              ?.votes || 0;
+          // const voteCount =
+          //   votingCause.totalVotes.find((v) => v.id === participant.id)
+          //     ?.votes || 0;
+
+          const imageSrc = getParticipantImageSrc(participant);
 
           return (
-            <div
+            <article
               key={participant.id}
-              className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-200 hover:shadow-xl flex flex-col"
+              className="flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md ring-1 ring-black/5 transition-shadow duration-200 hover:shadow-lg"
             >
-              {/* Participant Image Placeholder */}
-              <div className="h-48 bg-gradient-to-r from-blue-400 to-indigo-500 flex items-center justify-center">
-                {participant.image_url ? (
+              {/* Natural height (no fixed aspect) removes letterboxing gaps above/below */}
+              <div className="w-full bg-slate-100 leading-none">
+                {imageSrc ? (
                   <img
-                    src={participant.image_url}
-                    alt={participant.name}
-                    className="w-full h-full object-cover"
+                    src={imageSrc}
+                    alt=""
+                    className="block h-auto w-full max-w-full align-top"
+                    loading="lazy"
+                    decoding="async"
                   />
                 ) : (
-                  <div className="text-center text-white">
+                  <div className="flex min-h-[10rem] w-full flex-col items-center justify-center py-8 text-slate-500">
                     <svg
-                      className="w-20 h-20 mx-auto opacity-50"
+                      className="h-16 w-16 opacity-40"
                       fill="currentColor"
                       viewBox="0 0 24 24"
+                      aria-hidden
                     >
                       <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                     </svg>
-                    <span className="mt-2 text-sm">No Image</span>
+                    <span className="mt-2 text-sm">No photo</span>
                   </div>
                 )}
               </div>
 
-              {/* Participant Info */}
-              <div className="p-5 flex-1 flex flex-col">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-semibold text-gray-800 capitalize">
+              <div className="flex flex-1 flex-col p-4 sm:p-5">
+                <div className="mb-2 flex items-start justify-between gap-2">
+                  <h3 className="text-lg font-semibold capitalize leading-snug text-gray-900">
                     {participant.name.toLowerCase()}
                   </h3>
-                  <div className="bg-gray-100 rounded-full px-3 py-1 text-sm font-medium text-gray-700">
+                  {/* <span className="shrink-0 rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-900">
                     {voteCount} vote{voteCount !== 1 ? "s" : ""}
-                  </div>
+                  </span> */}
                 </div>
-                <p className="text-gray-600 text-sm mb-4 flex-1">
+                <p className="mb-4 flex-1 text-sm leading-relaxed text-gray-600">
                   {participant.description || "No description provided"}
                 </p>
 
-                {/* Vote Button */}
                 <button
+                  type="button"
                   onClick={() => handleVoteClick(participant)}
                   disabled={!canVote}
                   className={`
-                      w-full py-2.5 rounded-lg font-semibold transition-all duration-200 mt-2
+                      w-full rounded-xl py-3 text-sm font-semibold transition-all duration-200
                       ${
                         canVote
-                          ? "bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg cursor-pointer"
-                          : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                          ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm hover:from-blue-700 hover:to-indigo-700"
+                          : "cursor-not-allowed bg-gray-200 text-gray-500"
                       }
                     `}
                 >
@@ -169,7 +198,7 @@ export const CastVote = ({
                     : `Vote for ${participant.name.split(" ")[0]}`}
                 </button>
               </div>
-            </div>
+            </article>
           );
         })}
       </div>

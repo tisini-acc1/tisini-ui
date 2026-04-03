@@ -3,8 +3,9 @@ import type { RouteObject } from "react-router-dom";
 import articlesRoutes from "./articles.routes";
 import authRoutes from "./auth.routes";
 import baseRoutes from "./base.routes";
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import BaseErrorPage from "@/components/errors/BaseErrorPage";
+import { RootLayout } from "./RootLayout";
 import scoresRoutes from "./scores.routes";
 import tournamentRoutes from "./tournaments";
 import quizRoutes from "./quiz.routes";
@@ -17,7 +18,7 @@ const routes = [
   {
     path: "/",
     errorElement: <BaseErrorPage />,
-    element: <Outlet />,
+    element: <RootLayout />,
     children: [
       ...baseRoutes,
       authRoutes,

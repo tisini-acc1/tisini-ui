@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useStore } from "@/store/store";
 import { useQuery } from "@tanstack/react-query";
 
+import useStore from "@/store/store";
 import Spinner from "@/components/spinner/Spinner";
-import { fetchVotingCauses } from "@/lib/data/FetchVoting";
 import type { VotingCause } from "@/lib/types/voting";
+import { fetchVotingCauses } from "@/lib/data/FetchVoting";
 import { getOrCreateVotingSessionId } from "./voteSession";
 
 function isCauseExpired(dateTo: string | undefined | null, nowMs: number) {

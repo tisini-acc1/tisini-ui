@@ -1,8 +1,9 @@
-import { VotingCause } from "@/lib/types/voting";
-import useStore from "@/store/store";
 import React, { useEffect, useState } from "react";
+
+import useStore from "@/store/store";
 import { CastedVotes } from "./Votes";
 import { CastVote } from "./CastVote";
+import { VotingCause } from "@/lib/types/voting";
 import { getOrCreateVotingSessionId } from "./voteSession";
 
 const VoteCastingPage = () => {

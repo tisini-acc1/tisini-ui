@@ -55,7 +55,7 @@ export default function LoginPage({ setTabs }: Props) {
       {isLoading && <Loader isLoading />}
       <ToastContainer />
       <div className="flex p-4 md:p-8 flex-col items-center justify-center max-w-7xl min-h-screen mx-auto">
-      <div className="py-4">
+        <div className="py-4">
           <NavLink
             to="/"
             className="flex items-center space-x-2 text-gray-600 hover:text-gray-800"
@@ -75,7 +75,7 @@ export default function LoginPage({ setTabs }: Props) {
                 d="M9 17l-2 2m0 0l-2-2m2 2v-6"
               />
             </svg>
-            <span className="text-xl font-bold">Tisini Quiz</span>
+            <span className="text-xl font-bold">Login to Play</span>
           </NavLink>
 
           {/* <p className="text-center text-gray-600">
@@ -119,7 +119,7 @@ export default function LoginPage({ setTabs }: Props) {
                   error: "",
                   isAuthenticated: true,
                   loading: false,
-                })
+                }),
               );
 
               // console.log(response);
@@ -136,7 +136,6 @@ export default function LoginPage({ setTabs }: Props) {
           <div className="flex items-center justify-center">
             {/* Image placeholder */}
             <div className="w-20 h-20 bg-gray-300 rounded-full"></div>
-            
           </div>
           <div>
             <h1 className="text-2xl font-bold text-center">
@@ -176,7 +175,6 @@ export default function LoginPage({ setTabs }: Props) {
               <p className="text-red-500 text-sm">{errors.password.message}</p>
             )}
           </div>
-       
 
           <div className="flex flex-col">
             <button
