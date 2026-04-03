@@ -1,16 +1,18 @@
 import React from "react";
 
 import useStore from "@/store/store";
-import type { VotingCause } from "@/lib/types/voting";
+import type { VotingCause, VotingResults } from "@/lib/types/voting";
 import { getOrCreateVotingSessionId } from "./voteSession";
 
 type CastedVotesProps = {
   /** Optional: pass cause directly; otherwise read from store (after mutation). */
   votingCause?: VotingCause | null;
+  votingResults?: VotingResults | null;
 };
 
 export const CastedVotes = ({
   votingCause: votingCauseProp,
+  votingResults,
 }: CastedVotesProps) => {
   const { votingCause: fromStore } = useStore() as {
     votingCause: VotingCause | null;
@@ -29,20 +31,21 @@ export const CastedVotes = ({
     );
   }
 
-  const totalBallots = votingCause.totalVotes.reduce(
+  const totalBallots = votingResults?.totalVotes.reduce(
     (sum, v) => sum + v.votes,
     0,
   );
 
-  const rows = votingCause.participants
-    .map((p) => {
-      const votes =
-        votingCause.totalVotes.find((tv) => tv.id === p.id)?.votes ?? 0;
-      const pct =
-        totalBallots > 0 ? Math.round((votes / totalBallots) * 1000) / 10 : 0;
-      return { participant: p, votes, pct };
-    })
-    .sort((a, b) => b.votes - a.votes);
+  const rows =
+    votingResults?.totalVotes
+      .map((v) => {
+        const pct =
+          totalBallots && totalBallots > 0
+            ? Math.round((v.votes / totalBallots) * 1000) / 10
+            : 0;
+        return { vote: v, votes: v.votes, pct };
+      })
+      .sort((a, b) => b.votes - a.votes) ?? [];
 
   return (
     <section className="mx-auto flex w-full max-w-4xl flex-col items-center px-3 sm:px-4">
@@ -62,9 +65,9 @@ export const CastedVotes = ({
 
       {/* Mobile: stacked cards */}
       <div className="w-full space-y-3 md:hidden">
-        {rows.map(({ participant, votes, pct }, index) => (
+        {rows.map(({ vote, votes, pct }, index) => (
           <article
-            key={participant.id}
+            key={vote.id}
             className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
           >
             <div className="flex items-start gap-3">
@@ -72,21 +75,13 @@ export const CastedVotes = ({
                 {index + 1}
               </span>
               <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-slate-200 to-slate-300">
-                {participant.image_url ? (
-                  <img
-                    src={participant.image_url}
-                    alt=""
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center text-[10px] text-gray-500">
-                    —
-                  </div>
-                )}
+                <div className="flex h-full w-full items-center justify-center text-[10px] text-gray-500">
+                  —
+                </div>
               </div>
               <div className="min-w-0 flex-1">
                 <p className="font-semibold capitalize text-gray-900">
-                  {participant.name.toLowerCase()}
+                  {vote.name.toLowerCase()}
                 </p>
                 <p className="mt-1 text-sm tabular-nums text-gray-600">
                   <span className="font-semibold text-gray-900">{votes}</span>
@@ -144,9 +139,9 @@ export const CastedVotes = ({
               </tr>
             </thead>
             <tbody>
-              {rows.map(({ participant, votes, pct }, index) => (
+              {rows.map(({ vote, votes, pct }, index) => (
                 <tr
-                  key={participant.id}
+                  key={vote.id}
                   className="border-b border-gray-100 last:border-0 hover:bg-gray-50/80"
                 >
                   <td className="w-12 whitespace-nowrap px-2 py-2.5 align-middle text-center text-gray-500">
@@ -157,20 +152,12 @@ export const CastedVotes = ({
                   <td className="px-3 py-2.5 align-middle">
                     <div className="flex min-w-0 items-center gap-3">
                       <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-slate-200 to-slate-300 ring-2 ring-white">
-                        {participant.image_url ? (
-                          <img
-                            src={participant.image_url}
-                            alt=""
-                            className="h-full w-full object-cover"
-                          />
-                        ) : (
-                          <div className="flex h-full w-full items-center justify-center text-[10px] font-medium text-gray-500">
-                            —
-                          </div>
-                        )}
+                        <div className="flex h-full w-full items-center justify-center text-[10px] font-medium text-gray-500">
+                          —
+                        </div>
                       </div>
                       <span className="min-w-0 truncate font-medium capitalize text-gray-900">
-                        {participant.name.toLowerCase()}
+                        {vote.name.toLowerCase()}
                       </span>
                     </div>
                   </td>

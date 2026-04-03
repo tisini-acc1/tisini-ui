@@ -5,6 +5,8 @@ import { CastedVotes } from "./Votes";
 import { CastVote } from "./CastVote";
 import { VotingCause } from "@/lib/types/voting";
 import { getOrCreateVotingSessionId } from "./voteSession";
+import { useQuery } from "@tanstack/react-query";
+import { fetchVotingResults } from "@/lib/data/FetchVoting";
 
 const VoteCastingPage = () => {
   const { votingCause } = useStore() as { votingCause: VotingCause | null };
@@ -38,6 +40,12 @@ const VoteCastingPage = () => {
     return now >= fromDate && now <= toDate;
   };
 
+  const { data: votingResults } = useQuery({
+    queryKey: ["voting-results", votingCause?.id],
+    queryFn: () => fetchVotingResults(votingCause?.id?.toString() ?? ""),
+    refetchInterval: votingActive() ? 1000 * 2 : false, // 2 seconds
+  });
+
   if (!votingCause) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -66,7 +74,10 @@ const VoteCastingPage = () => {
             votingSessionId={votingSessionId}
           />
         ) : (
-          <CastedVotes votingCause={votingCause} />
+          <CastedVotes
+            votingCause={votingCause}
+            votingResults={votingResults}
+          />
         )}
       </div>
     </main>

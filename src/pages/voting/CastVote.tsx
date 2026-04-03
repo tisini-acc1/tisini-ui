@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import React, { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import useStore from "@/store/store";
 import { ConfirmationModal } from "./modal";
@@ -41,6 +41,8 @@ export const CastVote = ({
     voting_cause_id: string;
   };
 
+  const queryClient = useQueryClient();
+
   const { mutate: castVoteMutation, isLoading } = useMutation(
     (vars: CastVoteVars) =>
       castVote(vars.session, vars.participant_id, vars.voting_cause_id),
@@ -49,6 +51,9 @@ export const CastVote = ({
         const current = useStore.getState().votingCause;
         if (!current) return;
 
+        queryClient.invalidateQueries({
+          queryKey: ["voting-results", current.id],
+        });
         const next = mergeCastVoteResult(current, data, votingSessionId);
         setVotingCause(next);
 
