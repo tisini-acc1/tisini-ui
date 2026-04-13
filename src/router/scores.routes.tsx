@@ -1,10 +1,10 @@
-import type { RouteObject } from "react-router-dom";
+import { type RouteObject } from "react-router-dom";
 
-import ScoresLayout from "@/layouts/ScoresLayout";
 import LeaguesPage from "@/pages/scores/leagues/Leagues";
 import ThemeProviderWrapper from "@/theme/ThemeProviderWrapper";
 import FixturesPage from "@/pages/scores/Fixtures/FixturesPage";
 import SingleFixture from "@/pages/scores/SingleFixture/SingleFixture";
+import ScoresLayout from "@/layouts/ScoresLayout";
 
 const scoresRoutes = {
   path: "/scores",

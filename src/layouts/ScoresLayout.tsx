@@ -28,7 +28,7 @@ import LeaguesMenu from "@/components/scores/LeaguesMenu";
 const ScoresLayout = () => {
   return (
     <main className="bg-white ">
-      <div className="max-w-5xl m-auto">
+      <div className="container m-auto">
         <ScoresHeader />
         <div className="min-h-screen m-3  rounded-lg grid grid-cols-12 gap-3">
           <aside className="hidden md:block md:col-span-3 bg-slate-100">

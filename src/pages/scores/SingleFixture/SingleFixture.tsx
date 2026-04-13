@@ -13,22 +13,34 @@ import {
   FixtureDetails,
   Fouls,
   GameHighlights,
+  H2H,
   Lineup,
   Scores,
   SingleFixtureStats,
   Stats,
 } from "@/lib/types/scores";
+import FetchFixtureH2H from "@/lib/data/FetchFixtureH2H";
+import { FixtureH2H } from "./FixtureH2H";
 
 const SingleFixture = () => {
   const { fixtureId } = useParams();
   const [activeTab, setActiveTab] = useState(1);
 
+  const [compId, seasonId, fixId] = fixtureId?.split("-") || [];
+
   const { data, isLoading } = useQuery<SingleFixtureStats, Error>(
     ["footballById", fixtureId],
-    () => FetchFixtureById(fixtureId!),
+    () => FetchFixtureById(fixId!),
   );
 
-  const tabs = ["Details", "Stats", "Line ups"];
+  const { data: h2h, isLoading: h2hLoading } = useQuery(
+    ["head2head", fixtureId],
+    () => FetchFixtureH2H(compId, seasonId, fixId),
+  );
+
+  console.log(h2hLoading);
+
+  const tabs = ["Details", "Stats", "Line ups", "H2H"];
 
   const details = data?.fixture[0];
   const home = data?.home;
@@ -58,6 +70,7 @@ const SingleFixture = () => {
       squads={lineups as Lineup[]}
       fixType={fixType as string}
     />,
+    <FixtureH2H data={h2h as H2H} />,
   ];
 
   if (isLoading) {

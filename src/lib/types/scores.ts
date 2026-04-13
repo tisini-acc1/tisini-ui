@@ -261,3 +261,25 @@ export type Tournament = {
 export type TournamentData = {
   [key: string]: Tournament;
 };
+
+export type H2HFixture = {
+  id: number;
+  team1_name: string;
+  team2_name: string;
+  team1_id: number;
+  team2_id: number;
+  home_score: string;
+  away_score: string;
+  fixture_type: string;
+  game_date: string;
+  game_status: string;
+  league: string;
+  series: string;
+};
+
+export type H2H = {
+  home: H2HFixture[];
+  h2h: H2HFixture[];
+  away: H2HFixture[];
+  logos: { logo: string; team_id: number }[];
+};

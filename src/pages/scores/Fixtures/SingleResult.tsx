@@ -10,9 +10,13 @@ const SingleResult = ({ fixture }: { fixture: Fixture }) => {
 
   const handleClick = () => {
     if (fixture.fixture_type === "football") {
-      navigate(`/scores/football/${fixture.id}`);
+      navigate(
+        `/scores/football/${fixture.league}-${fixture.series}-${fixture.id}`,
+      );
     } else {
-      navigate(`/scores/rugby/${fixture.id}`);
+      navigate(
+        `/scores/rugby/${fixture.league}-${fixture.series}-${fixture.id}`,
+      );
     }
   };
 
@@ -64,9 +68,9 @@ const SingleResult = ({ fixture }: { fixture: Fixture }) => {
                 {fixture.game_status === "ended" || fixture.game_status === "FT"
                   ? "FT"
                   : fixture.minute == "45" &&
-                    fixture.game_moment == "secondhalf"
-                  ? "HT"
-                  : fixture.minute}
+                      fixture.game_moment == "secondhalf"
+                    ? "HT"
+                    : fixture.minute}
               </div>
             </div>
           )}
