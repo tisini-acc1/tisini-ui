@@ -7,6 +7,7 @@ import Spinner from "@/components/spinner/Spinner";
 import type { VotingCause } from "@/lib/types/voting";
 import { fetchVotingCauses } from "@/lib/data/FetchVoting";
 import { getOrCreateVotingSessionId } from "./voteSession";
+import { causesImages } from "./participants";
 
 function isCauseExpired(dateTo: string | undefined | null, nowMs: number) {
   if (!dateTo) return false;
@@ -70,8 +71,6 @@ const VotingPage = () => {
 
           // Hardcoded preview image: first participant for now.
           const previewImage =
-            // cause.participants?.[0]?.image_url ??
-            // "https://via.placeholder.com/400x240?text=Voting+Image";
             "https://plus.unsplash.com/premium_photo-1661306437817-8ab34be91e0c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
           return (
@@ -83,7 +82,7 @@ const VotingPage = () => {
                 <div className="aspect-[16/9] w-full overflow-hidden rounded-lg bg-gray-100">
                   <img
                     className="h-full w-full object-cover"
-                    src={previewImage}
+                    src={causesImages[cause.id] ?? previewImage}
                     alt={cause.reason}
                   />
                 </div>

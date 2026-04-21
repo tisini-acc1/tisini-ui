@@ -98,6 +98,7 @@ export default function LoginPage({ setTabs }: Props) {
               const response = await (
                 await tisiniAxios.post("/auth/login/", data)
               ).data;
+              console.log(response);
               const { access_token, refresh_token, ...profile } = response;
               // const {  } = JSON.parse(tokens as string) as {
               //   access: string;
