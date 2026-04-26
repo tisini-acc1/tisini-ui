@@ -67,7 +67,7 @@ const SingleResult = ({ fixture }: { fixture: Fixture }) => {
               <div className="text-xs">
                 {fixture.game_status === "ended" || fixture.game_status === "FT"
                   ? "FT"
-                  : fixture.minute == "45" &&
+                  : (fixture.minute == "45" || fixture.minute == "46") &&
                       fixture.game_moment == "secondhalf"
                     ? "HT"
                     : fixture.minute}

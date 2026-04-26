@@ -62,7 +62,7 @@ const FixturesPage = () => {
       }
       // Otherwise, fetch normally
       return matchDayFixtures(fixtureType as string, selectedDate);
-    }
+    },
   );
 
   const fixtures = useMemo<Record<string, Fixture[]>>(() => {
@@ -106,7 +106,7 @@ const FixturesPage = () => {
                 onClick={() => setIndex(key)}
                 className={cn(
                   "cursor-pointer",
-                  index === key ? "font-bold bg-slate-500 rounded-md" : ""
+                  index === key ? "font-bold bg-slate-500 rounded-md" : "",
                 )}
               >
                 <div className="flex whitespace-nowrap m-2">
