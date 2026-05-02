@@ -298,7 +298,7 @@ export const teamImages: { [key: string]: string } = {
   "2828": new URL("/src/assets/uganda/mongers.jpeg", import.meta.url).href,
   "846": new URL("/src/assets/rugby/Mwamba RFC.png", import.meta.url).href,
   "1298": new URL("/src/assets/rugby/Quins.png", import.meta.url).href,
-  // "": new URL("/", import.meta.url).href,
+  "2853": new URL("/src/assets/uganda/storm.jpeg", import.meta.url).href,
   // "": new URL("/", import.meta.url).href,
   // "": new URL("/", import.meta.url).href,
   // "": new URL("/", import.meta.url).href,
