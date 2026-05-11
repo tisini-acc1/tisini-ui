@@ -12,7 +12,7 @@ export const Standings = () => {
   const tournId = leagueId?.split("-").pop() || "";
 
   const { data, isLoading } = useQuery(["standings", tournId], () =>
-    FetchStandings(tournId)
+    FetchStandings(tournId),
   );
 
   if (isLoading) {
@@ -119,10 +119,10 @@ const StandingsRow = ({ item, idx, leagueId }: RowProps) => {
             idx === 0
               ? "bg-green-600 text-white"
               : (leagueId === "202" && idx >= 16) ||
-                (leagueId === "205" && idx >= 15) ||
-                (leagueId === "26" && idx >= 9)
-              ? "bg-red-600 text-white"
-              : "bg-gray-200 text-gray-700"
+                  (leagueId === "205" && idx >= 15) ||
+                  (leagueId === "26" && idx >= 9)
+                ? "bg-red-600 text-white"
+                : "bg-gray-200 text-gray-700"
           }`}
         >
           {idx + 1}
