@@ -28,8 +28,53 @@ import yvetteImg from "@/assets/voting/sf/sf-yvette-8.0.jpeg"
 import impactImg from "@/assets/voting/Impact-potw.jpeg";
 import sfMenImg from "@/assets/voting/sf/sf-men.jpeg"
 import sfWomenImg from "@/assets/voting/sf/sf-women.jpeg"
+// fan base nominees
+import kabrasFans from "@/assets/voting/nominees-2026/1.jpg";
+import kcbFans from "@/assets/voting/nominees-2026/2.jpg";
+import blakbladFans from "@/assets/voting/nominees-2026/3.jpg";
+// player of the season nominees
+import lumumbaPTS from "@/assets/voting/nominees-2026/4.jpg";
+import obatPTS from "@/assets/voting/nominees-2026/5.jpg";
+import andycolePTS from "@/assets/voting/nominees-2026/6.jpg";
+import fidensPTS from "@/assets/voting/nominees-2026/7.jpg";
+
+import obatFTS from "@/assets/voting/nominees-2026/8.jpg";
+import lumunbaFTS from "@/assets/voting/nominees-2026/9.jpg";
+import andycoleFTS from "@/assets/voting/nominees-2026/10.jpg";
+import arturoFTS from "@/assets/voting/nominees-2026/11.jpg";
+import sifunaFTS from "@/assets/voting/nominees-2026/12.jpg";
+import sheldonFTS from "@/assets/voting/nominees-2026/13.jpg";
+import clintonFTS from "@/assets/voting/nominees-2026/14.jpg";
+
+import victorBTS from "@/assets/voting/nominees-2026/15.jpg";
+import asatiBTS from "@/assets/voting/nominees-2026/16.jpg";
+import fidensBTS from "@/assets/voting/nominees-2026/17.jpg";
+import alvinBTS from "@/assets/voting/nominees-2026/18.jpg";
+import wekesaBTS from "@/assets/voting/nominees-2026/19.jpg";
+import cantonaBTS from "@/assets/voting/nominees-2026/20.jpg";
+import elvisBTS from "@/assets/voting/nominees-2026/21.jpg";
+import walterBTS from "@/assets/voting/nominees-2026/22.jpg";
+
+import danielYPTS from "@/assets/voting/nominees-2026/23.jpg";
+import brianYPTS from "@/assets/voting/nominees-2026/24.jpg";
+import chrisYPTS from "@/assets/voting/nominees-2026/25.jpg";
+import ezekielYPTS from "@/assets/voting/nominees-2026/26.jpg";
+import thomasYPTS from "@/assets/voting/nominees-2026/27.jpg";
+import royYPTS from "@/assets/voting/nominees-2026/28.jpg";
+
+import playerTS from "@/assets/voting/nominees-2026/PTS.jpeg";
+import youngPlayerTS from "@/assets/voting/nominees-2026/YPTS.jpeg";
+import fanBaseTS from "@/assets/voting/nominees-2026/FBTS.jpeg";
+import forwardTS from "@/assets/voting/nominees-2026/FTS.jpeg";
+import backTS from "@/assets/voting/nominees-2026/BTS.jpeg";
+
 
 export const causesImages: Record<number, string> = {
+  12: fanBaseTS,
+  11: youngPlayerTS,
+  10: backTS,
+  9: forwardTS,
+  8: playerTS,
   5: impactImg,
   6: sfWomenImg,
   7: sfMenImg,
@@ -60,6 +105,35 @@ export const participantImages: Record<number, string> = {
   11: mbilaImg,
   12: khwesaImg,
   13: ronnieImg,
+
+  27: lumumbaPTS,
+  28: obatPTS,
+  29: andycolePTS,
+  30: fidensPTS,
+  31: obatFTS,
+  32: lumunbaFTS,
+  33: andycoleFTS,
+  34: arturoFTS,
+  35: sifunaFTS,
+  36: sheldonFTS,
+  37: clintonFTS,
+  38: victorBTS,
+  39: asatiBTS,
+  40: fidensBTS,
+  41: alvinBTS,
+  42: wekesaBTS,
+  43: cantonaBTS,
+  44: elvisBTS,
+  45: walterBTS,
+  46: danielYPTS,
+  47: brianYPTS,
+  48: chrisYPTS,
+  49: ezekielYPTS,
+  50: thomasYPTS,
+  51: royYPTS,
+  52: kabrasFans,
+  53: kcbFans,
+  54: blakbladFans
 };
 
 /** API sometimes stores dev-only paths like `/src/assets/...` that 404 in the browser. */
