@@ -88,6 +88,21 @@ const FixturesPage = () => {
     return grouped;
   }, [data]);
 
+  const diamondFixtures = useMemo(() => {
+    const dFixtures: Record<string, Fixture[]> = {};
+
+    for (const fixture of fixtures["Diamond League"] || []) {
+      const cat = fixture.team1_name.split(" ").at(-1) || "U";
+
+      if (!dFixtures[cat]) {
+        dFixtures[cat] = [];
+      }
+      dFixtures[cat].push(fixture);
+    }
+
+    return dFixtures;
+  }, [fixtures]);
+
   if (isLoading) return <FixtureLoader />;
 
   return (
@@ -124,19 +139,49 @@ const FixturesPage = () => {
             No data!
           </div>
         ) : (
-          Object.entries(fixtures).map(([league, fixtures]) => (
-            <div key={league} className="mb-4 p-2">
-              <div className="font-semibold text-sm bg-black-lighter rounded-md p-1">
-                {league}
-              </div>
+          Object.entries(fixtures).map(([league, fixtures]) => {
+            console.log(league);
 
-              {fixtures.map((fixture) => (
-                <div key={fixture.id}>
-                  <SingleResult fixture={fixture} />
+            if (league === "Diamond League") {
+              return (
+                <div key={league} className="mb-4 p-2">
+                  <div className="font-semibold text-sm bg-black-lighter rounded-md p-1">
+                    {league}
+                  </div>
+
+                  {Object.entries(diamondFixtures).map(
+                    ([category, fixtures]) => (
+                      <div key={category} className="mb-4 p-2">
+                        <div className="font-semibold text-sm bg-black-lighter rounded-md p-1">
+                          {category}
+                        </div>
+
+                        {fixtures.map((fixture) => (
+                          <div key={fixture.id}>
+                            <SingleResult fixture={fixture} />
+                          </div>
+                        ))}
+                      </div>
+                    ),
+                  )}
                 </div>
-              ))}
-            </div>
-          ))
+              );
+            }
+
+            return (
+              <div key={league} className="mb-4 p-2">
+                <div className="font-semibold text-sm bg-black-lighter rounded-md p-1">
+                  {league}
+                </div>
+
+                {fixtures.map((fixture) => (
+                  <div key={fixture.id}>
+                    <SingleResult fixture={fixture} />
+                  </div>
+                ))}
+              </div>
+            );
+          })
         )}
       </div>
     </section>
