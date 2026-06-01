@@ -28,6 +28,7 @@ import yvetteImg from "@/assets/voting/sf/sf-yvette-8.0.jpeg"
 import impactImg from "@/assets/voting/Impact-potw.jpeg";
 import sfMenImg from "@/assets/voting/sf/sf-men.jpeg"
 import sfWomenImg from "@/assets/voting/sf/sf-women.jpeg"
+import enterpise26 from "@/assets/voting/enterprise-cup/enterprise-cup.jpeg"
 // fan base nominees
 import kabrasFans from "@/assets/voting/nominees-2026/1.jpg";
 import kcbFans from "@/assets/voting/nominees-2026/2.jpg";
@@ -68,8 +69,18 @@ import fanBaseTS from "@/assets/voting/nominees-2026/FBTS.jpeg";
 import forwardTS from "@/assets/voting/nominees-2026/FTS.jpeg";
 import backTS from "@/assets/voting/nominees-2026/BTS.jpeg";
 
+import walterEC from "@/assets/voting/enterprise-cup/walter-e-cup.jpeg"
+import alexEC from "@/assets/voting/enterprise-cup/alex-e-cup.jpeg"
+import conradEC from "@/assets/voting/enterprise-cup/conrad-e-cup.jpeg"
+import lumumbaEC from "@/assets/voting/enterprise-cup/lumumba-e-cup.jpeg"
+import nyambuaEC from "@/assets/voting/enterprise-cup/nyambua-e-cup.jpeg"
+import sifunaEC from "@/assets/voting/enterprise-cup/sifuna-e-cup.jpeg"
+import sydneyEC from "@/assets/voting/enterprise-cup/sydney-e-cup.jpeg"
+import isaacEC from "@/assets/voting/enterprise-cup/isaac-e-cup.jpeg"
+
 
 export const causesImages: Record<number, string> = {
+  13: enterpise26,
   12: fanBaseTS,
   11: youngPlayerTS,
   10: backTS,
@@ -133,7 +144,16 @@ export const participantImages: Record<number, string> = {
   51: royYPTS,
   52: kabrasFans,
   53: kcbFans,
-  54: blakbladFans
+  54: blakbladFans,
+
+  55: walterEC,
+  56: alexEC,
+  57: nyambuaEC,
+  58: conradEC,
+  59: isaacEC,
+  60: lumumbaEC,
+  61: sydneyEC,
+  62: sifunaEC,
 };
 
 /** API sometimes stores dev-only paths like `/src/assets/...` that 404 in the browser. */
