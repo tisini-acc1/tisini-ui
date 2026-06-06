@@ -69,8 +69,6 @@ const FixturesPage = () => {
     },
   );
 
-  console.log(today);
-
   const { data: newData, isLoading: newFixturesLoading } = useQuery<
     NewFixture[]
   >(["newFixtures", fixtureType, today], async () => {
@@ -191,7 +189,10 @@ const FixturesPage = () => {
 
                         {fixtures.map((fixture) => (
                           <div key={fixture.id}>
-                            <SingleResult fixture={fixture} />
+                            <SingleResult
+                              fixture={fixture}
+                              newFixture={false}
+                            />
                           </div>
                         ))}
                       </div>
@@ -209,7 +210,7 @@ const FixturesPage = () => {
 
                 {fixtures.map((fixture) => (
                   <div key={fixture.id}>
-                    <SingleResult fixture={fixture} />
+                    <SingleResult fixture={fixture} newFixture={false} />
                   </div>
                 ))}
               </div>
@@ -233,7 +234,10 @@ const FixturesPage = () => {
 
                 {fixtures.map((fixture) => (
                   <div key={fixture.id}>
-                    <SingleResult fixture={mapNewFixtureToFixture(fixture)} />
+                    <SingleResult
+                      fixture={mapNewFixtureToFixture(fixture)}
+                      newFixture={true}
+                    />
                   </div>
                 ))}
               </div>

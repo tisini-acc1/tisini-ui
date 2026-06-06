@@ -5,18 +5,27 @@ import awayImg from "@/assets/awayLogo.png";
 import { Fixture } from "@/lib/types/scores";
 import { teamImages } from "@/lib/constants/site_images";
 
-const SingleResult = ({ fixture }: { fixture: Fixture }) => {
+type SingleResultProps = {
+  fixture: Fixture;
+  newFixture: boolean;
+};
+
+const SingleResult = ({ fixture, newFixture }: SingleResultProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (fixture.fixture_type === "football") {
-      navigate(
-        `/scores/football/${fixture.league}-${fixture.series}-${fixture.id}`,
-      );
+    if (newFixture) {
+      return;
     } else {
-      navigate(
-        `/scores/rugby/${fixture.league}-${fixture.series}-${fixture.id}`,
-      );
+      if (fixture.fixture_type === "football") {
+        navigate(
+          `/scores/football/${fixture.league}-${fixture.series}-${fixture.id}`,
+        );
+      } else {
+        navigate(
+          `/scores/rugby/${fixture.league}-${fixture.series}-${fixture.id}`,
+        );
+      }
     }
   };
 
