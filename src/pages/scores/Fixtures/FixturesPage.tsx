@@ -3,10 +3,14 @@ import React, { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { cn } from "@/lib/cn";
-import { Fixture } from "@/lib/types/scores";
+import { Fixture, NewFixture } from "@/lib/types/scores";
 import FixtureLoader from "../FixtureLoader";
 import SingleResult from "./SingleResult";
-import { matchDayFixtures } from "@/lib/data/FetchFootballFixtures";
+import {
+  fetchNewFootballFixtures,
+  matchDayFixtures,
+} from "@/lib/data/FetchFootballFixtures";
+import { mapNewFixtureToFixture } from "@/lib/data/mapNewFixtureToFixture";
 
 const FixturesPage = () => {
   const today = new Date().toISOString().split("T")[0];
@@ -65,6 +69,35 @@ const FixturesPage = () => {
     },
   );
 
+  console.log(today);
+
+  const { data: newData, isLoading: newFixturesLoading } = useQuery<
+    NewFixture[]
+  >(["newFixtures", fixtureType, today], async () => {
+    return fetchNewFootballFixtures(fixtureType as string, today);
+  });
+
+  /** Empty string = no branch; render skips the branch heading for that bucket. */
+  const branchedFixtures = useMemo(() => {
+    const grouped: Record<string, Record<string, NewFixture[]>> = {};
+
+    for (const fixture of newData || []) {
+      const league = fixture.league_name || fixture.league;
+      const branchLabel = (fixture.branch_name || fixture.branch || "").trim();
+      const branchKey = branchLabel || "";
+
+      if (!grouped[league]) {
+        grouped[league] = {};
+      }
+      if (!grouped[league][branchKey]) {
+        grouped[league][branchKey] = [];
+      }
+      grouped[league][branchKey].push(fixture);
+    }
+
+    return grouped;
+  }, [newData]);
+
   const fixtures = useMemo<Record<string, Fixture[]>>(() => {
     const grouped: Record<string, Fixture[]> = {};
 
@@ -103,7 +136,7 @@ const FixturesPage = () => {
     return dFixtures;
   }, [fixtures]);
 
-  if (isLoading) return <FixtureLoader />;
+  if (isLoading || newFixturesLoading) return <FixtureLoader />;
 
   return (
     <section className="flex">
@@ -134,7 +167,7 @@ const FixturesPage = () => {
           })}
         </div>
 
-        {data?.length === 0 ? (
+        {data?.length === 0 && newData?.length === 0 ? (
           <div className="h-96 bg-slate-400 flex items-center justify-center text-3xl mt-2 rounded-md">
             No data!
           </div>
@@ -183,6 +216,30 @@ const FixturesPage = () => {
             );
           })
         )}
+
+        {Object.entries(branchedFixtures).map(([league, branches]) => (
+          <div key={league} className="mb-4 p-2">
+            <div className="font-semibold text-sm bg-black-lighter rounded-md p-1">
+              {league}
+            </div>
+
+            {Object.entries(branches).map(([branchKey, fixtures]) => (
+              <div key={branchKey || `${league}-fixtures`} className="mb-4 p-2">
+                {branchKey ? (
+                  <div className="font-semibold text-sm bg-black-lighter rounded-md p-1">
+                    {branchKey}
+                  </div>
+                ) : null}
+
+                {fixtures.map((fixture) => (
+                  <div key={fixture.id}>
+                    <SingleResult fixture={mapNewFixtureToFixture(fixture)} />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -23,6 +23,34 @@ export type Fixture = {
   series: string;
 };
 
+export type NewFixture = {
+  id: number;
+  team1_id: number;
+  team2_id: number;
+  team1_name: string;
+  team2_name: string;
+  home_score: string;
+  away_score: string;
+  fixture_type: string;
+  matchday: string | null;
+  league: string;
+  league_name: string;
+  series: string;
+  series_name: string;
+  branch: string;
+  branch_name: string;
+  game_status: string;
+  game_moment: string;
+  game_date: string;
+  minute: number;
+  second: number;
+  matchtime: string;
+  location_id: number | null;
+  team1_logo: string | null;
+  team2_logo: string | null;
+  venue: string | null;
+};
+
 export type FixtureDetails = {
   away_score: string;
   category: string;
